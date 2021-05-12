@@ -1,7 +1,7 @@
-package Model;
+package model.emulator;
 
-public class Main {
+public class Tests {
 	public static void main(String[] args){
-		System.out.println("Helllo from Main model\n");
+		System.out.println("Hello from Emulator model\n");
 	}
 }
