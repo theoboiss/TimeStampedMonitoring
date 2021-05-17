@@ -14,6 +14,7 @@ public class Tests {
 		listEmployees.add(new Employee("Joey", "Tribiani"));
 		listEmployees.add(new Employee("Jesse", "Pinkman"));
 
+		System.out.println("UsedIDs ="+Employee.getlistUsedIDs());
 		for (Integer Iterator = 0; Iterator < 5; Iterator++)
 		{
 			System.out.println(listEmployees.get(Iterator).toString());

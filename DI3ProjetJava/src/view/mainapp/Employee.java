@@ -6,10 +6,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Employee {
 
 	/*********************************************************************/
-	/***************************** ATTRIBUTS *****************************/
+	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 	
-	private static CopyOnWriteArrayList<Integer> listUsedID = new CopyOnWriteArrayList<>(new Integer[] {0});
+	//ID 0 is reserved for developers
+	private static CopyOnWriteArrayList<Integer> listUsedIDs = new CopyOnWriteArrayList<>(new Integer[] {0});
 	
 	private int ID;
 	private String firstName;
@@ -18,7 +19,7 @@ public class Employee {
 
 
 	/*********************************************************************/
-	/******************** CONSTRUCTEURS ET DESTRUCTEUR *******************/
+	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
 
 	/**
@@ -28,19 +29,20 @@ public class Employee {
 	 * @param listChecks
 	 */
 	public Employee(String firstName, String lastName) {
-		CopyOnWriteArrayList<Integer> listUsedID = getListUsedID();
-		Integer availableID = listUsedID.get(listUsedID.size()-1) + 1;
+		//generate a new ID
+		CopyOnWriteArrayList<Integer> listUsedIDss = getlistUsedIDs();
+		Integer availableID = listUsedIDss.get(listUsedIDss.size()-1) + 1;
 		
-		listUsedID.add(availableID);
+		addUsedIDToList(availableID); //reserve availableID in listUsedIDs
 		setID(availableID);
 		setFirstName(firstName);
 		setLastName(lastName);
-		this.listChecks = null; //CheckInOut not defined yet
+		setListChecks(null); //CheckInOut not defined yet
 	}
 	
 	
 	/*********************************************************************/
-	/********************** ACCESSEURS ET MUTATEURS **********************/
+	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
 	
 	/********************************* ID ********************************/
@@ -55,17 +57,25 @@ public class Employee {
 	/**
 	 * @param iD the iD to set
 	 */
-	public void setID(int iD) {
+	private void setID(int iD) {
 		ID = iD;
 	}
 
-	/***************************** ListUsedID ****************************/
+	/***************************** listUsedIDs ****************************/
 	
 	/**
-	 * @return the usedID
+	 * @return a copy of the listUsedIDs
 	 */
-	private static CopyOnWriteArrayList<Integer> getListUsedID() {
-		return listUsedID;
+	@SuppressWarnings("unchecked")
+	public static  CopyOnWriteArrayList<Integer> getlistUsedIDs() {
+		return (CopyOnWriteArrayList<Integer>) listUsedIDs.clone();
+	}
+
+	/**
+	 * @param listUsedIDs the listUsedIDs to set
+	 */
+	private static void addUsedIDToList(Integer ID) {
+		Employee.listUsedIDs.add(ID);
 	}
 
 	/***************************** FirstName *****************************/
@@ -105,20 +115,20 @@ public class Employee {
 	/**
 	 * @return the listChecks
 	 */
-	public Object[] getListChecks() {
+	public Object[] getListChecks() { //will be modified
 		return listChecks;
 	}
 	
 	/**
 	 * @param listChecks the listChecks to set
 	 */
-	public void setListChecks(Object[] listChecks) {
+	public void setListChecks(Object[] listChecks) { //will be modified
 		this.listChecks = listChecks;
 	}
 
 
 	/*********************************************************************/
-	/************************** AUTRES METHODES **************************/
+	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
 	
 	@Override
