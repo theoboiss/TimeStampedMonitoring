@@ -6,14 +6,25 @@ public class Day {
 		MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY;
 	}
 	
+	/*********************************************************************/
+	/***************************** ATTRIBUTS *****************************/
+	/*********************************************************************/
+	
 	private Name name;
 	private Hour arrivalTime;
 	private Hour leavingTime;
 	
+	
+	/*********************************************************************/
+	/*************************** CONSTRUCTEURS ***************************/
+	/*********************************************************************/
+	
 	public Day() {
 		Hour arrivalTime = new Hour();
 		Hour leavingTime = new Hour();
-		setAll(Name.MONDAY, arrivalTime, leavingTime);
+		setName(name.MONDAY);
+		setArrivalTime(arrivalTime);
+		setLeavingTime(leavingTime);
 	}
 	
 	/**
@@ -22,10 +33,29 @@ public class Day {
 	 * @param leavingTime
 	 */
 	public Day(Name name, Hour arrivalTime, Hour leavingTime) {
-		setAll(name, arrivalTime, leavingTime);
+		setName(name);
+		setArrivalTime(arrivalTime);
+		setLeavingTime(leavingTime);
 	}
 	
-	//GETTERS ET SETTERS
+	/**
+	 * @param name
+	 */
+	public Day(Name name)
+	{
+		Hour arrivalTime = new Hour(8,30);
+		Hour leavingTime = new Hour(17,0);
+		setName(name);
+		setArrivalTime(arrivalTime);
+		setLeavingTime(leavingTime);
+	}
+	
+	
+	/*********************************************************************/
+	/********************** ACCESSEURS ET MUTATEURS **********************/
+	/*********************************************************************/
+	
+	/**************************** ARRIVALTIME ****************************/
 	
 	/**
 	 * @return the arrivalTime
@@ -40,6 +70,8 @@ public class Day {
 	public void setArrivalTime(Hour arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
+	
+	/**************************** LEAVINGTIME ***************************/
 
 	/**
 	 * @return the leavingTime
@@ -55,32 +87,28 @@ public class Day {
 		this.leavingTime = leavingTime;
 	}
 
+	/****************************** NAME ******************************/
+	
 	/**
-	 * @return the Name
+	 * @return the name
 	 */
 	public Name getName() {
 		return name;
 	}
 
 	/**
-	 * @param Name the name to set
+	 * @param name the name to set
 	 */
 	public void setName(Name name) {
 		this.name = name;
 	}
 	
-	/**
-	 * @param name
-	 * @param arrivalTime
-	 * @param leavingTime 
-	 */
-	public void setAll(Name name, Hour arrivalTime, Hour leavingTime) {
-		setName(name);
-		setArrivalTime(arrivalTime);
-		setLeavingTime(leavingTime);
-	}
 	
-	//redefinition methode toString
+	/*********************************************************************/
+	/************************** AUTRES METHODES **************************/
+	/*********************************************************************/
+	
+	@Override
 	public String toString() {return this.name + "\nArrival Time : " + this.arrivalTime + "\nLeaving Time : " + this.leavingTime;}
 			
 
