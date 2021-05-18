@@ -1,5 +1,7 @@
 package model.mainapp;
 
+import java.time.LocalTime;
+
 enum DayName {
 	MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY;
 }
@@ -10,8 +12,8 @@ public class DayPlanning {
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 	
-	private Hour arrivalTime;
-	private Hour leavingTime;
+	private LocalTime arrivalTime;
+	private LocalTime leavingTime;
 	
 	
 	/*********************************************************************/
@@ -19,17 +21,15 @@ public class DayPlanning {
 	/*********************************************************************/
 	
 	public DayPlanning() {
-		Hour arrivalTime = new Hour(8,15);
-		Hour leavingTime = new Hour(17,0);
-		setArrivalTime(arrivalTime);
-		setLeavingTime(leavingTime);
+		setArrivalTime(LocalTime.of(8, 15));
+		setLeavingTime(LocalTime.of(17, 0));
 	}
 	
 	/**
 	 * @param arrivalTime
 	 * @param leavingTime
 	 */
-	public DayPlanning(Hour arrivalTime, Hour leavingTime) {
+	public DayPlanning(LocalTime arrivalTime, LocalTime leavingTime) {
 		setArrivalTime(arrivalTime);
 		setLeavingTime(leavingTime);
 	}
@@ -44,14 +44,14 @@ public class DayPlanning {
 	/**
 	 * @return the arrivalTime
 	 */
-	public Hour getArrivalTime() {
+	public LocalTime getArrivalTime() {
 		return arrivalTime;
 	}
 
 	/**
 	 * @param arrivalTime the arrivalTime to set
 	 */
-	public void setArrivalTime(Hour arrivalTime) {
+	public void setArrivalTime(LocalTime arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
 	
@@ -60,14 +60,14 @@ public class DayPlanning {
 	/**
 	 * @return the leavingTime
 	 */
-	public Hour getLeavingTime() {
+	public LocalTime getLeavingTime() {
 		return leavingTime;
 	}
 
 	/**
 	 * @param leavingTime the leavingTime to set
 	 */
-	public void setLeavingTime(Hour leavingTime) {
+	public void setLeavingTime(LocalTime leavingTime) {
 		this.leavingTime = leavingTime;
 	}
 	
@@ -80,8 +80,8 @@ public class DayPlanning {
 	public String toString() {return "Arrival Time : " + this.arrivalTime + "\nLeaving Time : " + this.leavingTime;}
 			
 	public static void main(String[] args){
-		Hour arrivalTime = new Hour(6, 15);
-		Hour leavingTime = new Hour(17, 15);
+		LocalTime arrivalTime = LocalTime.of(9, 0);
+		LocalTime leavingTime = LocalTime.of(17, 30);
 		DayPlanning day = new DayPlanning(arrivalTime, leavingTime);
 		DayPlanning day2 = new DayPlanning();
 		System.out.println(day);

@@ -1,5 +1,6 @@
 package model.mainapp;
 
+import java.time.LocalTime;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Planning {
@@ -65,8 +66,7 @@ public class Planning {
 	
 	public static void main(String[] args){
 		Planning planning = new Planning();
-		Hour leavingTime = new Hour(12, 0);
-		//System.out.println(planning);
+		LocalTime leavingTime = LocalTime.of(12, 0);
 		planning.getDayPlanning(DayName.FRIDAY).setLeavingTime(leavingTime);
 		System.out.println(planning);
 	}
