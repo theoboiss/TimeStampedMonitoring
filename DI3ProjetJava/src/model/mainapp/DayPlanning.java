@@ -1,61 +1,42 @@
 package model.mainapp;
 
-public class Day {
-	
-	public enum Name {
-		MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY;
-	}
+public class DayPlanning {
 	
 	/*********************************************************************/
-	/***************************** ATTRIBUTS *****************************/
+	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 	
-	private Name name;
+	private DayName name;
 	private Hour arrivalTime;
 	private Hour leavingTime;
 	
 	
 	/*********************************************************************/
-	/*************************** CONSTRUCTEURS ***************************/
+	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
 	
-	public Day() {
-		Hour arrivalTime = new Hour();
-		Hour leavingTime = new Hour();
-		setName(name.MONDAY);
+	public DayPlanning() {
+		Hour arrivalTime = new Hour(8,15);
+		Hour leavingTime = new Hour(17,0);
 		setArrivalTime(arrivalTime);
 		setLeavingTime(leavingTime);
 	}
 	
 	/**
-	 * @param name
 	 * @param arrivalTime
 	 * @param leavingTime
 	 */
-	public Day(Name name, Hour arrivalTime, Hour leavingTime) {
-		setName(name);
-		setArrivalTime(arrivalTime);
-		setLeavingTime(leavingTime);
-	}
-	
-	/**
-	 * @param name
-	 */
-	public Day(Name name)
-	{
-		Hour arrivalTime = new Hour(8,30);
-		Hour leavingTime = new Hour(17,0);
-		setName(name);
+	public DayPlanning(Hour arrivalTime, Hour leavingTime) {
 		setArrivalTime(arrivalTime);
 		setLeavingTime(leavingTime);
 	}
 	
 	
 	/*********************************************************************/
-	/********************** ACCESSEURS ET MUTATEURS **********************/
+	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
 	
-	/**************************** ARRIVALTIME ****************************/
+	/**************************** ArrivalTime ****************************/
 	
 	/**
 	 * @return the arrivalTime
@@ -71,7 +52,7 @@ public class Day {
 		this.arrivalTime = arrivalTime;
 	}
 	
-	/**************************** LEAVINGTIME ***************************/
+	/**************************** LeavingTime ***************************/
 
 	/**
 	 * @return the leavingTime
@@ -86,30 +67,14 @@ public class Day {
 	public void setLeavingTime(Hour leavingTime) {
 		this.leavingTime = leavingTime;
 	}
-
-	/****************************** NAME ******************************/
-	
-	/**
-	 * @return the name
-	 */
-	public Name getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(Name name) {
-		this.name = name;
-	}
 	
 	
 	/*********************************************************************/
-	/************************** AUTRES METHODES **************************/
+	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
 	
 	@Override
-	public String toString() {return this.name + "\nArrival Time : " + this.arrivalTime + "\nLeaving Time : " + this.leavingTime;}
+	public String toString() {return "Arrival Time : " + this.arrivalTime + "\nLeaving Time : " + this.leavingTime;}
 			
 
 }
