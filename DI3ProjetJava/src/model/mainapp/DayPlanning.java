@@ -1,12 +1,15 @@
 package model.mainapp;
 
+enum DayName {
+	MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY;
+}
+
 public class DayPlanning {
 	
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 	
-	private DayName name;
 	private Hour arrivalTime;
 	private Hour leavingTime;
 	
@@ -76,5 +79,15 @@ public class DayPlanning {
 	@Override
 	public String toString() {return "Arrival Time : " + this.arrivalTime + "\nLeaving Time : " + this.leavingTime;}
 			
+	public static void main(String[] args){
+		Hour arrivalTime = new Hour(6, 15);
+		Hour leavingTime = new Hour(17, 15);
+		DayPlanning day = new DayPlanning(arrivalTime, leavingTime);
+		DayPlanning day2 = new DayPlanning();
+		System.out.println(day);
+		System.out.println(day2);
+	}
 
 }
+
+
