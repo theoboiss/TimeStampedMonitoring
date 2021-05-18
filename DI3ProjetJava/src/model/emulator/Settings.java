@@ -3,9 +3,10 @@ package model.emulator;
 import java.time.LocalDateTime;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class Settings {
+public class Settings 
+{
 
-	/* ================================================= */
+	/* ================================================================= */
 	/************************* CLASS ATTRIBUTS ***************************/
 	/*********************************************************************/
 
@@ -17,19 +18,20 @@ public class Settings {
 
 	/*********************************************************************/
 	/*********************************************************************/
-	/* ================================================= */
+	/* ================================================================= */
 
-	/* ================================================= */
+	/* ================================================================= */
 	/*************************** CONSTRUCTORS ****************************/
 	/*********************************************************************/
 
 	/**
 	 * @brief Default Constructor
 	 */
-	public Settings() {
-		String departmentName = new String();
-		CopyOnWriteArrayList<Integer> listEmployeeID = new CopyOnWriteArrayList<Integer>();
-		LocalDateTime dateTime = LocalDateTime.now();
+	public Settings() 
+	{
+		departmentName = new String();
+		listEmployeeID = new CopyOnWriteArrayList<Integer>();
+		dateTime = LocalDateTime.now();
 		setIPadress(IPAdress);
 		setPortNumber(portNumber);
 	}
@@ -43,7 +45,8 @@ public class Settings {
 	 * @param portNumber
 	 */
 	public Settings(String departmentName, CopyOnWriteArrayList<Integer> listEmployeeID, LocalDateTime dateTime,
-			int iPAdress, int portNumber) {
+			int iPAdress, int portNumber) 
+	{
 		super();
 		this.departmentName = departmentName;
 		this.listEmployeeID = listEmployeeID;
@@ -54,9 +57,9 @@ public class Settings {
 
 	/*********************************************************************/
 	/*********************************************************************/
-	/* ================================================= */
+	/* ================================================================= */
 
-	/* ================================================= */
+	/* ================================================================= */
 	/********************** GETTERS AND SETTERS **************************/
 	/*********************************************************************/
 
@@ -64,7 +67,8 @@ public class Settings {
 	 * @brief
 	 * @return the departmentName
 	 */
-	public String getDepartmentName() {
+	public String getDepartmentName() 
+	{
 		return departmentName;
 	}
 
@@ -72,7 +76,8 @@ public class Settings {
 	 * @brief
 	 * @param departmentName the departmentName to set
 	 */
-	public void setDepartmentName(String departmentName) {
+	public void setDepartmentName(String departmentName) 
+	{
 		this.departmentName = departmentName;
 	}
 
@@ -80,7 +85,8 @@ public class Settings {
 	 * @brief
 	 * @return the listEmployeeID
 	 */
-	public CopyOnWriteArrayList<Integer> getListEmployeeID() {
+	public CopyOnWriteArrayList<Integer> getListEmployeeID() 
+	{
 		return listEmployeeID;
 	}
 
@@ -88,7 +94,8 @@ public class Settings {
 	 * @brief
 	 * @param listEmployeeID the listEmployeeID to set
 	 */
-	public void setListEmployeeID(CopyOnWriteArrayList<Integer> listEmployeeID) {
+	public void setListEmployeeID(CopyOnWriteArrayList<Integer> listEmployeeID) 
+	{
 		this.listEmployeeID = listEmployeeID;
 	}
 
@@ -96,7 +103,8 @@ public class Settings {
 	 * @brief
 	 * @return the dateTime
 	 */
-	public LocalDateTime getDateTime() {
+	public LocalDateTime getDateTime() 
+	{
 		return dateTime;
 	}
 
@@ -104,7 +112,8 @@ public class Settings {
 	 * @brief
 	 * @param dateTime the dateTime to set
 	 */
-	public void setDateTime(LocalDateTime dateTime) {
+	public void setDateTime(LocalDateTime dateTime) 
+	{
 		this.dateTime = dateTime;
 	}
 
@@ -112,7 +121,8 @@ public class Settings {
 	 * @brief
 	 * @return the iPadress
 	 */
-	public int getIPadress() {
+	public int getIPadress() 
+	{
 		return IPAdress;
 	}
 
@@ -120,7 +130,8 @@ public class Settings {
 	 * @brief
 	 * @param iPadress the iPadress to set
 	 */
-	public void setIPadress(int iPAdress) {
+	public void setIPadress(int iPAdress) 
+	{
 		IPAdress = iPAdress;
 	}
 
@@ -128,7 +139,8 @@ public class Settings {
 	 * @brief
 	 * @return the portNumber
 	 */
-	public int getPortNumber() {
+	public int getPortNumber() 
+	{
 		return portNumber;
 	}
 
@@ -136,20 +148,21 @@ public class Settings {
 	 * @brief
 	 * @param portNumber the portNumber to set
 	 */
-	public void setPortNumber(int portNumber) {
+	public void setPortNumber(int portNumber) 
+	{
 		this.portNumber = portNumber;
 	}
 
 	/*********************************************************************/
 	/*********************************************************************/
-	/* ================================================= */
+	/* ================================================================= */
 
-	/* ================================================= */
+	/* ================================================================= */
 	/***************************** METHODS *******************************/
 	/*********************************************************************/
 
 	/*********************************************************************/
 	/*********************************************************************/
-	/* ================================================= */
+	/* ================================================================= */
 
 }
