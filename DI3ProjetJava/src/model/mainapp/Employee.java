@@ -3,6 +3,9 @@ package model.mainapp;
 import java.util.Arrays;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * 
+ */
 public class Employee {
 
 	/*********************************************************************/
@@ -12,9 +15,10 @@ public class Employee {
 	//ID 0 is reserved for developers
 	private static CopyOnWriteArrayList<Integer> listUsedIDs = new CopyOnWriteArrayList<>(new Integer[] {0});
 	
-	private int ID;
+	private Integer ID;
 	private String firstName;
 	private String lastName;
+	private Object planning;
 	private Object[] listChecks; //CheckInOut not defined yet
 
 
@@ -50,14 +54,14 @@ public class Employee {
 	/**
 	 * @return the iD
 	 */
-	public int getID() {
+	public Integer getID() {
 		return ID;
 	}
 	
 	/**
 	 * @param iD the iD to set
 	 */
-	private void setID(int iD) {
+	private void setID(Integer iD) {
 		ID = iD;
 	}
 
@@ -110,8 +114,25 @@ public class Employee {
 		this.lastName = lastName;
 	}
 
-	/***************************** ListChecks ****************************/
+	/****************************** Planning *****************************/
 	
+	/**
+	 * @return the planning
+	 */
+	public Object getPlanning() {
+		return planning;
+	}
+
+	/**
+	 * @param planning the planning to set
+	 */
+	@SuppressWarnings("unused")
+	private void setPlanning(Object planning) {
+		this.planning = planning;
+	}
+
+	/***************************** ListChecks ****************************/
+
 	/**
 	 * @return the listChecks
 	 */
@@ -122,7 +143,7 @@ public class Employee {
 	/**
 	 * @param listChecks the listChecks to set
 	 */
-	public void setListChecks(Object[] listChecks) { //will be modified
+	private void setListChecks(Object[] listChecks) { //will be modified
 		this.listChecks = listChecks;
 	}
 
@@ -133,7 +154,7 @@ public class Employee {
 	
 	@Override
 	public String toString() {
-		return "Employee [ID=" + getID() + ", firstName=" + getFirstName() + ", lastName=" + getLastName() + ", listChecks="
+		return "Employee = [ID=" + getID() + ", firstName=" + getFirstName() + ", lastName=" + getLastName() + ", listChecks="
 				+ Arrays.toString(getListChecks()) + "]";
 	}
 	
@@ -147,7 +168,7 @@ public class Employee {
 		listEmployees.add(new Employee("Joey", "Tribiani"));
 		listEmployees.add(new Employee("Jesse", "Pinkman"));
 
-		System.out.println("UsedIDs ="+Employee.getlistUsedIDs());
+		System.out.println("UsedIDs = " + Employee.getlistUsedIDs());
 		for (Integer Iterator = 0; Iterator < 5; Iterator++)
 		{
 			System.out.println(listEmployees.get(Iterator).toString());
