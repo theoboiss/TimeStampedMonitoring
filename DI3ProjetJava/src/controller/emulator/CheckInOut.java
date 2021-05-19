@@ -39,7 +39,7 @@ public class CheckInOut
 	 * @param checkTime
 	 * @param status
 	 */
-	public CheckInOut(String departmentName, int employeeID, LocalDateTime checkTime, boolean status) 
+	public CheckInOut(String departmentName, Integer employeeID, LocalDateTime checkTime, boolean status) 
 	{
 		super();
 		this.departmentName = departmentName;
@@ -83,7 +83,7 @@ public class CheckInOut
 	/**
 	 * @param employeeID the employeeID to set
 	 */
-	public void setEmployeeID(int employeeID) 
+	public void setEmployeeID(Integer employeeID) 
 	{
 		this.employeeID = employeeID;
 	}
