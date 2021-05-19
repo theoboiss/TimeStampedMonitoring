@@ -31,7 +31,7 @@ public class Settings
 	 */
 	public Settings() 
 	{
-		listEmployeeID = new CopyOnWriteArrayList<Employee>();
+		setListEmployeeID(listEmployeeID);
 		dateTime = LocalDateTime.now();
 		setIPadress(IPAdress);
 		setPortNumber(portNumber);
