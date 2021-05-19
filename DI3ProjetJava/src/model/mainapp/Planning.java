@@ -16,7 +16,10 @@ public class Planning {
 	/*********************************************************************/
 	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
-
+	
+	/**
+	 * @brief Default constructor.
+	 */
 	public Planning() {
 		this.planning = new ConcurrentHashMap<DayName, DayPlanning>();
 		for (DayName dayName : DayName.values()) {
@@ -26,6 +29,8 @@ public class Planning {
 	}
 	
 	/**
+	 * @brief Copy constructor.
+	 * 
 	 * @param planning
 	 */
 	public Planning(ConcurrentHashMap<DayName, DayPlanning> planning) {
@@ -47,7 +52,7 @@ public class Planning {
 	/**
 	 * @param planning the planning to set
 	 */
-	public void setPlanning(ConcurrentHashMap<DayName, DayPlanning> planning) {
+	private void setPlanning(ConcurrentHashMap<DayName, DayPlanning> planning) {
 		this.planning = new ConcurrentHashMap<DayName, DayPlanning>(planning);
 	}
 	
@@ -58,6 +63,11 @@ public class Planning {
 	public DayPlanning getDayPlanning(DayName name) {
 		return this.planning.get(name);
 	}
+	
+	
+	/*********************************************************************/
+	/*************************** OTHER METHODS ***************************/
+	/*********************************************************************/
 	
 	@Override
 	public String toString() {
