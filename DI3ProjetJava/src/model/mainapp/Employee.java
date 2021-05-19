@@ -27,6 +27,13 @@ public class Employee {
 	/*********************************************************************/
 
 	/**
+	 * 
+	 */
+	public Employee() {
+		this("default","default");
+	}
+	
+	/**
 	 * @param iD
 	 * @param firstName
 	 * @param lastName
@@ -154,7 +161,7 @@ public class Employee {
 	
 	@Override
 	public String toString() {
-		return "Employee = [ID=" + getID() + ", firstName=" + getFirstName() + ", lastName=" + getLastName() + ", listChecks="
+		return "Employee [ID=" + getID() + ", firstName=" + getFirstName() + ", lastName=" + getLastName() + ", listChecks="
 				+ Arrays.toString(getListChecks()) + "]";
 	}
 	
@@ -168,7 +175,7 @@ public class Employee {
 		listEmployees.add(new Employee("Joey", "Tribiani"));
 		listEmployees.add(new Employee("Jesse", "Pinkman"));
 
-		System.out.println("UsedIDs = " + Employee.getlistUsedIDs());
+		System.out.println("UsedIDs " + Employee.getlistUsedIDs());
 		for (Integer Iterator = 0; Iterator < 5; Iterator++)
 		{
 			System.out.println(listEmployees.get(Iterator).toString());
