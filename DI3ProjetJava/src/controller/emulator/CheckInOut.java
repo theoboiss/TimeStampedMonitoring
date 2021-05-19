@@ -5,11 +5,11 @@ import java.time.LocalDateTime;
 public class CheckInOut 
 {
 	/* ================================================================= */
-	/************************* CLASS ATTRIBUTS ***************************/
+	/************************* CLASS ATTRIBUTES ***************************/
 	/*********************************************************************/
 
 	private String departmentName;
-	private int employeeID;
+	private Integer employeeID;
 	private LocalDateTime checkTime;
 	private boolean status;
 
@@ -75,7 +75,7 @@ public class CheckInOut
 	/**
 	 * @return the employeeID
 	 */
-	public int getEmployeeID() 
+	public Integer getEmployeeID() 
 	{
 		return employeeID;
 	}
