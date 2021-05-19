@@ -1,7 +1,7 @@
 package model.emulator;
 
 import java.time.LocalDateTime;
-import java.util.concurrent.CopyOnWriteArrayList;
+import model.mainapp.Employee;
 
 public class Settings 
 {
@@ -11,7 +11,7 @@ public class Settings
 	/*********************************************************************/
 
 	private String departmentName;
-	private CopyOnWriteArrayList<Integer> listEmployeeID;
+	private Employee[] listEmployeeID;
 	private LocalDateTime dateTime;
 	private int IPAdress;
 	private int portNumber;
@@ -30,7 +30,7 @@ public class Settings
 	public Settings() 
 	{
 		departmentName = new String();
-		listEmployeeID = new CopyOnWriteArrayList<Integer>();
+		//listEmployeeID = new Employee[];
 		dateTime = LocalDateTime.now();
 		setIPadress(IPAdress);
 		setPortNumber(portNumber);
@@ -44,7 +44,7 @@ public class Settings
 	 * @param iPadress
 	 * @param portNumber
 	 */
-	public Settings(String departmentName, CopyOnWriteArrayList<Integer> listEmployeeID, LocalDateTime dateTime,
+	public Settings(String departmentName, Employee[] listEmployeeID, LocalDateTime dateTime,
 			int iPAdress, int portNumber) 
 	{
 		super();
@@ -85,7 +85,7 @@ public class Settings
 	 * @brief
 	 * @return the listEmployeeID
 	 */
-	public CopyOnWriteArrayList<Integer> getListEmployeeID() 
+	public Employee[] getListEmployeeID() 
 	{
 		return listEmployeeID;
 	}
@@ -94,7 +94,7 @@ public class Settings
 	 * @brief
 	 * @param listEmployeeID the listEmployeeID to set
 	 */
-	public void setListEmployeeID(CopyOnWriteArrayList<Integer> listEmployeeID) 
+	public void setListEmployeeID(Employee[] listEmployeeID) 
 	{
 		this.listEmployeeID = listEmployeeID;
 	}

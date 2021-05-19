@@ -9,7 +9,6 @@ public class Input
 	/*********************************************************************/
 
 	private Settings settings;
-	private CheckInOut checks;
 
 	/*********************************************************************/
 	/*********************************************************************/
@@ -25,7 +24,6 @@ public class Input
 	public Input() 
 	{
 		settings = new Settings();
-		checks = new CheckInOut();
 	}
 
 	/**
@@ -37,7 +35,6 @@ public class Input
 	{
 		super();
 		this.settings = settings;
-		this.checks = checks;
 	}
 
 	/*********************************************************************/
@@ -64,21 +61,7 @@ public class Input
 		this.settings = settings;
 	}
 
-	/**
-	 * @return the checks
-	 */
-	public CheckInOut getChecks() 
-	{
-		return checks;
-	}
-
-	/**
-	 * @param checks the checks to set
-	 */
-	public void setChecks(CheckInOut checks) 
-	{
-		this.checks = checks;
-	}
+	
 
 	/*********************************************************************/
 	/*********************************************************************/
