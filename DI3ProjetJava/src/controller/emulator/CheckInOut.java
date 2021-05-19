@@ -1,6 +1,6 @@
 package controller.emulator;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class CheckInOut 
 {
@@ -10,7 +10,7 @@ public class CheckInOut
 
 	private String departmentName;
 	private int employeeID;
-	private LocalTime checkTime;
+	private LocalDateTime checkTime;
 	private boolean status;
 
 	/*********************************************************************/
@@ -28,7 +28,7 @@ public class CheckInOut
 	{
 		departmentName = new String();
 		setEmployeeID(employeeID);
-		checkTime = LocalTime.now();
+		checkTime = LocalDateTime.now();
 		status = true; // Default value
 	}
 
@@ -39,7 +39,7 @@ public class CheckInOut
 	 * @param checkTime
 	 * @param status
 	 */
-	public CheckInOut(String departmentName, int employeeID, LocalTime checkTime, boolean status) 
+	public CheckInOut(String departmentName, int employeeID, LocalDateTime checkTime, boolean status) 
 	{
 		super();
 		this.departmentName = departmentName;
@@ -91,7 +91,7 @@ public class CheckInOut
 	/**
 	 * @return the checkTime
 	 */
-	public LocalTime getCheckTime() 
+	public LocalDateTime getCheckTime() 
 	{
 		return checkTime;
 	}
@@ -99,7 +99,7 @@ public class CheckInOut
 	/**
 	 * @param checkTime the checkTime to set
 	 */
-	public void setCheckTime(LocalTime checkTime) 
+	public void setCheckTime(LocalDateTime checkTime) 
 	{
 		this.checkTime = checkTime;
 	}
@@ -119,6 +119,14 @@ public class CheckInOut
 	{
 		this.status = status;
 	}
+
+	/*********************************************************************/
+	/*********************************************************************/
+	/* ================================================================= */
+	
+	/* ================================================================= */
+	/***************************** METHODS *******************************/
+	/*********************************************************************/
 
 	/*********************************************************************/
 	/*********************************************************************/

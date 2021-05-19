@@ -3,6 +3,7 @@ package model.emulator;
 import java.time.LocalDateTime;
 import model.mainapp.Employee;
 
+
 public class Settings 
 {
 
@@ -10,12 +11,12 @@ public class Settings
 	/************************* CLASS ATTRIBUTS ***************************/
 	/*********************************************************************/
 
-	private String departmentName;
+	static int EMPLOYEE_NUMBER;
 	private Employee[] listEmployeeID;
 	private LocalDateTime dateTime;
 	private int IPAdress;
 	private int portNumber;
-
+	
 	/*********************************************************************/
 	/*********************************************************************/
 	/* ================================================================= */
@@ -29,7 +30,6 @@ public class Settings
 	 */
 	public Settings() 
 	{
-		departmentName = new String();
 		//listEmployeeID = new Employee[];
 		dateTime = LocalDateTime.now();
 		setIPadress(IPAdress);
@@ -48,7 +48,6 @@ public class Settings
 			int iPAdress, int portNumber) 
 	{
 		super();
-		this.departmentName = departmentName;
 		this.listEmployeeID = listEmployeeID;
 		this.dateTime = dateTime;
 		IPAdress = iPAdress;
@@ -63,23 +62,6 @@ public class Settings
 	/********************** GETTERS AND SETTERS **************************/
 	/*********************************************************************/
 
-	/**
-	 * @brief
-	 * @return the departmentName
-	 */
-	public String getDepartmentName() 
-	{
-		return departmentName;
-	}
-
-	/**
-	 * @brief
-	 * @param departmentName the departmentName to set
-	 */
-	public void setDepartmentName(String departmentName) 
-	{
-		this.departmentName = departmentName;
-	}
 
 	/**
 	 * @brief
