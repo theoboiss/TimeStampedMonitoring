@@ -3,9 +3,7 @@
  */
 package model.shared;
 
-import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import model.mainapp.Employee;
 
@@ -19,6 +17,7 @@ public class Department {
 	/*********************************************************************/
 	
 	private String name;
+	//a map in which each employee can be directly obtained from his ID
 	private ConcurrentHashMap<Integer,Employee> listEmployees;
 
 
@@ -39,9 +38,10 @@ public class Department {
 	public Department(String name) {
 		setName(name);
 		
-		//create a list of one employee
+		//create a list of a new employee
 		ConcurrentHashMap<Integer,Employee> defaultListEmployees = new ConcurrentHashMap<>();
-		defaultListEmployees.put(1, new Employee());
+		Employee newEmployee = new Employee();
+		defaultListEmployees.put(newEmployee.getID(), newEmployee);
 		setListEmployees(defaultListEmployees); //give it to the class
 	}
 	
@@ -85,6 +85,13 @@ public class Department {
 	/**
 	 * @param listEmployees the listEmployees to set
 	 */
+	private Employee getEmployee(Integer ID) {
+		return getListEmployees().get(ID);
+	}
+	
+	/**
+	 * @param listEmployees the listEmployees to set
+	 */
 	private void addEmployee(Employee employee) {
 		getListEmployees().put(employee.getID(), employee);
 	}
@@ -96,15 +103,34 @@ public class Department {
 	
 	@Override
 	public String toString() {
-		return "Department [name=" + name + ", listEmployees=\n\t" + listEmployees + "\n\t]";
+		String msg = "Department\t[name=" + name + ",\n\t\t listEmployees=[\n\t\t\t ";
+		for(Employee employeeTmp : listEmployees.values()) {
+			msg += employeeTmp.toString() + "\n\t\t\t ";
+		}
+		msg = msg.substring(0,msg.length()-1);
+		msg += "]\n\t\t";
+		msg += "]";
+		return msg;
 	}
 	
 	
 	public static void main(String[] args) {
 		Department A = new Department();
 		Department B = new Department("JavaTech");
-
+		
+		B.addEmployee(new Employee());
+		B.addEmployee(new Employee());
+		B.addEmployee(new Employee());
+		
+		
+		
+		B.getEmployee(2).setFirstName("Theo");
+		B.getEmployee(2).setLastName("Boisseau");
+		
 		System.out.println(A.toString());
 		System.out.println(B.toString());
+
+		
+		System.out.println(B.getEmployee(2));
 	}
 }
