@@ -3,7 +3,7 @@ package model.emulator;
 import java.time.LocalTime;
 import java.util.Hashtable;
 import controller.emulator.CheckInOut;
-import model.mainapp.Employee;
+import model.shared.Employee;
 
 public class History 
 {

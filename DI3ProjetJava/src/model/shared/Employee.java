@@ -1,4 +1,4 @@
-package model.mainapp;
+package model.shared;
 
 import java.util.Arrays;
 import java.util.concurrent.CopyOnWriteArrayList;

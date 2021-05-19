@@ -1,8 +1,9 @@
 package model.emulator;
 
 import java.time.LocalDateTime;
-import model.mainapp.Employee;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import model.shared.Employee;
 
 
 public class Settings 

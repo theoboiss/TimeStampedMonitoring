@@ -3,7 +3,7 @@ package model.mainapp;
 import java.time.LocalTime;
 import java.util.concurrent.ConcurrentHashMap;
 import controller.emulator.CheckInOut;
-import model.shared.Department;
+import model.shared.Employee;
 
 public class Company {
 	

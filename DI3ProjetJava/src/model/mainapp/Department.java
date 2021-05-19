@@ -1,11 +1,11 @@
 /**
  * 
  */
-package model.shared;
+package model.mainapp;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import model.mainapp.Employee;
+import model.shared.Employee;
 
 /**
  * 
@@ -114,6 +114,9 @@ public class Department {
 	}
 	
 	
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Department A = new Department();
 		Department B = new Department("JavaTech");
@@ -122,15 +125,11 @@ public class Department {
 		B.addEmployee(new Employee());
 		B.addEmployee(new Employee());
 		
-		
-		
 		B.getEmployee(2).setFirstName("Theo");
 		B.getEmployee(2).setLastName("Boisseau");
 		
 		System.out.println(A.toString());
 		System.out.println(B.toString());
-
-		
 		System.out.println(B.getEmployee(2));
 	}
 }
