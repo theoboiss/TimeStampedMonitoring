@@ -2,9 +2,6 @@ package model.mainapp;
 
 import java.time.LocalTime;
 
-enum DayName {
-	MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY;
-}
 
 public class DayPlanning {
 	
