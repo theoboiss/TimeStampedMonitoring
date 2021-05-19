@@ -2,20 +2,20 @@ package model.emulator;
 
 import java.time.LocalDateTime;
 import model.mainapp.Employee;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class Settings 
 {
 
 	/* ================================================================= */
-	/************************* CLASS ATTRIBUTES ***************************/
+	/************************* CLASS ATTRIBUTES **************************/
 	/*********************************************************************/
 
-	static int EMPLOYEE_NUMBER;
-	private Employee[] listEmployeeID;
+	private CopyOnWriteArrayList<Employee> listEmployeeID;
 	private LocalDateTime dateTime;
-	private int IPAdress;
-	private int portNumber;
+	private Integer IPAdress;
+	private Integer portNumber;
 	
 	/*********************************************************************/
 	/*********************************************************************/
@@ -30,7 +30,7 @@ public class Settings
 	 */
 	public Settings() 
 	{
-		//listEmployeeID = new Employee[];
+		listEmployeeID = new CopyOnWriteArrayList<Employee>();
 		dateTime = LocalDateTime.now();
 		setIPadress(IPAdress);
 		setPortNumber(portNumber);
@@ -44,8 +44,8 @@ public class Settings
 	 * @param iPadress
 	 * @param portNumber
 	 */
-	public Settings(String departmentName, Employee[] listEmployeeID, LocalDateTime dateTime,
-			int iPAdress, int portNumber) 
+	public Settings(String departmentName, CopyOnWriteArrayList<Employee> listEmployeeID, LocalDateTime dateTime,
+			Integer iPAdress, Integer portNumber) 
 	{
 		super();
 		this.listEmployeeID = listEmployeeID;
@@ -67,7 +67,7 @@ public class Settings
 	 * @brief
 	 * @return the listEmployeeID
 	 */
-	public Employee[] getListEmployeeID() 
+	public CopyOnWriteArrayList<Employee> getListEmployeeID() 
 	{
 		return listEmployeeID;
 	}
@@ -76,7 +76,7 @@ public class Settings
 	 * @brief
 	 * @param listEmployeeID the listEmployeeID to set
 	 */
-	public void setListEmployeeID(Employee[] listEmployeeID) 
+	public void setListEmployeeID(CopyOnWriteArrayList<Employee> listEmployeeID) 
 	{
 		this.listEmployeeID = listEmployeeID;
 	}
@@ -103,7 +103,7 @@ public class Settings
 	 * @brief
 	 * @return the iPadress
 	 */
-	public int getIPadress() 
+	public Integer getIPadress() 
 	{
 		return IPAdress;
 	}
@@ -112,7 +112,7 @@ public class Settings
 	 * @brief
 	 * @param iPadress the iPadress to set
 	 */
-	public void setIPadress(int iPAdress) 
+	public void setIPadress(Integer iPAdress) 
 	{
 		IPAdress = iPAdress;
 	}
@@ -121,7 +121,7 @@ public class Settings
 	 * @brief
 	 * @return the portNumber
 	 */
-	public int getPortNumber() 
+	public Integer getPortNumber() 
 	{
 		return portNumber;
 	}
@@ -130,7 +130,7 @@ public class Settings
 	 * @brief
 	 * @param portNumber the portNumber to set
 	 */
-	public void setPortNumber(int portNumber) 
+	public void setPortNumber(Integer portNumber) 
 	{
 		this.portNumber = portNumber;
 	}

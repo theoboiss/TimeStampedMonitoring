@@ -5,7 +5,7 @@ import controller.emulator.CheckInOut;
 public class ConsultationHistory 
 {
 	/* ================================================================= */
-	/************************* CLASS ATTRIBUTES ***************************/
+	/************************* CLASS ATTRIBUTES **************************/
 	/*********************************************************************/
 
 	private CheckInOut[] checks;
