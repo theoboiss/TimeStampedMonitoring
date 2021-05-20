@@ -1,13 +1,13 @@
 package model.shared;
 
-import model.mainapp.Department;
-import model.mainapp.Employee;
+import model.mainapp.Department; //ONLY FOR THE TEST
+import model.mainapp.Employee; //ONLY FOR THE TEST
 
 public class Tests {
 	public static void main(String[] args){
 		System.out.println("Hello from Shared model\n");
 		
-		Department A = new Department("JavaTech", new Employee("Le", "Patron"));
+		Department A = new Department("JavaTech", new Employee("Mr.", "Boss"));
 
 		Integer IDOfEmployeeToCopy = 1;
 		try {

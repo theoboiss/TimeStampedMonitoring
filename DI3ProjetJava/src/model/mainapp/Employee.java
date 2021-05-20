@@ -113,13 +113,19 @@ public class Employee extends EmployeeInfo {
 	/**
 	 * @return the listChecks
 	 */
-	public CopyOnWriteArrayList<CheckInOut> getCheck(LocalDateTime beforeCheck, LocalDateTime afterCheck) {
+	public CopyOnWriteArrayList<CheckInOut> searchCheck(LocalDateTime beforeCheck, LocalDateTime afterCheck) {
 		CopyOnWriteArrayList<CheckInOut> resultList = new CopyOnWriteArrayList<CheckInOut>();
-		for (CheckInOut currentCheck : getListChecks()) {
-			if (currentCheck.getCheckTime().isAfter(beforeCheck) && currentCheck.getCheckTime().isBefore(afterCheck)) {
-				resultList.add(currentCheck);
+		CopyOnWriteArrayList<CheckInOut> listChecks = getListChecks();
+		
+		//the most recent checks are in the end of the array so we start searching from there
+		for (Integer iterator = listChecks.size()-1; iterator > 0; iterator--) {
+			CheckInOut checkTmp = listChecks.get(iterator);
+			if (checkTmp.getCheckTime().isAfter(beforeCheck)
+			 && checkTmp.getCheckTime().isBefore(afterCheck)) {
+				resultList.add(checkTmp);
 			}
 		}
+		
 		return resultList;
 	}
 
