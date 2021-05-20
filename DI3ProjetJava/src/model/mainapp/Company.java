@@ -2,6 +2,8 @@ package model.mainapp;
 
 import java.time.LocalTime;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import controller.emulator.CheckInOut;
 import model.shared.Employee;
 
@@ -14,8 +16,8 @@ public class Company {
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 	
-	private ConcurrentHashMap <Employee, CheckInOut[]> listCheckPerEmployee;
-	private ConcurrentHashMap <String, Employee[]> listEmployeesPerDepartment;
+	private ConcurrentHashMap <Employee, CopyOnWriteArrayList<CheckInOut>> listCheckPerEmployee;
+	private ConcurrentHashMap <String, CopyOnWriteArrayList<Employee>> listEmployeesPerDepartment;
 	
 	
 	/*********************************************************************/
@@ -26,8 +28,9 @@ public class Company {
 	 * @brief Default constructor.
 	 */
 	public Company() {
-		this.listCheckPerEmployee = new ConcurrentHashMap <Employee, CheckInOut[]>();
-		this.listEmployeesPerDepartment = new ConcurrentHashMap <String, Employee[]>();
+		super();
+		this.listCheckPerEmployee = new ConcurrentHashMap <Employee, CopyOnWriteArrayList<CheckInOut>>();
+		this.listEmployeesPerDepartment = new ConcurrentHashMap <String, CopyOnWriteArrayList<Employee>>();
 	}
 	
 	/**
@@ -36,8 +39,8 @@ public class Company {
 	 * @param listCheckPerEmployee
 	 * @param listEmployeesPerDepartment
 	 */
-	public Company(ConcurrentHashMap<Employee, CheckInOut[]> listCheckPerEmployee,
-			ConcurrentHashMap<String, Employee[]> listEmployeesPerDepartment) {
+	public Company(ConcurrentHashMap<Employee, CopyOnWriteArrayList<CheckInOut>> listCheckPerEmployee,
+			ConcurrentHashMap<String, CopyOnWriteArrayList<Employee>> listEmployeesPerDepartment) {
 		setListCheckPerEmployee(listCheckPerEmployee);
 		setListEmployeesPerDepartment(listEmployeesPerDepartment);
 	}
@@ -52,14 +55,14 @@ public class Company {
 	/**
 	 * @return the listCheckPerEmployee
 	 */
-	public ConcurrentHashMap<Employee, CheckInOut[]> getListCheckPerEmployee() {
+	public ConcurrentHashMap<Employee, CopyOnWriteArrayList<CheckInOut>> getListCheckPerEmployee() {
 		return listCheckPerEmployee;
 	}
 
 	/**
 	 * @param listCheckPerEmployee the listCheckPerEmployee to set
 	 */
-	private void setListCheckPerEmployee(ConcurrentHashMap<Employee, CheckInOut[]> listCheckPerEmployee) {
+	private void setListCheckPerEmployee(ConcurrentHashMap<Employee, CopyOnWriteArrayList<CheckInOut>> listCheckPerEmployee) {
 		this.listCheckPerEmployee = listCheckPerEmployee;
 	}
 	
@@ -69,14 +72,14 @@ public class Company {
 	/**
 	 * @return the listEmployeesPerDepartment
 	 */
-	public ConcurrentHashMap<String, Employee[]> getListEmployeesPerDepartment() {
+	public ConcurrentHashMap<String, CopyOnWriteArrayList<Employee>> getListEmployeesPerDepartment() {
 		return listEmployeesPerDepartment;
 	}
 
 	/**
 	 * @param listEmployeesPerDepartment the listEmployeesPerDepartment to set
 	 */
-	private void setListEmployeesPerDepartment(ConcurrentHashMap<String, Employee[]> listEmployeesPerDepartment) {
+	private void setListEmployeesPerDepartment(ConcurrentHashMap<String, CopyOnWriteArrayList<Employee>> listEmployeesPerDepartment) {
 		this.listEmployeesPerDepartment = listEmployeesPerDepartment;
 	}
 	
@@ -85,22 +88,27 @@ public class Company {
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
 	
+	
 	/**
 	 * @brief Add employee to listCheckPerEmployee.
 	 * 
 	 * @param employee
 	 */
 	private void addEmployeeInListChecksPerEmployee(Employee employee) {
-		this.listCheckPerEmployee.put(employee, null);
+		//this.listCheckPerEmployee.put(employee, employee.getListChecks());
 	}
-	/*
-	private void addCheckInListCheckPerEmployee (CheckInOut checkInOut) {
-		this.listCheckPerEmployee.forEach((key, value)-> {
-			if (key.getID()==checkInOut.getEmployeeID()) {
-				value.a
-			}
-		});
-	}*/
+	
+	
+	/**
+	 * @brief Add department to listEmployeesPerDepartment.
+	 * 
+	 * @param department
+	 */
+	private void addDepartmentInListEmployeesPerDepartment (Department department) {
+		this.listEmployeesPerDepartment.put(department.getName(), null);
+	}
+	
+	/******************************* Others ******************************/
 	
 	/*
 	@Override
