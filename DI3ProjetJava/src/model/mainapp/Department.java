@@ -5,8 +5,6 @@ package model.mainapp;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import model.shared.Employee;
-
 /**
  * 
  */
@@ -45,6 +43,18 @@ public class Department {
 		setListEmployees(defaultListEmployees); //give it to the class
 	}
 	
+	/**
+	 * @param name
+	 */
+	public Department(String name, Employee boss) {
+		setName(name);
+		
+		//create a list of a new employee
+		ConcurrentHashMap<Integer,Employee> defaultListEmployees = new ConcurrentHashMap<>();
+		defaultListEmployees.put(boss.getID(), boss);
+		setListEmployees(defaultListEmployees); //give it to the class
+	}
+	
 	
 	/*********************************************************************/
 	/***************************** GETS/SETS *****************************/
@@ -78,21 +88,21 @@ public class Department {
 	/**
 	 * @param listEmployees the listEmployees to set
 	 */
-	private void setListEmployees(ConcurrentHashMap<Integer,Employee> listEmployees) {
+	protected void setListEmployees(ConcurrentHashMap<Integer,Employee> listEmployees) {
 		this.listEmployees = listEmployees;
 	}
 	
 	/**
 	 * @param listEmployees the listEmployees to set
 	 */
-	private Employee getEmployee(Integer ID) {
+	public Employee getEmployee(Integer ID) {
 		return getListEmployees().get(ID);
 	}
 	
 	/**
 	 * @param listEmployees the listEmployees to set
 	 */
-	private void addEmployee(Employee employee) {
+	public void addEmployee(Employee employee) {
 		getListEmployees().put(employee.getID(), employee);
 	}
 	
