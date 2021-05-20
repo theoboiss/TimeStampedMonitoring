@@ -1,7 +1,6 @@
 package view.emulator;
 
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import model.shared.CheckInOut;
 
 public class ConsultationHistory 
