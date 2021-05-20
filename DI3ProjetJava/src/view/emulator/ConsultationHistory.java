@@ -1,5 +1,7 @@
 package view.emulator;
 
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import model.shared.CheckInOut;
 
 public class ConsultationHistory 
@@ -8,7 +10,7 @@ public class ConsultationHistory
 	/************************* CLASS ATTRIBUTES **************************/
 	/*********************************************************************/
 
-	private CheckInOut[] checks;
+	private CopyOnWriteArrayList<CheckInOut> checks;
 
 	/*********************************************************************/
 	/*********************************************************************/
@@ -25,7 +27,7 @@ public class ConsultationHistory
 	/**
 	 * @param checks
 	 */
-	public ConsultationHistory(CheckInOut[] checks) 
+	public ConsultationHistory(CopyOnWriteArrayList<CheckInOut> checks) 
 	{
 		super();
 		this.checks = checks;
@@ -42,7 +44,7 @@ public class ConsultationHistory
 	/**
 	 * @return the checks
 	 */
-	public CheckInOut[] getChecks() 
+	public CopyOnWriteArrayList<CheckInOut> getChecks() 
 	{
 		return checks;
 	}
@@ -50,7 +52,7 @@ public class ConsultationHistory
 	/**
 	 * @param checks the checks to set
 	 */
-	public void setChecks(CheckInOut[] checks) 
+	public void setChecks(CopyOnWriteArrayList<CheckInOut> checks) 
 	{
 		this.checks = checks;
 	}

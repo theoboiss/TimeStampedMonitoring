@@ -2,6 +2,8 @@ package model.emulator;
 
 import java.time.LocalTime;
 import java.util.Hashtable;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import model.shared.CheckInOut;
 import model.shared.Employee;
 
@@ -13,9 +15,9 @@ public class History
 	
 	private Settings settings;
 	// All CheckInOut per employee from the first day
-	private Hashtable<Employee, CheckInOut[]> checksPerEmployee;
+	private Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee;
 	// All CheckInOut per employee during a day. The table is reset to 0 at the end of day.
-	private Hashtable<LocalTime, Hashtable<Employee, CheckInOut[]>> checksPerEmployeePerDay;
+	private Hashtable<LocalTime, Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay;
 	/*********************************************************************/
 	/*********************************************************************/
 	/* ================================================================= */
@@ -29,8 +31,8 @@ public class History
 	 */
 	public History() {
 		settings = new Settings();
-		checksPerEmployee = new Hashtable<Employee, CheckInOut[]>();
-		checksPerEmployeePerDay = new Hashtable<LocalTime, Hashtable<Employee, CheckInOut[]>>();
+		checksPerEmployee = new Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>>();
+		checksPerEmployeePerDay = new Hashtable<LocalTime, Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>>>();
 	}
 
 	/**
@@ -38,8 +40,8 @@ public class History
 	 * @param checksPerEmployee
 	 * @param checksPerEmployeePerDay
 	 */
-	public History(Settings settings, Hashtable<Employee, CheckInOut[]> checksPerEmployee,
-			Hashtable<LocalTime, Hashtable<Employee, CheckInOut[]>> checksPerEmployeePerDay) {
+	public History(Settings settings, Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee,
+			Hashtable<LocalTime, Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay) {
 		super();
 		this.settings = settings;
 		this.checksPerEmployee = checksPerEmployee;
@@ -70,21 +72,21 @@ public class History
 	/**
 	 * @return the checksPerEmployee
 	 */
-	public Hashtable<Employee, CheckInOut[]> getChecksPerEmployee() {
+	public Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>> getChecksPerEmployee() {
 		return checksPerEmployee;
 	}
 
 	/**
 	 * @param checksPerEmployee the checksPerEmployee to set
 	 */
-	public void setChecksPerEmployee(Hashtable<Employee, CheckInOut[]> checksPerEmployee) {
+	public void setChecksPerEmployee(Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee) {
 		this.checksPerEmployee = checksPerEmployee;
 	}
 
 	/**
 	 * @return the checksPerEmployeePerDay
 	 */
-	public Hashtable<LocalTime, Hashtable<Employee, CheckInOut[]>> getChecksPerEmployeePerDay() {
+	public Hashtable<LocalTime, Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>>> getChecksPerEmployeePerDay() {
 		return checksPerEmployeePerDay;
 	}
 
@@ -92,7 +94,7 @@ public class History
 	 * @param checksPerEmployeePerDay the checksPerEmployeePerDay to set
 	 */
 	public void setChecksPerEmployeePerDay(
-			Hashtable<LocalTime, Hashtable<Employee, CheckInOut[]>> checksPerEmployeePerDay) {
+			Hashtable<LocalTime, Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay) {
 		this.checksPerEmployeePerDay = checksPerEmployeePerDay;
 	}
 	/*********************************************************************/

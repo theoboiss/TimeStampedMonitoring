@@ -28,7 +28,6 @@ public class CheckInOut
 	{
 		setEmployeeID(employeeID);
 		checkTime = LocalDateTime.now();
-		status = true; // Default value
 	}
 
 	/**
@@ -38,7 +37,7 @@ public class CheckInOut
 	 * @param checkTime
 	 * @param status
 	 */
-	public CheckInOut(String departmentName, Integer employeeID, LocalDateTime checkTime, boolean status) 
+	public CheckInOut(Integer employeeID, LocalDateTime checkTime, boolean status) 
 	{
 		super();
 		this.employeeID = employeeID;
