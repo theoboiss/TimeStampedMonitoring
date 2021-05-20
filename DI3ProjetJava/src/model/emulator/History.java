@@ -5,7 +5,7 @@ import java.util.Hashtable;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import model.shared.CheckInOut;
-import model.shared.Employee;
+import model.shared.EmployeeInfo;
 
 public class History 
 {
@@ -15,9 +15,13 @@ public class History
 	
 	private Settings settings;
 	// All CheckInOut per employee from the first day
-	private Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee;
+
+	private Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee;
+
 	// All CheckInOut per employee during a day. The table is reset to 0 at the end of day.
-	private Hashtable<LocalTime, Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay;
+
+	private Hashtable<LocalTime, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay;
+
 	/*********************************************************************/
 	/*********************************************************************/
 	/* ================================================================= */
@@ -31,8 +35,13 @@ public class History
 	 */
 	public History() {
 		settings = new Settings();
-		checksPerEmployee = new Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>>();
-		checksPerEmployeePerDay = new Hashtable<LocalTime, Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>>>();
+
+		checksPerEmployee = new Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>();
+		checksPerEmployeePerDay = new Hashtable<LocalTime, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>>();
+
+		checksPerEmployee = new Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>();
+		checksPerEmployeePerDay = new Hashtable<LocalTime, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>>();
+
 	}
 
 	/**
@@ -40,8 +49,9 @@ public class History
 	 * @param checksPerEmployee
 	 * @param checksPerEmployeePerDay
 	 */
-	public History(Settings settings, Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee,
-			Hashtable<LocalTime, Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay) {
+	public History(Settings settings, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee,
+			Hashtable<LocalTime, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay) {
+
 		super();
 		this.settings = settings;
 		this.checksPerEmployee = checksPerEmployee;
@@ -72,29 +82,35 @@ public class History
 	/**
 	 * @return the checksPerEmployee
 	 */
-	public Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>> getChecksPerEmployee() {
+
+	public Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> getChecksPerEmployee() {
+
 		return checksPerEmployee;
 	}
 
 	/**
 	 * @param checksPerEmployee the checksPerEmployee to set
 	 */
-	public void setChecksPerEmployee(Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee) {
+
+	public void setChecksPerEmployee(Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee) {
+
 		this.checksPerEmployee = checksPerEmployee;
 	}
 
 	/**
 	 * @return the checksPerEmployeePerDay
 	 */
-	public Hashtable<LocalTime, Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>>> getChecksPerEmployeePerDay() {
+
+	public Hashtable<LocalTime, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>> getChecksPerEmployeePerDay() {
+
 		return checksPerEmployeePerDay;
 	}
 
 	/**
 	 * @param checksPerEmployeePerDay the checksPerEmployeePerDay to set
 	 */
-	public void setChecksPerEmployeePerDay(
-			Hashtable<LocalTime, Hashtable<Employee, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay) {
+	public void setChecksPerEmployeePerDay(Hashtable<LocalTime, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay) {
+
 		this.checksPerEmployeePerDay = checksPerEmployeePerDay;
 	}
 	/*********************************************************************/

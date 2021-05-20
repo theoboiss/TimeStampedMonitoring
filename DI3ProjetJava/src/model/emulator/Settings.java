@@ -3,7 +3,7 @@ package model.emulator;
 import java.time.LocalDateTime;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import model.shared.Employee;
+import model.shared.EmployeeInfo;
 
 
 public class Settings 
@@ -13,7 +13,7 @@ public class Settings
 	/************************* CLASS ATTRIBUTES **************************/
 	/*********************************************************************/
 
-	private CopyOnWriteArrayList<Employee> listEmployeeID;
+	private CopyOnWriteArrayList<EmployeeInfo> listEmployeeID;
 	private LocalDateTime dateTime;
 	private Integer IPAdress;
 	private Integer portNumber;
@@ -45,7 +45,7 @@ public class Settings
 	 * @param iPadress
 	 * @param portNumber
 	 */
-	public Settings(String departmentName, CopyOnWriteArrayList<Employee> listEmployeeID, LocalDateTime dateTime,
+	public Settings(String departmentName, CopyOnWriteArrayList<EmployeeInfo> listEmployeeID, LocalDateTime dateTime,
 			Integer iPAdress, Integer portNumber) 
 	{
 		super();
@@ -68,7 +68,7 @@ public class Settings
 	 * @brief
 	 * @return the listEmployeeID
 	 */
-	public CopyOnWriteArrayList<Employee> getListEmployeeID() 
+	public CopyOnWriteArrayList<EmployeeInfo> getListEmployeeID() 
 	{
 		return listEmployeeID;
 	}
@@ -77,7 +77,7 @@ public class Settings
 	 * @brief
 	 * @param listEmployeeID the listEmployeeID to set
 	 */
-	public void setListEmployeeID(CopyOnWriteArrayList<Employee> listEmployeeID) 
+	public void setListEmployeeID(CopyOnWriteArrayList<EmployeeInfo> listEmployeeID) 
 	{
 		this.listEmployeeID = listEmployeeID;
 	}
