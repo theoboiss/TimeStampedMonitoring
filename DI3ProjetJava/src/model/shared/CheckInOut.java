@@ -1,4 +1,5 @@
-package controller.emulator;
+package model.shared;
+
 
 import java.time.LocalDateTime;
 
@@ -8,7 +9,6 @@ public class CheckInOut
 	/************************* CLASS ATTRIBUTES **************************/
 	/*********************************************************************/
 
-	private String departmentName;
 	private Integer employeeID;
 	private LocalDateTime checkTime;
 	private boolean status;
@@ -26,7 +26,6 @@ public class CheckInOut
 	 */
 	public CheckInOut() 
 	{
-		departmentName = new String();
 		setEmployeeID(employeeID);
 		checkTime = LocalDateTime.now();
 		status = true; // Default value
@@ -42,7 +41,6 @@ public class CheckInOut
 	public CheckInOut(String departmentName, Integer employeeID, LocalDateTime checkTime, boolean status) 
 	{
 		super();
-		this.departmentName = departmentName;
 		this.employeeID = employeeID;
 		this.checkTime = checkTime;
 		this.status = status;
@@ -55,22 +53,6 @@ public class CheckInOut
 	/* ================================================================= */
 	/********************** GETTERS AND SETTERS **************************/
 	/*********************************************************************/
-
-	/**
-	 * @return the departmentName
-	 */
-	public String getDepartmentName() 
-	{
-		return departmentName;
-	}
-
-	/**
-	 * @param departmentName the departmentName to set
-	 */
-	public void setDepartmentName(String departmentName) 
-	{
-		this.departmentName = departmentName;
-	}
 
 	/**
 	 * @return the employeeID

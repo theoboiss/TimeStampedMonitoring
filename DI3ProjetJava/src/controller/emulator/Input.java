@@ -1,7 +1,7 @@
 package controller.emulator;
 
 import model.emulator.Settings;
-
+import model.shared.CheckInOut;
 public class Input 
 {
 	/* ================================================================= */

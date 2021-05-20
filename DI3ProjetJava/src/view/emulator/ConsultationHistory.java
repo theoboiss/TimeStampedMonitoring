@@ -1,6 +1,6 @@
 package view.emulator;
 
-import controller.emulator.CheckInOut;
+import model.shared.CheckInOut;
 
 public class ConsultationHistory 
 {
