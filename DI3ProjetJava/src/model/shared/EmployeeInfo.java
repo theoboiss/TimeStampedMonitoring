@@ -29,7 +29,6 @@ public class EmployeeInfo {
 	 * @param iD
 	 * @param firstName
 	 * @param lastName
-	 * @param listChecks
 	 */
 	public EmployeeInfo(Integer ID, String firstName, String lastName) {
 		setID(ID);
@@ -88,8 +87,8 @@ public class EmployeeInfo {
 	}
 
 	/**
-	 * @param firstName
-	 * @param lastName
+	 * @param firstName the firstName to set
+	 * @param lastName the lastName to set
 	 */
 	public void setNames(String firstName, String lastName) {
 		setFirstName(firstName);

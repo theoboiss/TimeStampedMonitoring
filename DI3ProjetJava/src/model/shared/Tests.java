@@ -7,16 +7,16 @@ public class Tests {
 	public static void main(String[] args){
 		System.out.println("Hello from Shared model\n");
 		
-		Department B = new Department("JavaTech");
-		B.addEmployee(new Employee());
-		B.addEmployee(new Employee());
-		B.addEmployee(new Employee());
-		B.getEmployee(2).setFirstName("Theo");
-		B.getEmployee(2).setLastName("Boisseau");
-		
-		Employee employeeToCopy = B.getEmployee(2);
-		EmployeeInfo infoEmployee = new EmployeeInfo(employeeToCopy.getID(), employeeToCopy.getFirstName(), employeeToCopy.getLastName());
-		
-		System.out.println(infoEmployee);
+		Department A = new Department("JavaTech", new Employee("Le", "Patron"));
+
+		Integer IDOfEmployeeToCopy = 1;
+		try {
+			Employee employeeToCopy = A.searchEmployee(IDOfEmployeeToCopy);
+			
+			EmployeeInfo infoEmployee = new EmployeeInfo(employeeToCopy.getID(), employeeToCopy.getFirstName(), employeeToCopy.getLastName());
+			System.out.println(infoEmployee);
+		} catch (RuntimeException e) {
+			System.out.println("No employee with ID="+IDOfEmployeeToCopy);
+		}
 	}
 }

@@ -3,7 +3,7 @@
  */
 package model.mainapp;
 
-import java.util.Arrays;
+import java.time.LocalDateTime;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import model.shared.CheckInOut;
@@ -99,15 +99,28 @@ public class Employee extends EmployeeInfo {
 	/**
 	 * @return the listChecks
 	 */
-	public CopyOnWriteArrayList<CheckInOut> getListChecks() { //will be modified
+	public CopyOnWriteArrayList<CheckInOut> getListChecks() {
 		return listChecks;
 	}
 	
 	/**
 	 * @param listChecks the listChecks to set
 	 */
-	protected void setListChecks(CopyOnWriteArrayList<CheckInOut> listChecks) { //will be modified
+	protected void setListChecks(CopyOnWriteArrayList<CheckInOut> listChecks) {
 		this.listChecks = listChecks;
+	}
+
+	/**
+	 * @return the listChecks
+	 */
+	public CopyOnWriteArrayList<CheckInOut> getCheck(LocalDateTime beforeCheck, LocalDateTime afterCheck) {
+		CopyOnWriteArrayList<CheckInOut> resultList = new CopyOnWriteArrayList<CheckInOut>();
+		for (CheckInOut currentCheck : getListChecks()) {
+			if (currentCheck.getCheckTime().isAfter(beforeCheck) && currentCheck.getCheckTime().isBefore(afterCheck)) {
+				resultList.add(currentCheck);
+			}
+		}
+		return resultList;
 	}
 
 
@@ -117,15 +130,9 @@ public class Employee extends EmployeeInfo {
 	
 	@Override
 	public String toString() {
-		String stringListCkecks = "[";
-		for(CheckInOut checkInOut : getListChecks()) {
-			stringListCkecks += "\n\t\t " + checkInOut.toString();
-		}
-		stringListCkecks += "]";
-		
 		return "Employee [ID=" + getID() + ", firstName=" + getFirstName() + ", lastName=" + getLastName()
-				//+ ", planning=" + Arrays.toString(getPlanning())	toString must be defined in Planning
-				+ ", listChecks=" + stringListCkecks + "]";
+				//+ ", planning=\n" + getPlanning() + "\n\n"
+				+ ", listChecks=" + getListChecks() + "]";
 	}
 	
 	
