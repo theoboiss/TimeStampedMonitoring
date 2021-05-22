@@ -113,7 +113,7 @@ public class Department {
 	 * 
 	 */
 	public CopyOnWriteArrayList<Employee> searchEmployee(String name) {
-		CopyOnWriteArraySet<Employee> resultList = new CopyOnWriteArraySet<Employee>();
+		CopyOnWriteArrayList<Employee> resultList = new CopyOnWriteArrayList<Employee>();
 		for (Employee currentEmployee : getListEmployees().values()) {
 			if (currentEmployee.getFirstName().equals(name) || currentEmployee.getLastName().equals(name)) {
 				resultList.add(currentEmployee);
@@ -126,7 +126,7 @@ public class Department {
 	 * 
 	 */
 	public CopyOnWriteArrayList<Employee> searchEmployee(String firstName, String LastName) {
-		CopyOnWriteArraySet<Employee> resultList = new CopyOnWriteArraySet<Employee>();
+		CopyOnWriteArrayList<Employee> resultList = new CopyOnWriteArrayList<Employee>();
 		for (Employee currentEmployee : getListEmployees().values()) {
 			if (currentEmployee.getFirstName().equals(firstName) && currentEmployee.getLastName().equals(LastName)) {
 				resultList.add(currentEmployee);
@@ -139,9 +139,11 @@ public class Department {
 	 * 
 	 */
 	public CopyOnWriteArrayList<Employee> searchEmployee(LocalDateTime beforeCheck, LocalDateTime afterCheck) {
-		CopyOnWriteArraySet<Employee> resultList = new CopyOnWriteArraySet<Employee>();
-		for (CheckInOut check : searchCheck(beforeCheck, afterCheck)) {
-			resultList.add(searchEmployee(check.getEmployeeID()));
+		CopyOnWriteArrayList<Employee> resultList = new CopyOnWriteArrayList<Employee>();
+		for (Employee currentEmployee : getListEmployees().values()) {
+			if (!currentEmployee.searchCheckInOut(beforeCheck, afterCheck).isEmpty()) {
+				resultList.add(currentEmployee);
+			}
 		}
 		return new CopyOnWriteArrayList<Employee>(resultList);
 	}
@@ -149,10 +151,10 @@ public class Department {
 	/**
 	 * 
 	 */
-	public CopyOnWriteArrayList<CheckInOut> searchCheck(LocalDateTime beforeCheck, LocalDateTime afterCheck) {
+	public CopyOnWriteArrayList<CheckInOut> searchCheckInOut(LocalDateTime beforeCheck, LocalDateTime afterCheck) {
 		CopyOnWriteArrayList<CheckInOut> resultList = new CopyOnWriteArrayList<CheckInOut>();
 		for (Employee currentEmployee : getListEmployees().values()) {
-			resultList.addAll(currentEmployee.searchCheck(beforeCheck, afterCheck));
+			resultList.addAll(currentEmployee.searchCheckInOut(beforeCheck, afterCheck));
 		}
 		return resultList;
 	}

@@ -118,7 +118,7 @@ public class Employee extends EmployeeInfo {
 	/**
 	 * @return the listChecks
 	 */
-	public CopyOnWriteArrayList<CheckInOut> searchCheck(LocalDateTime beforeCheck, LocalDateTime afterCheck) {
+	public CopyOnWriteArrayList<CheckInOut> searchCheckInOut(LocalDateTime beforeCheck, LocalDateTime afterCheck) {
 		CopyOnWriteArrayList<CheckInOut> resultList = new CopyOnWriteArrayList<CheckInOut>();
 		CopyOnWriteArrayList<CheckInOut> listChecks = getListChecks();
 		
