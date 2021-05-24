@@ -11,14 +11,14 @@ public interface storesEmployeeInDepartment extends storesEmployee {
 	 * @param ID
 	 * @return
 	 */
-	public Employee searchEmployee(Department department, Integer ID);
+	public Employee searchEmployee(String department, Integer ID);
 	
 	/**
 	 * @param department
 	 * @param name
 	 * @return
 	 */
-	public CopyOnWriteArrayList<Employee> searchEmployee(Department department, String name);
+	public CopyOnWriteArrayList<Employee> searchEmployee(String department, String name);
 	
 	/**
 	 * @param department
@@ -26,7 +26,7 @@ public interface storesEmployeeInDepartment extends storesEmployee {
 	 * @param LastName
 	 * @return
 	 */
-	public CopyOnWriteArrayList<Employee> searchEmployee(Department department, String firstName, String LastName);
+	public CopyOnWriteArrayList<Employee> searchEmployee(String department, String firstName, String LastName);
 	
 	/**
 	 * @param department
@@ -34,7 +34,7 @@ public interface storesEmployeeInDepartment extends storesEmployee {
 	 * @param afterCheck
 	 * @return
 	 */
-	public CopyOnWriteArrayList<Employee> searchEmployee(Department department, LocalDateTime beforeCheck, LocalDateTime afterCheck);
+	public CopyOnWriteArrayList<Employee> searchEmployee(String department, LocalDateTime beforeCheck, LocalDateTime afterCheck);
 	
 	/**
 	 * @param department
@@ -42,5 +42,5 @@ public interface storesEmployeeInDepartment extends storesEmployee {
 	 * @param afterCheck
 	 * @return
 	 */
-	public CopyOnWriteArrayList<CheckInOut> searchCheckInOut(Department department, LocalDateTime beforeCheck, LocalDateTime afterCheck);
+	public CopyOnWriteArrayList<CheckInOut> searchCheckInOut(String department, LocalDateTime beforeCheck, LocalDateTime afterCheck);
 }
