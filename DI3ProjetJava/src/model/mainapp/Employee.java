@@ -1,6 +1,3 @@
-/**
- * 
- */
 package model.mainapp;
 
 import java.time.LocalDateTime;
@@ -9,11 +6,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import model.shared.CheckInOut;
 import model.shared.EmployeeInfo;
 
-/**
- * @author 21804803t
- *
- */
-public class Employee extends EmployeeInfo {
+public class Employee extends EmployeeInfo implements storesCheckInOut {
 
 
 	/*********************************************************************/
@@ -31,19 +24,18 @@ public class Employee extends EmployeeInfo {
 	/*********************************************************************/
 
 	/**
-	 * 
+	 * @throws Exception 
 	 */
-	public Employee() {
-		this("default","default");
+	public Employee() throws Exception {
+		this("","");
 	}
 	
 	/**
-	 * @param iD
 	 * @param firstName
 	 * @param lastName
-	 * @param listChecks
+	 * @throws Exception 
 	 */
-	public Employee(String firstName, String lastName) {
+	public Employee(String firstName, String lastName) throws Exception {
 		//generate a new ID
 		CopyOnWriteArrayList<Integer> listUsedIDss = getlistUsedIDs();
 		Integer availableID = listUsedIDss.get(listUsedIDss.size()-1) + 1;
@@ -64,7 +56,7 @@ public class Employee extends EmployeeInfo {
 	/***************************** listUsedIDs ****************************/
 	
 	/**
-	 * @return a copy of the listUsedIDs
+	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	public static  CopyOnWriteArrayList<Integer> getlistUsedIDs() {
@@ -72,7 +64,7 @@ public class Employee extends EmployeeInfo {
 	}
 
 	/**
-	 * @param listUsedIDs the listUsedIDs to set
+	 * @param ID
 	 */
 	protected static void addUsedIDToList(Integer ID) {
 		Employee.listUsedIDs.add(ID);
@@ -81,14 +73,14 @@ public class Employee extends EmployeeInfo {
 	/****************************** Planning *****************************/
 	
 	/**
-	 * @return the planning
+	 * @return
 	 */
 	public Planning getPlanning() {
 		return planning;
 	}
 
 	/**
-	 * @param planning the planning to set
+	 * @param planning
 	 */
 	public void setPlanning(Planning planning) {
 		this.planning = planning;
@@ -97,14 +89,14 @@ public class Employee extends EmployeeInfo {
 	/***************************** ListChecks ****************************/
 
 	/**
-	 * @return the listChecks
+	 * @return
 	 */
 	public CopyOnWriteArrayList<CheckInOut> getListChecks() {
 		return listChecks;
 	}
 	
 	/**
-	 * @param listChecks the listChecks to set
+	 * @param listChecks
 	 */
 	protected void setListChecks(CopyOnWriteArrayList<CheckInOut> listChecks) {
 		this.listChecks = listChecks;
@@ -116,7 +108,9 @@ public class Employee extends EmployeeInfo {
 	/*********************************************************************/
 	
 	/**
-	 * @return the listChecks
+	 * @param beforeCheck
+	 * @param afterCheck
+	 * @return
 	 */
 	public CopyOnWriteArrayList<CheckInOut> searchCheckInOut(LocalDateTime beforeCheck, LocalDateTime afterCheck) {
 		CopyOnWriteArrayList<CheckInOut> resultList = new CopyOnWriteArrayList<CheckInOut>();
@@ -147,14 +141,21 @@ public class Employee extends EmployeeInfo {
 	}
 	
 	
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		CopyOnWriteArrayList<Employee> listEmployees = new CopyOnWriteArrayList<>();
 		
-		listEmployees.add(new Employee("Barney", "Stinson"));
-		listEmployees.add(new Employee("Ted", "Mosby"));
-		listEmployees.add(new Employee("Rachel", "Green"));
-		listEmployees.add(new Employee("Joey", "Tribiani"));
-		listEmployees.add(new Employee("Jesse", "Pinkman"));
+		try {
+			listEmployees.add(new Employee("Barney", "Stinson"));
+			listEmployees.add(new Employee("Ted", "Mosby"));
+			listEmployees.add(new Employee("Rachel", "Green"));
+			listEmployees.add(new Employee("Joey", "Tribiani"));
+			listEmployees.add(new Employee("Jesse", "Pinkman"));
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 
 		System.out.println("UsedIDs " + Employee.getlistUsedIDs());
 		for (Integer Iterator = 0; Iterator < 5; Iterator++)

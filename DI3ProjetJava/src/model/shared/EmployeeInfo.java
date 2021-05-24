@@ -1,8 +1,5 @@
 package model.shared;
 
-/**
- * 
- */
 public class EmployeeInfo {
 
 	/*********************************************************************/
@@ -19,18 +16,19 @@ public class EmployeeInfo {
 	/*********************************************************************/
 
 	/**
-	 * 
+	 * @throws Exception
 	 */
-	public EmployeeInfo() {
-		this(0, "default", "default");
+	public EmployeeInfo() throws Exception {
+		this(0, "", "");
 	}
 	
 	/**
-	 * @param iD
+	 * @param ID
 	 * @param firstName
 	 * @param lastName
+	 * @throws Exception 
 	 */
-	public EmployeeInfo(Integer ID, String firstName, String lastName) {
+	public EmployeeInfo(Integer ID, String firstName, String lastName) throws Exception {
 		setID(ID);
 		setNames(firstName, lastName);
 	}
@@ -43,54 +41,66 @@ public class EmployeeInfo {
 	/********************************* ID ********************************/
 	
 	/**
-	 * @return the iD
+	 * @return
 	 */
 	public Integer getID() {
 		return ID;
 	}
 	
 	/**
-	 * @param iD the iD to set
+	 * @param ID
+	 * @throws Exception 
 	 */
-	protected void setID(Integer iD) {
-		ID = iD;
+	protected void setID(Integer ID) throws Exception {
+		if (ID <= 0)
+			throw new Exception("Error in setID : please use an ID > 0.");
+		
+		this.ID = ID;
 	}
 
 	/******************************** Names *******************************/
 
 	/**
-	 * @return the firstName
+	 * @return
 	 */
 	public String getFirstName() {
 		return firstName;
 	}
 	
 	/**
-	 * @param firstName the firstName to set
+	 * @param firstName
+	 * @throws Exception 
 	 */
-	public void setFirstName(String firstName) {
+	public void setFirstName(String firstName) throws Exception {
+		if (firstName.isBlank())
+			throw new Exception("Error in setFirstName : please specify a firstName.");
+		
 		this.firstName = firstName;
 	}
 	
 	/**
-	 * @return the lastName
+	 * @return
 	 */
 	public String getLastName() {
 		return lastName;
 	}
 	
 	/**
-	 * @param lastName the lastName to set
+	 * @param lastName
+	 * @throws Exception 
 	 */
-	public void setLastName(String lastName) {
+	public void setLastName(String lastName) throws Exception {
+		if (lastName.isBlank())
+			throw new Exception("Error in setFirstName : please specify a lastName.");
 		this.lastName = lastName;
 	}
 
 	/**
-	 * @param firstName the firstName to set
-	 * @param lastName the lastName to set
+	 * @param firstName
+	 * @param lastName
+	 * @throws Exception 
 	 */
-	public void setNames(String firstName, String lastName) {
+	public void setNames(String firstName, String lastName) throws Exception {
 		setFirstName(firstName);
 		setLastName(lastName);
 	}

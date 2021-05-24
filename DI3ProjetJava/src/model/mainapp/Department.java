@@ -1,6 +1,3 @@
-/**
- * 
- */
 package model.mainapp;
 
 import java.time.LocalDate;
@@ -8,14 +5,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CopyOnWriteArraySet;
-
 import model.shared.CheckInOut;
 
-/**
- * 
- */
-public class Department {
+public class Department implements storesEmployee {
 
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
@@ -31,17 +23,18 @@ public class Department {
 	/*********************************************************************/
 
 	/**
-	 * 
+	 * @throws Exception 
 	 */
-	public Department() {
+	public Department() throws Exception {
 		this("default");
 	}
 	
 	/**
 	 * @param name
+	 * @throws Exception 
 	 */
-	public Department(String name) {
-		this(name, new Employee());
+	public Department(String name) throws Exception {
+		this(name, new Employee("default","default"));
 	}
 	
 	/**
@@ -60,15 +53,12 @@ public class Department {
 
 	/******************************** Name *******************************/
 	
-	/**
-	 * @return the name
-	 */
 	public String getName() {
 		return name;
 	}
 	
 	/**
-	 * @param name the name to set
+	 * @param name
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -77,21 +67,21 @@ public class Department {
 	/*************************** ListEmployees ***************************/
 	
 	/**
-	 * @return the listEmployees
+	 * @return
 	 */
 	public ConcurrentHashMap<Integer,Employee> getListEmployees() {
 		return listEmployees;
 	}
 	
 	/**
-	 * @param listEmployees the listEmployees to set
+	 * @param listEmployees
 	 */
 	protected void setListEmployees(ConcurrentHashMap<Integer,Employee> listEmployees) {
 		this.listEmployees = listEmployees;
 	}
 	
 	/**
-	 * 
+	 * @param employee
 	 */
 	public void addEmployee(Employee employee) {
 		getListEmployees().put(employee.getID(), employee);
@@ -103,14 +93,16 @@ public class Department {
 	/*********************************************************************/
 	
 	/**
-	 * 
+	 * @param ID
+	 * @return
 	 */
 	public Employee searchEmployee(Integer ID) {
 		return getListEmployees().get(ID);
 	}
 	
 	/**
-	 * 
+	 * @param name
+	 * @return
 	 */
 	public CopyOnWriteArrayList<Employee> searchEmployee(String name) {
 		CopyOnWriteArrayList<Employee> resultList = new CopyOnWriteArrayList<Employee>();
@@ -123,7 +115,9 @@ public class Department {
 	}
 	
 	/**
-	 * 
+	 * @param firstName
+	 * @param LastName
+	 * @return
 	 */
 	public CopyOnWriteArrayList<Employee> searchEmployee(String firstName, String LastName) {
 		CopyOnWriteArrayList<Employee> resultList = new CopyOnWriteArrayList<Employee>();
@@ -136,7 +130,9 @@ public class Department {
 	}
 	
 	/**
-	 * 
+	 * @param beforeCheck
+	 * @param afterCheck
+	 * @return
 	 */
 	public CopyOnWriteArrayList<Employee> searchEmployee(LocalDateTime beforeCheck, LocalDateTime afterCheck) {
 		CopyOnWriteArrayList<Employee> resultList = new CopyOnWriteArrayList<Employee>();
@@ -149,7 +145,9 @@ public class Department {
 	}
 
 	/**
-	 * 
+	 * @param beforeCheck
+	 * @param afterCheck
+	 * @return
 	 */
 	public CopyOnWriteArrayList<CheckInOut> searchCheckInOut(LocalDateTime beforeCheck, LocalDateTime afterCheck) {
 		CopyOnWriteArrayList<CheckInOut> resultList = new CopyOnWriteArrayList<CheckInOut>();
@@ -180,14 +178,15 @@ public class Department {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Department A = new Department("PolyGame");
-		Department B = new Department("JavaTech", new Employee("default", "RH"));
-		
-		//add few employees to B
-		B.addEmployee(new Employee());
-		B.addEmployee(new Employee());
 		
 		try {
+			Department A = new Department("PolyGame");
+			Department B = new Department("JavaTech", new Employee("default", "RH"));
+			
+			//add few employees to B
+			B.addEmployee(new Employee());
+			B.addEmployee(new Employee());
+			
 			//add few checks to A
 			
 			CheckInOut exempleCheck1 = new CheckInOut();
@@ -224,6 +223,8 @@ public class Department {
 				+ A.searchEmployee(LocalDateTime.of(LocalDate.now(), LocalTime.of(00,00)), LocalDateTime.now()) + System.lineSeparator());
 		} catch (RuntimeException e) {
 			System.out.println("\nError : Tried to access to an absent Employee in the list");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 	}
 }

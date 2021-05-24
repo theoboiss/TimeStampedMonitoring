@@ -1,13 +1,12 @@
 package model.mainapp;
 
-import java.time.LocalTime;
 import java.util.concurrent.ConcurrentHashMap;
 
 import model.shared.CheckInOut;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class Company {
+public class Company implements storesEmployeeInDepartment {
 	
 	//MODIFIER LES TYPES DES TABLEAUX!!!!!!!!!!!!!!!!!!!
 
@@ -24,9 +23,6 @@ public class Company {
 	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
 
-	/**
-	 * @brief Default constructor.
-	 */
 	public Company() {
 		super();
 		this.listCheckPerEmployee = new ConcurrentHashMap <Employee, CopyOnWriteArrayList<CheckInOut>>();
@@ -34,13 +30,11 @@ public class Company {
 	}
 	
 	/**
-	 * @brief Copy constructor.
-	 * 
 	 * @param listCheckPerEmployee
 	 * @param listEmployeesPerDepartment
 	 */
 	public Company(ConcurrentHashMap<Employee, CopyOnWriteArrayList<CheckInOut>> listCheckPerEmployee,
-			ConcurrentHashMap<String, CopyOnWriteArrayList<Employee>> listEmployeesPerDepartment) {
+		ConcurrentHashMap<String, CopyOnWriteArrayList<Employee>> listEmployeesPerDepartment) {
 		setListCheckPerEmployee(listCheckPerEmployee);
 		setListEmployeesPerDepartment(listEmployeesPerDepartment);
 	}
@@ -53,14 +47,14 @@ public class Company {
 	/*********************** ListChecksPerEmployee ***********************/
 	
 	/**
-	 * @return the listCheckPerEmployee
+	 * @return
 	 */
 	public ConcurrentHashMap<Employee, CopyOnWriteArrayList<CheckInOut>> getListCheckPerEmployee() {
 		return listCheckPerEmployee;
 	}
 
 	/**
-	 * @param listCheckPerEmployee the listCheckPerEmployee to set
+	 * @param listCheckPerEmployee
 	 */
 	private void setListCheckPerEmployee(ConcurrentHashMap<Employee, CopyOnWriteArrayList<CheckInOut>> listCheckPerEmployee) {
 		this.listCheckPerEmployee = listCheckPerEmployee;
@@ -70,14 +64,14 @@ public class Company {
 	/********************* ListEmployeesPerDepartment ********************/
 	
 	/**
-	 * @return the listEmployeesPerDepartment
+	 * @return
 	 */
 	public ConcurrentHashMap<String, CopyOnWriteArrayList<Employee>> getListEmployeesPerDepartment() {
 		return listEmployeesPerDepartment;
 	}
 
 	/**
-	 * @param listEmployeesPerDepartment the listEmployeesPerDepartment to set
+	 * @param listEmployeesPerDepartment
 	 */
 	private void setListEmployeesPerDepartment(ConcurrentHashMap<String, CopyOnWriteArrayList<Employee>> listEmployeesPerDepartment) {
 		this.listEmployeesPerDepartment = listEmployeesPerDepartment;
@@ -90,8 +84,6 @@ public class Company {
 	
 	
 	/**
-	 * @brief Add employee to listCheckPerEmployee.
-	 * 
 	 * @param employee
 	 */
 	private void addEmployeeInListChecksPerEmployee(Employee employee) {
@@ -100,8 +92,6 @@ public class Company {
 	
 	
 	/**
-	 * @brief Add department to listEmployeesPerDepartment.
-	 * 
 	 * @param department
 	 */
 	private void addDepartmentInListEmployeesPerDepartment (Department department) {
@@ -118,15 +108,19 @@ public class Company {
 	
 	public static void main(String[] args){
 		
-		Department department1 = new Department("A");
-		Department department2 = new Department("B");
-		Department department3 = new Department("C");
-		Employee employee1 = new Employee("Sarah", "DENIS");
-		Employee employee2 = new Employee("Théo", "BOISSEAU");
-		Employee employee3 = new Employee("Mohammed", "RMICH");
-		Employee employee4 = new Employee("Chadi", "YASSIN");
-		Employee employee5 = new Employee("Bernard", "LHERMITE");
-		Employee employee6 = new Employee("Sylvie", "JEANNE");		
+		try {
+			Department department1 = new Department("A");
+			Department department2 = new Department("B");
+			Department department3 = new Department("C");
+			Employee employee1 = new Employee("Sarah", "DENIS");
+			Employee employee2 = new Employee("Théo", "BOISSEAU");
+			Employee employee3 = new Employee("Mohammed", "RMICH");
+			Employee employee4 = new Employee("Chadi", "YASSIN");
+			Employee employee5 = new Employee("Bernard", "LHERMITE");
+			Employee employee6 = new Employee("Sylvie", "JEANNE");	
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}	
 		
 	}
 	
