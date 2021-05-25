@@ -35,8 +35,11 @@ public class Search {
 	}
 	
 	//overall
-	static public CopyOnWriteArrayList<CheckInOut> searchCheckInOut(Company company, LocalDateTime beforeCheck, LocalDateTime afterCheck);
-	//TODO
+	static public CopyOnWriteArrayList<CheckInOut> searchCheckInOut(Company company, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
+		CopyOnWriteArrayList<CheckInOut> resultList = new CopyOnWriteArrayList<CheckInOut>();
+		//TODO
+		return resultList;
+	}
 	
 	
 	/*********************************************************************/

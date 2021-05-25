@@ -1,5 +1,6 @@
 package model.mainapp;
 
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
 import model.shared.CheckInOut;
@@ -8,8 +9,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Company {
 	
-	//MODIFIER LES TYPES DES TABLEAUX!!!!!!!!!!!!!!!!!!!
-
 	
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
@@ -17,7 +16,7 @@ public class Company {
 	
 	private ConcurrentHashMap <Employee, CopyOnWriteArrayList<CheckInOut>> listCheckPerEmployee;
 	private ConcurrentHashMap <String, CopyOnWriteArrayList<Employee>> listEmployeesPerDepartment;
-	
+	private ArrayList<Department> listDepartment;
 	
 	/*********************************************************************/
 	/****************************** BUILDERS *****************************/
@@ -27,16 +26,19 @@ public class Company {
 		super();
 		this.listCheckPerEmployee = new ConcurrentHashMap <Employee, CopyOnWriteArrayList<CheckInOut>>();
 		this.listEmployeesPerDepartment = new ConcurrentHashMap <String, CopyOnWriteArrayList<Employee>>();
+		this.listDepartment = new ArrayList<Department>();
 	}
 	
 	/**
 	 * @param listCheckPerEmployee
 	 * @param listEmployeesPerDepartment
+	 * @param listDepartment
 	 */
 	public Company(ConcurrentHashMap<Employee, CopyOnWriteArrayList<CheckInOut>> listCheckPerEmployee,
-		ConcurrentHashMap<String, CopyOnWriteArrayList<Employee>> listEmployeesPerDepartment) {
+		ConcurrentHashMap<String, CopyOnWriteArrayList<Employee>> listEmployeesPerDepartment, ArrayList<Department> listDepartment) {
 		setListCheckPerEmployee(listCheckPerEmployee);
 		setListEmployeesPerDepartment(listEmployeesPerDepartment);
+		setListDepartment(listDepartment);
 	}
 	
 	
@@ -78,27 +80,27 @@ public class Company {
 	}
 	
 	
+	/************************** listDepartment *************************/
+	
+	/**
+	 * @return the listDepartment
+	 */
+	public ArrayList<Department> getListDepartment() {
+		return listDepartment;
+	}
+
+	/**
+	 * @param listDepartment the listDepartment to set
+	 */
+	public void setListDepartment(ArrayList<Department> listDepartment) {
+		this.listDepartment = listDepartment;
+	}
+	
+	
+	
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
-	
-	
-	/**
-	 * @param employee
-	 */
-	private void addEmployeeInListChecksPerEmployee(Employee employee) {
-		//this.listCheckPerEmployee.put(employee, employee.getListChecks());
-	}
-	
-	
-	/**
-	 * @param department
-	 */
-	private void addDepartmentInListEmployeesPerDepartment (Department department) {
-		this.listEmployeesPerDepartment.put(department.getName(), null);
-	}
-	
-	/******************************* Others ******************************/
 	
 	/*
 	@Override
