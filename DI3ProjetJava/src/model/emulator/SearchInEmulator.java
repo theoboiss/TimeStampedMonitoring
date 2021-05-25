@@ -1,0 +1,20 @@
+/**
+ * 
+ */
+package model.emulator;
+
+/**
+ * @author RMICH Mohammed
+ *
+ */
+public class SearchInEmulator {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
