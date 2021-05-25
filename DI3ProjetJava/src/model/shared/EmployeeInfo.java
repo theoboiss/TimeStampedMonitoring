@@ -19,7 +19,7 @@ public class EmployeeInfo {
 	 * @throws Exception
 	 */
 	public EmployeeInfo() throws Exception {
-		this(0, "", "");
+		this(1, "default", "default");
 	}
 	
 	/**

@@ -4,10 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
+
 import model.shared.CheckInOut;
 
-public class Department implements storesEmployee {
+public class Department {
 
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
@@ -89,76 +89,6 @@ public class Department implements storesEmployee {
 
 	
 	/*********************************************************************/
-	/****************************** SEARCH *******************************/
-	/*********************************************************************/
-	
-	/**
-	 * @param ID
-	 * @return
-	 */
-	public Employee searchEmployee(Integer ID) {
-		return getListEmployees().get(ID);
-	}
-	
-	/**
-	 * @param name
-	 * @return
-	 */
-	public CopyOnWriteArrayList<Employee> searchEmployee(String name) {
-		CopyOnWriteArrayList<Employee> resultList = new CopyOnWriteArrayList<Employee>();
-		for (Employee currentEmployee : getListEmployees().values()) {
-			if (currentEmployee.getFirstName().equals(name) || currentEmployee.getLastName().equals(name)) {
-				resultList.add(currentEmployee);
-			}
-		}
-		return new CopyOnWriteArrayList<Employee>(resultList);
-	}
-	
-	/**
-	 * @param firstName
-	 * @param LastName
-	 * @return
-	 */
-	public CopyOnWriteArrayList<Employee> searchEmployee(String firstName, String LastName) {
-		CopyOnWriteArrayList<Employee> resultList = new CopyOnWriteArrayList<Employee>();
-		for (Employee currentEmployee : getListEmployees().values()) {
-			if (currentEmployee.getFirstName().equals(firstName) && currentEmployee.getLastName().equals(LastName)) {
-				resultList.add(currentEmployee);
-			}
-		}
-		return new CopyOnWriteArrayList<Employee>(resultList);
-	}
-	
-	/**
-	 * @param beforeCheck
-	 * @param afterCheck
-	 * @return
-	 */
-	public CopyOnWriteArrayList<Employee> searchEmployee(LocalDateTime beforeCheck, LocalDateTime afterCheck) {
-		CopyOnWriteArrayList<Employee> resultList = new CopyOnWriteArrayList<Employee>();
-		for (Employee currentEmployee : getListEmployees().values()) {
-			if (!currentEmployee.searchCheckInOut(beforeCheck, afterCheck).isEmpty()) {
-				resultList.add(currentEmployee);
-			}
-		}
-		return new CopyOnWriteArrayList<Employee>(resultList);
-	}
-
-	/**
-	 * @param beforeCheck
-	 * @param afterCheck
-	 * @return
-	 */
-	public CopyOnWriteArrayList<CheckInOut> searchCheckInOut(LocalDateTime beforeCheck, LocalDateTime afterCheck) {
-		CopyOnWriteArrayList<CheckInOut> resultList = new CopyOnWriteArrayList<CheckInOut>();
-		for (Employee currentEmployee : getListEmployees().values()) {
-			resultList.addAll(currentEmployee.searchCheckInOut(beforeCheck, afterCheck));
-		}
-		return resultList;
-	}
-	
-	
-	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
 	
@@ -191,14 +121,14 @@ public class Department implements storesEmployee {
 			
 			CheckInOut exempleCheck1 = new CheckInOut();
 			exempleCheck1.setEmployeeID(1);
-			A.searchEmployee(1).getListChecks().add(exempleCheck1);
+			Search.searchEmployee(A,1).getListChecks().add(exempleCheck1);
 			
 			CheckInOut exempleCheck2 = new CheckInOut();
-			A.searchEmployee(1).getListChecks().add(exempleCheck2);
+			Search.searchEmployee(A,1).getListChecks().add(exempleCheck2);
 			exempleCheck2.setEmployeeID(1);
 			
 			CheckInOut exempleCheck3 = new CheckInOut();
-			A.searchEmployee(1).getListChecks().add(exempleCheck3);
+			Search.searchEmployee(A,1).getListChecks().add(exempleCheck3);
 			exempleCheck3.setEmployeeID(1);
 			
 			//a has 1 employee that made 3 checks
@@ -206,21 +136,21 @@ public class Department implements storesEmployee {
 			System.out.println(A.toString() + System.lineSeparator()); //show A
 
 			
-			B.searchEmployee(3).setFirstName("Theo");
-			B.searchEmployee(3).setLastName("Boisseau");
+			Search.searchEmployee(B,3).setFirstName("Theo");
+			Search.searchEmployee(B,3).setLastName("Boisseau");
 			
 			System.out.println(B.toString() + System.lineSeparator()); //show B
 			
 			//the employee that have ID=3
-			System.out.println(B.getName() + " : { (ID=3) }\n" + B.searchEmployee(3) + System.lineSeparator());
+			System.out.println(B.getName() + " : { (ID=3) }\n" + Search.searchEmployee(B,3) + System.lineSeparator());
 			//the employees that have "default" in their names
-			System.out.println(B.getName() + " : { (name=\"default\") }\n" + B.searchEmployee("default") + System.lineSeparator());
+			System.out.println(B.getName() + " : { (name=\"default\") }\n" + Search.searchEmployee(B,"default") + System.lineSeparator());
 			//the employees named "default" "default"
-			System.out.println(B.getName() + " : { (firstName=\"default\")^(lastName=\"default\") }\n" + B.searchEmployee("default", "default")
+			System.out.println(B.getName() + " : { (firstName=\"default\")^(lastName=\"default\") }\n" + Search.searchEmployee(B,"default", "default")
 				+ System.lineSeparator());
 			//the employees who made checks today (until now)
 			System.out.println(A.getName() + " : { (checkInOut<NOW) }\n"
-				+ A.searchEmployee(LocalDateTime.of(LocalDate.now(), LocalTime.of(00,00)), LocalDateTime.now()) + System.lineSeparator());
+				+ Search.searchEmployee(A,LocalDateTime.of(LocalDate.now(), LocalTime.of(00,00)), LocalDateTime.now()) + System.lineSeparator());
 		} catch (RuntimeException e) {
 			System.out.println("\nError : Tried to access to an absent Employee in the list");
 		} catch (Exception e) {
