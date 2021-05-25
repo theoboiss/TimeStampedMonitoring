@@ -6,7 +6,7 @@ import model.shared.CheckInOut;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class Company implements storesEmployeeInDepartment {
+public class Company {
 	
 	//MODIFIER LES TYPES DES TABLEAUX!!!!!!!!!!!!!!!!!!!
 

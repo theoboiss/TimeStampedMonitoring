@@ -1,12 +1,11 @@
 package model.mainapp;
 
-import java.time.LocalDateTime;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import model.shared.CheckInOut;
 import model.shared.EmployeeInfo;
 
-public class Employee extends EmployeeInfo implements storesCheckInOut {
+public class Employee extends EmployeeInfo {
 
 
 	/*********************************************************************/
@@ -27,7 +26,7 @@ public class Employee extends EmployeeInfo implements storesCheckInOut {
 	 * @throws Exception 
 	 */
 	public Employee() throws Exception {
-		this("","");
+		this("default","default");
 	}
 	
 	/**
@@ -103,32 +102,6 @@ public class Employee extends EmployeeInfo implements storesCheckInOut {
 	}
 
 	
-	/*********************************************************************/
-	/****************************** SEARCH *******************************/
-	/*********************************************************************/
-	
-	/**
-	 * @param beforeCheck
-	 * @param afterCheck
-	 * @return
-	 */
-	public CopyOnWriteArrayList<CheckInOut> searchCheckInOut(LocalDateTime beforeCheck, LocalDateTime afterCheck) {
-		CopyOnWriteArrayList<CheckInOut> resultList = new CopyOnWriteArrayList<CheckInOut>();
-		CopyOnWriteArrayList<CheckInOut> listChecks = getListChecks();
-		
-		//the most recent checks are in the end of the array so we start searching from there
-		for (Integer iterator = listChecks.size()-1; iterator > 0; iterator--) {
-			CheckInOut checkTmp = listChecks.get(iterator);
-			if (checkTmp.getCheckTime().isAfter(beforeCheck)
-			 && checkTmp.getCheckTime().isBefore(afterCheck)) {
-				resultList.add(checkTmp);
-			}
-		}
-		
-		return resultList;
-	}
-
-
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
