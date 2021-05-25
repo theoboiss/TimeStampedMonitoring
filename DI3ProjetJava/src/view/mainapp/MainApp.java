@@ -25,6 +25,12 @@ public class MainApp extends JFrame {
 		panel.add(buttonInput);
 		panel.add(buttonSafeguarding);
 		panel.add(buttonSettings);
+
+		
+		/**btnSayHello.setOnAction(event -> {
+lblTitle.setText("H e l l o !");
+lblTitle.setTextFill(Color.FUCHSIA);
+});*/
 		
 		this.add(panel);
 		this.setVisible(true);
