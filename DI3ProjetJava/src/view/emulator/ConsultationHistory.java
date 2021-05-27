@@ -63,7 +63,7 @@ public class ConsultationHistory extends JFrame
 		
 		this.add(panel);
 		// Add date
-		//panel.add(reelTimeClock);
+		panel.add(reelTimeClock);
 		panel.add(frontTitle);
 		
 		panel.setBackground(new Color(160, 220, 230));
