@@ -1,6 +1,8 @@
 package view.emulator;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.util.Date;
 //import java.awt.Dimension;
 //import java.awt.Toolkit;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -30,25 +32,47 @@ public class ConsultationHistory extends JFrame
 	/*********************************************************************/
 	public ConsultationHistory() 
 	{		
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		// Size of the window
 		this.setSize(500, 300);
 		
 		// Center the window on the screen
 		this.setLocationRelativeTo(null);
-		
+		JFrame window = new JFrame();
+		// Close window
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel panel = new JPanel();
+		
+		JLabel reelTimeClock = new JLabel();
+		JLabel frontTitle = new JLabel();
+		
+		Date currentDate = new Date();
+		reelTimeClock.setText("Today is : " + currentDate);
+		//reelTimeClock.setBounds(10, 30, 400, 30);
+		
+		frontTitle.setText("Time Tracker Emulator");
+		frontTitle.setVerticalAlignment(JLabel.LEFT);
+		//frontTitle.setVerticalTextPosition(20);
+		//frontTitle.setLayout(null);
+		
+		this.setTitle("Time Tracker Emulator V.1.0");
+		panel.setName("Time Tracker Emulator");
 		JButton startButton = new JButton("Check in/out");
         startButton.setBounds(BUTTON_LOCATION_X, BUTTON_LOCATION_Y, BUTTON_SIZE_X, BUTTON_SIZE_Y );
         this.add(startButton);
 		
 		this.add(panel);
-		this.setTitle("Time Tracker Emulator");
-		//panel.getRootPane().setBackground(Color.YELLOW);
+		// Add date
+		//panel.add(reelTimeClock);
+		panel.add(frontTitle);
+		
+		panel.setBackground(new Color(160, 220, 230));
+		//startButton.setBackground(new Color(160, 220, 230));
+		
+		//frame.add(new ClockPane());
 		this.setVisible(true);
 		
-	
+		
 	}
 
 	/**
