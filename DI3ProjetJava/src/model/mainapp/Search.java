@@ -1,7 +1,7 @@
 package model.mainapp;
 
 import java.time.LocalDateTime;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.ArrayList;
 
 import model.shared.*;
 
@@ -10,9 +10,9 @@ public class Search {
 	/*********************************************************************/
 	/*************************** RETURN CHECKS ***************************/
 	/*********************************************************************/
-	static public CopyOnWriteArrayList<CheckInOut> searchCheckInOut(Employee employee, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
-		CopyOnWriteArrayList<CheckInOut> resultList = new CopyOnWriteArrayList<CheckInOut>();
-		CopyOnWriteArrayList<CheckInOut> listChecks = employee.getListChecks();
+	static public ArrayList<CheckInOut> searchCheckInOut(Employee employee, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
+		ArrayList<CheckInOut> resultList = new ArrayList<CheckInOut>();
+		ArrayList<CheckInOut> listChecks = employee.getListChecks();
 		
 		//the most recent checks are in the end of the array so we start searching from there
 		for (Integer iterator = listChecks.size()-1; iterator > 0; iterator--) {
@@ -26,8 +26,8 @@ public class Search {
 		return resultList;
 	}
 	
-	static public CopyOnWriteArrayList<CheckInOut> searchCheckInOut(Department department, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
-		CopyOnWriteArrayList<CheckInOut> resultList = new CopyOnWriteArrayList<CheckInOut>();
+	static public ArrayList<CheckInOut> searchCheckInOut(Department department, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
+		ArrayList<CheckInOut> resultList = new ArrayList<CheckInOut>();
 		for (Employee currentEmployee : department.getListEmployees().values()) {
 			resultList.addAll(searchCheckInOut(currentEmployee,beforeCheck, afterCheck));
 		}
@@ -35,11 +35,13 @@ public class Search {
 	}
 	
 	//overall
-	static public CopyOnWriteArrayList<CheckInOut> searchCheckInOut(Company company, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
-		CopyOnWriteArrayList<CheckInOut> resultList = new CopyOnWriteArrayList<CheckInOut>();
-		//TODO
-		return resultList;
-	}
+    static public ArrayList<CheckInOut> searchCheckInOut(Company company, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
+        ArrayList<CheckInOut> resultList = new ArrayList<CheckInOut>();
+        for (Department currentDepartment : company.getListDepartment()) {
+        	resultList.addAll(searchCheckInOut(currentDepartment, beforeCheck, afterCheck));
+        }
+        return resultList;
+    }
 	
 	
 	/*********************************************************************/
@@ -48,18 +50,25 @@ public class Search {
 	
 	/************************ according to check *************************/
 	
-	static public CopyOnWriteArrayList<Employee> searchEmployee(Department department, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
-		CopyOnWriteArrayList<Employee> resultList = new CopyOnWriteArrayList<Employee>();
+	static public ArrayList<Employee> searchEmployee(Department department, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
+		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Employee currentEmployee : department.getListEmployees().values()) {
 			if (!searchCheckInOut(currentEmployee,beforeCheck, afterCheck).isEmpty()) {
 				resultList.add(currentEmployee);
 			}
 		}
-		return new CopyOnWriteArrayList<Employee>(resultList);
+		return new ArrayList<Employee>(resultList);
 	}
 	
-	static public CopyOnWriteArrayList<Employee> searchEmployee(Company company, LocalDateTime beforeCheck, LocalDateTime afterCheck); //overall
-	//TODO
+	//overall
+	static public ArrayList<Employee> searchEmployee(Company company, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
+		ArrayList<Employee> resultList = new ArrayList<Employee>();
+		for (Department currentDepartment : company.getListDepartment()) {
+        	resultList.addAll(searchEmployee(currentDepartment, beforeCheck, afterCheck));
+        }
+		return new ArrayList<Employee>(resultList);
+	}
+
 	
 	
 	/************************* according to ID ***************************/
@@ -69,35 +78,56 @@ public class Search {
 		return department.getListEmployees().get(ID);
 	}
 	
-	static public Employee searchEmployee(Company company, Integer ID); //overall
-	//TODO
+	//overall
+	static public Employee searchEmployee(Company company, Integer ID) {
+		for (Department currentDepartment : company.getListDepartment()) {
+        	if (searchEmployee(currentDepartment, ID) != null) {
+        		return searchEmployee(currentDepartment, ID);
+        	}
+        }
+		return null;
+	}
 	
 	
 	/************************ according to name **************************/
 	
 	//per name
-	static public CopyOnWriteArrayList<Employee> searchEmployee(Department department, String firstName, String LastName) {
-		CopyOnWriteArrayList<Employee> resultList = new CopyOnWriteArrayList<Employee>();
+	static public ArrayList<Employee> searchEmployee(Department department, String firstName, String lastName) {
+		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Employee currentEmployee : department.getListEmployees().values()) {
-			if (currentEmployee.getFirstName().equals(firstName) && currentEmployee.getLastName().equals(LastName)) {
+			if (currentEmployee.getFirstName().equals(firstName) && currentEmployee.getLastName().equals(lastName)) {
 				resultList.add(currentEmployee);
 			}
 		}
-		return new CopyOnWriteArrayList<Employee>(resultList);
+		return new ArrayList<Employee>(resultList);
 	}
 
-	static public CopyOnWriteArrayList<Employee> searchEmployee(Department department, String name) {
-		CopyOnWriteArrayList<Employee> resultList = new CopyOnWriteArrayList<Employee>();
+	static public ArrayList<Employee> searchEmployee(Department department, String name) {
+		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Employee currentEmployee : department.getListEmployees().values()) {
 			if (currentEmployee.getFirstName().equals(name) || currentEmployee.getLastName().equals(name)) {
 				resultList.add(currentEmployee);
 			}
 		}
-		return new CopyOnWriteArrayList<Employee>(resultList);
+		return new ArrayList<Employee>(resultList);
 	}
 	
-	static public CopyOnWriteArrayList<Employee> searchEmployee(Company company, String firstName, String LastName);
-	//TODO
-	static public CopyOnWriteArrayList<Employee> searchEmployee(Company company, String name); //overall
-	//TODO
+	//overall
+	static public ArrayList<Employee> searchEmployee(Company company, String firstName, String lastName) {
+		ArrayList<Employee> resultList = new ArrayList<Employee>();
+		for (Department currentDepartment : company.getListDepartment()) {
+        	resultList.addAll(searchEmployee(currentDepartment, firstName, lastName));
+        }
+		return new ArrayList<Employee>(resultList);
+	}
+	
+	//overall
+	static public ArrayList<Employee> searchEmployee(Company company, String name) {
+		ArrayList<Employee> resultList = new ArrayList<Employee>();
+		for (Department currentDepartment : company.getListDepartment()) {
+        	resultList.addAll(searchEmployee(currentDepartment, name));
+        }
+		return new ArrayList<Employee>(resultList);
+	}
+	
 }
