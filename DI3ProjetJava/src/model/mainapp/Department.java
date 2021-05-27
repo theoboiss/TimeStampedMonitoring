@@ -3,7 +3,7 @@ package model.mainapp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
 
 import model.shared.CheckInOut;
 
@@ -15,7 +15,7 @@ public class Department {
 	
 	private String name;
 	//a map in which each employee can be directly obtained from his ID
-	private ConcurrentHashMap<Integer,Employee> listEmployees = new ConcurrentHashMap<>();
+	private HashMap<Integer,Employee> listEmployees = new HashMap<>();
 
 
 	/*********************************************************************/
@@ -69,14 +69,14 @@ public class Department {
 	/**
 	 * @return
 	 */
-	public ConcurrentHashMap<Integer,Employee> getListEmployees() {
+	public HashMap<Integer,Employee> getListEmployees() {
 		return listEmployees;
 	}
 	
 	/**
 	 * @param listEmployees
 	 */
-	protected void setListEmployees(ConcurrentHashMap<Integer,Employee> listEmployees) {
+	protected void setListEmployees(HashMap<Integer,Employee> listEmployees) {
 		this.listEmployees = listEmployees;
 	}
 	
