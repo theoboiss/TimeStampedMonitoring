@@ -2,6 +2,7 @@ package model.mainapp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import model.shared.*;
 
@@ -12,7 +13,7 @@ public class Search {
 	/*********************************************************************/
 	static public ArrayList<CheckInOut> searchCheckInOut(Employee employee, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
 		ArrayList<CheckInOut> resultList = new ArrayList<CheckInOut>();
-		ArrayList<CheckInOut> listChecks = employee.getListChecks();
+		ArrayList<CheckInOut> listChecks = new ArrayList<>(employee.getListChecks());
 		
 		//the most recent checks are in the end of the array so we start searching from there
 		for (Integer iterator = listChecks.size()-1; iterator > 0; iterator--) {
