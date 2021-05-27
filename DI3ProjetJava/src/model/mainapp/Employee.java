@@ -1,5 +1,7 @@
 package model.mainapp;
 
+import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import model.shared.CheckInOut;
@@ -12,8 +14,8 @@ public class Employee extends EmployeeInfo {
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 	
-	//ID 0 is reserved for developers
-	protected static CopyOnWriteArrayList<Integer> listUsedIDs = new CopyOnWriteArrayList<>(new Integer[] {0});
+	//ID 0 is forbiden
+	protected static ArrayList<Integer> listUsedIDs = new ArrayList<>(Arrays.asList(0));
 	protected Planning planning;
 	protected CopyOnWriteArrayList<CheckInOut> listChecks;
 
@@ -36,7 +38,7 @@ public class Employee extends EmployeeInfo {
 	 */
 	public Employee(String firstName, String lastName) throws Exception {
 		//generate a new ID
-		CopyOnWriteArrayList<Integer> listUsedIDss = getlistUsedIDs();
+		ArrayList<Integer> listUsedIDss = getlistUsedIDs();
 		Integer availableID = listUsedIDss.get(listUsedIDss.size()-1) + 1;
 		
 		addUsedIDToList(availableID); //reserve availableID in listUsedIDs
@@ -58,8 +60,8 @@ public class Employee extends EmployeeInfo {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static  CopyOnWriteArrayList<Integer> getlistUsedIDs() {
-		return (CopyOnWriteArrayList<Integer>) listUsedIDs.clone();
+	public static  ArrayList<Integer> getlistUsedIDs() {
+		return (ArrayList<Integer>) listUsedIDs.clone();
 	}
 
 	/**
@@ -118,7 +120,7 @@ public class Employee extends EmployeeInfo {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		CopyOnWriteArrayList<Employee> listEmployees = new CopyOnWriteArrayList<>();
+		ArrayList<Employee> listEmployees = new ArrayList<>();
 		
 		try {
 			listEmployees.add(new Employee("Barney", "Stinson"));
