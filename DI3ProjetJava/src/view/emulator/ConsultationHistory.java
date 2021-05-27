@@ -51,7 +51,7 @@ public class ConsultationHistory extends JFrame
 		//reelTimeClock.setBounds(10, 30, 400, 30);
 		
 		frontTitle.setText("Time Tracker Emulator");
-		frontTitle.setVerticalAlignment(JLabel.LEFT);
+		frontTitle.setVerticalAlignment(JLabel.TOP);
 		//frontTitle.setVerticalTextPosition(20);
 		//frontTitle.setLayout(null);
 		
