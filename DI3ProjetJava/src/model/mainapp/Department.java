@@ -121,14 +121,14 @@ public class Department {
 			
 			CheckInOut exempleCheck1 = new CheckInOut();
 			exempleCheck1.setEmployeeID(1);
-			Search.searchEmployee(A,1).getListChecks().add(exempleCheck1);
+			SearchInMainapp.searchEmployee(A,1).getListChecks().add(exempleCheck1);
 			
 			CheckInOut exempleCheck2 = new CheckInOut();
-			Search.searchEmployee(A,1).getListChecks().add(exempleCheck2);
+			SearchInMainapp.searchEmployee(A,1).getListChecks().add(exempleCheck2);
 			exempleCheck2.setEmployeeID(1);
 			
 			CheckInOut exempleCheck3 = new CheckInOut();
-			Search.searchEmployee(A,1).getListChecks().add(exempleCheck3);
+			SearchInMainapp.searchEmployee(A,1).getListChecks().add(exempleCheck3);
 			exempleCheck3.setEmployeeID(1);
 			
 			//a has 1 employee that made 3 checks
@@ -136,21 +136,21 @@ public class Department {
 			System.out.println(A.toString() + System.lineSeparator()); //show A
 
 			
-			Search.searchEmployee(B,3).setFirstName("Theo");
-			Search.searchEmployee(B,3).setLastName("Boisseau");
+			SearchInMainapp.searchEmployee(B,3).setFirstName("Theo");
+			SearchInMainapp.searchEmployee(B,3).setLastName("Boisseau");
 			
 			System.out.println(B.toString() + System.lineSeparator()); //show B
 			
 			//the employee that have ID=3
-			System.out.println(B.getName() + " : { (ID=3) }\n" + Search.searchEmployee(B,3) + System.lineSeparator());
+			System.out.println(B.getName() + " : { (ID=3) }\n" + SearchInMainapp.searchEmployee(B,3) + System.lineSeparator());
 			//the employees that have "default" in their names
-			System.out.println(B.getName() + " : { (name=\"default\") }\n" + Search.searchEmployee(B,"default") + System.lineSeparator());
+			System.out.println(B.getName() + " : { (name=\"default\") }\n" + SearchInMainapp.searchEmployee(B,"default") + System.lineSeparator());
 			//the employees named "default" "default"
-			System.out.println(B.getName() + " : { (firstName=\"default\")^(lastName=\"default\") }\n" + Search.searchEmployee(B,"default", "default")
+			System.out.println(B.getName() + " : { (firstName=\"default\")^(lastName=\"default\") }\n" + SearchInMainapp.searchEmployee(B,"default", "default")
 				+ System.lineSeparator());
 			//the employees who made checks today (until now)
 			System.out.println(A.getName() + " : { (checkInOut<NOW) }\n"
-				+ Search.searchEmployee(A,LocalDateTime.of(LocalDate.now(), LocalTime.of(00,00)), LocalDateTime.now()) + System.lineSeparator());
+				+ SearchInMainapp.searchEmployee(A,LocalDateTime.of(LocalDate.now(), LocalTime.of(00,00)), LocalDateTime.now()) + System.lineSeparator());
 		} catch (RuntimeException e) {
 			System.out.println("\nError : Tried to access to an absent Employee in the list");
 		} catch (Exception e) {
