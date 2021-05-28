@@ -2,9 +2,9 @@ package view.mainapp;
 
 import javax.swing.*;
 
-public class MainApp extends JFrame {
+public class ViewMainApp extends JFrame {
 
-	public MainApp () {
+	public ViewMainApp () {
 		//create frame
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setBounds(300,300,500,500);
@@ -37,7 +37,7 @@ lblTitle.setTextFill(Color.FUCHSIA);
 	}
 	
 	public static void main(String[] args) {
-		new MainApp();
+		new ViewMainApp();
 	}
 	
 }

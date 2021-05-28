@@ -7,6 +7,6 @@ F4.2. Visualisation de la liste des employés
 F4.3. Visualisation détaillée d’un employé
 F4.4. Modification, suppression d’un employé*/
 
-public class Employee {
+public class ViewEmployees {
 
 }
