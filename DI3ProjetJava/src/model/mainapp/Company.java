@@ -1,11 +1,6 @@
 package model.mainapp;
 
 import java.util.ArrayList;
-import java.util.concurrent.ConcurrentHashMap;
-
-import model.shared.CheckInOut;
-
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Company {
 	
@@ -67,16 +62,14 @@ public class Company {
 	}*/
 	
 	public static void main(String[] args){
-		
+		/*
 		try {
-			Department department1 = new Department("A");
-			Department department2 = new Department("B");
-			Department department3 = new Department("C");
+			
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}	
-		
+		*/
 	}
 	
 }

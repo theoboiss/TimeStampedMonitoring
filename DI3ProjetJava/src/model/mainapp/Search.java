@@ -2,7 +2,6 @@ package model.mainapp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import model.shared.*;
 
