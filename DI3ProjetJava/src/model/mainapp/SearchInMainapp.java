@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import model.shared.*;
 
-public class Search {
+public class SearchInMainapp {
 	
 	/*********************************************************************/
 	/*************************** RETURN CHECKS ***************************/
