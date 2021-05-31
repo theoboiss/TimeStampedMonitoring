@@ -12,10 +12,14 @@ public class ViewMainApp extends JFrame implements ActionListener {
 	private JButton buttonSettings;
 
 	public ViewMainApp () {
+		
+		build();
+	}
+	
+	private void build() {
 		//create frame
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setBounds(300,300,500,500);
-		
 		//create panel
 		JPanel panel = buildContentPanel();
 
