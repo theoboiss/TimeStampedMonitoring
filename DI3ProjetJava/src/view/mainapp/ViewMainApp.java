@@ -5,14 +5,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class ViewMainApp extends JFrame implements ActionListener {
+public class ViewMainApp extends JFrame {
 	
-	private JButton buttonEmployees;
-	private JButton buttonCheckInOuts;
-	private JButton buttonSettings;
 
 	public ViewMainApp () {
-		
 		build();
 	}
 	
@@ -20,40 +16,37 @@ public class ViewMainApp extends JFrame implements ActionListener {
 		//create frame
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setBounds(300,300,500,500);
+		this.setTitle("Main application");
 		//create panel
-		JPanel panel = buildContentPanel();
+		JTabbedPane tabbedPane = buildContentTabbedPane();
 
-		this.add(panel);
+		this.add(tabbedPane);
 		this.setVisible(true);
 	}
 	
-	private JPanel buildContentPanel(){
-		JPanel panel = new JPanel();
+	private JTabbedPane buildContentTabbedPane(){
+		JTabbedPane tabbedPane = new JTabbedPane();
 		
-		//create view buttons
-		buttonEmployees = new JButton("Employees");
-		buttonEmployees.addActionListener(this);
-		buttonCheckInOuts = new JButton("CheckInOuts");
-		buttonCheckInOuts.addActionListener(this);
-		buttonSettings = new JButton("Settings");
-		buttonSettings.addActionListener(this);
-			
-		//add view buttons to panel
-		panel.add(buttonEmployees);
-		panel.add(buttonCheckInOuts);
-		panel.add(buttonSettings);
-		return panel;
+		//Employees
+		ViewEmployees frameEmployees = new ViewEmployees();
+		JTabbedPane tabbedPaneEmployees = new JTabbedPane();
+		tabbedPaneEmployees.addTab("Search", frameEmployees.getPanelSearch());
+		tabbedPaneEmployees.addTab("Add", frameEmployees.getPanelAdd());
+		tabbedPane.addTab("Employees", tabbedPaneEmployees);
+		
+		//CheckInOuts
+		JComponent panelCheckInOuts = new JPanel();
+		tabbedPane.addTab("CheckInOuts", null, panelCheckInOuts,
+                null);
+		
+		//Settings
+		JComponent panelSettings = new JPanel();
+		tabbedPane.addTab("Settings", null, panelSettings,
+                null);
+		
+		return tabbedPane;
 	}
-	
-	public void actionPerformed(ActionEvent e) {
-		Object source = e.getSource();
- 
-		if(source == buttonEmployees){
-			System.out.println("Vous avez cliqué ici.");
-		} else if(source == buttonCheckInOuts){
-			System.out.println("Vous avez cliqué là.");	
-		}
-	}
+
 	
 	public static void main(String[] args) {
 		new ViewMainApp();
