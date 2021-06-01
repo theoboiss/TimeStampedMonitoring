@@ -281,7 +281,6 @@ public class ViewEmployees extends JFrame implements ActionListener {
 		constraintsFirstName.gridx = 1;
 		constraintsFirstName.gridy = 1;
 		searchByFirstName.setColumns(10);
-		searchByFirstName.setText("Enter a first name");
 		panel.add(searchByFirstName, constraintsFirstName);
 		
 		
@@ -300,7 +299,6 @@ public class ViewEmployees extends JFrame implements ActionListener {
 		constraintsLastName.gridx = 1;
 		constraintsLastName.gridy = 2;
 		searchByLastName.setColumns(10);
-		searchByLastName.setText("Enter a lastName");
 		panel.add(searchByLastName, constraintsLastName);
 		
 		
@@ -319,7 +317,6 @@ public class ViewEmployees extends JFrame implements ActionListener {
 		constraintsID.gridx = 1;
 		constraintsID.gridy = 3;
 		searchByID.setColumns(10);
-		searchByID.setText("Enter an ID");
 		panel.add(searchByID, constraintsID);
 		
 		
@@ -358,7 +355,6 @@ public class ViewEmployees extends JFrame implements ActionListener {
 		constraintsFirstName.gridx = 1;
 		constraintsFirstName.gridy = 1;
 		addFirstName.setColumns(10);
-		addFirstName.setText("Enter a first name");
 		panel.add(addFirstName, constraintsFirstName);
 		
 		//lastName
@@ -376,7 +372,6 @@ public class ViewEmployees extends JFrame implements ActionListener {
 		constraintsLastName.gridx = 1;
 		constraintsLastName.gridy = 2;
 		addLastName.setColumns(10);
-		addLastName.setText("Enter a lastName");
 		panel.add(addLastName, constraintsLastName);
 		
 		//BUTTON
@@ -391,15 +386,19 @@ public class ViewEmployees extends JFrame implements ActionListener {
 		return panel;
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent event) {
 		 
 		Object source = event.getSource();
 		 
 		if(source == searchButton){
+			
 			researchMap.put("firstName", searchByFirstName);
 			researchMap.put("lastName", addLastName);
 			researchMap.put("ID", searchByID);
+			
 		} else if (source == addButton) {
+			
 			addMap.put("firstName", addFirstName);
 			addMap.put("lastName", addLastName);
 		}

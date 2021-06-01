@@ -10,6 +10,7 @@ public class ViewMainApp extends JFrame {
 	
 	private JTabbedPane mainTabbedPane;
 	private ViewEmployees frameEmployees;
+	private ViewCheckInOuts frameCheckInOuts;
 	
 	
 	/*********************************************************************/
@@ -23,6 +24,22 @@ public class ViewMainApp extends JFrame {
 	/*********************************************************************/
 	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
+	
+	/*************************** mainTabbedPane **************************/
+	
+	/**
+	 * @return the mainTabbedPane
+	 */
+	public JTabbedPane getMainTabbedPane() {
+		return mainTabbedPane;
+	}
+
+	/**
+	 * @param mainTabbedPane the mainTabbedPane to set
+	 */
+	public void setMainTabbedPane(JTabbedPane mainTabbedPane) {
+		this.mainTabbedPane = mainTabbedPane;
+	}
 	
 	/*************************** frameEmployees **************************/
 	
@@ -40,20 +57,20 @@ public class ViewMainApp extends JFrame {
 		this.frameEmployees = frameEmployees;
 	}
 	
-	/*************************** mainTabbedPane **************************/
+	/************************* frameCheckInOuts *************************/
 	
 	/**
-	 * @return the mainTabbedPane
+	 * @return the frameCheckInOuts
 	 */
-	public JTabbedPane getMainTabbedPane() {
-		return mainTabbedPane;
+	public ViewCheckInOuts getFrameCheckInOuts() {
+		return frameCheckInOuts;
 	}
 
 	/**
-	 * @param mainTabbedPane the mainTabbedPane to set
+	 * @param frameCheckInOuts the frameCheckInOuts to set
 	 */
-	public void setMainTabbedPane(JTabbedPane mainTabbedPane) {
-		this.mainTabbedPane = mainTabbedPane;
+	public void setFrameCheckInOuts(ViewCheckInOuts frameCheckInOuts) {
+		this.frameCheckInOuts = frameCheckInOuts;
 	}
 	
 	
@@ -78,7 +95,6 @@ public class ViewMainApp extends JFrame {
 		this.setVisible(true);
 	}
 
-
 	/**
 	 * @brief Method which build main tabbedPane.
 	 */
@@ -93,9 +109,10 @@ public class ViewMainApp extends JFrame {
 		mainTabbedPane.addTab("Employees", tabbedPaneEmployees);
 		
 		//CheckInOuts
-		JComponent panelCheckInOuts = new JPanel();
-		mainTabbedPane.addTab("CheckInOuts", null, panelCheckInOuts,
-                null);
+		frameCheckInOuts = new ViewCheckInOuts();
+		JTabbedPane tabbedPaneCheckInOuts = new JTabbedPane();
+		tabbedPaneCheckInOuts.addTab("Search", frameCheckInOuts.getPanel());
+		mainTabbedPane.addTab("CheckInOuts", tabbedPaneCheckInOuts);
 		
 		//Settings
 		JComponent panelSettings = new JPanel();
