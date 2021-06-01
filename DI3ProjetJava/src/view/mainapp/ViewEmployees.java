@@ -2,6 +2,9 @@ package view.mainapp;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,42 +13,40 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-/**Gestion des employés (CRUD2
-...), y compris gestion des plannings
-F4.1. Création-ajout d’un employé
-F4.2. Visualisation de la liste des employés
-F4.3. Visualisation détaillée d’un employé
-F4.4. Modification, suppression d’un employé*/
 
-public class ViewEmployees extends JFrame {
+public class ViewEmployees extends JFrame implements ActionListener {
 	
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 	
 	private JPanel panelSearch;
-	private JTextField searchBySurname;
-	private JButton searchBySurnameButton;
+	private JTextField searchByLastName;
 	private JTextField searchByFirstName;
-	private JButton searchByFirstNameButton;
-	
-	private JPanel panelAdd;
-	private JTextField addSurname;
-	private JTextField addFirstName;
-	private JButton addButton;
-	
+	private JTextField searchByID;
+	private JButton searchButton;
+	private HashMap<String, JTextField> researchMap;
 	private JTable resultsEmployees;
 	
+	private JPanel panelAdd;
+	private JTextField addLastName;
+	private JTextField addFirstName;
+	private JButton addButton;
+	private HashMap<String, JTextField> addMap;
+		
 	
 	/*********************************************************************/
 	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
 	
 	public ViewEmployees () {
+		resultsEmployees = new JTable();
+		researchMap = new HashMap<String, JTextField>();
+		addMap = new HashMap<String, JTextField>();
+		
 		panelSearch = buildContentPanelSearch();
 		panelAdd = buildContentPanelAdd();
 		setVisible(true);
-		resultsEmployees = new JTable();
 	}
 	
 	
@@ -69,41 +70,23 @@ public class ViewEmployees extends JFrame {
 		this.panelSearch = panel;
 	}
 	
-	/*************************** searchBySurname *************************/
+	/*************************** searchByLastName *************************/
 
 	/**
-	 * @return the searchBySurname
+	 * @return the searchByLastName
 	 */
-	public JTextField getSearchBySurname() {
-		return searchBySurname;
+	public JTextField getSearchByLastName() {
+		return searchByLastName;
 	}
 
 
 	/**
-	 * @param searchBySurname the searchBySurname to set
+	 * @param searchBylastName the searchByLastName to set
 	 */
-	public void setSearchBySurname(JTextField searchBySurname) {
-		this.searchBySurname = searchBySurname;
+	public void setSearchByLastName(JTextField searchByLastName) {
+		this.searchByLastName = searchByLastName;
 	}
 	
-	/************************ searchBySurnameButton **********************/
-	
-	/**
-	 * @return the searchBySurnameButton
-	 */
-	public JButton getSearchBySurnameButton() {
-		return searchBySurnameButton;
-	}
-
-
-	/**
-	 * @param searchBySurnameButton the searchBySurnameButton to set
-	 */
-	public void setSearchBySurnameButton(JButton searchBySurnameButton) {
-		this.searchBySurnameButton = searchBySurnameButton;
-	}
-
-
 	/************************** searchByFirstName ************************/
 
 	/**
@@ -121,20 +104,70 @@ public class ViewEmployees extends JFrame {
 		this.searchByFirstName = searchByFirstName;
 	}
 	
-	/*********************** searchByFirstNameButton *********************/
+	/**************************** searchByID ***************************/
 	
 	/**
-	 * @return the searchByFirstNameButton
+	 * @return the searchByID
 	 */
-	public JButton getSearchByFirstNameButton() {
-		return searchByFirstNameButton;
+	public JTextField getSearchByID() {
+		return searchByID;
+	}
+
+
+	/**
+	 * @param searchByID the searchByID to set
+	 */
+	public void setSearchByID(JTextField searchByID) {
+		this.searchByID = searchByID;
+	}
+	
+	/*************************** searchButton **************************/
+	
+	/**
+	 * @return the searchButton
+	 */
+	public JButton getSearchButton() {
+		return searchButton;
 	}
 
 	/**
-	 * @param searchByFirstNameButton the searchByFirstNameButton to set
+	 * @param searchButton the searchButton to set
 	 */
-	public void setSearchByFirstNameButton(JButton searchByFirstNameButton) {
-		this.searchByFirstNameButton = searchByFirstNameButton;
+	public void setSearchButton(JButton searchButton) {
+		this.searchButton = searchButton;
+	}
+	
+	/***************************** researchMap **************************/
+	
+	/**
+	 * @return the researchMap
+	 */
+	public HashMap<String, JTextField> getResearchMap() {
+		return researchMap;
+	}
+
+
+	/**
+	 * @param researchMap the researchMap to set
+	 */
+	public void setResearchMap(HashMap<String, JTextField> researchMap) {
+		this.researchMap = researchMap;
+	}
+	
+	/************************** resultsEmployees ************************/
+	
+	/**
+	 * @return the resultsEmployees
+	 */
+	public JTable getResultsEmployees() {
+		return resultsEmployees;
+	}
+
+	/**
+	 * @param resultsEmployees the resultsEmployees to set
+	 */
+	public void setResultsEmployees(JTable resultsEmployees) {
+		this.resultsEmployees = resultsEmployees;
 	}
 
 	
@@ -154,20 +187,20 @@ public class ViewEmployees extends JFrame {
 		this.panelAdd = panel;
 	}
 	
-	/***************************** addSurname ****************************/
+	/***************************** addLastName ****************************/
 	
 	/**
-	 * @return the addSurname
+	 * @return the addLastName
 	 */
-	public JTextField getAddSurname() {
-		return addSurname;
+	public JTextField getAddLastName() {
+		return addLastName;
 	}
 
 	/**
-	 * @param addSurname the addSurname to set
+	 * @param addlastName the addLastName to set
 	 */
-	public void setAddSurname(JTextField addSurname) {
-		this.addSurname = addSurname;
+	public void setAddLastName(JTextField addLastName) {
+		this.addLastName = addLastName;
 	}
 
 	/**************************** addFirstName ***************************/
@@ -203,22 +236,24 @@ public class ViewEmployees extends JFrame {
 		this.addButton = addButton;
 	}
 
-	/************************** resultsEmployees ************************/
+	/******************************* addMap ******************************/
 	
 	/**
-	 * @return the resultsEmployees
+	 * @return the addMap
 	 */
-	public JTable getResultsEmployees() {
-		return resultsEmployees;
+	public HashMap<String, JTextField> getAddMap() {
+		return addMap;
 	}
+
 
 	/**
-	 * @param resultsEmployees the resultsEmployees to set
+	 * @param addMap the addMap to set
 	 */
-	public void setResultsEmployees(JTable resultsEmployees) {
-		this.resultsEmployees = resultsEmployees;
+	public void setAddMap(HashMap<String, JTextField> addMap) {
+		this.addMap = addMap;
 	}
-
+	
+	
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
@@ -249,37 +284,53 @@ public class ViewEmployees extends JFrame {
 		searchByFirstName.setText("Enter a first name");
 		panel.add(searchByFirstName, constraintsFirstName);
 		
-		//Button
-		searchByFirstNameButton = new JButton("Search");
-		GridBagConstraints constraintsFirstNameButton = new GridBagConstraints();
-		constraintsFirstNameButton.gridx = 2;
-		constraintsFirstNameButton.gridy = 1;
-		panel.add(searchByFirstNameButton, constraintsFirstNameButton);
 		
-		//SEARCH BY SURNAME
+		//SEARCH BY LAST NAME
 		
 		//Label
-		JLabel labelSurname = new JLabel("By Surname");
-		GridBagConstraints constraintsLabelSurname = new GridBagConstraints();
-		constraintsLabelSurname.gridx = 0;
-		constraintsLabelSurname.gridy = 2;
-		panel.add(labelSurname, constraintsLabelSurname);
+		JLabel labelLastName = new JLabel("By Last Name");
+		GridBagConstraints constraintsLabelLastName = new GridBagConstraints();
+		constraintsLabelLastName.gridx = 0;
+		constraintsLabelLastName.gridy = 2;
+		panel.add(labelLastName, constraintsLabelLastName);
 		
 		//TextField
-		searchBySurname = new JTextField();
-		GridBagConstraints constraintsSurname = new GridBagConstraints();
-		constraintsSurname.gridx = 1;
-		constraintsSurname.gridy = 2;
-		searchBySurname.setColumns(10);
-		searchBySurname.setText("Enter a surname");
-		panel.add(searchBySurname, constraintsSurname);
+		searchByLastName = new JTextField();
+		GridBagConstraints constraintsLastName = new GridBagConstraints();
+		constraintsLastName.gridx = 1;
+		constraintsLastName.gridy = 2;
+		searchByLastName.setColumns(10);
+		searchByLastName.setText("Enter a lastName");
+		panel.add(searchByLastName, constraintsLastName);
 		
-		//Button
-		searchBySurnameButton = new JButton("Search");
-		GridBagConstraints constraintsSurnameButton = new GridBagConstraints();
-		constraintsSurnameButton.gridx = 2;
-		constraintsSurnameButton.gridy = 2;
-		panel.add(searchBySurnameButton, constraintsSurnameButton);
+		
+		// SEARCH BY ID
+		
+		//Label
+		JLabel labelID = new JLabel("By ID");
+		GridBagConstraints constraintsLabelID = new GridBagConstraints();
+		constraintsLabelID.gridx = 0;
+		constraintsLabelID.gridy = 3;
+		panel.add(labelID, constraintsLabelID);
+		
+		//TextField
+		searchByID = new JTextField();
+		GridBagConstraints constraintsID = new GridBagConstraints();
+		constraintsID.gridx = 1;
+		constraintsID.gridy = 3;
+		searchByID.setColumns(10);
+		searchByID.setText("Enter an ID");
+		panel.add(searchByID, constraintsID);
+		
+		
+		// BUTTON
+		
+		searchButton = new JButton("Search");
+		GridBagConstraints constraintsSearchButton = new GridBagConstraints();
+		constraintsSearchButton.gridx = 3;
+		constraintsSearchButton.gridy = 4;
+		searchButton.addActionListener(this);
+		panel.add(searchButton, constraintsSearchButton);
 
 		return panel;
 	}
@@ -310,23 +361,23 @@ public class ViewEmployees extends JFrame {
 		addFirstName.setText("Enter a first name");
 		panel.add(addFirstName, constraintsFirstName);
 		
-		//SURNAME
+		//lastName
 		
 		//Label
-		JLabel labelSurname = new JLabel("Surname");
-		GridBagConstraints constraintsLabelSurname = new GridBagConstraints();
-		constraintsLabelSurname.gridx = 0;
-		constraintsLabelSurname.gridy = 2;
-		panel.add(labelSurname, constraintsLabelSurname);
+		JLabel labelLastName = new JLabel("Last Name");
+		GridBagConstraints constraintsLabelLastName = new GridBagConstraints();
+		constraintsLabelLastName.gridx = 0;
+		constraintsLabelLastName.gridy = 2;
+		panel.add(labelLastName, constraintsLabelLastName);
 		
 		//TextField
-		addSurname = new JTextField();
-		GridBagConstraints constraintsSurname = new GridBagConstraints();
-		constraintsSurname.gridx = 1;
-		constraintsSurname.gridy = 2;
-		addSurname.setColumns(10);
-		addSurname.setText("Enter a surname");
-		panel.add(addSurname, constraintsSurname);
+		addLastName = new JTextField();
+		GridBagConstraints constraintsLastName = new GridBagConstraints();
+		constraintsLastName.gridx = 1;
+		constraintsLastName.gridy = 2;
+		addLastName.setColumns(10);
+		addLastName.setText("Enter a lastName");
+		panel.add(addLastName, constraintsLastName);
 		
 		//BUTTON
 		
@@ -334,9 +385,25 @@ public class ViewEmployees extends JFrame {
 		GridBagConstraints constraintsAddButton = new GridBagConstraints();
 		constraintsAddButton.gridx = 3;
 		constraintsAddButton.gridy = 3;
+		addButton.addActionListener(this);
 		panel.add(addButton, constraintsAddButton);
 
 		return panel;
+	}
+	
+	public void actionPerformed(ActionEvent event) {
+		 
+		Object source = event.getSource();
+		 
+		if(source == searchButton){
+			researchMap.put("firstName", searchByFirstName);
+			researchMap.put("lastName", addLastName);
+			researchMap.put("ID", searchByID);
+		} else if (source == addButton) {
+			addMap.put("firstName", addFirstName);
+			addMap.put("lastName", addLastName);
+		}
+		
 	}
 		
 }

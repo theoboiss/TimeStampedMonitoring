@@ -1,8 +1,5 @@
 package view.mainapp;
 
-
-import java.awt.event.ActionEvent;
-
 import javax.swing.*;
 
 public class ViewMainApp extends JFrame {
@@ -11,7 +8,8 @@ public class ViewMainApp extends JFrame {
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 	
-	private JTabbedPane tabbedPaneEmployees;
+	private JTabbedPane mainTabbedPane;
+	private ViewEmployees frameEmployees;
 	
 	
 	/*********************************************************************/
@@ -26,21 +24,38 @@ public class ViewMainApp extends JFrame {
 	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
 	
-	/************************* tabbedPaneEmployees ***********************/
+	/*************************** frameEmployees **************************/
 	
 	/**
-	 * @return the tabbedPaneEmployees
+	 * @return the frameEmployees
 	 */
-	public JTabbedPane getTabbedPaneEmployees() {
-		return tabbedPaneEmployees;
+	public ViewEmployees getFrameEmployees() {
+		return frameEmployees;
 	}
 
 	/**
-	 * @param tabbedPaneEmployees the tabbedPaneEmployees to set
+	 * @param frameEmployees the frameEmployees to set
 	 */
-	public void setTabbedPaneEmployees(JTabbedPane tabbedPaneEmployees) {
-		this.tabbedPaneEmployees = tabbedPaneEmployees;
+	public void setFrameEmployees(ViewEmployees frameEmployees) {
+		this.frameEmployees = frameEmployees;
 	}
+	
+	/*************************** mainTabbedPane **************************/
+	
+	/**
+	 * @return the mainTabbedPane
+	 */
+	public JTabbedPane getMainTabbedPane() {
+		return mainTabbedPane;
+	}
+
+	/**
+	 * @param mainTabbedPane the mainTabbedPane to set
+	 */
+	public void setMainTabbedPane(JTabbedPane mainTabbedPane) {
+		this.mainTabbedPane = mainTabbedPane;
+	}
+	
 	
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
@@ -50,51 +65,42 @@ public class ViewMainApp extends JFrame {
 	 * @brief Method which create main frame and panel.
 	 */
 	private void build() {
+		
 		//create frame
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setBounds(300,300,500,500);
 		this.setTitle("Main application");
-		//create panel
-		JTabbedPane tabbedPane = buildContentTabbedPane();
+		
+		//create panel	
+		buildContentMainTabbedPane();
 
-		this.add(tabbedPane);
+		this.add(mainTabbedPane);
 		this.setVisible(true);
 	}
 
+
 	/**
 	 * @brief Method which build main tabbedPane.
-	 * 
-	 * @return JTabbedPane
 	 */
-	private JTabbedPane buildContentTabbedPane(){
-		JTabbedPane tabbedPane = new JTabbedPane();
+	private void buildContentMainTabbedPane(){
+		mainTabbedPane = new JTabbedPane();
 		
 		//Employees
-		ViewEmployees frameEmployees = new ViewEmployees();
-		tabbedPaneEmployees = new JTabbedPane();
+		frameEmployees = new ViewEmployees();
+		JTabbedPane tabbedPaneEmployees = new JTabbedPane();
 		tabbedPaneEmployees.addTab("Search", frameEmployees.getPanelSearch());
 		tabbedPaneEmployees.addTab("Add", frameEmployees.getPanelAdd());
-		tabbedPane.addTab("Employees", tabbedPaneEmployees);
+		mainTabbedPane.addTab("Employees", tabbedPaneEmployees);
 		
 		//CheckInOuts
 		JComponent panelCheckInOuts = new JPanel();
-		tabbedPane.addTab("CheckInOuts", null, panelCheckInOuts,
+		mainTabbedPane.addTab("CheckInOuts", null, panelCheckInOuts,
                 null);
 		
 		//Settings
 		JComponent panelSettings = new JPanel();
-		tabbedPane.addTab("Settings", null, panelSettings,
+		mainTabbedPane.addTab("Settings", null, panelSettings,
                 null);
-		
-		return tabbedPane;
-	}
-	
-	public void actionPerformed(ActionEvent event) {
-		Object source = event.getSource();
-		/*
-		if(source == getTabbedPaneEmployees().frameEmployees.getSearchBySurnameButton()) {
-			System.out.println("Ok");
-		}*/
 		
 	}
 
