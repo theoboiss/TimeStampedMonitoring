@@ -1,17 +1,54 @@
 package view.mainapp;
 
+
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 public class ViewMainApp extends JFrame {
 	
-
+	/*********************************************************************/
+	/***************************** ATTRIBUTES ****************************/
+	/*********************************************************************/
+	
+	private JTabbedPane tabbedPaneEmployees;
+	
+	
+	/*********************************************************************/
+	/****************************** BUILDERS *****************************/
+	/*********************************************************************/
+	
 	public ViewMainApp () {
 		build();
 	}
 	
+	/*********************************************************************/
+	/***************************** GETS/SETS *****************************/
+	/*********************************************************************/
+	
+	/************************* tabbedPaneEmployees ***********************/
+	
+	/**
+	 * @return the tabbedPaneEmployees
+	 */
+	public JTabbedPane getTabbedPaneEmployees() {
+		return tabbedPaneEmployees;
+	}
+
+	/**
+	 * @param tabbedPaneEmployees the tabbedPaneEmployees to set
+	 */
+	public void setTabbedPaneEmployees(JTabbedPane tabbedPaneEmployees) {
+		this.tabbedPaneEmployees = tabbedPaneEmployees;
+	}
+	
+	/*********************************************************************/
+	/*************************** OTHER METHODS ***************************/
+	/*********************************************************************/
+	
+	/**
+	 * @brief Method which create main frame and panel.
+	 */
 	private void build() {
 		//create frame
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -23,13 +60,18 @@ public class ViewMainApp extends JFrame {
 		this.add(tabbedPane);
 		this.setVisible(true);
 	}
-	
+
+	/**
+	 * @brief Method which build main tabbedPane.
+	 * 
+	 * @return JTabbedPane
+	 */
 	private JTabbedPane buildContentTabbedPane(){
 		JTabbedPane tabbedPane = new JTabbedPane();
 		
 		//Employees
 		ViewEmployees frameEmployees = new ViewEmployees();
-		JTabbedPane tabbedPaneEmployees = new JTabbedPane();
+		tabbedPaneEmployees = new JTabbedPane();
 		tabbedPaneEmployees.addTab("Search", frameEmployees.getPanelSearch());
 		tabbedPaneEmployees.addTab("Add", frameEmployees.getPanelAdd());
 		tabbedPane.addTab("Employees", tabbedPaneEmployees);
@@ -45,6 +87,15 @@ public class ViewMainApp extends JFrame {
                 null);
 		
 		return tabbedPane;
+	}
+	
+	public void actionPerformed(ActionEvent event) {
+		Object source = event.getSource();
+		/*
+		if(source == getTabbedPaneEmployees().frameEmployees.getSearchBySurnameButton()) {
+			System.out.println("Ok");
+		}*/
+		
 	}
 
 	
