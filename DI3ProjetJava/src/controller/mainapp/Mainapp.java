@@ -203,7 +203,7 @@ public class Mainapp {
 		for (CheckInOut foundCheck : rawResult) {
 			Employee correspondingEmployee = SearchInMainapp.searchEmployee(getModel(), foundCheck.getEmployeeID());
 			Object[] line = {
-				foundCheck.getEmployeeID(),
+				foundCheck.getEmployeeID().toString(),
 				correspondingEmployee.getFirstName(),
 				correspondingEmployee.getLastName(),
 				foundCheck.getCheckTime().format(getFormatter()),
@@ -232,10 +232,15 @@ public class Mainapp {
 		Object[][] data = new Object[searchedEmployees.size()][];
 		Integer iterator = 0;
 		for (Employee foundEmployee : searchedEmployees) {
+			ArrayList<CheckInOut> foundEmployeeListChecks = new ArrayList<>(foundEmployee.getListChecks());
+			Object foundEmployeeLastCheckInOut = "";
+			if (!foundEmployeeListChecks.isEmpty()) //then keep only the last element
+				foundEmployeeLastCheckInOut = foundEmployeeListChecks.get(foundEmployeeListChecks.size()-1).getCheckTime().format(getFormatter());
 			Object[] line = {
-				foundEmployee.getID(),
+				foundEmployee.getID().toString(),
 				foundEmployee.getFirstName(),
 				foundEmployee.getLastName(),
+				foundEmployeeLastCheckInOut
 			};
 			data[iterator++] = line;
 		}
