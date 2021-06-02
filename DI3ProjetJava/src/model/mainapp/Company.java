@@ -48,11 +48,29 @@ public class Company {
 	public void setListDepartment(ArrayList<Department> listDepartment) {
 		this.listDepartment = listDepartment;
 	}
+	
+	/**
+	 * @param department the department to add
+	 * @throws Exception
+	 * @return Department
+	 */
+	public Department getDepartment(String departmentName) throws Exception {
+		for (Department currentDepartment : getListDepartment()) {
+			if (currentDepartment.getName() == departmentName)
+				return currentDepartment;
+		}
+		return null;
+	}
 
 	/**
 	 * @param department the department to add
+	 * @throws Exception 
 	 */
-	public void addDepartment(Department department) {
+	public void addDepartment(Department department) throws Exception {
+		for (Department currentDepartment : getListDepartment()) {
+			if (currentDepartment == department || currentDepartment.getName() == department.getName())
+				throw new Exception("This department exists in this company already");
+		}
 		getListDepartment().add(department);
 	}
 	

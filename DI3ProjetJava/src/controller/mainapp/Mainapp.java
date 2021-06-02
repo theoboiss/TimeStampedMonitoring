@@ -159,9 +159,13 @@ public class Mainapp {
 		HashSet<Employee> selectedEmployees = new HashSet<>();
 		
 		//Select employees by ID
-		if (searchedIDs.length == 1 && searchedIDs[0].isBlank()) { //we have to look for every employees by default
-			for (Department currentDepartment : getModel().getListDepartment())
-				selectedEmployees.addAll(currentDepartment.getListEmployees().values());
+		if (searchedIDs.length == 1) {
+			if (searchedIDs[0].isBlank()) { //we have to look for every employees by default
+				for (Department currentDepartment : getModel().getListDepartment())
+					selectedEmployees.addAll(currentDepartment.getListEmployees().values());
+			}
+			else
+				selectedEmployees.add(SearchInMainapp.searchEmployee(getModel(), Integer.valueOf(searchedIDs[0])));
 		}
 		else for (String valueForID : searchedIDs) { //we look for the only employees that are concerned by their ID
 			if (!valueForID.isBlank())
@@ -169,17 +173,22 @@ public class Mainapp {
 		}
 		
 		//Select employees by name
-		if (searchedFirstnames.length == 1 && searchedFirstnames[0].isBlank()
-		 && searchedLastnames.length == 1 && searchedLastnames[0].isBlank())
-		{
-			//we have to look for every employees by default
-			for (Department currentDepartment : getModel().getListDepartment())
-				selectedEmployees.addAll(currentDepartment.getListEmployees().values());
+		if (searchedFirstnames.length == 1 && searchedLastnames.length == 1) {
+			if (searchedFirstnames[0].isBlank() && searchedLastnames[0].isBlank()) {
+				//we have to look for every employees by default
+				for (Department currentDepartment : getModel().getListDepartment())
+					selectedEmployees.addAll(currentDepartment.getListEmployees().values());
+			}
+			else if (searchedFirstnames[0].isBlank())
+				selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), searchedLastnames[0]));
+			else
+				selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), searchedFirstnames[0]));
 		}
 		else for (String valueForFirstname : searchedFirstnames) { //we look for the only employees that are concerned by their ID
 			if (valueForFirstname.isBlank()) {
 				for (String valueForLastname : searchedLastnames)
-					selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), valueForLastname));
+					if (!valueForLastname.isBlank())
+						selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), valueForLastname));
 			}
 			else for (String valueForLastname : searchedLastnames) {
 				if (valueForLastname.isBlank())
@@ -239,7 +248,7 @@ public class Mainapp {
 		
 		
 		//format the data
-		Object[][] data = new Object[searchedEmployees.size()][];
+		Object[][] data = new Object[rawResult.size()][];
 		Integer iterator = 0;
 		for (CheckInOut foundCheck : rawResult) {
 			Employee correspondingEmployee = SearchInMainapp.searchEmployee(getModel(), foundCheck.getEmployeeID());
@@ -258,25 +267,77 @@ public class Mainapp {
 	}
 	
 	public JTable searchEmployee(HashMap<String,JTextField> request) {
-		String[] titles = {"ID", "Firstname", "Lastname", "Date of last check"};
+		String[] titles = {"ID", "Firstname", "Lastname", "Department", "Date of last check"};
 		
 		//extract informations from the request
 		String[] searchedIDs = request.get("id").getText().split(getRegexPattern());
 		String[] searchedFirstnames = request.get("firstname").getText().split(getRegexPattern());
 		String[] searchedLastnames = request.get("lastname").getText().split(getRegexPattern());
+		String[] searchedDepartments = request.get("department_name").getText().split(getRegexPattern());
+				
 		
-		//select the searched employees
-		HashSet<Employee> searchedEmployees = selectEmployees(searchedIDs, searchedFirstnames, searchedLastnames);
-		System.out.println("liste:"+searchedEmployees.toString());
+		//Select employees by ID
+		HashSet<Employee> selectedEmployeesByID = new HashSet<>();
+		if (searchedIDs.length == 1) {
+			if (!searchedIDs[0].isBlank())
+				selectedEmployeesByID.add(SearchInMainapp.searchEmployee(getModel(), Integer.valueOf(searchedIDs[0])));
+		}
+		else for (String valueForID : searchedIDs) { //we look for the only employees that are concerned by their ID
+			if (!valueForID.isBlank())
+				selectedEmployeesByID.add(SearchInMainapp.searchEmployee(getModel(), Integer.valueOf(valueForID)));
+		}
+		
+		//Select employees by name
+		HashSet<Employee> selectedEmployeesByName = new HashSet<>();
+		if (searchedFirstnames.length == 1 && searchedLastnames.length == 1) {
+			if (!searchedFirstnames[0].isBlank())
+				selectedEmployeesByName.addAll(SearchInMainapp.searchEmployee(getModel(), searchedFirstnames[0]));
+			if (!searchedLastnames[0].isBlank())
+				selectedEmployeesByName.addAll(SearchInMainapp.searchEmployee(getModel(), searchedLastnames[0]));
+		}
+		else for (String valueForFirstname : searchedFirstnames) { //we look for the only employees that are concerned by their ID
+			if (valueForFirstname.isBlank()) {
+				for (String valueForLastname : searchedLastnames)
+					if (!valueForLastname.isBlank())
+						selectedEmployeesByName.addAll(SearchInMainapp.searchEmployee(getModel(), valueForLastname));
+			}
+			else for (String valueForLastname : searchedLastnames) {
+				if (valueForLastname.isBlank())
+					selectedEmployeesByName.addAll(SearchInMainapp.searchEmployee(getModel(), valueForFirstname));
+				else
+					selectedEmployeesByName.addAll(SearchInMainapp.searchEmployee(getModel(), valueForFirstname, valueForLastname));
+			}
+		}
+		
+		//Search the employees in the intersection of selectedEmployeesByName and selectedEmployeesByID
+		ArrayList<Employee> rawResult = new ArrayList<>();
+		for (Employee selectedEmployee : selectedEmployeesByID) {
+			if (selectedEmployeesByName.contains(selectedEmployee)) {
+				for (String currentSearchedDepartment : searchedDepartments) {
+					Department currentDepartment;
+					try {
+						currentDepartment = getModel().getDepartment(currentSearchedDepartment);
+						if (currentDepartment != null) {
+							if (currentDepartment.getListEmployees().containsKey(selectedEmployee.getID()))
+								rawResult.add(selectedEmployee);
+						}
+					} catch (Exception e) {
+						//there is no such department but it's okay
+					}
+				}
+			}
+		}
+		
 		
 		//format the data
-		Object[][] data = new Object[searchedEmployees.size()][];
+		Object[][] data = new Object[rawResult.size()][];
 		Integer iterator = 0;
-		for (Employee foundEmployee : searchedEmployees) {
-			ArrayList<CheckInOut> foundEmployeeListChecks = new ArrayList<>(foundEmployee.getListChecks());
+		for (Employee foundEmployee : rawResult) {
 			Object foundEmployeeLastCheckInOut = "";
-			if (!foundEmployeeListChecks.isEmpty()) //then keep only the last element
-				foundEmployeeLastCheckInOut = foundEmployeeListChecks.get(foundEmployeeListChecks.size()-1).getCheckTime().format(getFormatter());
+			if (!foundEmployee.getListChecks().isEmpty()) { //then keep only the last element
+				CheckInOut lastCheckInOut = foundEmployee.getListChecks().get(foundEmployee.getListChecks().size()-1);
+				foundEmployeeLastCheckInOut = lastCheckInOut.getCheckTime().format(getFormatter());
+			}
 			Object[] line = {
 				foundEmployee.getID().toString(),
 				foundEmployee.getFirstName(),
@@ -285,7 +346,6 @@ public class Mainapp {
 			};
 			data[iterator++] = line;
 		}
-		System.out.println("table:"+titles);
 
 		JTable result = new JTable(data,titles);
 		return result;
