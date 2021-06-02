@@ -30,8 +30,9 @@ public class CheckInOut
 	 */
 	public CheckInOut() 
 	{
-		setEmployeeID(employeeID);
+		employeeID = 0;
 		checkTime = LocalDateTime.now();
+		status = true;
 	}
 
 	/**
@@ -43,10 +44,9 @@ public class CheckInOut
 	 */
 	public CheckInOut(Integer employeeID, LocalDateTime checkTime, boolean status) 
 	{
-		super();
-		this.employeeID = employeeID;
-		this.checkTime = checkTime;
-		this.status = status;
+		setEmployeeID(employeeID);
+		setCheckTime(checkTime);
+		setStatus(status);
 	}
 
 	/*********************************************************************/
