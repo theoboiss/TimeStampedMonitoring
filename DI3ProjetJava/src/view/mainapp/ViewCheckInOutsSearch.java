@@ -14,7 +14,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 
-public class ViewCheckInOuts extends JFrame implements ActionListener {
+public class ViewCheckInOutsSearch implements ActionListener {
 	
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
@@ -41,13 +41,12 @@ public class ViewCheckInOuts extends JFrame implements ActionListener {
 	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
 	
-	public ViewCheckInOuts() {
+	public ViewCheckInOutsSearch() {
 		
 		resultsCheckInOuts = new JTable();
 		researchMap = new HashMap<String, JTextField>();
 		
 		panel = buildContentPanel();
-		setVisible(true);
 		
 	}
 
@@ -306,7 +305,7 @@ public class ViewCheckInOuts extends JFrame implements ActionListener {
 		//START DATE
 		
 		//Label
-		JLabel labelStartDate = new JLabel("By start Date  (dd/mm/yy)");
+		JLabel labelStartDate = new JLabel("By start DateTime (MM-dd-yyyy HH:mm)");
 		GridBagConstraints constraintsLabelStartDate = new GridBagConstraints();
 		constraintsLabelStartDate.gridx = 0;
 		constraintsLabelStartDate.gridy = 5;
@@ -324,7 +323,7 @@ public class ViewCheckInOuts extends JFrame implements ActionListener {
 		//END DATE
 		
 		//Label
-		JLabel labelEndDate = new JLabel("By end Date (dd/mm/yy)");
+		JLabel labelEndDate = new JLabel("By end DateTime (MM-dd-yyyy HH:mm)");
 		GridBagConstraints constraintsLabelEndDate = new GridBagConstraints();
 		constraintsLabelEndDate.gridx = 0;
 		constraintsLabelEndDate.gridy = 6;
@@ -362,7 +361,7 @@ public class ViewCheckInOuts extends JFrame implements ActionListener {
 			researchMap.put("firstname", employeeFirstName);
 			researchMap.put("lastname", employeeLastName);
 			researchMap.put("id", employeeID);
-			researchMap.put("name", departmentName);
+			researchMap.put("department_name", departmentName);
 			researchMap.put("before_date", startDate);
 			researchMap.put("after_date", endDate);
 			

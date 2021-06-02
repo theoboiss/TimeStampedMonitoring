@@ -9,8 +9,9 @@ public class ViewMainApp extends JFrame {
 	/*********************************************************************/
 	
 	private JTabbedPane mainTabbedPane;
-	private ViewEmployees frameEmployees;
-	private ViewCheckInOuts frameCheckInOuts;
+	private ViewEmployeesSearch frameEmployeesSearch;
+	private ViewEmployeeAdd frameEmployeeAdd;
+	private ViewCheckInOutsSearch frameCheckInOuts;
 	
 	
 	/*********************************************************************/
@@ -41,35 +42,52 @@ public class ViewMainApp extends JFrame {
 		this.mainTabbedPane = mainTabbedPane;
 	}
 	
-	/*************************** frameEmployees **************************/
+	/*********************** frameEmployeesSearch ***********************/
 	
 	/**
-	 * @return the frameEmployees
+	 * @return the frameEmployeesSearch
 	 */
-	public ViewEmployees getFrameEmployees() {
-		return frameEmployees;
+	public ViewEmployeesSearch getFrameEmployeesSearch() {
+		return frameEmployeesSearch;
 	}
 
 	/**
-	 * @param frameEmployees the frameEmployees to set
+	 * @param frameEmployees the frameEmployeesSearch to set
 	 */
-	public void setFrameEmployees(ViewEmployees frameEmployees) {
-		this.frameEmployees = frameEmployees;
+	public void setFrameEmployeesSearch(ViewEmployeesSearch frameEmployeesSearch) {
+		this.frameEmployeesSearch = frameEmployeesSearch;
 	}
+	
+	/************************ frameEmployeesAdd *************************/
+	
+	/**
+	 * @return the frameEmployeeAdd
+	 */
+	public ViewEmployeeAdd getFrameEmployeeAdd() {
+		return frameEmployeeAdd;
+	}
+
+	/**
+	 * @param frameEmployeeAdd the frameEmployeeAdd to set
+	 */
+	public void setFrameEmployeeAdd(ViewEmployeeAdd frameEmployeeAdd) {
+		this.frameEmployeeAdd = frameEmployeeAdd;
+	}
+
 	
 	/************************* frameCheckInOuts *************************/
 	
 	/**
 	 * @return the frameCheckInOuts
 	 */
-	public ViewCheckInOuts getFrameCheckInOuts() {
+	public ViewCheckInOutsSearch getFrameCheckInOuts() {
 		return frameCheckInOuts;
 	}
 
 	/**
 	 * @param frameCheckInOuts the frameCheckInOuts to set
 	 */
-	public void setFrameCheckInOuts(ViewCheckInOuts frameCheckInOuts) {
+	public void setFrameCheckInOuts(ViewCheckInOutsSearch frameCheckInOuts) {
 		this.frameCheckInOuts = frameCheckInOuts;
 	}
 	
@@ -102,14 +120,15 @@ public class ViewMainApp extends JFrame {
 		mainTabbedPane = new JTabbedPane();
 		
 		//Employees
-		frameEmployees = new ViewEmployees();
+		frameEmployeesSearch = new ViewEmployeesSearch();
+		frameEmployeeAdd = new ViewEmployeeAdd();
 		JTabbedPane tabbedPaneEmployees = new JTabbedPane();
-		tabbedPaneEmployees.addTab("Search", frameEmployees.getPanelSearch());
-		tabbedPaneEmployees.addTab("Add", frameEmployees.getPanelAdd());
+		tabbedPaneEmployees.addTab("Search", frameEmployeesSearch.getPanel());
+		tabbedPaneEmployees.addTab("Add", frameEmployeeAdd.getPanel());
 		mainTabbedPane.addTab("Employees", tabbedPaneEmployees);
 		
 		//CheckInOuts
-		frameCheckInOuts = new ViewCheckInOuts();
+		frameCheckInOuts = new ViewCheckInOutsSearch();
 		JTabbedPane tabbedPaneCheckInOuts = new JTabbedPane();
 		tabbedPaneCheckInOuts.addTab("Search", frameCheckInOuts.getPanel());
 		mainTabbedPane.addTab("CheckInOuts", tabbedPaneCheckInOuts);
