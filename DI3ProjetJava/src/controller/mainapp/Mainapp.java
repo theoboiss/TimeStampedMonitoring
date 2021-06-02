@@ -21,7 +21,8 @@ public class Mainapp {
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 	
-	private ViewResults view;
+	private String view;
+	private MainappData dataController;
 	private Company model;
 	private DateTimeFormatter formatter; 
 	private String regexPattern;
@@ -34,9 +35,48 @@ public class Mainapp {
 	/**
 	 * @param view
 	 * @param request
+	 * @throws Exception 
 	 */
-	public Mainapp(ViewResults view) {
+	public Mainapp(String view) throws Exception {
+		if (view != "ViewResultsCheckInOuts"
+		 && view != "ViewResultsEmployees"
+		 && view != "ViewResultsEmployeeDetails")
+		{
+			throw new IllegalArgumentException("The requested result view is not available.");
+		}
+		///////////////////////////////////////////////////////////////////////////////////////////////////
+		Company modelTest = new Company();
+		Department A = new Department("PolyGame");
+		Department B = new Department("JavaTech", new Employee("default", "RH"));
+		modelTest.addDepartment(A); modelTest.addDepartment(B);
+		
+		//add few employees to B
+		B.addEmployee(new Employee());
+		B.addEmployee(new Employee());
+		
+		//add few checks to A
+		
+		CheckInOut exempleCheck1 = new CheckInOut();
+		exempleCheck1.setEmployeeID(1);
+		SearchInMainapp.searchEmployee(A,1).getListChecks().add(exempleCheck1);
+		
+		CheckInOut exempleCheck2 = new CheckInOut();
+		SearchInMainapp.searchEmployee(A,1).getListChecks().add(exempleCheck2);
+		exempleCheck2.setEmployeeID(1);
+		
+		CheckInOut exempleCheck3 = new CheckInOut();
+		SearchInMainapp.searchEmployee(A,1).getListChecks().add(exempleCheck3);
+		exempleCheck3.setEmployeeID(1);
+		
+		//a has 1 employee that made 3 checks
+
+		
+		SearchInMainapp.searchEmployee(B,3).setFirstName("Theo");
+		SearchInMainapp.searchEmployee(B,3).setLastName("Boisseau");
+		///////////////////////////////////////////////////////////////////////////////////////////////////
 		setView(view);
+		setModel(modelTest);
+		//setModel(getDataController().getCurrentModel()); //it will be available after the serialization step
 		setFormatter(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm"));
 		setRegexPattern("(,( ))");
 	}
@@ -49,7 +89,7 @@ public class Mainapp {
 	/**
 	 * @return the view
 	 */
-	public ViewResults getView() {
+	public String getView() {
 		return view;
 	}
 
@@ -57,7 +97,7 @@ public class Mainapp {
 	/**
 	 * @param view the view to set
 	 */
-	public void setView(ViewResults view) {
+	public void setView(String view) {
 		this.view = view;
 	}
 
@@ -161,9 +201,9 @@ public class Mainapp {
 	 * |----------------------------------------------------|
 	 * |"lastname"		->	JTextField=""					|
 	 * |----------------------------------------------------|
-	 * |"afterDate"		->	JTextField="01-01-2021 00:00"	|
+	 * |"after_date"		->	JTextField="01-01-2021 00:00"	|
 	 * |----------------------------------------------------|
-	 * |"beforeDate"	->	JTextField="01-01-2021 16:00"	|
+	 * |"before_date"	->	JTextField="01-01-2021 16:00"	|
 	 * +----------------------------------------------------+
 	 * 
 	 * And we give the result of the intersection of these informations
@@ -179,8 +219,9 @@ public class Mainapp {
 		String[] searchedIDs = request.get("id").getText().split(getRegexPattern());
 		String[] searchedFirstnames = request.get("firstname").getText().split(getRegexPattern());
 		String[] searchedLastnames = request.get("lastname").getText().split(getRegexPattern());
-		String searchedAfterDate = request.get("afterDate").getText();
-		String searchedBeforeDate = request.get("beforeDate").getText();
+		//add department_name
+		String searchedAfterDate = request.get("after_date").getText();
+		String searchedBeforeDate = request.get("before_date").getText();
 		
 		//select the searched employees
 		HashSet<Employee> searchedEmployees = selectEmployees(searchedIDs, searchedFirstnames, searchedLastnames);
@@ -226,7 +267,7 @@ public class Mainapp {
 		
 		//select the searched employees
 		HashSet<Employee> searchedEmployees = selectEmployees(searchedIDs, searchedFirstnames, searchedLastnames);
-		
+		System.out.println("liste:"+searchedEmployees.toString());
 		
 		//format the data
 		Object[][] data = new Object[searchedEmployees.size()][];
@@ -244,6 +285,7 @@ public class Mainapp {
 			};
 			data[iterator++] = line;
 		}
+		System.out.println("table:"+titles);
 
 		JTable result = new JTable(data,titles);
 		return result;
