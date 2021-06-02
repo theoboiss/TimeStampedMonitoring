@@ -3,6 +3,7 @@ package view.emulator;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 //import java.awt.Dimension;
 //import java.awt.Toolkit;
@@ -48,7 +49,11 @@ public class ViewEmulator extends JFrame
 			
 			Date currentDate = new Date();
 			reelTimeClock.setText("Today is : " + currentDate);
-			//reelTimeClock.setBounds(10, 30, 400, 30);
+			//SimpleDateFormat dateFormat = new SimpleDateFormat("dd:MM:yyyy HH:mm:ss");
+			//dateFormat.updateClock();
+			//new Timer(1000, dateFormat).start();
+
+			reelTimeClock.setBounds(118, 40, 400, 30);
 			
 			frontTitle.setText("Time Tracker Emulator");
 			Dimension sizeTitle = frontTitle.getPreferredSize();
@@ -81,6 +86,7 @@ public class ViewEmulator extends JFrame
 			// Add date
 			panel.add(reelTimeClock);
 			panel.add(frontTitle);
+			//panel.add(dateFormat);
 			
 			panel.setBackground(new Color(85, 250, 40));
 			//startButton.setBackground(new Color(160, 220, 230));
