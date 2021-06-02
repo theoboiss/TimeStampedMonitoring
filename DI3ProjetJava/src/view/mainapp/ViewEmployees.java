@@ -393,14 +393,14 @@ public class ViewEmployees extends JFrame implements ActionListener {
 		 
 		if(source == searchButton){
 			
-			researchMap.put("firstName", searchByFirstName);
-			researchMap.put("lastName", addLastName);
-			researchMap.put("ID", searchByID);
+			researchMap.put("firstname", searchByFirstName);
+			researchMap.put("lastname", addLastName);
+			researchMap.put("id", searchByID);
 			
 		} else if (source == addButton) {
 			
-			addMap.put("firstName", addFirstName);
-			addMap.put("lastName", addLastName);
+			addMap.put("firstname", addFirstName);
+			addMap.put("lastname", addLastName);
 		}
 		
 	}

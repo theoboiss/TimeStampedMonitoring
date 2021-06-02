@@ -267,6 +267,23 @@ public class ViewCheckInOuts extends JFrame implements ActionListener {
 		employeeLastName.setColumns(10);
 		panel.add(employeeLastName, constraintsLastName);
 		
+		//EMPLOYEE ID
+		
+		//Label
+		JLabel labelID = new JLabel("By Employee ID");
+		GridBagConstraints constraintsLabelID = new GridBagConstraints();
+		constraintsLabelID.gridx = 0;
+		constraintsLabelID.gridy = 3;
+		panel.add(labelID, constraintsLabelID);
+							
+		//TextField
+		employeeID = new JTextField();
+		GridBagConstraints constraintsID = new GridBagConstraints();
+		constraintsID.gridx = 1;
+		constraintsID.gridy = 3;
+		employeeID.setColumns(10);
+		panel.add(employeeID, constraintsID);
+		
 		
 		//DEPARTMENT NAME
 		
@@ -274,14 +291,14 @@ public class ViewCheckInOuts extends JFrame implements ActionListener {
 		JLabel labelDepartmentName = new JLabel("By Department Name");
 		GridBagConstraints constraintsLabelDepartmentName = new GridBagConstraints();
 		constraintsLabelDepartmentName.gridx = 0;
-		constraintsLabelDepartmentName.gridy = 3;
+		constraintsLabelDepartmentName.gridy = 4;
 		panel.add(labelDepartmentName, constraintsLabelDepartmentName);
 							
 		//TextField
 		departmentName = new JTextField();
 		GridBagConstraints constraintsDepartmentName = new GridBagConstraints();
 		constraintsDepartmentName.gridx = 1;
-		constraintsDepartmentName.gridy = 3;
+		constraintsDepartmentName.gridy = 4;
 		departmentName.setColumns(10);
 		panel.add(departmentName, constraintsDepartmentName);
 		
@@ -292,14 +309,14 @@ public class ViewCheckInOuts extends JFrame implements ActionListener {
 		JLabel labelStartDate = new JLabel("By start Date  (dd/mm/yy)");
 		GridBagConstraints constraintsLabelStartDate = new GridBagConstraints();
 		constraintsLabelStartDate.gridx = 0;
-		constraintsLabelStartDate.gridy = 4;
+		constraintsLabelStartDate.gridy = 5;
 		panel.add(labelStartDate, constraintsLabelStartDate);
 									
 		//TextField
 		startDate = new JTextField();
 		GridBagConstraints constraintsStartDate = new GridBagConstraints();
 		constraintsStartDate.gridx = 1;
-		constraintsStartDate.gridy = 4;
+		constraintsStartDate.gridy = 5;
 		startDate.setColumns(10);
 		panel.add(startDate, constraintsStartDate);
 		
@@ -310,14 +327,14 @@ public class ViewCheckInOuts extends JFrame implements ActionListener {
 		JLabel labelEndDate = new JLabel("By end Date (dd/mm/yy)");
 		GridBagConstraints constraintsLabelEndDate = new GridBagConstraints();
 		constraintsLabelEndDate.gridx = 0;
-		constraintsLabelEndDate.gridy = 5;
+		constraintsLabelEndDate.gridy = 6;
 		panel.add(labelEndDate, constraintsLabelEndDate);
 											
 		//TextField
 		endDate = new JTextField();
 		GridBagConstraints constraintsEndDate = new GridBagConstraints();
 		constraintsEndDate.gridx = 1;
-		constraintsEndDate.gridy = 5;
+		constraintsEndDate.gridy = 6;
 		endDate.setColumns(10);
 		panel.add(endDate, constraintsEndDate);
 		
@@ -327,7 +344,7 @@ public class ViewCheckInOuts extends JFrame implements ActionListener {
 		searchButton = new JButton("Search");
 		GridBagConstraints constraintsSearchButton = new GridBagConstraints();
 		constraintsSearchButton.gridx = 3;
-		constraintsSearchButton.gridy = 6;
+		constraintsSearchButton.gridy = 7;
 		searchButton.addActionListener(this);
 		panel.add(searchButton, constraintsSearchButton);
 
@@ -342,12 +359,12 @@ public class ViewCheckInOuts extends JFrame implements ActionListener {
 		
 		if(source == searchButton){
 			
-			researchMap.put("firstName", employeeFirstName);
-			researchMap.put("lastName", employeeLastName);
-			researchMap.put("ID", employeeID);
+			researchMap.put("firstname", employeeFirstName);
+			researchMap.put("lastname", employeeLastName);
+			researchMap.put("id", employeeID);
 			researchMap.put("name", departmentName);
-			researchMap.put("startDate", startDate);
-			researchMap.put("endDate", endDate);
+			researchMap.put("before_date", startDate);
+			researchMap.put("after_date", endDate);
 			
 		}
 		
