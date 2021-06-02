@@ -40,7 +40,7 @@ public class CheckInOut
 	 * @param departmentName
 	 * @param employeeID
 	 * @param checkTime
-	 * @param status
+	 * @param status.
 	 */
 	public CheckInOut(Integer employeeID, LocalDateTime checkTime, boolean status) 
 	{
