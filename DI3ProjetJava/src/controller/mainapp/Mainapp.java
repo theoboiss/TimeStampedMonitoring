@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -52,26 +53,17 @@ public class Mainapp {
 		modelTest.addDepartment(A); modelTest.addDepartment(B);
 		
 		//add few employees to B
-		B.addEmployee(new Employee());
-		B.addEmployee(new Employee());
-		
-		//add few checks to A
-		CheckInOut exempleCheck1 = new CheckInOut();
-		SearchInMainapp.searchEmployee(A,"default",1).get(0).getListChecks().add(exempleCheck1);
-		CheckInOut exempleCheck2 = new CheckInOut();
-		SearchInMainapp.searchEmployee(A,"default",1).get(0).getListChecks().add(exempleCheck2);
-		CheckInOut exempleCheck3 = new CheckInOut();
-		SearchInMainapp.searchEmployee(A,"default",1).get(0).getListChecks().add(exempleCheck3);
-		//a has 1 employee that made 3 checks
+		B.addEmployee(new Employee("test","default"));
+		B.addEmployee(new Employee("default3","test"));
 
-		SearchInMainapp.searchEmployee(B,"default","default").get(0).setFirstname("Theo");
+		SearchInMainapp.searchEmployee(B,"default",1).get(0).setFirstname("Theo");
 		SearchInMainapp.searchEmployee(B,"Theo","default").get(0).setLastname("Boisseau");
 		setModel(modelTest);
 		///////////////////////////////////////////////////////////////////////////////////////////////////
 		setView(view);
 		//setModel(getDataController().getCurrentModel()); //it will be available after the serialization step
 		setFormatter(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm"));
-		setRegexPattern("(,( ))");
+		setRegexPattern(", |,| ");
 	}
 	
 	
@@ -279,7 +271,7 @@ public class Mainapp {
 		String[] searchedIDs = request.get("id").getText().split(getRegexPattern());
 		String[] searchedFirstnames = request.get("firstname").getText().split(getRegexPattern());
 		String[] searchedLastnames = request.get("lastname").getText().split(getRegexPattern());
-		//String[] searchedDepartments = request.get("department_name").getText().split(getRegexPattern());
+		String[] searchedDepartments = request.get("department_name").getText().split(getRegexPattern());
 		
 		
 		//Select employees by ID
@@ -318,14 +310,15 @@ public class Mainapp {
 		}
 		
 		//Search the employees in the intersection of selectedEmployeesByName and selectedEmployeesByID
-		ArrayList<Employee> rawResult = new ArrayList<>(selectedEmployeesByID);
+		CopyOnWriteArrayList<Employee> rawResult = new CopyOnWriteArrayList<>(selectedEmployeesByID);
 		intersectionCollection(rawResult, selectedEmployeesByName);
-		/*
+		
 		if (!rawResult.isEmpty()) {
+			
 			for (Employee selectedEmployee : rawResult) {
 				boolean isInSearchedDepartments = false;
-				for (Integer iterator = 0; (iterator < searchedDepartments.length) && isInSearchedDepartments; iterator++) {
-					if (selectedEmployee.getDepartment() == searchedDepartments[iterator])
+				for (Integer iterator = 0; (iterator < searchedDepartments.length) && !isInSearchedDepartments; iterator++) {
+					if (SearchInMainapp.areStringsMatching(selectedEmployee.getDepartment(), searchedDepartments[iterator]))
 						isInSearchedDepartments = true;
 				}
 				if (!isInSearchedDepartments)
@@ -341,7 +334,7 @@ public class Mainapp {
 				}
 			}
 		}
-		*/
+		
 		System.out.println(rawResult);
 		
 		//format the data

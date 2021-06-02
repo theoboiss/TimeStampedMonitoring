@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import controller.mainapp.Mainapp;
+
 
 public class ViewEmployeesSearch implements ActionListener {
 	
@@ -288,6 +290,13 @@ public class ViewEmployeesSearch implements ActionListener {
 			researchMap.put("id", ID);
 			researchMap.put("department_name", department);
 			
+			try {
+				Mainapp controller = new Mainapp("ViewResultsEmployees");
+				controller.searchEmployee(getResearchMap());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} 
 		
 	}

@@ -40,8 +40,9 @@ public class Department {
 	/**
 	 * @param name
 	 * @param boss
+	 * @throws Exception 
 	 */
-	public Department(String name, Employee boss) {
+	public Department(String name, Employee boss) throws Exception {
 		setName(name);
 		boss.setDepartment(getName());
 		setListEmployees(new HashMap<>());
@@ -84,8 +85,13 @@ public class Department {
 	
 	/**
 	 * @param employee
+	 * @throws Exception 
 	 */
-	public void addEmployee(Employee employee) {
+	public void addEmployee(Employee employee) throws Exception {
+		if (getListEmployees().containsKey(employee.getID()))
+			throw new Exception("This employee is already in the department");
+		
+		employee.setDepartment(getName());
 		getListEmployees().put(employee.getID(), employee);
 	}
 
