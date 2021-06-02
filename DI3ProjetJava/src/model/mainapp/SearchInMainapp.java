@@ -7,9 +7,22 @@ import model.shared.*;
 
 public abstract class SearchInMainapp {
 	
+	static public boolean areStringsMatching(String str1, String str2) {
+		String str1Temp = str1.toLowerCase();
+		String str2Temp = str2.toLowerCase();
+		if (str1Temp.contains(str2Temp)) {
+			for (Integer iterator = 0; iterator < str1Temp.length(); iterator++) {
+				if (str1Temp.startsWith(str2Temp, iterator))
+					return true;
+			}
+		}
+		return false;
+	}
+	
 	/*********************************************************************/
 	/*************************** RETURN CHECKS ***************************/
 	/*********************************************************************/
+	
 	static public ArrayList<CheckInOut> searchCheckInOut(Employee employee, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
 		ArrayList<CheckInOut> resultList = new ArrayList<CheckInOut>();
 		ArrayList<CheckInOut> listChecks = new ArrayList<>(employee.getListChecks());
@@ -92,20 +105,24 @@ public abstract class SearchInMainapp {
 	/************************ according to name **************************/
 	
 	//per name
-	static public ArrayList<Employee> searchEmployee(Department department, String firstName, String lastName) {
+	static public ArrayList<Employee> searchEmployee(Department department, String firstname, String lastname) {
 		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Employee currentEmployee : department.getListEmployees().values()) {
-			if (currentEmployee.getFirstName().equals(firstName) && currentEmployee.getLastName().equals(lastName)) {
+			if (areStringsMatching(currentEmployee.getFirstname(), firstname)
+			 && areStringsMatching(currentEmployee.getLastname(), lastname))
+			{
 				resultList.add(currentEmployee);
 			}
 		}
 		return new ArrayList<Employee>(resultList);
 	}
 
-	static public ArrayList<Employee> searchEmployee(Department department, String name) {
+	static public ArrayList<Employee> searchEmployee(Department department, String name, Integer nName) {
 		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Employee currentEmployee : department.getListEmployees().values()) {
-			if (currentEmployee.getFirstName().equals(name) || currentEmployee.getLastName().equals(name)) {
+			if ((areStringsMatching(currentEmployee.getFirstname(), name) && nName == 0)
+			 || (areStringsMatching(currentEmployee.getLastname(), name) && nName == 1))
+			{
 				resultList.add(currentEmployee);
 			}
 		}
@@ -113,19 +130,19 @@ public abstract class SearchInMainapp {
 	}
 	
 	//overall
-	static public ArrayList<Employee> searchEmployee(Company company, String firstName, String lastName) {
+	static public ArrayList<Employee> searchEmployee(Company company, String firstname, String lastname) {
 		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Department currentDepartment : company.getListDepartment()) {
-        	resultList.addAll(searchEmployee(currentDepartment, firstName, lastName));
+        	resultList.addAll(searchEmployee(currentDepartment, firstname, lastname));
         }
 		return new ArrayList<Employee>(resultList);
 	}
 	
 	//overall
-	static public ArrayList<Employee> searchEmployee(Company company, String name) {
+	static public ArrayList<Employee> searchEmployee(Company company, String name, Integer nName) {
 		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Department currentDepartment : company.getListDepartment()) {
-        	resultList.addAll(searchEmployee(currentDepartment, name));
+        	resultList.addAll(searchEmployee(currentDepartment, name, nName));
         }
 		return new ArrayList<Employee>(resultList);
 	}

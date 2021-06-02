@@ -14,7 +14,7 @@ public class Tests {
 			Department A = new Department("JavaTech", new Employee("Mr.", "Boss"));
 			Employee employeeToCopy = SearchInMainapp.searchEmployee(A,IDOfEmployeeToCopy);
 			
-			EmployeeInfo infoEmployee = new EmployeeInfo(employeeToCopy.getID(), employeeToCopy.getFirstName(), employeeToCopy.getLastName());
+			EmployeeInfo infoEmployee = new EmployeeInfo(employeeToCopy.getID(), employeeToCopy.getFirstname(), employeeToCopy.getLastname());
 			System.out.println(infoEmployee);
 		} catch (Exception e) {
 			System.out.println("No employee with ID="+IDOfEmployeeToCopy);

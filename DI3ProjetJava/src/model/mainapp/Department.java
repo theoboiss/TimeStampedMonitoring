@@ -15,7 +15,7 @@ public class Department {
 	
 	private String name;
 	//a map in which each employee can be directly obtained from his ID
-	private HashMap<Integer,Employee> listEmployees = new HashMap<>();
+	private HashMap<Integer,Employee> listEmployees;
 
 
 	/*********************************************************************/
@@ -43,6 +43,8 @@ public class Department {
 	 */
 	public Department(String name, Employee boss) {
 		setName(name);
+		boss.setDepartment(getName());
+		setListEmployees(new HashMap<>());
 		addEmployee(boss);
 	}
 	
@@ -136,17 +138,17 @@ public class Department {
 			System.out.println(A.toString() + System.lineSeparator()); //show A
 
 			
-			SearchInMainapp.searchEmployee(B,3).setFirstName("Theo");
-			SearchInMainapp.searchEmployee(B,3).setLastName("Boisseau");
+			SearchInMainapp.searchEmployee(B,3).setFirstname("Theo");
+			SearchInMainapp.searchEmployee(B,3).setLastname("Boisseau");
 			
 			System.out.println(B.toString() + System.lineSeparator()); //show B
 			
 			//the employee that have ID=3
 			System.out.println(B.getName() + " : { (ID=3) }\n" + SearchInMainapp.searchEmployee(B,3) + System.lineSeparator());
 			//the employees that have "default" in their names
-			System.out.println(B.getName() + " : { (name=\"default\") }\n" + SearchInMainapp.searchEmployee(B,"default") + System.lineSeparator());
+			System.out.println(B.getName() + " : { (firstname=\"default\") }\n" + SearchInMainapp.searchEmployee(B,"default",0) + System.lineSeparator());
 			//the employees named "default" "default"
-			System.out.println(B.getName() + " : { (firstName=\"default\")^(lastName=\"default\") }\n" + SearchInMainapp.searchEmployee(B,"default", "default")
+			System.out.println(B.getName() + " : { (firstname=\"default\")^(lastname=\"default\") }\n" + SearchInMainapp.searchEmployee(B,"default", "default")
 				+ System.lineSeparator());
 			//the employees who made checks today (until now)
 			System.out.println(A.getName() + " : { (checkInOut<NOW) }\n"

@@ -3,6 +3,7 @@ package controller.mainapp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -55,27 +56,19 @@ public class Mainapp {
 		B.addEmployee(new Employee());
 		
 		//add few checks to A
-		
 		CheckInOut exempleCheck1 = new CheckInOut();
-		exempleCheck1.setEmployeeID(1);
-		SearchInMainapp.searchEmployee(A,1).getListChecks().add(exempleCheck1);
-		
+		SearchInMainapp.searchEmployee(A,"default",1).get(0).getListChecks().add(exempleCheck1);
 		CheckInOut exempleCheck2 = new CheckInOut();
-		SearchInMainapp.searchEmployee(A,1).getListChecks().add(exempleCheck2);
-		exempleCheck2.setEmployeeID(1);
-		
+		SearchInMainapp.searchEmployee(A,"default",1).get(0).getListChecks().add(exempleCheck2);
 		CheckInOut exempleCheck3 = new CheckInOut();
-		SearchInMainapp.searchEmployee(A,1).getListChecks().add(exempleCheck3);
-		exempleCheck3.setEmployeeID(1);
-		
+		SearchInMainapp.searchEmployee(A,"default",1).get(0).getListChecks().add(exempleCheck3);
 		//a has 1 employee that made 3 checks
 
-		
-		SearchInMainapp.searchEmployee(B,3).setFirstName("Theo");
-		SearchInMainapp.searchEmployee(B,3).setLastName("Boisseau");
+		SearchInMainapp.searchEmployee(B,"default","default").get(0).setFirstname("Theo");
+		SearchInMainapp.searchEmployee(B,"Theo","default").get(0).setLastname("Boisseau");
+		setModel(modelTest);
 		///////////////////////////////////////////////////////////////////////////////////////////////////
 		setView(view);
-		setModel(modelTest);
 		//setModel(getDataController().getCurrentModel()); //it will be available after the serialization step
 		setFormatter(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm"));
 		setRegexPattern("(,( ))");
@@ -151,7 +144,7 @@ public class Mainapp {
 
 
 	/*********************************************************************/
-	/****************************** SEARCH *******************************/
+	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
 	
 	protected HashSet<Employee> selectEmployees(String[] searchedIDs, String[] searchedFirstnames, String[] searchedLastnames) {
@@ -180,19 +173,19 @@ public class Mainapp {
 					selectedEmployees.addAll(currentDepartment.getListEmployees().values());
 			}
 			else if (searchedFirstnames[0].isBlank())
-				selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), searchedLastnames[0]));
+				selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), searchedLastnames[0], 1));
 			else
-				selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), searchedFirstnames[0]));
+				selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), searchedFirstnames[0], 0));
 		}
 		else for (String valueForFirstname : searchedFirstnames) { //we look for the only employees that are concerned by their ID
 			if (valueForFirstname.isBlank()) {
 				for (String valueForLastname : searchedLastnames)
 					if (!valueForLastname.isBlank())
-						selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), valueForLastname));
+						selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), valueForLastname, 1));
 			}
 			else for (String valueForLastname : searchedLastnames) {
 				if (valueForLastname.isBlank())
-					selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), valueForFirstname));
+					selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), valueForFirstname, 0));
 				else
 					selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), valueForFirstname, valueForLastname));
 			}
@@ -200,6 +193,19 @@ public class Mainapp {
 		
 		return selectedEmployees;
 	}
+	
+	public void intersectionCollection(Collection<Employee> list1, Collection<Employee> list2) {
+		if (!list1.isEmpty())
+			list1.retainAll(list2);
+		else
+			list1.addAll(list2);
+	}
+	
+	
+	/*********************************************************************/
+	/****************************** SEARCH *******************************/
+	/*********************************************************************/
+	
 	
 	/**
 	 * @details A request should be a HashMap like this :
@@ -210,7 +216,7 @@ public class Mainapp {
 	 * |----------------------------------------------------|
 	 * |"lastname"		->	JTextField=""					|
 	 * |----------------------------------------------------|
-	 * |"after_date"		->	JTextField="01-01-2021 00:00"	|
+	 * |"after_date"	->	JTextField="01-01-2021 00:00"	|
 	 * |----------------------------------------------------|
 	 * |"before_date"	->	JTextField="01-01-2021 16:00"	|
 	 * +----------------------------------------------------+
@@ -254,8 +260,8 @@ public class Mainapp {
 			Employee correspondingEmployee = SearchInMainapp.searchEmployee(getModel(), foundCheck.getEmployeeID());
 			Object[] line = {
 				foundCheck.getEmployeeID().toString(),
-				correspondingEmployee.getFirstName(),
-				correspondingEmployee.getLastName(),
+				correspondingEmployee.getFirstname(),
+				correspondingEmployee.getLastname(),
 				foundCheck.getCheckTime().format(getFormatter()),
 				Boolean.toString(foundCheck.isStatus())
 			};
@@ -273,8 +279,8 @@ public class Mainapp {
 		String[] searchedIDs = request.get("id").getText().split(getRegexPattern());
 		String[] searchedFirstnames = request.get("firstname").getText().split(getRegexPattern());
 		String[] searchedLastnames = request.get("lastname").getText().split(getRegexPattern());
-		String[] searchedDepartments = request.get("department_name").getText().split(getRegexPattern());
-				
+		//String[] searchedDepartments = request.get("department_name").getText().split(getRegexPattern());
+		
 		
 		//Select employees by ID
 		HashSet<Employee> selectedEmployeesByID = new HashSet<>();
@@ -290,44 +296,53 @@ public class Mainapp {
 		//Select employees by name
 		HashSet<Employee> selectedEmployeesByName = new HashSet<>();
 		if (searchedFirstnames.length == 1 && searchedLastnames.length == 1) {
-			if (!searchedFirstnames[0].isBlank())
-				selectedEmployeesByName.addAll(SearchInMainapp.searchEmployee(getModel(), searchedFirstnames[0]));
-			if (!searchedLastnames[0].isBlank())
-				selectedEmployeesByName.addAll(SearchInMainapp.searchEmployee(getModel(), searchedLastnames[0]));
+			if (!searchedFirstnames[0].isBlank() && !searchedLastnames[0].isBlank())
+				intersectionCollection(selectedEmployeesByName, SearchInMainapp.searchEmployee(getModel(), searchedFirstnames[0], searchedLastnames[0]));
+			else if (!searchedFirstnames[0].isBlank())
+				intersectionCollection(selectedEmployeesByName, SearchInMainapp.searchEmployee(getModel(), searchedFirstnames[0], 0));
+			else
+				intersectionCollection(selectedEmployeesByName, SearchInMainapp.searchEmployee(getModel(), searchedLastnames[0], 1));
 		}
 		else for (String valueForFirstname : searchedFirstnames) { //we look for the only employees that are concerned by their ID
 			if (valueForFirstname.isBlank()) {
 				for (String valueForLastname : searchedLastnames)
 					if (!valueForLastname.isBlank())
-						selectedEmployeesByName.addAll(SearchInMainapp.searchEmployee(getModel(), valueForLastname));
+						intersectionCollection(selectedEmployeesByName, SearchInMainapp.searchEmployee(getModel(), valueForLastname, 1));
 			}
 			else for (String valueForLastname : searchedLastnames) {
 				if (valueForLastname.isBlank())
-					selectedEmployeesByName.addAll(SearchInMainapp.searchEmployee(getModel(), valueForFirstname));
+					intersectionCollection(selectedEmployeesByName, SearchInMainapp.searchEmployee(getModel(), valueForFirstname, 0));
 				else
-					selectedEmployeesByName.addAll(SearchInMainapp.searchEmployee(getModel(), valueForFirstname, valueForLastname));
+					intersectionCollection(selectedEmployeesByName, SearchInMainapp.searchEmployee(getModel(), valueForFirstname, valueForLastname));
 			}
 		}
 		
 		//Search the employees in the intersection of selectedEmployeesByName and selectedEmployeesByID
-		ArrayList<Employee> rawResult = new ArrayList<>();
-		for (Employee selectedEmployee : selectedEmployeesByID) {
-			if (selectedEmployeesByName.contains(selectedEmployee)) {
-				for (String currentSearchedDepartment : searchedDepartments) {
-					Department currentDepartment;
-					try {
-						currentDepartment = getModel().getDepartment(currentSearchedDepartment);
-						if (currentDepartment != null) {
-							if (currentDepartment.getListEmployees().containsKey(selectedEmployee.getID()))
-								rawResult.add(selectedEmployee);
-						}
-					} catch (Exception e) {
-						//there is no such department but it's okay
-					}
+		ArrayList<Employee> rawResult = new ArrayList<>(selectedEmployeesByID);
+		intersectionCollection(rawResult, selectedEmployeesByName);
+		/*
+		if (!rawResult.isEmpty()) {
+			for (Employee selectedEmployee : rawResult) {
+				boolean isInSearchedDepartments = false;
+				for (Integer iterator = 0; (iterator < searchedDepartments.length) && isInSearchedDepartments; iterator++) {
+					if (selectedEmployee.getDepartment() == searchedDepartments[iterator])
+						isInSearchedDepartments = true;
+				}
+				if (!isInSearchedDepartments)
+					rawResult.remove(selectedEmployee);
+			}
+		}
+		else {
+			for (String currentDepartmentName : searchedDepartments) {
+				try {
+					rawResult.addAll(getModel().getDepartment(currentDepartmentName).getListEmployees().values());
+				} catch (Exception e) {
+					//the company does not have the current department name but it is okay
 				}
 			}
 		}
-		
+		*/
+		System.out.println(rawResult);
 		
 		//format the data
 		Object[][] data = new Object[rawResult.size()][];
@@ -340,8 +355,8 @@ public class Mainapp {
 			}
 			Object[] line = {
 				foundEmployee.getID().toString(),
-				foundEmployee.getFirstName(),
-				foundEmployee.getLastName(),
+				foundEmployee.getFirstname(),
+				foundEmployee.getLastname(),
 				foundEmployeeLastCheckInOut
 			};
 			data[iterator++] = line;
@@ -359,8 +374,4 @@ public class Mainapp {
 		JTable result = new JTable(data,titles);
 	}
 	*/
-	public static void main(String[] args) {
-		
-	}
-
 }

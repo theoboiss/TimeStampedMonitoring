@@ -7,8 +7,8 @@ public class EmployeeInfo {
 	/*********************************************************************/
 	
 	private Integer ID;
-	private String firstName;
-	private String lastName;
+	private String firstname;
+	private String lastname;
 
 
 	/*********************************************************************/
@@ -24,13 +24,13 @@ public class EmployeeInfo {
 	
 	/**
 	 * @param ID
-	 * @param firstName
-	 * @param lastName
+	 * @param firstname
+	 * @param lastname
 	 * @throws Exception 
 	 */
-	public EmployeeInfo(Integer ID, String firstName, String lastName) throws Exception {
+	public EmployeeInfo(Integer ID, String firstname, String lastname) throws Exception {
 		setID(ID);
-		setNames(firstName, lastName);
+		setNames(firstname, lastname);
 	}
 	
 	
@@ -63,46 +63,46 @@ public class EmployeeInfo {
 	/**
 	 * @return
 	 */
-	public String getFirstName() {
-		return firstName;
+	public String getFirstname() {
+		return firstname;
 	}
 	
 	/**
-	 * @param firstName
+	 * @param firstname
 	 * @throws Exception 
 	 */
-	public void setFirstName(String firstName) throws Exception {
-		if (firstName.isBlank())
-			throw new Exception("Error in setFirstName : please specify a firstName.");
+	public void setFirstname(String firstname) throws Exception {
+		if (firstname.isBlank())
+			throw new Exception("Error in setFirstname : please specify a firstname.");
 		
-		this.firstName = firstName;
+		this.firstname = firstname;
 	}
 	
 	/**
 	 * @return
 	 */
-	public String getLastName() {
-		return lastName;
+	public String getLastname() {
+		return lastname;
 	}
 	
 	/**
-	 * @param lastName
+	 * @param lastname
 	 * @throws Exception 
 	 */
-	public void setLastName(String lastName) throws Exception {
-		if (lastName.isBlank())
-			throw new Exception("Error in setFirstName : please specify a lastName.");
-		this.lastName = lastName;
+	public void setLastname(String lastname) throws Exception {
+		if (lastname.isBlank())
+			throw new Exception("Error in setFirstname : please specify a lastname.");
+		this.lastname = lastname;
 	}
 
 	/**
-	 * @param firstName
-	 * @param lastName
+	 * @param firstname
+	 * @param lastname
 	 * @throws Exception 
 	 */
-	public void setNames(String firstName, String lastName) throws Exception {
-		setFirstName(firstName);
-		setLastName(lastName);
+	public void setNames(String firstname, String lastname) throws Exception {
+		setFirstname(firstname);
+		setLastname(lastname);
 	}
 
 
@@ -112,7 +112,7 @@ public class EmployeeInfo {
 	
 	@Override
 	public String toString() {
-		return "Employee [ID=" + getID() + ", firstName=" + getFirstName() + ", lastName=" + getLastName() + "]";
+		return "Employee [ID=" + getID() + ", firstname=" + getFirstname() + ", lastname=" + getLastname() + "]";
 	}
 	
 	

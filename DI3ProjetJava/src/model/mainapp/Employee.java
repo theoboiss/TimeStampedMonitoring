@@ -15,9 +15,10 @@ public class Employee extends EmployeeInfo {
 	/*********************************************************************/
 	
 	//ID 0 is forbiden
-	protected static ArrayList<Integer> listUsedIDs = new ArrayList<>(Arrays.asList(0));
-	protected Planning planning;
-	protected CopyOnWriteArrayList<CheckInOut> listChecks;
+	private static ArrayList<Integer> listUsedIDs = new ArrayList<>(Arrays.asList(0));
+	private String department;
+	private Planning planning;
+	private CopyOnWriteArrayList<CheckInOut> listChecks;
 
 
 	/*********************************************************************/
@@ -32,19 +33,20 @@ public class Employee extends EmployeeInfo {
 	}
 	
 	/**
-	 * @param firstName
-	 * @param lastName
+	 * @param firstname
+	 * @param lastname
 	 * @throws Exception 
 	 */
-	public Employee(String firstName, String lastName) throws Exception {
+	public Employee(String firstname, String lastname) throws Exception {
 		//generate a new ID
 		ArrayList<Integer> listUsedIDss = getlistUsedIDs();
 		Integer availableID = listUsedIDss.get(listUsedIDss.size()-1) + 1;
 		
 		addUsedIDToList(availableID); //reserve availableID in listUsedIDs
 		setID(availableID);
-		setFirstName(firstName);
-		setLastName(lastName);
+		setFirstname(firstname);
+		setLastname(lastname);
+		setDepartment("default");
 		setPlanning(new Planning());
 		setListChecks(new CopyOnWriteArrayList<CheckInOut>());
 	}
@@ -71,8 +73,24 @@ public class Employee extends EmployeeInfo {
 		Employee.listUsedIDs.add(ID);
 	}
 
-	/****************************** Planning *****************************/
+	/***************************** Department ****************************/
 	
+	/**
+	 * @return the department
+	 */
+	public String getDepartment() {
+		return department;
+	}
+
+	/**
+	 * @param department the department to set
+	 */
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	/****************************** Planning *****************************/
+
 	/**
 	 * @return
 	 */
@@ -110,7 +128,8 @@ public class Employee extends EmployeeInfo {
 	
 	@Override
 	public String toString() {
-		return "Employee [ID=" + getID() + ", firstName=" + getFirstName() + ", lastName=" + getLastName()
+		return "Employee [ID=" + getID() + ", firstname=" + getFirstname() + ", lastname=" + getLastname()
+				+ ", department=" + getDepartment()
 				//+ ", planning=\n" + getPlanning() + "\n\n"
 				+ ", listChecks=" + getListChecks() + "]";
 	}
