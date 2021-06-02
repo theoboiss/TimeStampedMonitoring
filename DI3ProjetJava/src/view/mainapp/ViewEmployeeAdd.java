@@ -1,39 +1,38 @@
 package view.mainapp;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class ViewEmployeeAdd implements ActionListener {
+public class ViewEmployeeAdd extends ViewModel {
 	
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 	
-	private JPanel panel;
-	private JTextField lastName;
 	private JTextField firstName;
+	private JTextField lastName;
 	private JTextField department;
-	private JButton addButton;
-	private HashMap<String, JTextField> addMap;
-		
+	
+	private JLabel labelFirstName;
+	private JLabel labelLastName;
+	private JLabel labelDepartment;
+	
 	
 	/*********************************************************************/
 	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
 	
+	/**
+	 * @brief Default constructor.
+	 */
 	public ViewEmployeeAdd () {
-
-		addMap = new HashMap<String, JTextField>();
-		panel = buildContentPanel();
+		setArraySize(3);
+		initializeAttributes();
+		buildContentPanel();
 	}
 	
 	
@@ -41,40 +40,8 @@ public class ViewEmployeeAdd implements ActionListener {
 	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
 	
-	/****************************** panelAdd *****************************/
-
-	/**
-	 * @return the panel
-	 */
-	public JPanel getPanel() {
-		return this.panel;
-	}
+	/***************************** firstName *****************************/
 	
-	/**
-	 * @param panel the panel to set
-	 */
-	private void setPanel(JPanel panel) {
-		this.panel = panel;
-	}
-	
-	/****************************** lastName *****************************/
-	
-	/**
-	 * @return the lastName
-	 */
-	public JTextField getLastName() {
-		return lastName;
-	}
-
-	/**
-	 * @param lastName the lastName to set
-	 */
-	public void setAddLastName(JTextField lastName) {
-		this.lastName = lastName;
-	}
-
-	/***************************** firstName ****************************/
-
 	/**
 	 * @return the firstName
 	 */
@@ -90,7 +57,24 @@ public class ViewEmployeeAdd implements ActionListener {
 		this.firstName = firstName;
 	}
 	
-	/**************************** department ***************************/
+	/****************************** lastName *****************************/
+	
+	/**
+	 * @return the lastName
+	 */
+	public JTextField getLastName() {
+		return lastName;
+	}
+
+
+	/**
+	 * @param lastName the lastName to set
+	 */
+	public void setLastName(JTextField lastName) {
+		this.lastName = lastName;
+	}
+	
+	/***************************** department ****************************/
 	
 	/**
 	 * @return the department
@@ -107,116 +91,80 @@ public class ViewEmployeeAdd implements ActionListener {
 		this.department = department;
 	}
 	
-	/***************************** addButton ****************************/
+	/*************************** labelFirstName **************************/
 	
 	/**
-	 * @return the addButton
+	 * @return the labelFirstName
 	 */
-	public JButton getAddButton() {
-		return addButton;
+	public JLabel getLabelFirstName() {
+		return labelFirstName;
 	}
+
 
 	/**
-	 * @param addButton the addButton to set
+	 * @param labelFirstName the labelFirstName to set
 	 */
-	public void setAddButton(JButton addButton) {
-		this.addButton = addButton;
+	public void setLabelFirstName(JLabel labelFirstName) {
+		this.labelFirstName = labelFirstName;
 	}
-
-	/******************************* addMap ******************************/
+	
+	/**************************** labelLastName **************************/
 	
 	/**
-	 * @return the addMap
+	 * @return the labelLastName
 	 */
-	public HashMap<String, JTextField> getAddMap() {
-		return addMap;
+	public JLabel getLabelLastName() {
+		return labelLastName;
 	}
 
 
 	/**
-	 * @param addMap the addMap to set
+	 * @param labelLastName the labelLastName to set
 	 */
-	public void setAddMap(HashMap<String, JTextField> addMap) {
-		this.addMap = addMap;
+	public void setLabelLastName(JLabel labelLastName) {
+		this.labelLastName = labelLastName;
+	}
+	
+	/************************** labelDepartment **************************/
+	
+	/**
+	 * @return the labelDepartment
+	 */
+	public JLabel getLabelDepartment() {
+		return labelDepartment;
+	}
+
+
+	/**
+	 * @param labelDepartment the labelDepartment to set
+	 */
+	public void setLabelDepartment(JLabel labelDepartment) {
+		this.labelDepartment = labelDepartment;
 	}
 	
 	
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
-
-
-	/**
-	 * @brief Method used to build panel.
-	 * 
-	 * @return JPanel
-	 */
-	private JPanel buildContentPanel(){
-		JPanel panel = new JPanel(new GridBagLayout());
+	
+	protected void initializeAttributes() {
 		
-		//FISRTNAME
+		labelArray = new ArrayList<JLabel>();
+		labelFirstName = new JLabel("First Name");
+		labelLastName = new JLabel("Last Name");
+		labelDepartment = new JLabel("Department Name");
+		labelArray.add(labelFirstName);
+		labelArray.add(labelLastName);
+		labelArray.add(labelDepartment);
 		
-		//Label
-		JLabel labelFirstName = new JLabel("First Name");
-		GridBagConstraints constraintsLabelFirstName = new GridBagConstraints();
-		constraintsLabelFirstName.gridx = 0;
-		constraintsLabelFirstName.gridy = 1;
-		panel.add(labelFirstName, constraintsLabelFirstName);
-		
-		//TextField
+		textFieldArray = new ArrayList<JTextField>();
 		firstName = new JTextField();
-		GridBagConstraints constraintsFirstName = new GridBagConstraints();
-		constraintsFirstName.gridx = 1;
-		constraintsFirstName.gridy = 1;
-		firstName.setColumns(10);
-		panel.add(firstName, constraintsFirstName);
-		
-		//LASTNAME
-		
-		//Label
-		JLabel labelLastName = new JLabel("Last Name");
-		GridBagConstraints constraintsLabelLastName = new GridBagConstraints();
-		constraintsLabelLastName.gridx = 0;
-		constraintsLabelLastName.gridy = 2;
-		panel.add(labelLastName, constraintsLabelLastName);
-		
-		//TextField
 		lastName = new JTextField();
-		GridBagConstraints constraintsLastName = new GridBagConstraints();
-		constraintsLastName.gridx = 1;
-		constraintsLastName.gridy = 2;
-		lastName.setColumns(10);
-		panel.add(lastName, constraintsLastName);
-		
-		
-		//DEPARTMENT
-		
-		//Label
-		JLabel labelDepartment = new JLabel("Department Name");
-		GridBagConstraints constraintsLabelDepartment = new GridBagConstraints();
-		constraintsLabelDepartment.gridx = 0;
-		constraintsLabelDepartment.gridy = 3;
-		panel.add(labelDepartment, constraintsLabelDepartment);
-				
-		//TextField
 		department = new JTextField();
-		GridBagConstraints constraintsDepartment = new GridBagConstraints();
-		constraintsDepartment.gridx = 1;
-		constraintsDepartment.gridy = 3;
-		department.setColumns(10);
-		panel.add(department, constraintsDepartment);
+		textFieldArray.add(firstName);
+		textFieldArray.add(lastName);
+		textFieldArray.add(department);
 		
-		
-		//BUTTON
-		
-		addButton = new JButton("Add");
-		GridBagConstraints constraintsAddButton = new GridBagConstraints();
-		constraintsAddButton.gridx = 3;
-		constraintsAddButton.gridy = 4;
-		addButton.addActionListener(this);
-		panel.add(addButton, constraintsAddButton);
-
-		return panel;
 	}
 	
 	@Override
@@ -224,13 +172,13 @@ public class ViewEmployeeAdd implements ActionListener {
 		 
 		Object source = event.getSource();
 		 
-		if (source == addButton) {
-			
-			addMap.put("firstname", firstName);
-			addMap.put("lastname", lastName);
-			addMap.put("department_name", department);
+		if (source == submitButton) {
+			submitMap = new HashMap<String, JTextField>();
+			submitMap.put("firstname", textFieldArray.get(0));
+			submitMap.put("lastname", textFieldArray.get(1));
+			submitMap.put("department_name", textFieldArray.get(2));
 		}
 		
 	}
-		
+
 }
