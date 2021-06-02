@@ -48,7 +48,13 @@ public class Company {
 	public void setListDepartment(ArrayList<Department> listDepartment) {
 		this.listDepartment = listDepartment;
 	}
-	
+
+	/**
+	 * @param department the department to add
+	 */
+	public void addDepartment(Department department) {
+		getListDepartment().add(department);
+	}
 	
 	
 	/*********************************************************************/
