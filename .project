@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>DI3ProjetJava/src/images/javatech.png</name>
+			<type>1</type>
+			<location>C:/Users/RMICH Mohammed/Desktop/javatech.png</location>
+		</link>
+	</linkedResources>
 </projectDescription>
