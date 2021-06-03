@@ -4,6 +4,11 @@ import javax.swing.*;
 
 public class ViewMainApp extends JFrame {
 	
+	/**
+	 * @brief serialVersionUID.
+	 */
+	private static final long serialVersionUID = 3511639449947083712L;
+	
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/

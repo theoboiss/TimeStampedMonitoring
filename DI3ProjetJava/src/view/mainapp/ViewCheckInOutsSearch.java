@@ -1,77 +1,53 @@
 package view.mainapp;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
+public class ViewCheckInOutsSearch extends ViewModel  {
 
-public class ViewCheckInOutsSearch implements ActionListener {
-	
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 	
-	private JPanel panel;
-	
 	private JTextField employeeFirstName;
 	private JTextField employeeLastName;
 	private JTextField employeeID;
-	
 	private JTextField departmentName;
-	
 	private JTextField startDate;
 	private JTextField endDate;
 	
-	private JButton searchButton;
+	private JLabel labelEmployeeFirstName;
+	private JLabel labelEmployeeLastName;
+	private JLabel labelEmployeeID;
+	private JLabel labelDepartmentName;
+	private JLabel labelStartDate;
+	private JLabel labelEndDate;
 	
-	private HashMap<String, JTextField> researchMap;
-	
-	private JTable resultsCheckInOuts;
 	
 	/*********************************************************************/
 	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
 	
-	public ViewCheckInOutsSearch() {
-		
-		resultsCheckInOuts = new JTable();
-		researchMap = new HashMap<String, JTextField>();
-		
-		panel = buildContentPanel();
-		
+	/**
+	 * @brief Default constructor.
+	 */
+	public ViewCheckInOutsSearch () {
+		setArraySize(6);
+		initializeAttributes();
+		buildContentPanel();
 	}
-
+	
 	
 	/*********************************************************************/
 	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
 	
-	/******************************** panel ******************************/
+	/************************* employeeFirstName *************************/
 	
-	/**
-	 * @return the panel
-	 */
-	public JPanel getPanel() {
-		return panel;
-	}
-
-	/**
-	 * @param panel the panel to set
-	 */
-	public void setPanel(JPanel panel) {
-		this.panel = panel;
-	}
-	
-	/************************** employeeFirstName ************************/
-
 	/**
 	 * @return the employeeFirstName
 	 */
@@ -86,7 +62,8 @@ public class ViewCheckInOutsSearch implements ActionListener {
 		this.employeeFirstName = employeeFirstName;
 	}
 
-	/*************************** employeeLastName ************************/
+	
+	/************************* employeeLastName **************************/
 	
 	/**
 	 * @return the employeeLastName
@@ -102,8 +79,8 @@ public class ViewCheckInOutsSearch implements ActionListener {
 		this.employeeLastName = employeeLastName;
 	}
 	
-	/***************************** employeeID ****************************/
-
+	/**************************** employeeID *****************************/
+	
 	/**
 	 * @return the employeeID
 	 */
@@ -118,8 +95,8 @@ public class ViewCheckInOutsSearch implements ActionListener {
 		this.employeeID = employeeID;
 	}
 	
-	/**************************** departmentName **************************/
-
+	/************************** departmentName ***************************/
+	
 	/**
 	 * @return the departmentName
 	 */
@@ -134,8 +111,8 @@ public class ViewCheckInOutsSearch implements ActionListener {
 		this.departmentName = departmentName;
 	}
 	
-	/******************************* startDate ****************************/
-
+	/***************************** startDate *****************************/
+	
 	/**
 	 * @return the startDate
 	 */
@@ -150,8 +127,8 @@ public class ViewCheckInOutsSearch implements ActionListener {
 		this.startDate = startDate;
 	}
 	
-	/******************************* endDate *****************************/
-
+	/****************************** endDate ******************************/
+	
 	/**
 	 * @return the endDate
 	 */
@@ -166,206 +143,157 @@ public class ViewCheckInOutsSearch implements ActionListener {
 		this.endDate = endDate;
 	}
 	
-	/**************************** searchButton ***************************/
+	/*********************** labelEmployeeFirstName **********************/
 	
 	/**
-	 * @return the searchButton
+	 * @return the labelEmployeeFirstName
 	 */
-	public JButton getSearchButton() {
-		return searchButton;
+	public JLabel getLabelEmployeeFirstName() {
+		return labelEmployeeFirstName;
 	}
 
-
 	/**
-	 * @param searchButton the searchButton to set
+	 * @param labelEmployeeFirstName the labelEmployeeFirstName to set
 	 */
-	public void setSearchButton(JButton searchButton) {
-		this.searchButton = searchButton;
+	public void setLabelEmployeeFirstName(JLabel labelEmployeeFirstName) {
+		this.labelEmployeeFirstName = labelEmployeeFirstName;
 	}
 	
-	/**************************** researchMap ***************************/
+	/********************** labelEmployeeLastName ************************/
 	
 	/**
-	 * @return the researchMap
+	 * @return the labelEmployeeLastName
 	 */
-	public HashMap<String, JTextField> getResearchMap() {
-		return researchMap;
+	public JLabel getLabelEmployeeLastName() {
+		return labelEmployeeLastName;
 	}
 
-
 	/**
-	 * @param researchMap the researchMap to set
+	 * @param labelEmployeeLastName the labelEmployeeLastName to set
 	 */
-	public void setResearchMap(HashMap<String, JTextField> researchMap) {
-		this.researchMap = researchMap;
+	public void setLabelEmployeeLastName(JLabel labelEmployeeLastName) {
+		this.labelEmployeeLastName = labelEmployeeLastName;
 	}
 	
-	/************************* resultsCheckInOuts ************************/
-
+	/************************* labelEmployeeID ***************************/
+	
 	/**
-	 * @return the resultsCheckInOuts
+	 * @return the labelEmployeeID
 	 */
-	public JTable getResultsCheckInOuts() {
-		return resultsCheckInOuts;
+	public JLabel getLabelEmployeeID() {
+		return labelEmployeeID;
 	}
 
-
 	/**
-	 * @param resultsCheckInOuts the resultsCheckInOuts to set
+	 * @param labelEmployeeID the labelEmployeeID to set
 	 */
-	public void setResultsCheckInOuts(JTable resultsCheckInOuts) {
-		this.resultsCheckInOuts = resultsCheckInOuts;
+	public void setLabelEmployeeID(JLabel labelEmployeeID) {
+		this.labelEmployeeID = labelEmployeeID;
 	}
 	
+	/************************ labelDepartmentName ************************/
+	
+	/**
+	 * @return the labelDepartmentName
+	 */
+	public JLabel getLabelDepartmentName() {
+		return labelDepartmentName;
+	}
+
+	/**
+	 * @param labelDepartmentName the labelDepartmentName to set
+	 */
+	public void setLabelDepartmentName(JLabel labelDepartmentName) {
+		this.labelDepartmentName = labelDepartmentName;
+	}
+	
+	/************************** labelStartDate ***************************/
+	
+	/**
+	 * @return the labelStartDate
+	 */
+	public JLabel getLabelStartDate() {
+		return labelStartDate;
+	}
+
+	/**
+	 * @param labelStartDate the labelStartDate to set
+	 */
+	public void setLabelStartDate(JLabel labelStartDate) {
+		this.labelStartDate = labelStartDate;
+	}
+	
+	/*************************** labelEndDate ****************************/	
+
+	/**
+	 * @return the labelEndDate
+	 */
+	public JLabel getLabelEndDate() {
+		return labelEndDate;
+	}
+
+	/**
+	 * @param labelEndDate the labelEndDate to set
+	 */
+	public void setLabelEndDate(JLabel labelEndDate) {
+		this.labelEndDate = labelEndDate;
+	}
+
 	
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
-
-	/**
-	 * @brief Method used to build panel.
-	 * 
-	 * @return JPanel
-	 */
-	private JPanel buildContentPanel(){
-		JPanel panel = new JPanel(new GridBagLayout());
+	
+protected void initializeAttributes() {
 		
-		//EMPLOYEE FIRST NAME
+		labelArray = new ArrayList<JLabel>();
+		labelEmployeeFirstName = new JLabel("By Employee First Name");
+		labelEmployeeLastName = new JLabel("By Employee Last Name");
+		labelEmployeeID = new JLabel("By Employee ID");
+		labelDepartmentName = new JLabel("By Department Name");
+		labelStartDate = new JLabel("By start DateTime (MM-dd-yyyy HH:mm)");
+		labelEndDate = new JLabel("By end DateTime (MM-dd-yyyy HH:mm)");
+		labelArray.add(labelEmployeeFirstName);
+		labelArray.add(labelEmployeeLastName);
+		labelArray.add(labelEmployeeID);
+		labelArray.add(labelDepartmentName);
+		labelArray.add(labelStartDate);
+		labelArray.add(labelEndDate);
 		
-		//Label
-		JLabel labelFirstName = new JLabel("By Employee First Name");
-		GridBagConstraints constraintsLabelFirstName = new GridBagConstraints();
-		constraintsLabelFirstName.gridx = 0;
-		constraintsLabelFirstName.gridy = 1;
-		panel.add(labelFirstName, constraintsLabelFirstName);
-			
-		//TextField
+		textFieldArray = new ArrayList<JTextField>();
 		employeeFirstName = new JTextField();
-		GridBagConstraints constraintsFirstName = new GridBagConstraints();
-		constraintsFirstName.gridx = 1;
-		constraintsFirstName.gridy = 1;
-		employeeFirstName.setColumns(10);
-		panel.add(employeeFirstName, constraintsFirstName);
-
-		
-		//EMPLOYEE LAST NAME
-		
-		//Label
-		JLabel labelLastName = new JLabel("By Employee Last Name");
-		GridBagConstraints constraintsLabelLastName = new GridBagConstraints();
-		constraintsLabelLastName.gridx = 0;
-		constraintsLabelLastName.gridy = 2;
-		panel.add(labelLastName, constraintsLabelLastName);
-					
-		//TextField
 		employeeLastName = new JTextField();
-		GridBagConstraints constraintsLastName = new GridBagConstraints();
-		constraintsLastName.gridx = 1;
-		constraintsLastName.gridy = 2;
-		employeeLastName.setColumns(10);
-		panel.add(employeeLastName, constraintsLastName);
-		
-		//EMPLOYEE ID
-		
-		//Label
-		JLabel labelID = new JLabel("By Employee ID");
-		GridBagConstraints constraintsLabelID = new GridBagConstraints();
-		constraintsLabelID.gridx = 0;
-		constraintsLabelID.gridy = 3;
-		panel.add(labelID, constraintsLabelID);
-							
-		//TextField
 		employeeID = new JTextField();
-		GridBagConstraints constraintsID = new GridBagConstraints();
-		constraintsID.gridx = 1;
-		constraintsID.gridy = 3;
-		employeeID.setColumns(10);
-		panel.add(employeeID, constraintsID);
-		
-		
-		//DEPARTMENT NAME
-		
-		//Label
-		JLabel labelDepartmentName = new JLabel("By Department Name");
-		GridBagConstraints constraintsLabelDepartmentName = new GridBagConstraints();
-		constraintsLabelDepartmentName.gridx = 0;
-		constraintsLabelDepartmentName.gridy = 4;
-		panel.add(labelDepartmentName, constraintsLabelDepartmentName);
-							
-		//TextField
 		departmentName = new JTextField();
-		GridBagConstraints constraintsDepartmentName = new GridBagConstraints();
-		constraintsDepartmentName.gridx = 1;
-		constraintsDepartmentName.gridy = 4;
-		departmentName.setColumns(10);
-		panel.add(departmentName, constraintsDepartmentName);
-		
-		
-		//START DATE
-		
-		//Label
-		JLabel labelStartDate = new JLabel("By start DateTime (MM-dd-yyyy HH:mm)");
-		GridBagConstraints constraintsLabelStartDate = new GridBagConstraints();
-		constraintsLabelStartDate.gridx = 0;
-		constraintsLabelStartDate.gridy = 5;
-		panel.add(labelStartDate, constraintsLabelStartDate);
-									
-		//TextField
 		startDate = new JTextField();
-		GridBagConstraints constraintsStartDate = new GridBagConstraints();
-		constraintsStartDate.gridx = 1;
-		constraintsStartDate.gridy = 5;
-		startDate.setColumns(10);
-		panel.add(startDate, constraintsStartDate);
-		
-		
-		//END DATE
-		
-		//Label
-		JLabel labelEndDate = new JLabel("By end DateTime (MM-dd-yyyy HH:mm)");
-		GridBagConstraints constraintsLabelEndDate = new GridBagConstraints();
-		constraintsLabelEndDate.gridx = 0;
-		constraintsLabelEndDate.gridy = 6;
-		panel.add(labelEndDate, constraintsLabelEndDate);
-											
-		//TextField
 		endDate = new JTextField();
-		GridBagConstraints constraintsEndDate = new GridBagConstraints();
-		constraintsEndDate.gridx = 1;
-		constraintsEndDate.gridy = 6;
-		endDate.setColumns(10);
-		panel.add(endDate, constraintsEndDate);
+		textFieldArray.add(employeeFirstName);
+		textFieldArray.add(employeeLastName);
+		textFieldArray.add(employeeID);
+		textFieldArray.add(departmentName);
+		textFieldArray.add(startDate);
+		textFieldArray.add(endDate);
 		
-		
-		// BUTTON
-		
-		searchButton = new JButton("Search");
-		GridBagConstraints constraintsSearchButton = new GridBagConstraints();
-		constraintsSearchButton.gridx = 3;
-		constraintsSearchButton.gridy = 7;
-		searchButton.addActionListener(this);
-		panel.add(searchButton, constraintsSearchButton);
-
-
-		return panel;
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		 
 		Object source = event.getSource();
 		
-		if(source == searchButton){
+		if(source == submitButton){
 			
-			researchMap.put("firstname", employeeFirstName);
-			researchMap.put("lastname", employeeLastName);
-			researchMap.put("id", employeeID);
-			researchMap.put("department_name", departmentName);
-			researchMap.put("before_date", startDate);
-			researchMap.put("after_date", endDate);
+			submitMap = new HashMap<String, JTextField>();
+			submitMap.put("firstname", textFieldArray.get(0));
+			submitMap.put("lastname", textFieldArray.get(1));
+			submitMap.put("id", textFieldArray.get(2));
+			submitMap.put("department_name", textFieldArray.get(3));
+			submitMap.put("before_date", textFieldArray.get(4));
+			submitMap.put("after_date", textFieldArray.get(5));
+			System.out.println(submitMap);
 			
 		}
 		
 	}
-
+	
 }
