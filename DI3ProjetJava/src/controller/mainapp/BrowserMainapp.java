@@ -16,7 +16,7 @@ import view.mainapp.ViewResults;
 import model.mainapp.*;
 import model.shared.CheckInOut;
 
-public class Mainapp {
+public class BrowserMainapp {
 
 
 	/*********************************************************************/
@@ -39,7 +39,7 @@ public class Mainapp {
 	 * @param request
 	 * @throws Exception 
 	 */
-	public Mainapp(String view) throws Exception {
+	public BrowserMainapp(String view) throws Exception {
 		if (view != "ViewResultsCheckInOuts"
 		 && view != "ViewResultsEmployees"
 		 && view != "ViewResultsEmployeeDetails")

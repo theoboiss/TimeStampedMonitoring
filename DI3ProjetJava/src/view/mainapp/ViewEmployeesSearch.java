@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import controller.mainapp.Mainapp;
+import controller.mainapp.BrowserMainapp;
 
 
 public class ViewEmployeesSearch implements ActionListener {
@@ -291,10 +291,10 @@ public class ViewEmployeesSearch implements ActionListener {
 			researchMap.put("department_name", department);
 			
 			try {
-				Mainapp controller = new Mainapp("ViewResultsEmployees");
-				controller.searchEmployee(getResearchMap());
+				BrowserMainapp controller = new BrowserMainapp("ViewResultsEmployees");
+				controller.searchEmployee(getResearchMap()); //for test, action not chosen yet
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				//not all exceptions are handled yet (especially in Browser)
 				e.printStackTrace();
 			}
 		} 
