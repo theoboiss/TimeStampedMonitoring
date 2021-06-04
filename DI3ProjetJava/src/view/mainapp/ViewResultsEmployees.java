@@ -1,9 +1,9 @@
 package view.mainapp;
 
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
-import javax.swing.JButton;
 import javax.swing.JTable;
 
 public class ViewResultsEmployees extends ViewResults {
@@ -35,6 +35,7 @@ public class ViewResultsEmployees extends ViewResults {
 	protected void initializeAttributes(Object[][] dataEntry, String[] titles) {
 		
 		setDataEntry(dataEntry);
+		sortDataByIDEmployees();
 		setTitles(titles);
 		dataTable = new JTable(dataEntry, titles);
 		
@@ -44,7 +45,7 @@ public class ViewResultsEmployees extends ViewResults {
 	protected void build() {
 		
 		//create frame
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		setBounds(300,300,600,400);
 		setTitle("Results of the employee research");
 				
@@ -53,6 +54,20 @@ public class ViewResultsEmployees extends ViewResults {
 
 		add(panel);
 		setVisible(true);
+		
+	}
+	
+	private void sortDataByIDEmployees() {
+		
+		for (int i = 0; i < dataEntry.length; i++) {
+			for (int j = 0; j < dataEntry.length; j++) {
+				if (Integer.parseInt((String) dataEntry[i][0]) < Integer.parseInt((String) dataEntry[j][0])) {
+					Object[] temp = dataEntry[i];
+					dataEntry[i] = dataEntry[j];
+					dataEntry[j] = temp;
+				}
+			}
+		}
 		
 	}
 	

@@ -1,11 +1,11 @@
 package view.mainapp;
 
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-import javax.swing.JButton;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -106,7 +106,16 @@ public abstract class ViewResults extends JFrame implements ActionListener {
 	protected void buildContentPanel(){
 		
 		panel = new JPanel(new GridBagLayout());
-		panel.add(dataTable);
+		
+		GridBagConstraints constraintsDataTableHeader = new GridBagConstraints();
+		constraintsDataTableHeader.gridx = 0;
+		constraintsDataTableHeader.gridy = 0;
+		panel.add(dataTable.getTableHeader(), constraintsDataTableHeader);
+		
+		GridBagConstraints constraintsDataTable = new GridBagConstraints();
+		constraintsDataTable.gridx = 0;
+		constraintsDataTable.gridy = 1;
+		panel.add(dataTable, constraintsDataTable);
 		
 	}
 	

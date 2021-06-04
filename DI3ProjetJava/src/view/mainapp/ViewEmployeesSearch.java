@@ -226,7 +226,7 @@ public class ViewEmployeesSearch extends ViewModel  {
 				
 				BrowserMainapp controller = new BrowserMainapp("ViewResultsEmployees");
 				Object[][] dataEntry = controller.searchEmployee(getSubmitMap()); 
-				String[] titles = {"ID", "Firstname", "Lastname", "Department"};
+				String[] titles = {"ID", "Firstname", "Lastname", "Department", "Date of last check"};
 				ViewResultsEmployees frameEmployeesResults = new ViewResultsEmployees(dataEntry, titles);
 
 			} catch (Exception e) {
