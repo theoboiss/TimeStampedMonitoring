@@ -16,39 +16,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>DI3ProjetJava/src/images/add.png</name>
-			<type>1</type>
-			<location>C:/Users/RMICH Mohammed/Desktop/JavaIcons/add.png</location>
-		</link>
-		<link>
-			<name>DI3ProjetJava/src/images/checkinout.png</name>
-			<type>1</type>
-			<location>C:/Users/RMICH Mohammed/Desktop/JavaIcons/checkinout.png</location>
-		</link>
-		<link>
-			<name>DI3ProjetJava/src/images/delete.png</name>
-			<type>1</type>
-			<location>C:/Users/RMICH Mohammed/Desktop/JavaIcons/delete.png</location>
-		</link>
-		<link>
-			<name>DI3ProjetJava/src/images/employee.png</name>
-			<type>1</type>
-			<location>C:/Users/RMICH Mohammed/Desktop/JavaIcons/employee.png</location>
-		</link>
-		<link>
-			<name>DI3ProjetJava/src/images/javatech.png</name>
-			<type>1</type>
-			<location>C:/Users/RMICH Mohammed/Desktop/JavaIcons/javatech.png</location>
-		</link>
-		<link>
-			<name>DI3ProjetJava/src/images/search.png</name>
-			<type>1</type>
-			<location>C:/Users/RMICH Mohammed/Desktop/JavaIcons/search.png</location>
-		</link>
-		<link>
-			<name>DI3ProjetJava/src/images/settings.png</name>
-			<type>1</type>
-			<location>C:/Users/RMICH Mohammed/Desktop/JavaIcons/settings.png</location>
+			<name>DI3ProjetJava/src/view/images/JavaIcons</name>
+			<type>2</type>
+			<location>C:/Users/RMICH Mohammed/git/DI3ProjetJava/DI3ProjetJava/src/view/images/JavaIcons</location>
 		</link>
 	</linkedResources>
 </projectDescription>
