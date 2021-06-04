@@ -1,9 +1,12 @@
 package model.mainapp;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
 
-public class DayPlanning {
+public class DayPlanning implements Serializable {
+	
+	private static final long serialVersionUID = -1187588611307841876L;
 	
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/

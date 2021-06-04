@@ -1,7 +1,11 @@
 package model.shared;
 
-public class EmployeeInfo {
+import java.io.Serializable;
 
+public class EmployeeInfo implements Serializable {
+
+	private static final long serialVersionUID = -2361731577118015767L;
+	
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
@@ -19,7 +23,7 @@ public class EmployeeInfo {
 	 * @throws Exception
 	 */
 	public EmployeeInfo() throws Exception {
-		this(1, "default", "default");
+		this(0, "default", "default");
 	}
 	
 	/**
@@ -52,9 +56,6 @@ public class EmployeeInfo {
 	 * @throws Exception 
 	 */
 	protected void setID(Integer ID) throws Exception {
-		if (ID <= 0)
-			throw new Exception("Error in setID : please use an ID > 0.");
-		
 		this.ID = ID;
 	}
 

@@ -149,7 +149,7 @@ public class BrowserMainapp {
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
-	
+	/*
 	protected HashSet<Employee> selectEmployees(String[] searchedIDs, String[] searchedFirstnames, String[] searchedLastnames) {
 		//Will select the employees to look into
 		HashSet<Employee> selectedEmployees = new HashSet<>();
@@ -196,7 +196,7 @@ public class BrowserMainapp {
 		
 		return selectedEmployees;
 	}
-	
+	*/
 	public void intersectionCollection(Collection<Employee> list1, Collection<Employee> list2) {
 		if (!list1.isEmpty())
 			list1.retainAll(list2);

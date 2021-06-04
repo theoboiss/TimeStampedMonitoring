@@ -1,9 +1,16 @@
 package model.mainapp;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Company {
+public class Company implements Serializable {
 	
+	private static final long serialVersionUID = -5385628284286557836L;
 	
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
@@ -74,26 +81,74 @@ public class Company {
 		getListDepartment().add(department);
 	}
 	
-	
+
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
 	
-	/*
 	@Override
 	public String toString() {
-		return this.planning.toString().replace("=", "\n").replace(",", "\n\n");
-	}*/
+		String msg = "Company[\n";
+		for(Department departmentTmp : getListDepartment()) {
+			msg += "    " + departmentTmp.toString() + ",\n";
+		}
+		msg = msg.substring(0,msg.length()-2);
+		msg += "\n]";
+		return msg;
+	}
 	
 	public static void main(String[] args){
-		/*
+		Company companyToSave = null;
+		ObjectOutputStream oos = null;
+		ObjectInputStream ois = null;
+		
 		try {
+			/*companyToSave = new Company();
+			Department A = new Department("PolyGame");
+			Department B = new Department("JavaTech", new Employee("default", "RH"));
+			companyToSave.addDepartment(A); companyToSave.addDepartment(B);
 			
-
+			//add few employees to B
+			B.addEmployee(new Employee("test","default"));
+			B.addEmployee(new Employee("default3","test"));
+	
+			SearchInMainapp.searchEmployee(B,"default",1).get(0).setFirstname("Theo");
+			SearchInMainapp.searchEmployee(B,"Theo","default").get(0).setLastname("Boisseau");
+			
+			
+			
+			System.out.println("Serialisation");
+			final FileOutputStream fichierOut = new FileOutputStream("myEmployee.ser");
+			oos = new ObjectOutputStream(fichierOut);
+			oos.writeObject(companyToSave);
+			oos.flush();
+			 */
+			System.out.println("Deserialisation");
+			final FileInputStream fichierIn = new FileInputStream("myEmployee.ser");
+			ois = new ObjectInputStream(fichierIn);
+			Company companySaved = (Company) ois.readObject();
+			System.out.println(companySaved);
+			
+			System.out.println(Employee.getlistUsedIDs());
+		} catch (final java.io.IOException e) {
+			e.printStackTrace();
+		} catch (final ClassNotFoundException e) {
+			e.printStackTrace();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}	
-		*/
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ois != null) {
+					ois.close();
+				}
+				if (oos != null) {
+					oos.close();
+				}
+			} catch (final IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+		
 	}
 	
 }

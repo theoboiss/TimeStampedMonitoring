@@ -3,12 +3,14 @@ package view.emulator;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.awt.Image;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 //import java.awt.Dimension;
 //import java.awt.Toolkit;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.*;
+
 
 import model.shared.CheckInOut;
 
@@ -31,70 +33,54 @@ public class ViewEmulator extends JFrame
 		/*************************** CONSTRUCTORS ****************************/
 		/*********************************************************************/
 		public ViewEmulator() 
-		{		
-			
-			// Size of the window
-			this.setSize(500, 300);
-			
-			// Center the window on the screen
-			this.setLocationRelativeTo(null);
+		{	
+			// Panel creation
 			JFrame window = new JFrame();
-			// Close window
+			JPanel panel = (JPanel) window.getContentPane();
+			
+			JLabel logo = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("view/images/JavaIcons/javatech.png")));
+	        panel.add(logo);
+	        logo.setBounds(5, -80, 100, 2000);
+	        panel.add(logo);
+	        
+			// Panel configuration
+	        window.setTitle("JavaTech™ V.1.0");
+	        panel.setName("Time Tracker Emulator");
+			window.setSize(500, 300);
+			window.setLocationRelativeTo(null);
 			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			JPanel panel = (JPanel) window.getContentPane();;
+			window.setResizable(false);
 			panel.setLayout(null);
 			
-			JLabel reelTimeClock = new JLabel();
-			JLabel frontTitle = new JLabel();
-			
-			Date currentDate = new Date();
-			reelTimeClock.setText("Today is : " + currentDate);
-			//SimpleDateFormat dateFormat = new SimpleDateFormat("dd:MM:yyyy HH:mm:ss");
-			//dateFormat.updateClock();
-			//new Timer(1000, dateFormat).start();
-
-			reelTimeClock.setBounds(118, 40, 400, 30);
-			
-			frontTitle.setText("Time Tracker Emulator");
-			Dimension sizeTitle = frontTitle.getPreferredSize();
-			frontTitle.setBounds(175, 15, sizeTitle.width, sizeTitle.height);
-			//frontTitle.setVerticalAlignment(JLabel.TOP);
-			//frontTitle.setVerticalTextPosition(20);
-			//frontTitle.setLayout(null);
-			
-			this.setTitle("Time Tracker Emulator V.1.0");
-			panel.setName("Time Tracker Emulator");
+			// Check in/out button
 			JButton startButton = new JButton("Check in/out");
 	        startButton.setBounds(BUTTON_LOCATION_X, BUTTON_LOCATION_Y, BUTTON_SIZE_X, BUTTON_SIZE_Y );
-	        this.add(startButton);
 	        
-	        //  Id section
-	        JLabel IDLabel = new JLabel("Employee ID");
-	        JTextField IDField = new JTextField();
-	        Dimension sizeIDLabel = IDLabel.getPreferredSize();
+	        // Clock and other fields
+			JLabel reelTimeClock = new JLabel();
+			JLabel frontTitle = new JLabel();
+			JLabel IDLabel = new JLabel("Employee ID");
+			JTextField IDField = new JTextField();
+			Date currentDate = new Date();
+			
+			frontTitle.setText("Time Tracker Emulator");
+			reelTimeClock.setText("Today is : " + currentDate);
+			reelTimeClock.setBounds(118, 40, 400, 30);
+			Dimension sizeTitle = frontTitle.getPreferredSize();
+			frontTitle.setBounds(175, 15, sizeTitle.width, sizeTitle.height);
+			Dimension sizeIDLabel = IDLabel.getPreferredSize();
 	        IDLabel.setBounds(10, 230, sizeIDLabel.width, sizeIDLabel.height);
-	        //Dimension sizeIDField = IDField.getPreferredSize();
 	        IDField.setBounds(90, 223, 200, 30);
 
-	        //frame.setSize(300, 200);
-	        //frame.setVisible(true);
-	        
+			// Add previous element to panel
+			window.add(startButton);
 			panel.add(IDLabel);
-	        panel.add(IDField);
-			
-			this.add(panel);
-			// Add date
+			panel.add(IDField);
 			panel.add(reelTimeClock);
 			panel.add(frontTitle);
-			//panel.add(dateFormat);
+			window.setVisible(true);
 			
-			panel.setBackground(new Color(85, 250, 40));
-			//startButton.setBackground(new Color(160, 220, 230));
 			
-			//frame.add(new ClockPane());
-			this.setVisible(true);
-			
-			//TESTPUSH
 			
 		}
 
