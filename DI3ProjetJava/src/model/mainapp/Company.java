@@ -25,7 +25,6 @@ public class Company implements Serializable {
 	/*********************************************************************/
 
 	public Company() {
-		super();
 		this.listDepartment = new ArrayList<Department>();
 	}
 	

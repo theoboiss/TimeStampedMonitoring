@@ -1,52 +1,52 @@
 package model.mainapp;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
+import controller.mainapp.MainappData;
 
 import model.shared.CheckInOut;
 
 public class Tests {
-	public static void main(String[] args){
+	public static void main(String[] args) throws IOException{
 		System.out.println("Hello from Test from model.mainapp\n");
 
-		Employee employeeToSave = null;
-		ObjectOutputStream oos = null;
-		ObjectInputStream ois = null;
-
+		Company companyToSave = null;
 		try {
-			employeeToSave = new Employee("prenom", "nom");
-			employeeToSave.getListChecks().add(new CheckInOut());
-			System.out.println("Serialisation");
-			final FileOutputStream fichierOut = new FileOutputStream("myEmployee.ser");
-			oos = new ObjectOutputStream(fichierOut);
-			oos.writeObject(employeeToSave);
-			oos.flush();
+			companyToSave = new Company();
+			Department A = new Department("PolyGame");
+			Department B = new Department("JavaTech", new Employee("default", "RH"));
+			companyToSave.addDepartment(A); companyToSave.addDepartment(B);
 
-			System.out.println("Deserialisation");
-			final FileInputStream fichierIn = new FileInputStream("myEmployee.ser");
-			ois = new ObjectInputStream(fichierIn);
-			Employee employeeSaved = (Employee) ois.readObject();
-			System.out.println(employeeSaved);
-		} catch (final java.io.IOException e) {
-			e.printStackTrace();
-		} catch (final ClassNotFoundException e) {
-			e.printStackTrace();
+			//add few checks to A
+			
+			CheckInOut exempleCheck1 = new CheckInOut();
+			exempleCheck1.setEmployeeID(1);
+			SearchInMainapp.searchEmployee(A,1).getListChecks().add(exempleCheck1);
+			CheckInOut exempleCheck2 = new CheckInOut();
+			SearchInMainapp.searchEmployee(A,1).getListChecks().add(exempleCheck2);
+			exempleCheck2.setEmployeeID(1);
+			CheckInOut exempleCheck3 = new CheckInOut();
+			SearchInMainapp.searchEmployee(A,1).getListChecks().add(exempleCheck3);
+			exempleCheck3.setEmployeeID(1);
+			
+			//add few employees to B
+			B.addEmployee(new Employee("test","default"));
+			B.addEmployee(new Employee("default3","test"));
+
+			SearchInMainapp.searchEmployee(B,"default",1).get(0).setFirstname("Theo");
+			SearchInMainapp.searchEmployee(B,"Theo","default").get(0).setLastname("Boisseau");
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (ois != null) {
-					ois.close();
-				}
-				if (oos != null) {
-					oos.close();
-				}
-			} catch (final IOException ex) {
-				ex.printStackTrace();
-			}
 		}
+		/*
+		try {
+			MainappData savingProcess;
+			savingProcess = new MainappData();
+			savingProcess.save(companyToSave);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 	}
 }

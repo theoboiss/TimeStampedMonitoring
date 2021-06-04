@@ -28,8 +28,8 @@ public class BrowserMainapp {
 		"ViewResultsCheckInOuts","ViewResultsEmployees","ViewResultsEmployeeDetails"
 	);
 	private String view;
-	private MainappData dataController;
 	private Company model;
+	private MainappData dataController;
 	private DateTimeFormatter formatter; 
 	private String regexPattern;
 
@@ -48,17 +48,8 @@ public class BrowserMainapp {
 		{
 			throw new IllegalArgumentException("The requested result view is not available.");
 		}
-		///////////////////////////////////////////////////////////////////////////////////////////////////
-		System.out.println("Deserialisation");
-		final FileInputStream fichierIn = new FileInputStream("serializedData.ser");
-		ObjectInputStream ois = new ObjectInputStream(fichierIn);
-		Company companySaved = (Company) ois.readObject();
-		ois.close();
-		//System.out.println(companySaved);
-		setModel(companySaved);
-		///////////////////////////////////////////////////////////////////////////////////////////////////
 		setView(view);
-		//setModel(getDataController().getCurrentModel()); //it will be available after the serialization step
+		setModel(Mainapp.getCurrentModel()); //it will be available after the serialization step
 		setFormatter(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm"));
 		setRegexPattern(", |,| ");
 	}
@@ -341,7 +332,7 @@ public class BrowserMainapp {
 		System.out.println(rawResult); //debug
 		
 		//format the data
-		Object[][] data = new Object[rawResult.size()][];
+		final Object[][] data = new Object[rawResult.size()][];
 		Integer iterator = 0;
 		for (Employee foundEmployee : rawResult) {
 			Object foundEmployeeLastCheckInOut = "";
@@ -349,7 +340,7 @@ public class BrowserMainapp {
 				CheckInOut lastCheckInOut = foundEmployee.getListChecks().get(foundEmployee.getListChecks().size()-1);
 				foundEmployeeLastCheckInOut = lastCheckInOut.getCheckTime().format(getFormatter());
 			}
-			Object[] line = {
+			final Object[] line = {
 				foundEmployee.getID().toString(),
 				foundEmployee.getFirstname(),
 				foundEmployee.getLastname(),

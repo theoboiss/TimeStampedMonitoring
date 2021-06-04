@@ -69,7 +69,7 @@ public class Employee extends EmployeeInfo {
 	/**
 	 * @param ID
 	 */
-	protected static void addUsedIDToList(Integer ID) {
+	public static void addUsedIDToList(Integer ID) {
 		Employee.listUsedIDs.add(ID);
 	}
 
