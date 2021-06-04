@@ -132,13 +132,13 @@ public class Company implements Serializable {
 			
 			
 			System.out.println("Serialisation");
-			final FileOutputStream fichierOut = new FileOutputStream("myData.ser");
+			final FileOutputStream fichierOut = new FileOutputStream("serializedData.ser");
 			oos = new ObjectOutputStream(fichierOut);
 			oos.writeObject(companyToSave);
 			oos.flush();
 			 
 			System.out.println("Deserialisation");
-			final FileInputStream fichierIn = new FileInputStream("myData.ser");
+			final FileInputStream fichierIn = new FileInputStream("serializedData.ser");
 			ois = new ObjectInputStream(fichierIn);
 			Company companySaved = (Company) ois.readObject();
 			System.out.println(companySaved);

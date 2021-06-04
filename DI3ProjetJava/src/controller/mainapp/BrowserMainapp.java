@@ -50,7 +50,7 @@ public class BrowserMainapp {
 		}
 		///////////////////////////////////////////////////////////////////////////////////////////////////
 		System.out.println("Deserialisation");
-		final FileInputStream fichierIn = new FileInputStream("myData.ser");
+		final FileInputStream fichierIn = new FileInputStream("serializedData.ser");
 		ObjectInputStream ois = new ObjectInputStream(fichierIn);
 		Company companySaved = (Company) ois.readObject();
 		ois.close();
