@@ -8,6 +8,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import model.shared.CheckInOut;
+
 public class Company implements Serializable {
 	
 	private static final long serialVersionUID = -5385628284286557836L;
@@ -107,6 +109,18 @@ public class Company implements Serializable {
 			Department A = new Department("PolyGame");
 			Department B = new Department("JavaTech", new Employee("default", "RH"));
 			companyToSave.addDepartment(A); companyToSave.addDepartment(B);
+
+			//add few checks to A
+			
+			CheckInOut exempleCheck1 = new CheckInOut();
+			exempleCheck1.setEmployeeID(1);
+			SearchInMainapp.searchEmployee(A,1).getListChecks().add(exempleCheck1);
+			CheckInOut exempleCheck2 = new CheckInOut();
+			SearchInMainapp.searchEmployee(A,1).getListChecks().add(exempleCheck2);
+			exempleCheck2.setEmployeeID(1);
+			CheckInOut exempleCheck3 = new CheckInOut();
+			SearchInMainapp.searchEmployee(A,1).getListChecks().add(exempleCheck3);
+			exempleCheck3.setEmployeeID(1);
 			
 			//add few employees to B
 			B.addEmployee(new Employee("test","default"));
