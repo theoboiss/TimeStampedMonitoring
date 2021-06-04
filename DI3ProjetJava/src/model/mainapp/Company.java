@@ -103,7 +103,7 @@ public class Company implements Serializable {
 		ObjectInputStream ois = null;
 		
 		try {
-			/*companyToSave = new Company();
+			companyToSave = new Company();
 			Department A = new Department("PolyGame");
 			Department B = new Department("JavaTech", new Employee("default", "RH"));
 			companyToSave.addDepartment(A); companyToSave.addDepartment(B);
@@ -118,13 +118,13 @@ public class Company implements Serializable {
 			
 			
 			System.out.println("Serialisation");
-			final FileOutputStream fichierOut = new FileOutputStream("myEmployee.ser");
+			final FileOutputStream fichierOut = new FileOutputStream("myData.ser");
 			oos = new ObjectOutputStream(fichierOut);
 			oos.writeObject(companyToSave);
 			oos.flush();
-			 */
+			 
 			System.out.println("Deserialisation");
-			final FileInputStream fichierIn = new FileInputStream("myEmployee.ser");
+			final FileInputStream fichierIn = new FileInputStream("myData.ser");
 			ois = new ObjectInputStream(fichierIn);
 			Company companySaved = (Company) ois.readObject();
 			System.out.println(companySaved);
