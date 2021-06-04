@@ -223,8 +223,12 @@ public class ViewEmployeesSearch extends ViewModel  {
 
 			
 			try {
+				
 				BrowserMainapp controller = new BrowserMainapp("ViewResultsEmployees");
-				controller.searchEmployee(getSubmitMap()); //for test, action not chosen yet
+				Object[][] dataEntry = controller.searchEmployee(getSubmitMap()); 
+				String[] titles = {"ID", "Firstname", "Lastname", "Department"};
+				ViewResultsEmployees frameEmployeesResults = new ViewResultsEmployees(dataEntry, titles);
+
 			} catch (Exception e) {
 				//not all exceptions are handled yet (especially in Browser)
 				e.printStackTrace();

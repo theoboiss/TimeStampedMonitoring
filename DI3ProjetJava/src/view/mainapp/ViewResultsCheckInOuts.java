@@ -1,5 +1,5 @@
 package view.mainapp;
 
-public class ViewResultsCheckInOuts extends ViewResults {
+public class ViewResultsCheckInOuts {
 
 }
