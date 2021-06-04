@@ -1,5 +1,11 @@
 package model.mainapp;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -7,8 +13,10 @@ import java.util.HashMap;
 
 import model.shared.CheckInOut;
 
-public class Department {
+public class Department implements Serializable {
 
+	private static final long serialVersionUID = 3779082753004859354L;
+	
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
@@ -116,10 +124,12 @@ public class Department {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		Department A = null;
+		Department B = null;
 		
 		try {
-			Department A = new Department("PolyGame");
-			Department B = new Department("JavaTech", new Employee("default", "RH"));
+			A = new Department("PolyGame");
+			B = new Department("JavaTech", new Employee("default", "RH"));
 			
 			//add few employees to B
 			B.addEmployee(new Employee());
@@ -163,6 +173,44 @@ public class Department {
 			System.out.println("\nError : Tried to access to an absent Employee in the list");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+		}
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		ObjectOutputStream oos = null;
+		ObjectInputStream ois = null;
+
+		try {
+			System.out.println("Serialisation");
+			final FileOutputStream fichierOut = new FileOutputStream("myDepartment.ser");
+			oos = new ObjectOutputStream(fichierOut);
+			oos.writeObject(A);
+			oos.flush();/*
+			oos.writeObject(B);
+			oos.flush();*/
+
+			System.out.println("Deserialisation");
+			final FileInputStream fichierIn = new FileInputStream("myDepartment.ser");
+			ois = new ObjectInputStream(fichierIn);
+			Department departmentSaved = (Department) ois.readObject();
+			System.out.println(departmentSaved);
+		} catch (final java.io.IOException e) {
+			e.printStackTrace();
+		} catch (final ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ois != null) {
+					ois.close();
+				}
+				if (oos != null) {
+					oos.close();
+				}
+			} catch (final IOException ex) {
+				ex.printStackTrace();
+			}
 		}
 	}
 }

@@ -1,10 +1,13 @@
 package model.mainapp;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Planning {
+public class Planning implements Serializable {
 
+	private static final long serialVersionUID = 7718443083220533564L;
+	
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/

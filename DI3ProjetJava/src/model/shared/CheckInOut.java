@@ -1,14 +1,17 @@
 package model.shared;
 
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * @author RMICH Mohammed
  *
  */
-public class CheckInOut 
-{
+public class CheckInOut implements Serializable {
+	
+	private static final long serialVersionUID = 5245397379603866240L;
+	
 	/* ================================================================= */
 	/************************* CLASS ATTRIBUTES **************************/
 	/*********************************************************************/
