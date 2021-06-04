@@ -3,17 +3,20 @@ package controller.mainapp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import view.mainapp.ViewResults;
-
-import model.mainapp.*;
+import model.mainapp.Company;
+import model.mainapp.Department;
+import model.mainapp.Employee;
+import model.mainapp.SearchInMainapp;
 import model.shared.CheckInOut;
 
 public class BrowserMainapp {
@@ -22,7 +25,10 @@ public class BrowserMainapp {
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
-	
+
+	final static private List<String> viewsIndex = Arrays.asList(
+		"ViewResultsCheckInOuts","ViewResultsEmployees","ViewResultsEmployeeDetails"
+	);
 	private String view;
 	private MainappData dataController;
 	private Company model;
@@ -40,9 +46,7 @@ public class BrowserMainapp {
 	 * @throws Exception 
 	 */
 	public BrowserMainapp(String view) throws Exception {
-		if (view != "ViewResultsCheckInOuts"
-		 && view != "ViewResultsEmployees"
-		 && view != "ViewResultsEmployeeDetails")
+		if (!getViewsIndex().contains(view))
 		{
 			throw new IllegalArgumentException("The requested result view is not available.");
 		}
@@ -71,6 +75,13 @@ public class BrowserMainapp {
 	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
 	
+	/**
+	 * @return the viewsIndex
+	 */
+	static public List<String> getViewsIndex() {
+		return viewsIndex;
+	}
+
 	/**
 	 * @return the view
 	 */
@@ -218,8 +229,8 @@ public class BrowserMainapp {
 	 * @param request
 	 * @return
 	 */
-	public JTable searchCheckInOut(HashMap<String,JTextField> request) {
-		String[] titles = {"ID", "Firstname", "Lastname", "Date", "Status"};
+	/*public Object[][] searchCheckInOut(HashMap<String,JTextField> request) {
+		//String[] titles = {"ID", "Firstname", "Lastname", "Date", "Status"};
 		
 		
 		//extract informations from the request
@@ -260,12 +271,11 @@ public class BrowserMainapp {
 			data[iterator++] = line;
 		}
 		
-		JTable result = new JTable(data,titles);
-		return result;
-	}
+		return data;
+	}*/
 	
-	public JTable searchEmployee(HashMap<String,JTextField> request) {
-		String[] titles = {"ID", "Firstname", "Lastname", "Department", "Date of last check"};
+	public Object[][] searchEmployee(HashMap<String,JTextField> request) {
+		//String[] titles = {"ID", "Firstname", "Lastname", "Department", "Date of last check"};
 		
 		//extract informations from the request
 		String[] searchedIDs = request.get("id").getText().split(getRegexPattern());
@@ -335,7 +345,7 @@ public class BrowserMainapp {
 			}
 		}
 		
-		System.out.println(rawResult);
+		System.out.println(rawResult); //debug
 		
 		//format the data
 		Object[][] data = new Object[rawResult.size()][];
@@ -355,8 +365,7 @@ public class BrowserMainapp {
 			data[iterator++] = line;
 		}
 
-		JTable result = new JTable(data,titles);
-		return result;
+		return data;
 	}
 	/* 	NOT AVAILABLE YET
 	public JTable searchEmployeeDetails(HashMap<String,JTextField> request) {
