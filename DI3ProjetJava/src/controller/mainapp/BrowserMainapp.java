@@ -1,8 +1,8 @@
 package controller.mainapp;
 
-import java.time.LocalDateTime;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,11 +10,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import model.mainapp.Company;
-import model.mainapp.Department;
 import model.mainapp.Employee;
 import model.mainapp.SearchInMainapp;
 import model.shared.CheckInOut;
@@ -51,18 +49,13 @@ public class BrowserMainapp {
 			throw new IllegalArgumentException("The requested result view is not available.");
 		}
 		///////////////////////////////////////////////////////////////////////////////////////////////////
-		Company modelTest = new Company();
-		Department A = new Department("PolyGame");
-		Department B = new Department("JavaTech", new Employee("default", "RH"));
-		modelTest.addDepartment(A); modelTest.addDepartment(B);
-		
-		//add few employees to B
-		B.addEmployee(new Employee("test","default"));
-		B.addEmployee(new Employee("default3","test"));
-
-		SearchInMainapp.searchEmployee(B,"default",1).get(0).setFirstname("Theo");
-		SearchInMainapp.searchEmployee(B,"Theo","default").get(0).setLastname("Boisseau");
-		setModel(modelTest);
+		System.out.println("Deserialisation");
+		final FileInputStream fichierIn = new FileInputStream("myEmployee.ser");
+		ObjectInputStream ois = new ObjectInputStream(fichierIn);
+		Company companySaved = (Company) ois.readObject();
+		ois.close();
+		//System.out.println(companySaved);
+		setModel(companySaved);
 		///////////////////////////////////////////////////////////////////////////////////////////////////
 		setView(view);
 		//setModel(getDataController().getCurrentModel()); //it will be available after the serialization step
@@ -360,6 +353,7 @@ public class BrowserMainapp {
 				foundEmployee.getID().toString(),
 				foundEmployee.getFirstname(),
 				foundEmployee.getLastname(),
+				foundEmployee.getDepartment(),
 				foundEmployeeLastCheckInOut
 			};
 			data[iterator++] = line;
