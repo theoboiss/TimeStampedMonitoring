@@ -1,6 +1,6 @@
 package controller.emulator;
 
-import java.time.LocalDateTime;
+
 import java.util.concurrent.CopyOnWriteArrayList;
 import model.emulator.History;
 import model.emulator.History.EventDuringCheck;
@@ -51,4 +51,12 @@ public class Emulator {
 			historyCheck.addToHistory(event, null, null, item);
 		}
 	}
+	
+	/**
+	 * @brief Method to remove a check
+	 */
+	public void removeCheckInOut() {
+		   this.checksFromEmulator = new CheckInOut();
+		   this.event = null;
+	   }
 }
