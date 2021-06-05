@@ -326,7 +326,7 @@ public class BrowserMainapp {
 			}
 		}
 		
-		System.out.println(rawResult); //debug
+		//System.out.println(rawResult); //debug
 		
 		//format the data
 		final Object[][] data = new Object[rawResult.size()][];
