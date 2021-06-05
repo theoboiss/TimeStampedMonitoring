@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.*;
 
-
+import model.emulator.History.EventDuringCheck;
 import model.shared.CheckInOut;
 
 public class ViewEmulator extends JFrame 
@@ -24,10 +24,25 @@ public class ViewEmulator extends JFrame
 		private static final int BUTTON_LOCATION_Y = 208;   	// location y 
 		private static final int BUTTON_SIZE_X = 150;      		// size height
 		private static final int BUTTON_SIZE_Y = 50;       		// size width
-		private CopyOnWriteArrayList<CheckInOut> checks;
+		private static CopyOnWriteArrayList<CheckInOut> checks;
+		private static EventDuringCheck event;
 		/*********************************************************************/
 		/*********************************************************************/
 		/* ================================================================= */
+
+		/**
+		 * @return the event
+		 */
+		public static EventDuringCheck getEvent() {
+			return event;
+		}
+
+		/**
+		 * @param event the event to set
+		 */
+		public static void setEvent(EventDuringCheck event) {
+			ViewEmulator.event = event;
+		}
 
 		/* ================================================================= */
 		/*************************** CONSTRUCTORS ****************************/
@@ -38,10 +53,13 @@ public class ViewEmulator extends JFrame
 			JFrame window = new JFrame();
 			JPanel panel = (JPanel) window.getContentPane();
 			
-			JLabel logo = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("view/images/JavaIcons/javatech.png")));
-	        panel.add(logo);
-	        logo.setBounds(5, -80, 100, 2000);
-	        panel.add(logo);
+			String imagePath = "view/images/JavaIcons/javatech.png";
+			ImageIcon icon = new ImageIcon(imagePath);
+			JLabel logo = new JLabel(icon, JLabel.CENTER);
+		    window.add(logo);
+			
+	        
+	        
 	        
 			// Panel configuration
 	        window.setTitle("JavaTech™ V.1.0");
@@ -104,7 +122,7 @@ public class ViewEmulator extends JFrame
 		/**
 		 * @return the checks
 		 */
-		public CopyOnWriteArrayList<CheckInOut> getChecks() 
+		public static CopyOnWriteArrayList<CheckInOut> getChecks() 
 		{
 			return checks;
 		}

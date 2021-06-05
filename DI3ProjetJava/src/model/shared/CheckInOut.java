@@ -4,6 +4,8 @@ package model.shared;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import model.emulator.History.EventDuringCheck;
+
 /**
  * @author RMICH Mohammed
  *
@@ -18,6 +20,35 @@ public class CheckInOut implements Serializable {
 
 	private Integer employeeID;
 	private LocalDateTime checkTime;
+	private EventDuringCheck event;
+	/**
+	 * @param employeeID
+	 * @param checkTime
+	 * @param event
+	 * @param status
+	 */
+	public CheckInOut(Integer employeeID, LocalDateTime checkTime, EventDuringCheck event, boolean status) {
+		super();
+		this.employeeID = employeeID;
+		this.checkTime = checkTime;
+		this.event = event;
+		this.status = status;
+	}
+
+	/**
+	 * @return the event
+	 */
+	public EventDuringCheck getEvent() {
+		return event;
+	}
+
+	/**
+	 * @param event the event to set
+	 */
+	public void setEvent(EventDuringCheck event) {
+		this.event = event;
+	}
+
 	private boolean status;
 
 	/*********************************************************************/
