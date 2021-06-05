@@ -1,10 +1,6 @@
 package view.emulator;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.Image;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 //import java.awt.Dimension;
 //import java.awt.Toolkit;
@@ -161,6 +157,3 @@ public class ViewEmulator extends JFrame
 		}
 		
 	}
-
-
-
