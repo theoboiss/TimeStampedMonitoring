@@ -1,9 +1,6 @@
 package model.mainapp;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import controller.mainapp.MainappData;
 
 import model.shared.CheckInOut;
 
@@ -39,14 +36,5 @@ public class Tests {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		/*
-		try {
-			MainappData savingProcess;
-			savingProcess = new MainappData();
-			savingProcess.save(companyToSave);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 	}
 }

@@ -1,7 +1,5 @@
 package controller.mainapp;
 
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collection;
@@ -29,7 +27,6 @@ public class BrowserMainapp {
 	);
 	private String view;
 	private Company model;
-	private MainappData dataController;
 	private DateTimeFormatter formatter; 
 	private String regexPattern;
 
