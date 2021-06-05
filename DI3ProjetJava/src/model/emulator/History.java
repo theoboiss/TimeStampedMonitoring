@@ -64,7 +64,13 @@ public class History implements Serializable {
 		dateTime = time;
 		checkInOut = check;
 	}
-
+	public void deleteElementFromHistory()
+	{
+		eventDuringCheck = null;
+		employeeID = 0;
+		dateTime = null;
+		checkInOut = null;
+	}
 	/**
 	 * @return the employeeID
 	 */
