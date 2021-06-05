@@ -64,6 +64,9 @@ public class History implements Serializable {
 		dateTime = time;
 		checkInOut = check;
 	}
+	/**
+	 * @brief Delete an event from history
+	 */
 	public void deleteElementFromHistory()
 	{
 		eventDuringCheck = null;
