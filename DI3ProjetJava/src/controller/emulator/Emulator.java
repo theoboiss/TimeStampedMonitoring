@@ -42,7 +42,6 @@ public class Emulator {
 		CopyOnWriteArrayList<CheckInOut> listChecks = new CopyOnWriteArrayList<CheckInOut>();
 		listChecks = ViewEmulator.getChecks();
 		
-		LocalDateTime time;
 		// Creating a check in out
 		for (CheckInOut item : listChecks) {
 			checksFromEmulator.setEmployeeID(item.getEmployeeID());
