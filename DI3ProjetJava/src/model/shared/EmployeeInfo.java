@@ -55,7 +55,7 @@ public class EmployeeInfo implements Serializable {
 	 * @param ID
 	 * @throws Exception 
 	 */
-	protected void setID(Integer ID) throws Exception {
+	public void setID(Integer ID) throws Exception {
 		this.ID = ID;
 	}
 

@@ -1,6 +1,7 @@
 package view.emulator;
 
 import java.awt.Dimension;
+import java.time.LocalDate;
 import java.util.Date;
 //import java.awt.Dimension;
 //import java.awt.Toolkit;
@@ -20,8 +21,9 @@ public class ViewEmulator extends JFrame
 		private static final int BUTTON_LOCATION_Y = 208;   	// location y 
 		private static final int BUTTON_SIZE_X = 150;      		// size height
 		private static final int BUTTON_SIZE_Y = 50;       		// size width
-		private static CopyOnWriteArrayList<CheckInOut> checks;
+		private static CheckInOut checks;
 		private static EventDuringCheck event;
+		private static LocalDate date;
 		/*********************************************************************/
 		/*********************************************************************/
 		/* ================================================================= */
@@ -50,9 +52,12 @@ public class ViewEmulator extends JFrame
 			JPanel panel = (JPanel) window.getContentPane();
 			
 			String imagePath = "view/images/JavaIcons/javatech.png";
-			ImageIcon icon = new ImageIcon(imagePath);
-			JLabel logo = new JLabel(icon, JLabel.CENTER);
-		    window.add(logo);
+			//ImageIcon icon = new ImageIcon(imagePath);
+			//JLabel logo = new JLabel(icon, JLabel.CENTER);
+			JLabel img = new JLabel(new ImageIcon(getClass().getClassLoader().getResource(imagePath)));
+			Dimension sizeImg = img.getPreferredSize();
+			img.setBounds(10, -200, sizeImg.width-250, sizeImg.height+50);
+		    window.add(img);
 			
 	        
 	        
@@ -76,7 +81,7 @@ public class ViewEmulator extends JFrame
 			JLabel IDLabel = new JLabel("Employee ID");
 			JTextField IDField = new JTextField();
 			Date currentDate = new Date();
-			
+			date = LocalDate.now();
 			frontTitle.setText("Time Tracker Emulator");
 			reelTimeClock.setText("Today is : " + currentDate);
 			reelTimeClock.setBounds(118, 40, 400, 30);
@@ -99,9 +104,23 @@ public class ViewEmulator extends JFrame
 		}
 
 		/**
+		 * @return the date
+		 */
+		public static LocalDate getDate() {
+			return date;
+		}
+
+		/**
+		 * @param date the date to set
+		 */
+		public static void setDate(LocalDate date) {
+			ViewEmulator.date = date;
+		}
+
+		/**
 		 * @param checks
 		 */
-		public ViewEmulator(CopyOnWriteArrayList<CheckInOut> checks) 
+		public ViewEmulator(CheckInOut checks) 
 		{
 			super();
 			this.checks = checks;
@@ -118,7 +137,7 @@ public class ViewEmulator extends JFrame
 		/**
 		 * @return the checks
 		 */
-		public static CopyOnWriteArrayList<CheckInOut> getChecks() 
+		public static CheckInOut getChecks() 
 		{
 			return checks;
 		}
@@ -126,7 +145,7 @@ public class ViewEmulator extends JFrame
 		/**
 		 * @param checks the checks to set
 		 */
-		public void setChecks(CopyOnWriteArrayList<CheckInOut> checks) 
+		public void setChecks(CheckInOut checks) 
 		{
 			this.checks = checks;
 		}

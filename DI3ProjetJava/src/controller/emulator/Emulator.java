@@ -1,10 +1,12 @@
 package controller.emulator;
 
 
+import java.time.LocalDate;
 import java.util.concurrent.CopyOnWriteArrayList;
 import model.emulator.History;
 import model.emulator.History.EventDuringCheck;
 import model.shared.CheckInOut;
+import model.shared.EmployeeInfo;
 import view.emulator.ViewEmulator;
 
 /**
@@ -35,21 +37,25 @@ public class Emulator {
 
 	/***************** Methods *****************/
 	/**
+	 * @throws Exception 
 	 * @brief Method to add Employee ID and time of CheckInOut
 	 */
-	public void addElmentToCheckInOut(Integer empID) {
-		History historyCheck = new History(empID);
-		CopyOnWriteArrayList<CheckInOut> listChecks = new CopyOnWriteArrayList<CheckInOut>();
-		listChecks = ViewEmulator.getChecks();
+	public void addElmentToCheckInOut() throws Exception {
+		//History historyCheck = new History(empID);
 		
+		EmployeeInfo info = new EmployeeInfo();
+		LocalDate date = LocalDate.now();
+		date = ViewEmulator.getDate();
+		CheckInOut checks = new CheckInOut();
+		checks = ViewEmulator.getChecks();
+		info.setID(checks.getEmployeeID());
 		// Creating a check in out
-		for (CheckInOut item : listChecks) {
-			checksFromEmulator.setEmployeeID(item.getEmployeeID());
-			checksFromEmulator.setCheckTime(item.getCheckTime());
-			checksFromEmulator.setEvent(item.getEvent());
-			// Adding checks to history database
-			historyCheck.addToHistory(event, null, null, item);
-		}
+		checksFromEmulator.setEmployeeID(checks.getEmployeeID());
+		checksFromEmulator.setCheckTime(checks.getCheckTime());
+		checksFromEmulator.setEvent(checks.getEvent());
+		// Adding checks to history database
+		History.addToHistory(checksFromEmulator, info, date);
+		
 	}
 	
 	/**

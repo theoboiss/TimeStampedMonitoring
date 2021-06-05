@@ -1,9 +1,13 @@
 package model.emulator;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import model.shared.CheckInOut;
+import model.shared.EmployeeInfo;
 
+import java.util.Hashtable;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 
@@ -23,6 +27,11 @@ public class History implements Serializable {
 
 	private EventDuringCheck eventDuringCheck;
 
+	
+	private Settings settings; // All CheckInOut per employee from the first day
+	private static Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee; // All CheckInOut per employee during a day. The table is reset to 0 at the end of day. 
+	private static Hashtable<LocalDate, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay;
+	 
 	private Integer employeeID;
 	private LocalDateTime dateTime;
 	private CheckInOut checkInOut;
@@ -58,12 +67,12 @@ public class History implements Serializable {
 	 * @param time
 	 * @param check
 	 */
-	public void addToHistory(EventDuringCheck event, Integer empID, LocalDateTime time, CheckInOut check) {
+	/*public void addToHistory(EventDuringCheck event, Integer empID, LocalDateTime time, CheckInOut check) {
 		eventDuringCheck = event;
 		employeeID = empID;
 		dateTime = time;
 		checkInOut = check;
-	}
+	}*/
 	/**
 	 * @brief Delete an event from history
 	 */
@@ -73,6 +82,17 @@ public class History implements Serializable {
 		employeeID = 0;
 		dateTime = null;
 		checkInOut = null;
+	}
+	
+	public static void addToHistory(CheckInOut check, EmployeeInfo info, LocalDate date)
+	{
+		CopyOnWriteArrayList<CheckInOut> list = new CopyOnWriteArrayList<CheckInOut>();
+		list = checksPerEmployee.get(info);
+		checksPerEmployee.put(info, list);
+		checksPerEmployeePerDay.put(date, checksPerEmployee);
+		
+		
+
 	}
 	/**
 	 * @return the employeeID
@@ -165,7 +185,7 @@ public class History implements Serializable {
 	 * private Settings settings; // All CheckInOut per employee from the first day
 	 * private Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>
 	 * checksPerEmployee; // All CheckInOut per employee during a day. The table is
-	 * reset to 0 at the end of day. private Hashtable<LocalTime,
+	 * reset to 0 at the end of day. private Hashtable<LocalDate,
 	 * Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>>
 	 * checksPerEmployeePerDay;
 	 */
