@@ -149,7 +149,7 @@ public abstract class MainappSettings /*extends TCPServer */{
 					else
 						newBackupFileName = newBackupFileName.substring(0, newBackupFileName.length()-4);
 					
-					newBackupFileName += nowTime.format(DateTimeFormatter.ofPattern("-HH.mm-MM.dd.yyyy")) + ".ser";
+					newBackupFileName += nowTime.format(DateTimeFormatter.ofPattern("-HH.mm-yyyy.MM.dd")) + ".ser";
 					setBackupFileName(newBackupFileName);
 					
 					//create the new backup file
@@ -162,7 +162,9 @@ public abstract class MainappSettings /*extends TCPServer */{
 				
 				try {
 					getDataManagment().save(getBackupFileName(), getCurrentModel());
-					System.out.println("(Backup done at " + nowTime.format(DateTimeFormatter.ofPattern("dd-HH:mm")) + ")");
+					System.out.println("(Backup made on "
+							+ nowTime.format(DateTimeFormatter.ISO_LOCAL_DATE) + " at "
+							+ nowTime.format(DateTimeFormatter.ofPattern("HH:mm")) + ")");
 				}
 				catch (IOException e) { e.printStackTrace(); }
 			}
