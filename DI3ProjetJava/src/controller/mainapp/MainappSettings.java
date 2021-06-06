@@ -29,9 +29,6 @@ public abstract class MainappSettings {
 	/*********************************************************************/
 
 	public MainappSettings(String backupFileName) {
-		if (backupFileName.contains("-"))
-			throw new IllegalArgumentException("The backup file name must not contain '-'");
-		
 		setBackupFileName(backupFileName);
 		setDataManagment(new MainappBackup());
 		
@@ -196,5 +193,23 @@ public abstract class MainappSettings {
 			System.out.print("Enter the name of the file you want : ");
 			setBackupFileName(input.next());
 		}
+	}
+	
+	public static String lastModifiedFileRelatedTo(String fileName) {
+		if (new File(fileName).exists()) {
+			File directory = new File(fileName).getParentFile();
+			File[] listFiles = directory.listFiles();
+			for (Integer iterator1 = 0; iterator1 < listFiles.length; iterator1++) {
+				for (Integer iterator2 = iterator1; iterator2 < listFiles.length; iterator2++) {
+					if (listFiles[iterator1].lastModified() < listFiles[iterator2].lastModified()) {
+						File fileTemp = listFiles[iterator1];
+						listFiles[iterator1] = listFiles[iterator2];
+						listFiles[iterator2] = fileTemp;
+					}
+				}
+			}
+			return directory.getName() + "/" + listFiles[0].getName();
+		}
+		return fileName;
 	}
 }

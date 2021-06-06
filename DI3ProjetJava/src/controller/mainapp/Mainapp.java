@@ -8,7 +8,7 @@ public class Mainapp extends MainappSettings {
 	/****************************** BUILDERS *****************************/
 
 	public Mainapp() {
-		super("backup/serializedData.ser"); //by default
+		super(lastModifiedFileRelatedTo("backup/serializedData.ser")); //by default
 	}
 
 	public Mainapp(String backupFileName) {
