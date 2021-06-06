@@ -1,4 +1,4 @@
-package controller.mainapp;
+package controller.shared;
 
 import java.io.IOException;
 import java.io.InputStream;

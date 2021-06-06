@@ -12,15 +12,15 @@ import java.util.TimerTask;
 
 import model.mainapp.Company;
 
-public abstract class MainappSettings /*extends TCPServer */{
+public abstract class MainappSettings {
 
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 
-	private static String backupFileName;
 	private static Company currentModel;
-	private CompanyBackup dataManagment;
+	private String backupFileName;
+	private MainappBackup dataManagment;
 	private long[] timersForBackup = {5*1000, 30*60*1000}; //in milliseconds
 	
 	
@@ -33,13 +33,15 @@ public abstract class MainappSettings /*extends TCPServer */{
 			throw new IllegalArgumentException("The backup file name must not contain '-'");
 		
 		setBackupFileName(backupFileName);
-		setDataManagment(new CompanyBackup());
+		setDataManagment(new MainappBackup());
 		
 
 		Scanner input = new Scanner(System.in);
 		do {
 			try {
-				setCurrentModel(getDataManagment().restore(getBackupFileName()));
+				setCurrentModel((Company) getDataManagment().restore(getBackupFileName()));
+				//settings_data = getDataManagment().restore(getBackupFileName());
+				//...
 			}
 			catch (FileNotFoundException e) {
 				try {
@@ -70,18 +72,18 @@ public abstract class MainappSettings /*extends TCPServer */{
 	/**
 	 * @return the fileName
 	 */
-	public static String getBackupFileName() {
+	public String getBackupFileName() {
 		return backupFileName;
 	}
 
 	/**
 	 * @param fileName the fileName to set
 	 */
-	public static void setBackupFileName(String backupFileName) {
+	public void setBackupFileName(String backupFileName) {
 		if (!backupFileName.substring(backupFileName.length()-4, backupFileName.length()).equals(".ser"))
 			throw new IllegalArgumentException("The backup file name must end by .ser");
 		
-		MainappSettings.backupFileName = backupFileName;
+		this.backupFileName = backupFileName;
 	}
 
 	/**
@@ -102,14 +104,14 @@ public abstract class MainappSettings /*extends TCPServer */{
 	/**
 	 * @return the dataManagment
 	 */
-	public CompanyBackup getDataManagment() {
+	public MainappBackup getDataManagment() {
 		return this.dataManagment;
 	}
 
 	/**
 	 * @param dataManagment the dataManagment to set
 	 */
-	public  void setDataManagment(CompanyBackup dataManagment) {
+	public  void setDataManagment(MainappBackup dataManagment) {
 		this.dataManagment = dataManagment;
 	}
 	
@@ -162,6 +164,8 @@ public abstract class MainappSettings /*extends TCPServer */{
 				
 				try {
 					getDataManagment().save(getBackupFileName(), getCurrentModel());
+					//getDataManagment().save(getBackupFileName(), settings_data);
+					//...
 					System.out.println("(Backup made on "
 							+ nowTime.format(DateTimeFormatter.ISO_LOCAL_DATE) + " at "
 							+ nowTime.format(DateTimeFormatter.ofPattern("HH:mm")) + ")");
