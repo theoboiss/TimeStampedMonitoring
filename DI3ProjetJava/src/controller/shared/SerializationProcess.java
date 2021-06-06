@@ -104,6 +104,7 @@ public abstract class SerializationProcess {
 		}
 		
 		getOos().writeObject(objectToInsert); //serialize Object
+		getOos().flush();
 		getOos().close();
 	}
 	
