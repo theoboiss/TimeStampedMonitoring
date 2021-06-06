@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import model.shared.CheckInOut;
 
-public class Company implements Serializable {
+public class Company implements Serializable, Cloneable {
 	
 	private static final long serialVersionUID = -5385628284286557836L;
 	

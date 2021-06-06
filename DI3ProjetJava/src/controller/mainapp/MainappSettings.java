@@ -36,9 +36,10 @@ public abstract class MainappSettings {
 		Scanner input = new Scanner(System.in);
 		do {
 			try {
-				setCurrentModel((Company) getDataManagment().restore(getBackupFileName()));
-				//settings_data = getDataManagment().restore(getBackupFileName());
-				//...
+				  setCurrentModel((Company) getDataManagment().restore(getBackupFileName(), 1)); 		//1 to start
+											getDataManagment().restore(getBackupFileName(), 0); //=null //0 to continue 
+			/*System.out.println((String)*/ getDataManagment().restore(getBackupFileName(), -1)/*)*/; 	//-1 to stop
+				  //setCurrentModel((Company) getDataManagment().restore(getBackupFileName())); //nothing to read the first information only
 			}
 			catch (FileNotFoundException e) {
 				try {
@@ -160,9 +161,11 @@ public abstract class MainappSettings {
 				}
 				
 				try {
-					getDataManagment().save(getBackupFileName(), getCurrentModel());
-					//getDataManagment().save(getBackupFileName(), settings_data);
-					//...
+					getDataManagment().save(getBackupFileName(), getCurrentModel(), 1); 									 //1 to start
+					getDataManagment().save(getBackupFileName(), null, 0);													 //0 to continue
+					getDataManagment().save(getBackupFileName(), "proof that settings configurations can be saved too", -1); //-1 to stop
+					//getDataManagment().save(getBackupFileName(), getCurrentModel()); //nothing to save one information only
+					
 					System.out.println("(Backup made on "
 							+ nowTime.format(DateTimeFormatter.ISO_LOCAL_DATE) + " at "
 							+ nowTime.format(DateTimeFormatter.ofPattern("HH:mm")) + ")");
@@ -200,6 +203,14 @@ public abstract class MainappSettings {
 			File directory = new File(fileName).getParentFile();
 			File[] listFiles = directory.listFiles();
 			for (Integer iterator1 = 0; iterator1 < listFiles.length; iterator1++) {
+				//eliminate the files that does not end by ".ser"
+				String currentFileName = listFiles[iterator1].getName();
+				if (!currentFileName.substring(currentFileName.length()-4, currentFileName.length()).equals(".ser")) {
+					for (Integer iteratorDel = iterator1+1; iteratorDel < listFiles.length; iteratorDel++)
+						listFiles[iteratorDel-1] = listFiles[iteratorDel];
+				}
+				
+				//sort by last modified
 				for (Integer iterator2 = iterator1; iterator2 < listFiles.length; iterator2++) {
 					if (listFiles[iterator1].lastModified() < listFiles[iterator2].lastModified()) {
 						File fileTemp = listFiles[iterator1];
