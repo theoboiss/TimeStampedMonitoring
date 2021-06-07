@@ -50,14 +50,14 @@ public class ViewEmulator extends JFrame
 			// Panel creation
 			JFrame window = new JFrame();
 			JPanel panel = (JPanel) window.getContentPane();
-			
+			/*
 			String imagePath = "view/images/JavaIcons/javatech.png";
 			//ImageIcon icon = new ImageIcon(imagePath);
 			//JLabel logo = new JLabel(icon, JLabel.CENTER);
 			JLabel img = new JLabel(new ImageIcon(getClass().getClassLoader().getResource(imagePath)));
 			Dimension sizeImg = img.getPreferredSize();
 			img.setBounds(10, -200, sizeImg.width-250, sizeImg.height+50);
-		    window.add(img);
+		    window.add(img);*/
 			
 	        
 	        
