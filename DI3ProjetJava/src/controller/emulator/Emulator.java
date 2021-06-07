@@ -3,17 +3,20 @@ package controller.emulator;
 
 import java.time.LocalDate;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import controller.mainapp.Mainapp;
 import model.emulator.History;
 import model.emulator.History.EventDuringCheck;
 import model.shared.CheckInOut;
 import model.shared.EmployeeInfo;
 import view.emulator.ViewEmulator;
+import view.mainapp.ViewMainApp;
 
 /**
  * Class to collect data from emulator
  *
  */
-public class Emulator {
+public class Emulator extends EmulatorSettings {
 
 	// Attribute to gather CheckInOuts from Emulator once an employee has entered
 	// his ID
@@ -65,4 +68,5 @@ public class Emulator {
 		   this.checksFromEmulator = new CheckInOut();
 		   this.event = null;
 	   }
+	
 }

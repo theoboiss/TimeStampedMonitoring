@@ -4,6 +4,8 @@ import java.io.EOFException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -12,7 +14,7 @@ import java.util.TimerTask;
 
 import model.mainapp.Company;
 
-public abstract class MainappSettings {
+public abstract class MainappSettings extends TCPMainAppSettings {
 
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
@@ -31,6 +33,16 @@ public abstract class MainappSettings {
 	public MainappSettings(String backupFileName) {
 		setBackupFileName(backupFileName);
 		setDataManagment(new MainappBackup());
+		
+		byte[] ipAddr = new byte[]{127, 0, 0, 3};
+		
+		try {
+			setIPaddress(InetAddress.getByAddress(ipAddr)); // to change when it will be possible to serialize
+			setNumPort(8085); // to change when it will be possible to serialize
+		} catch (UnknownHostException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		
 
 		Scanner input = new Scanner(System.in);
