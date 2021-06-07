@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -36,16 +34,6 @@ public abstract class MainappSettings extends TCPMainAppSettings implements Seri
 	public MainappSettings(String backupFileName) {
 		setBackupFileName(backupFileName);
 		setDataManagment(new MainappBackup());
-		
-		byte[] ipAddr = new byte[]{127, 0, 0, 3};
-		
-		try {
-			setIPaddress(InetAddress.getByAddress(ipAddr)); // to change when it will be possible to serialize
-			setNumPort(8085); // to change when it will be possible to serialize
-		} catch (UnknownHostException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
 		
 
 		Scanner input = new Scanner(System.in);
@@ -81,18 +69,7 @@ public abstract class MainappSettings extends TCPMainAppSettings implements Seri
 	 */
 	public MainappSettings(MainappSettings mainappSettingsSaved, MainappBackup mainappRestorationProcess) {
 		mainappSettingsSaved.copiesIn(this);
-		setDataManagment(mainappRestorationProcess);
-		
-		byte[] ipAddr = new byte[]{127, 0, 0, 3};
-		
-		try {
-			setIPaddress(InetAddress.getByAddress(ipAddr)); // to change when it will be possible to serialize
-			setNumPort(8085); // to change when it will be possible to serialize
-		} catch (UnknownHostException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		
+		setDataManagment(mainappRestorationProcess);		
 
 		Scanner input = new Scanner(System.in);
 		do {
