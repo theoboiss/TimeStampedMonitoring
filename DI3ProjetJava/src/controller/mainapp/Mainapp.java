@@ -23,10 +23,12 @@ public class Mainapp extends MainappSettings {
 	/**************************** MAIN METHOD ****************************/
 	
 	public static void main(String[] args) {
+		String target = "backupMainapp/serializedData.ser";
 		MainappBackup restorationProcess = new MainappBackup();
 		MainappSettings mainappSaved = null;
+		
 		try {
-			mainappSaved = (MainappSettings) restorationProcess.restore(lastModifiedFileRelatedTo("backup/."), 1);
+			mainappSaved = (MainappSettings) restorationProcess.restore(lastModifiedFileRelatedTo(target), 1);
 		} catch (ClassNotFoundException | IOException e) {
 			System.out.println(e.getMessage());
 		} catch (ClassCastException e) { System.out.println("Information : backup did not contain settings data."); }
@@ -34,7 +36,7 @@ public class Mainapp extends MainappSettings {
 		if (mainappSaved != null)
 			new Mainapp(mainappSaved, restorationProcess);
 		else
-			new Mainapp(lastModifiedFileRelatedTo("backup/."));
+			new Mainapp(lastModifiedFileRelatedTo(target));
 		
 		new ViewMainApp();
 	}

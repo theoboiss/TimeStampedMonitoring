@@ -243,30 +243,33 @@ public abstract class MainappSettings implements Serializable {
 		if (new File(fileName).exists()) {
 			File directory = new File(fileName).getParentFile();
 			File[] listFiles = directory.listFiles();
-			for (Integer iterator1 = 0; iterator1 < listFiles.length; iterator1++) {
-				//eliminate the files that does not end by ".ser"
-				String currentFileName = listFiles[iterator1].getName();
-				if (!currentFileName.substring(currentFileName.length()-4, currentFileName.length()).equals(".ser")) {
-					for (Integer iteratorDel = iterator1+1; iteratorDel < listFiles.length; iteratorDel++)
-						listFiles[iteratorDel-1] = listFiles[iteratorDel];
-				}
-				
-				//sort by last modified
-				for (Integer iterator2 = iterator1; iterator2 < listFiles.length; iterator2++) {
-					if (listFiles[iterator1].lastModified() < listFiles[iterator2].lastModified()) {
-						File fileTemp = listFiles[iterator1];
-						listFiles[iterator1] = listFiles[iterator2];
-						listFiles[iterator2] = fileTemp;
+			if (listFiles.length > 0) {
+				for (Integer iterator1 = 0; iterator1 < listFiles.length; iterator1++) {
+					//eliminate the files that does not end by ".ser"
+					String currentFileName = listFiles[iterator1].getName();
+					if (!currentFileName.substring(currentFileName.length()-4, currentFileName.length()).equals(".ser")) {
+						for (Integer iteratorDel = iterator1+1; iteratorDel < listFiles.length; iteratorDel++)
+							listFiles[iteratorDel-1] = listFiles[iteratorDel];
+					}
+					
+					//sort by last modified
+					for (Integer iterator2 = iterator1; iterator2 < listFiles.length; iterator2++) {
+						if (listFiles[iterator1].lastModified() < listFiles[iterator2].lastModified()) {
+							File fileTemp = listFiles[iterator1];
+							listFiles[iterator1] = listFiles[iterator2];
+							listFiles[iterator2] = fileTemp;
+						}
 					}
 				}
+				return directory.getName() + "/" + listFiles[0].getName();
 			}
-			return directory.getName() + "/" + listFiles[0].getName();
 		}
 		return fileName;
 	}
 	
 	public void copiesIn(MainappSettings receiving) {
 		receiving.setBackupFileName(this.getBackupFileName());
+		//receiving.setBackupFileName("backupMainapp/serializedData.ser"); //to force the new destination
 		receiving.setTimersForBackup(this.getTimersForBackup());
 		//more settings to copy soon, including TCP settings
 	}
