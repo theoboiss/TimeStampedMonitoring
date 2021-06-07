@@ -122,8 +122,8 @@ public abstract class SerializationProcess {
 		}
 		
 		getOos(). writeObject(objectToInsert); //serialize Object
+		getOos().flush();
 		if (streamStatus < 0) {
-			getOos().flush();
 			getOos().close();
 		}
 	}
