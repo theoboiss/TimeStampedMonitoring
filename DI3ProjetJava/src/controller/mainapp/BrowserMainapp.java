@@ -46,7 +46,7 @@ public class BrowserMainapp {
 			throw new IllegalArgumentException("The requested result view is not available.");
 		}
 		setView(view);
-		setModel(Mainapp.getCurrentModel()); //it will be available after the serialization step
+		setModel(Mainapp.getCurrentModel());
 		setFormatter(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm"));
 		setRegexPattern(", |,| ");
 	}

@@ -1,14 +1,18 @@
 package controller.mainapp;
 
+import java.io.IOException;
+
 import view.mainapp.ViewMainApp;
 
 
 public class Mainapp extends MainappSettings {
 	
-	/****************************** BUILDERS *****************************/
+	private static final long serialVersionUID = -6925599295800017000L;
 
-	public Mainapp() {
-		super(lastModifiedFileRelatedTo("backup/serializedData.ser")); //by default
+	/****************************** BUILDERS *****************************/
+	
+	public Mainapp(MainappSettings mainappSettingsSaved, MainappBackup mainappRestorationProcess) {
+		super(mainappSettingsSaved, mainappRestorationProcess);
 	}
 
 	public Mainapp(String backupFileName) {
@@ -19,7 +23,18 @@ public class Mainapp extends MainappSettings {
 	/**************************** MAIN METHOD ****************************/
 	
 	public static void main(String[] args) {
-		new Mainapp();
+		MainappBackup restorationProcess = new MainappBackup();
+		MainappSettings mainappSaved = null;
+		try {
+			mainappSaved = (MainappSettings) restorationProcess.restore(lastModifiedFileRelatedTo("backup/."), 1);
+		} catch (ClassNotFoundException | IOException e) {
+			System.out.println(e.getMessage());
+		} catch (ClassCastException e) { System.out.println("Information : backup did not contain settings data."); }
+		
+		if (mainappSaved != null)
+			new Mainapp(mainappSaved, restorationProcess);
+		else
+			new Mainapp(lastModifiedFileRelatedTo("backup/."));
 		
 		new ViewMainApp();
 	}

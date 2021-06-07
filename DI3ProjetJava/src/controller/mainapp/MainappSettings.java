@@ -4,6 +4,7 @@ import java.io.EOFException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -12,15 +13,17 @@ import java.util.TimerTask;
 
 import model.mainapp.Company;
 
-public abstract class MainappSettings {
+public abstract class MainappSettings implements Serializable {
 
+	private static final long serialVersionUID = -786389681881788698L;
+	
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 
 	private static Company currentModel;
+	private transient MainappBackup dataManagment;
 	private String backupFileName;
-	private MainappBackup dataManagment;
 	private long[] timersForBackup = {5*1000, 30*60*1000}; //in milliseconds
 	
 	
@@ -36,10 +39,7 @@ public abstract class MainappSettings {
 		Scanner input = new Scanner(System.in);
 		do {
 			try {
-				  setCurrentModel((Company) getDataManagment().restore(getBackupFileName(), 1)); 		//1 to start
-											getDataManagment().restore(getBackupFileName(), 0); //=null //0 to continue 
-			/*System.out.println((String)*/ getDataManagment().restore(getBackupFileName(), -1)/*)*/; 	//-1 to stop
-				  //setCurrentModel((Company) getDataManagment().restore(getBackupFileName())); //nothing to read the first information only
+				  setCurrentModel((Company) getDataManagment().restore(getBackupFileName()));
 			}
 			catch (FileNotFoundException e) {
 				try {
@@ -59,7 +59,43 @@ public abstract class MainappSettings {
 			input.close();
 
 		Timer timer = new Timer();
-	    timer.schedule(new PeriodicSave(), timersForBackup[0], timersForBackup[1]);
+	    timer.schedule(new PeriodicSave(this), timersForBackup[0], timersForBackup[1]);
+	}
+
+
+	/**
+	 * @brief Copy constructor
+	 * @param mainappSettingsSaved
+	 */
+	public MainappSettings(MainappSettings mainappSettingsSaved, MainappBackup mainappRestorationProcess) {
+		mainappSettingsSaved.copiesIn(this);
+		setDataManagment(mainappRestorationProcess);
+		
+
+		Scanner input = new Scanner(System.in);
+		do {
+			try {
+				  setCurrentModel((Company) getDataManagment().restore(getBackupFileName(), -1));
+			}
+			catch (FileNotFoundException e) {
+				try {
+					handleInvalidFileName(getBackupFileName(), input);
+				}
+				catch (IOException | ClassNotFoundException e1) { System.out.println(e1.getMessage()); }
+			}
+			catch (EOFException e) {
+				try {
+					setCurrentModel(new Company());
+				}
+				catch (Exception e1) { e1.printStackTrace(); }
+			}
+			catch (Exception e) { e.printStackTrace(); }
+		} while (getCurrentModel() == null);
+		if (input != null)
+			input.close();
+
+		Timer timer = new Timer();
+	    timer.schedule(new PeriodicSave(this), timersForBackup[0], timersForBackup[1]);
 	}
 	
 	
@@ -132,7 +168,15 @@ public abstract class MainappSettings {
 	/**************************** INTERN CLASS ***************************/
 	/*********************************************************************/
 
-	private class PeriodicSave extends TimerTask { //it will be defined in the settings
+	private class PeriodicSave extends TimerTask implements Serializable {
+		private static final long serialVersionUID = 4275212943329005505L;
+		
+		public MainappSettings settingsData;
+		
+		public PeriodicSave(MainappSettings settingsData) {
+			this.settingsData = settingsData;
+		}
+		
 		@Override
 		public void run() {
 			if (getCurrentModel() != null) {
@@ -161,11 +205,8 @@ public abstract class MainappSettings {
 				}
 				
 				try {
-					getDataManagment().save(getBackupFileName(), getCurrentModel(), 1); 									 //1 to start
-					getDataManagment().save(getBackupFileName(), null, 0);													 //0 to continue
-					getDataManagment().save(getBackupFileName(), "proof that settings configurations can be saved too", -1); //-1 to stop
-					//getDataManagment().save(getBackupFileName(), getCurrentModel()); //nothing to save one information only
-					
+					getDataManagment().save(getBackupFileName(), settingsData, 1);
+					getDataManagment().save(getBackupFileName(), getCurrentModel(), -1);
 					System.out.println("(Backup made on "
 							+ nowTime.format(DateTimeFormatter.ISO_LOCAL_DATE) + " at "
 							+ nowTime.format(DateTimeFormatter.ofPattern("HH:mm")) + ")");
@@ -222,5 +263,11 @@ public abstract class MainappSettings {
 			return directory.getName() + "/" + listFiles[0].getName();
 		}
 		return fileName;
+	}
+	
+	public void copiesIn(MainappSettings receiving) {
+		receiving.setBackupFileName(this.getBackupFileName());
+		receiving.setTimersForBackup(this.getTimersForBackup());
+		//more settings to copy soon, including TCP settings
 	}
 }
