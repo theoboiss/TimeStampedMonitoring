@@ -6,22 +6,22 @@ import controller.mainapp.MainappSettings;
 
 import java.io.*; 
 
-public class TCPClientMainAppBuilder extends TCPInfo {
+public class TCPClientMainAppBuilder extends ExchangeViaSocket {
 	
 	protected Socket s; 
 	protected InetSocketAddress isA; 
-	//protected OutputStream out;
 	
 	TCPClientMainAppBuilder() { 
 		s = null; 
 		isA = null; 
-		//out = null;
+		sOut = null;
 	} 
 	
 	protected void setSocket() throws IOException { 
 		isA = new InetSocketAddress(MainappSettings.getIPaddress(),MainappSettings.getNumPort()); 
 		s = new Socket(isA.getHostName(), isA.getPort());
-		//setStreamBuffer(s.getReceiveBufferSize());
+		s.setSoTimeout(1000);
+
 		/** we can include more setting, later … */ 
 	} 
 

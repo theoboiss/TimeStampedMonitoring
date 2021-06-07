@@ -68,5 +68,4 @@ public class Emulator extends EmulatorSettings {
 		   this.checksFromEmulator = new CheckInOut();
 		   this.event = null;
 	   }
-	
 }

@@ -10,10 +10,11 @@ public class Tests {
 		Mainapp.main(null);	
 		new Emulator();
 		
-		new Thread(new TCPServerMainAppHello()).start(); 
-		new Thread(new TCPClientMainAppHello()).start();
+		new Thread(new TCPServerMainApp()).start(); 
+		new Thread(new TCPClientMainApp()).start();
 		
-		new Thread(new TCPServerEmulatorHello()).start(); 
-		new Thread(new TCPClientEmulatorHello()).start();
+		new Thread(new TCPServerEmulator()).start(); 
+		new Thread(new TCPClientEmulator()).start();
+		
 	}
 }

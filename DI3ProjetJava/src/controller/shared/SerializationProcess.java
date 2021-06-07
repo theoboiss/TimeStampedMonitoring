@@ -13,10 +13,10 @@ public abstract class SerializationProcess {
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 
-	private InputStream sIn;
-	private OutputStream sOut;
-	private ObjectInputStream ois;
-	private ObjectOutputStream oos;
+	protected InputStream sIn;
+	protected OutputStream sOut;
+	protected ObjectInputStream ois;
+	protected ObjectOutputStream oos;
 
 	
 	/*********************************************************************/
