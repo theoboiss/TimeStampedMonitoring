@@ -83,6 +83,16 @@ public abstract class MainappSettings extends TCPMainAppSettings implements Seri
 		mainappSettingsSaved.copiesIn(this);
 		setDataManagment(mainappRestorationProcess);
 		
+		byte[] ipAddr = new byte[]{127, 0, 0, 3};
+		
+		try {
+			setIPaddress(InetAddress.getByAddress(ipAddr)); // to change when it will be possible to serialize
+			setNumPort(8085); // to change when it will be possible to serialize
+		} catch (UnknownHostException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
 
 		Scanner input = new Scanner(System.in);
 		do {

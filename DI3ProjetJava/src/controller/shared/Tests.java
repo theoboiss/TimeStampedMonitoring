@@ -1,6 +1,5 @@
 package controller.shared;
 
-
 import controller.emulator.Emulator;
 import controller.mainapp.Mainapp;
 
@@ -8,7 +7,7 @@ import controller.mainapp.Mainapp;
 public class Tests {
 	public static void main(String[] args){
 		System.out.println("Hello from Shared controller\n");
-		new Mainapp("backupMainapp/serializedData.ser");	
+		Mainapp.main(null);	
 		new Emulator();
 		
 		new Thread(new TCPServerMainAppHello()).start(); 

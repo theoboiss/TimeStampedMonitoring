@@ -38,6 +38,7 @@ public class Mainapp extends MainappSettings {
 		else
 			new Mainapp(lastModifiedFileRelatedTo(target));
 		
+		
 		new ViewMainApp();
 	}
 }
