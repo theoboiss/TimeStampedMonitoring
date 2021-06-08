@@ -15,14 +15,17 @@ public class TCPServerMainAppBuilder extends ExchangeViaSocket {
 		ss = null; s = null; 
 		isA = null; 
 		sIn = null;
+		sOut = null;
+		ois = null;
+		oos = null;
 	} 
 	 
 	public void setSocket() throws IOException { 
 		
 		isA = new InetSocketAddress(EmulatorSettings.getIPaddress(),EmulatorSettings.getNumPort());
 		ss = new ServerSocket(isA.getPort());
-		ss.setSoTimeout(10000);
-		s = ss.accept(); 
+		//ss.setSoTimeout(10000);
+		 
 	}
 
 }

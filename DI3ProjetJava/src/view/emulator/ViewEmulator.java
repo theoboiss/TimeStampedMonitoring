@@ -1,17 +1,26 @@
 package view.emulator;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashMap;
 //import java.awt.Dimension;
 //import java.awt.Toolkit;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.*;
 
+import controller.emulator.Emulator;
+import controller.mainapp.Mainapp;
+import controller.shared.TCPClientEmulator;
+import controller.shared.TCPServerMainApp;
 import model.emulator.History.EventDuringCheck;
 import model.shared.CheckInOut;
 
-public class ViewEmulator extends JFrame 
+public class ViewEmulator extends JFrame  implements ActionListener
 	{
 		/* ================================================================= */
 		/************************* CLASS ATTRIBUTES **************************/
@@ -24,6 +33,8 @@ public class ViewEmulator extends JFrame
 		private static CheckInOut checks;
 		private static EventDuringCheck event;
 		private static LocalDate date;
+		private JButton startButton; // MODIFIE PAR SARAH
+		private JTextField IDField; // MODIFIE PAR SARAH
 		/*********************************************************************/
 		/*********************************************************************/
 		/* ================================================================= */
@@ -72,14 +83,15 @@ public class ViewEmulator extends JFrame
 			panel.setLayout(null);
 			
 			// Check in/out button
-			JButton startButton = new JButton("Check in/out");
+			startButton = new JButton("Check in/out"); //MODIFIE PAR SARAH
 	        startButton.setBounds(BUTTON_LOCATION_X, BUTTON_LOCATION_Y, BUTTON_SIZE_X, BUTTON_SIZE_Y );
+	        startButton.addActionListener(this); //MODIFIE PAR SARAH
 	        
 	        // Clock and other fields
 			JLabel reelTimeClock = new JLabel();
 			JLabel frontTitle = new JLabel();
 			JLabel IDLabel = new JLabel("Employee ID");
-			JTextField IDField = new JTextField();
+			IDField = new JTextField(); // MODIFIE PAR SARAH
 			Date currentDate = new Date();
 			date = LocalDate.now();
 			frontTitle.setText("Time Tracker Emulator");
@@ -170,9 +182,25 @@ public class ViewEmulator extends JFrame
 		
 		
 		
-		public static void main(String[] args) 
-		{
+		public static void main(String[] args) //MODIFIE PAR SARAH
+		{	
+			//new Emulator();
 			new ViewEmulator();
+			//new Thread(new TCPServerMainApp()).start(); 
+		}
+		
+		
+		@Override
+		public void actionPerformed(ActionEvent event) { //AJOUTE PAR SARAH
+		//TODO a mettre dans un controlleur afin de vérifier l'existence de l'employé, 
+		// sauvegarder le check dans le fichier texte backupEmulator si ne peut être envoyé à l'application main
+			Object source = event.getSource();
+			 
+			if (source == startButton) {
+				CheckInOut checkInOutToSend = new CheckInOut(Integer.parseInt(IDField.getText()), LocalDateTime.now(), true );
+				new Thread(new TCPClientEmulator(checkInOutToSend)).start();
+			}
+			
 		}
 		
 	}

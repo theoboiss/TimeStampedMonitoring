@@ -17,6 +17,9 @@ public class TCPServerEmulatorBuilder extends ExchangeViaSocket {
 		ss = null; s = null; 
 		isA = null; 
 		sIn = null;
+		sOut = null;
+		ois = null;
+		oos = null;
 	} 
 	 
 	public void setSocket() throws IOException { 
