@@ -7,7 +7,6 @@ import model.shared.CheckInOut;
 import model.shared.EmployeeInfo;
 import view.emulator.ViewEmulator;
 
-
 /**
  * Class to collect data from emulator
  *
@@ -18,6 +17,13 @@ public class Emulator extends EmulatorSettings {
 	// his ID
 	private CheckInOut checksFromEmulator;
 	private EventDuringCheck event;
+
+	/**
+	 * 
+	 */
+	public Emulator() {
+		checksFromEmulator = new CheckInOut();
+	}
 
 	/**
 	 * @param checksFromEmulator
