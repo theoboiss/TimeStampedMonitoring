@@ -13,11 +13,17 @@ import view.emulator.ViewEmulator;
  */
 public class Emulator extends EmulatorSettings {
 
+	/*********************************************************************/
+	/***************************** ATTRIBUTES ****************************/
+	/*********************************************************************/
 	// Attribute to gather CheckInOuts from Emulator once an employee has entered
 	// his ID
 	private CheckInOut checksFromEmulator;
 	private EventDuringCheck event;
 
+	/*********************************************************************/
+	/****************************** BUILDERS *****************************/
+	/*********************************************************************/
 	/**
 	 * 
 	 */
@@ -35,7 +41,9 @@ public class Emulator extends EmulatorSettings {
 		this.event = event;
 	}
 
-	/***************** Setter/getter *****************/
+	/*********************************************************************/
+	/***************************** GETS/SETS *****************************/
+	/*********************************************************************/
 	/**
 	 * @return the event
 	 */
@@ -64,7 +72,9 @@ public class Emulator extends EmulatorSettings {
 		this.checksFromEmulator = checksFromEmulator;
 	}
 
-	/***************** Methods *****************/
+	/*********************************************************************/
+	/*************************** OTHER METHODS ***************************/
+	/*********************************************************************/
 	/**
 	 * @throws Exception
 	 * @brief Method to add Employee ID and time of CheckInOut
