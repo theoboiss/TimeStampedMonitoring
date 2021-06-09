@@ -30,12 +30,61 @@ public class History implements Serializable {
 	
 	private Settings settings; // All CheckInOut per employee from the first day
 	private static Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee; // All CheckInOut per employee during a day. The table is reset to 0 at the end of day. 
+	/**
+	 * @return the settings
+	 */
+	public Settings getSettings() {
+		return settings;
+	}
+
+	/**
+	 * @param settings the settings to set
+	 */
+	public void setSettings(Settings settings) {
+		this.settings = settings;
+	}
+
+	/**
+	 * @return the checksPerEmployee
+	 */
+	public static Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> getChecksPerEmployee() {
+		return checksPerEmployee;
+	}
+
+	/**
+	 * @param checksPerEmployee the checksPerEmployee to set
+	 */
+	public static void setChecksPerEmployee(Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee) {
+		History.checksPerEmployee = checksPerEmployee;
+	}
+
+	/**
+	 * @return the checksPerEmployeePerDay
+	 */
+	public static Hashtable<LocalDate, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>> getChecksPerEmployeePerDay() {
+		return checksPerEmployeePerDay;
+	}
+
+	/**
+	 * @param checksPerEmployeePerDay the checksPerEmployeePerDay to set
+	 */
+	public static void setChecksPerEmployeePerDay(
+			Hashtable<LocalDate, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay) {
+		History.checksPerEmployeePerDay = checksPerEmployeePerDay;
+	}
+
 	private static Hashtable<LocalDate, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay;
 	 
 	private Integer employeeID;
 	private LocalDateTime dateTime;
 	private CheckInOut checkInOut;
 
+	public History() {
+		settings = new Settings();
+		checksPerEmployee = new Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>();
+		checksPerEmployeePerDay = new Hashtable<LocalDate, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>>();
+	}
+	
 	/**
 	 * @param employeeID
 	 * @param dateTime
@@ -90,9 +139,14 @@ public class History implements Serializable {
 		list = checksPerEmployee.get(info);
 		checksPerEmployee.put(info, list);
 		checksPerEmployeePerDay.put(date, checksPerEmployee);
-		
-		
 
+	}
+	
+	public static void addToHistory(CheckInOut check, EmployeeInfo info)
+	{
+		CopyOnWriteArrayList<CheckInOut> list = new CopyOnWriteArrayList<CheckInOut>();
+		list = checksPerEmployee.get(info);
+		checksPerEmployee.put(info, list);
 	}
 	/**
 	 * @return the employeeID
@@ -197,24 +251,10 @@ public class History implements Serializable {
 	/*************************** CONSTRUCTORS ****************************/
 	/*********************************************************************/
 
-	/**
-	 * @brief Default Constructor
-	 */
-	/*
-	 * public History() { settings = new Settings();
-	 * 
-	 * checksPerEmployee = new Hashtable<EmployeeInfo,
-	 * CopyOnWriteArrayList<CheckInOut>>(); checksPerEmployeePerDay = new
-	 * Hashtable<LocalTime, Hashtable<EmployeeInfo,
-	 * CopyOnWriteArrayList<CheckInOut>>>();
-	 * 
-	 * checksPerEmployee = new Hashtable<EmployeeInfo,
-	 * CopyOnWriteArrayList<CheckInOut>>(); checksPerEmployeePerDay = new
-	 * Hashtable<LocalTime, Hashtable<EmployeeInfo,
-	 * CopyOnWriteArrayList<CheckInOut>>>();
-	 * 
-	 * }
-	 */
+	
+	
+
+	 
 
 	/**
 	 * @param settings
