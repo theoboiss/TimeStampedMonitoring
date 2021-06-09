@@ -1,10 +1,14 @@
 package controller.mainapp;
 
+import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 
-public abstract class TCPMainAppSettings {
+public abstract class TCPMainAppSettings implements Serializable {
+	
+	
+	private static final long serialVersionUID = 1L;
 	
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/

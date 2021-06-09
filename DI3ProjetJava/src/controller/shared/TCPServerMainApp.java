@@ -17,10 +17,11 @@ public class TCPServerMainApp extends TCPServerMainAppBuilder implements Runnabl
 				 s = ss.accept();
 				 System.out.println("Hello, the server mainApp accepts");
 				 initialize(s.getInputStream());
-				 CheckInOut readCheck = (CheckInOut) ois.readObject();
-				 Employee employee = SearchInMainapp.searchEmployee(Mainapp.getCurrentModel(), readCheck.getEmployeeID());
-				 Mainapp.getCurrentModel().getDepartment(employee.getDepartment()).getListEmployees().get(employee.getID()).getListChecks().add(readCheck);
-				 System.out.println(readCheck);
+				 Object readCheck = ois.readObject();
+				 //CheckInOut readCheck = (CheckInOut) ois.readObject();
+				 //Employee employee = SearchInMainapp.searchEmployee(Mainapp.getCurrentModel(), readCheck.getEmployeeID());
+				 //Mainapp.getCurrentModel().getDepartment(employee.getDepartment()).getListEmployees().get(employee.getID()).getListChecks().add(readCheck);
+				 //System.out.println(readCheck);
 				 ois.close();
 				 s.close();
 			 }
