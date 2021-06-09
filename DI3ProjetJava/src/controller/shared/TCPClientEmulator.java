@@ -1,6 +1,7 @@
 package controller.shared;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import model.shared.CheckInOut;
 
@@ -15,7 +16,8 @@ public class TCPClientEmulator extends TCPClientEmulatorBuilder implements Runna
 			 System.out.println("TCPClientEmulator launched ...");
 			 setSocket(); 
 			 System.out.println("Hello, the client emulator is connected"); 
-			 initialize(s.getOutputStream());
+			 sOut = s.getOutputStream();
+			 oos = new ObjectOutputStream(sOut);
 			 oos.writeObject(checkInOut);
 			 oos.flush();
 			 oos.close();

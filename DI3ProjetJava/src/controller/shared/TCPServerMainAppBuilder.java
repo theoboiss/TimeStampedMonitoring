@@ -6,18 +6,18 @@ import controller.emulator.EmulatorSettings;
 
 import java.io.*; 
 
-public class TCPServerMainAppBuilder extends ExchangeViaSocket {
+public class TCPServerMainAppBuilder {
 
 	protected ServerSocket ss; protected Socket s; // the passive and active sockets 
 	protected InetSocketAddress isA; // the address 
+	protected transient InputStream sIn;
+	protected transient ObjectInputStream ois;
 	  
 	TCPServerMainAppBuilder() { 
 		ss = null; s = null; 
 		isA = null; 
 		sIn = null;
-		sOut = null;
 		ois = null;
-		oos = null;
 	} 
 	 
 	public void setSocket() throws IOException { 
