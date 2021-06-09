@@ -20,6 +20,7 @@ public class TCPServerMainApp extends TCPServerMainAppBuilder implements Runnabl
 				 ois = new ObjectInputStream(sIn);
 				 CheckInOut readCheck = (CheckInOut) ois.readObject();
 				 Employee employee = SearchInMainapp.searchEmployee(Mainapp.getCurrentModel(), readCheck.getEmployeeID());
+				 System.out.println(employee);
 				 Mainapp.getCurrentModel().getDepartment(employee.getDepartment()).getListEmployees().get(employee.getID()).getListChecks().add(readCheck);
 				 System.out.println(readCheck);
 				 ois.close();

@@ -228,15 +228,16 @@ public class ViewEmulator extends JFrame  implements ActionListener
 		
 		public static void main(String[] args) //MODIFIE PAR SARAH
 		{	
-			new Emulator();
+			//new Emulator();
 			new ViewEmulator();
+			//Mainapp.main(null);
 			//new Thread(new TCPServerMainApp()).start(); 
 		}
 		
 		
 		@Override
 		public void actionPerformed(ActionEvent event) { //AJOUTE PAR SARAH
-		//TODO a mettre dans un controlleur afin de vérifier l'existence de l'employé, 
+		//TODO a mettre dans un controlleur afin de vérifier l'existence de l'employé, ou si l'id est vide
 		// sauvegarder le check dans le fichier texte backupEmulator si ne peut être envoyé à l'application main
 			Object source = event.getSource();
 			 
