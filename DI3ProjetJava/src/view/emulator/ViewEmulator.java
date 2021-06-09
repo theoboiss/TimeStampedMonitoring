@@ -3,18 +3,14 @@ package view.emulator;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.HashMap;
 //import java.awt.Dimension;
 //import java.awt.Toolkit;
-import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.*;
-
 import controller.emulator.Emulator;
 import controller.mainapp.Mainapp;
 import controller.shared.TCPClientEmulator;
@@ -232,7 +228,7 @@ public class ViewEmulator extends JFrame  implements ActionListener
 		
 		public static void main(String[] args) //MODIFIE PAR SARAH
 		{	
-			//new Emulator();
+			new Emulator();
 			new ViewEmulator();
 			//new Thread(new TCPServerMainApp()).start(); 
 		}
