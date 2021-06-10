@@ -1,10 +1,7 @@
 package controller.emulator;
 
-import java.time.LocalDate;
-import model.emulator.History;
-import model.emulator.History.EventDuringCheck;
-import model.shared.CheckInOut;
-import model.shared.EmployeeInfo;
+import java.io.IOException;
+import controller.emulator.Emulator;
 import view.emulator.ViewEmulator;
 
 /**
@@ -13,99 +10,45 @@ import view.emulator.ViewEmulator;
  */
 public class Emulator extends EmulatorSettings {
 
-	/*********************************************************************/
-	/***************************** ATTRIBUTES ****************************/
-	/*********************************************************************/
-	// Attribute to gather CheckInOuts from Emulator once an employee has entered
-	// his ID
-	private CheckInOut checksFromEmulator;
-	private EventDuringCheck event;
-
-	/*********************************************************************/
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = 1L;
 	/****************************** BUILDERS *****************************/
-	/*********************************************************************/
-	/**
-	 * 
-	 */
-	public Emulator() {
-		checksFromEmulator = new CheckInOut();
-	}
 
-	/**
-	 * @param checksFromEmulator
-	 * @param event
-	 */
-	public Emulator(CheckInOut checksFromEmulator, EventDuringCheck event) {
+	public Emulator()
+	{
 		super();
-		this.checksFromEmulator = checksFromEmulator;
-		this.event = event;
+	}
+	public Emulator(EmulatorSettings emulatorSettingsSaved, EmulatorBackup emulatorRestorationProcess) {
+		super(emulatorSettingsSaved, emulatorRestorationProcess);
 	}
 
-	/*********************************************************************/
-	/***************************** GETS/SETS *****************************/
-	/*********************************************************************/
-	/**
-	 * @return the event
-	 */
-	public EventDuringCheck getEvent() {
-		return event;
+	public Emulator(String backupFileName) {
+		super(backupFileName);
 	}
 
-	/**
-	 * @param event the event to set
-	 */
-	public void setEvent(EventDuringCheck event) {
-		this.event = event;
-	}
+	/**************************** MAIN METHOD ****************************/
 
-	/**
-	 * @return the checksFromEmulator
-	 */
-	public CheckInOut getChecksFromEmulator() {
-		return checksFromEmulator;
-	}
+	public static void main(String[] args) {
+		String target = "backupEmulator/serializedData.ser";
+		EmulatorBackup restorationProcess = new EmulatorBackup();
+		EmulatorSettings emulatorSaved = null;
 
-	/**
-	 * @param checksFromEmulator the checksFromEmulator to set
-	 */
-	public void setChecksFromEmulator(CheckInOut checksFromEmulator) {
-		this.checksFromEmulator = checksFromEmulator;
-	}
+		try {
+			emulatorSaved = (EmulatorSettings) restorationProcess.restoreData(lastModifiedFileRelatedTo(target), 1);
+		} catch (ClassNotFoundException | IOException e) {
+			System.out.println(e.getMessage());
+		} catch (ClassCastException e) {
+			System.out.println("Information : backup did not contain settings data.");
+		}
 
-	/*********************************************************************/
-	/*************************** OTHER METHODS ***************************/
-	/*********************************************************************/
-	/**
-	 * @throws Exception
-	 * @brief Method to add Employee ID and time of CheckInOut
-	 */
-	public void addElmentToCheckInOut() throws Exception {
+		if (emulatorSaved != null)
+			new Emulator(emulatorSaved, restorationProcess);
+		else
+			new Emulator(lastModifiedFileRelatedTo(target));
 
-		EmployeeInfo info = new EmployeeInfo();
-		LocalDate date = LocalDate.now();
-		date = ViewEmulator.getDate();
-		CheckInOut checks = new CheckInOut();
-		checks = ViewEmulator.getChecks();
-		info.setID(checks.getEmployeeID());
+		new ViewEmulator();
 
-		// Creating a check in out
-		checksFromEmulator.setEmployeeID(checks.getEmployeeID());
-		checksFromEmulator.setCheckTime(checks.getCheckTime());
-		checksFromEmulator.setEvent(checks.getEvent());
-
-		// Adding checks to history database
-		History.addToHistory(checksFromEmulator, info, date);
+		// TODO main function lance vue + serveur emulateur
 
 	}
-
-	/**
-	 * @brief Method to remove a check in out
-	 */
-	public void removeCheckInOut() {
-		this.checksFromEmulator = new CheckInOut();
-		this.event = null;
-	}
-	
-	
-	//TODO main function lance vue + serveur emulateur
 }
