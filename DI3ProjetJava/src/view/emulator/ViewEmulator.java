@@ -12,7 +12,9 @@ import java.util.Date;
 //import java.awt.Toolkit;
 import javax.swing.*;
 import controller.emulator.Emulator;
+import controller.emulator.EmulatorSettings;
 import controller.mainapp.Mainapp;
+import controller.mainapp.MainappSettings;
 import controller.shared.TCPClientEmulator;
 import controller.shared.TCPServerMainApp;
 import model.emulator.History.EventDuringCheck;
@@ -240,8 +242,8 @@ public class ViewEmulator extends JFrame  implements ActionListener
 					CheckInOut checkInOutToSend = new CheckInOut(Integer.parseInt(IDField.getText()), LocalDateTime.now(), true );
 					
 					//TODO integration du check dans l'historique de l'émulateur
-					
-					new Thread(new TCPClientEmulator(checkInOutToSend)).start();
+					EmulatorSettings settings = new EmulatorSettings();
+					new Thread(new TCPClientEmulator(checkInOutToSend, settings.getIPaddressClient(), settings.getNumPortClient())).start();
 				} catch (NumberFormatException e) {
 					System.out.println("Unexpected argument");
 				}

@@ -1,9 +1,14 @@
 package controller.shared;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
 public class TCPServerEmulator extends TCPServerEmulatorBuilder implements Runnable {
 	
+	TCPServerEmulator(InetAddress IPaddress, int numPort) {
+		super(IPaddress, numPort);
+	}
+
 	public void run( ) { 
 		 try { 
 			 System.out.println("TCPServerEmulator launched ..."); 

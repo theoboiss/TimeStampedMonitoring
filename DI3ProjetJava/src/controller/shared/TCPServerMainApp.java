@@ -1,14 +1,18 @@
 package controller.shared;
 
 import java.io.*;
+import java.net.InetAddress;
 
 import controller.mainapp.Mainapp;
-import controller.mainapp.MainappBackup;
 import model.shared.CheckInOut; 
 import model.mainapp.*;
 
 public class TCPServerMainApp extends TCPServerMainAppBuilder implements Runnable {
 	
+	public TCPServerMainApp(InetAddress IPaddress, int numPort) {
+		super(IPaddress, numPort);
+	}
+
 	public void run( ) { 
 		 try { 
 			 System.out.println("TCPServerMainApp launched ..."); 
@@ -22,7 +26,7 @@ public class TCPServerMainApp extends TCPServerMainAppBuilder implements Runnabl
 				 Employee employee = SearchInMainapp.searchEmployee(Mainapp.getCurrentModel(), readCheck.getEmployeeID());
 				 if (employee != null) {
 					 Mainapp.getCurrentModel().getDepartment(employee.getDepartment()).getListEmployees().get(employee.getID()).getListChecks().add(readCheck);
-					 System.out.println(readCheck);
+					 System.out.println("Server mainapp received :" + readCheck);
 				 } else {
 					 System.out.println("Employee not in mainapp");
 				 }

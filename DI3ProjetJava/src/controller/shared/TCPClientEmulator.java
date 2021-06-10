@@ -2,13 +2,14 @@ package controller.shared;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 
 import model.shared.CheckInOut;
 
 public class TCPClientEmulator extends TCPClientEmulatorBuilder implements Runnable {
 
-	public TCPClientEmulator(CheckInOut checkInOutToSend) {
-		super(checkInOutToSend);
+	public TCPClientEmulator(CheckInOut checkInOutToSend, InetAddress IPaddress, int numPort) {
+		super(checkInOutToSend, IPaddress, numPort);
 	}
 
 	public void run() { 

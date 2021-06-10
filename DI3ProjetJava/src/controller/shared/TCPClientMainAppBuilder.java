@@ -8,10 +8,14 @@ import java.io.*;
 
 public class TCPClientMainAppBuilder extends ExchangeViaSocket {
 	
+	protected InetAddress IPaddress;
+	protected int numPort;
 	protected Socket s; 
 	protected InetSocketAddress isA; 
 	
-	TCPClientMainAppBuilder() { 
+	TCPClientMainAppBuilder(InetAddress IPaddress, int numPort) { 
+		this.IPaddress = IPaddress;
+		this.numPort = numPort;
 		s = null; 
 		isA = null; 
 		sOut = null;
@@ -21,7 +25,7 @@ public class TCPClientMainAppBuilder extends ExchangeViaSocket {
 	} 
 	
 	protected void setSocket() throws IOException { 
-		isA = new InetSocketAddress(MainappSettings.getIPaddress(),MainappSettings.getNumPort()); 
+		isA = new InetSocketAddress(IPaddress, numPort); 
 		s = new Socket(isA.getHostName(), isA.getPort());
 		//s.setSoTimeout(1000);
 

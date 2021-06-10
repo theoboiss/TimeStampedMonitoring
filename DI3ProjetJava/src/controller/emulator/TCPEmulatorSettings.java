@@ -1,17 +1,24 @@
 package controller.emulator;
 
+import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 
-public abstract class TCPEmulatorSettings {
+public abstract class TCPEmulatorSettings implements Serializable {
 
+	
+	private static final long serialVersionUID = 1L;
+	
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 	
-	protected InetAddress IPaddress;
-	protected int numPort;
+	protected InetAddress IPaddressServer;
+	protected int numPortServer;
+	
+	protected InetAddress IPaddressClient;
+	protected int numPortClient;
 	
 	
 	/*********************************************************************/
@@ -19,14 +26,16 @@ public abstract class TCPEmulatorSettings {
 	/*********************************************************************/
 	
 	public TCPEmulatorSettings() {
-		byte[] ipAddr = new byte[]{127, 0, 0, 2};
+		byte[] ipAddrS = new byte[]{127, 0, 0, 2};
+		byte[] ipAddrC = new byte[]{127, 0, 0, 3};
 		
 		try {
-			setIPaddress(InetAddress.getByAddress(ipAddr)); // to change when it will be possible to serialize
-			setNumPort(4045); // to change when it will be possible to serialize
-		} catch (UnknownHostException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			setIPaddressServer(InetAddress.getByAddress(ipAddrS)); // to change when it will be possible to serialize
+			setNumPortServer(4045); // to change when it will be possible to serialize
+			setIPaddressClient(InetAddress.getByAddress(ipAddrC));
+			setNumPortClient(8085);
+		} catch (UnknownHostException e) {
+			System.out.println("UnknownHostException TCPEmulatorSettings : " + e.getMessage());
 		}
 
 	}
@@ -36,34 +45,68 @@ public abstract class TCPEmulatorSettings {
 	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
 	
-	/***************************** IPaddress *****************************/
+	/************************** IPaddressServer **************************/
 	
 	/**
-	 * @return the iPaddress
+	 * @return the iPaddressServer
 	 */
-	public InetAddress getIPaddress() {
-		return IPaddress;
+	public InetAddress getIPaddressServer() {
+		return IPaddressServer;
 	}
+
 	/**
-	 * @param iPaddress the iPaddress to set
+	 * @param iPaddressServer the iPaddressServer to set
 	 */
-	public void setIPaddress(InetAddress iPaddress) {
-		this.IPaddress = iPaddress;
+	public void setIPaddressServer(InetAddress iPaddressServer) {
+		IPaddressServer = iPaddressServer;
 	}
 	
-	/****************************** numPort ******************************/
+	/*************************** numPortServer ***************************/
 	
 	/**
-	 * @return the numPort
+	 * @return the numPortServer
 	 */
-	public int getNumPort() {
-		return numPort;
+	public int getNumPortServer() {
+		return numPortServer;
 	}
+
 	/**
-	 * @param numPort the numPort to set
+	 * @param numPortServer the numPortServer to set
 	 */
-	public void setNumPort(int numPort) {
-		this.numPort = numPort;
+	public void setNumPortServer(int numPortServer) {
+		this.numPortServer = numPortServer;
+	}
+	
+	/************************** IPaddressClient **************************/
+	
+	/**
+	 * @return the iPaddressClient
+	 */
+	public InetAddress getIPaddressClient() {
+		return IPaddressClient;
+	}
+
+	/**
+	 * @param iPaddressClient the iPaddressClient to set
+	 */
+	public void setIPaddressClient(InetAddress iPaddressClient) {
+		IPaddressClient = iPaddressClient;
+	}
+	
+	/*************************** numPortClient ***************************/
+	
+	/**
+	 * @return the numPortClient
+	 */
+	public int getNumPortClient() {
+		return numPortClient;
+	}
+
+	/**
+	 * @param numPortClient the numPortClient to set
+	 */
+	public void setNumPortClient(int numPortClient) {
+		this.numPortClient = numPortClient;
 	}
 	
 }
