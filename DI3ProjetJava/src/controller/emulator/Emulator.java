@@ -1,10 +1,9 @@
 package controller.emulator;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 import controller.emulator.Emulator;
+import controller.shared.TCPClientEmulator;
 import controller.shared.TCPServerEmulator;
 import view.emulator.ViewEmulator;
 
@@ -54,5 +53,10 @@ public class Emulator extends EmulatorSettings {
 		new ViewEmulator();
 		new Thread(new TCPServerEmulator(emulatorSaved, emulatorSaved.getIPaddressServer(), emulatorSaved.getNumPortServer())).start(); 
 
+		try {
+			new Thread(new TCPClientEmulator(emulatorSaved, emulatorSaved.getWaitingChecks(), emulatorSaved.getIPaddressClient(), emulatorSaved.getNumPortClient())).start(); 
+		} catch (Exception e) {
+			System.out.println("Exception in Emulator main : " + e.getMessage());
+		}
 	}
 }

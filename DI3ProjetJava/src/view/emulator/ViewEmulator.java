@@ -8,15 +8,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-//import java.awt.Dimension;
-//import java.awt.Toolkit;
 import javax.swing.*;
-import controller.emulator.Emulator;
 import controller.emulator.EmulatorSettings;
-import controller.mainapp.Mainapp;
-import controller.mainapp.MainappSettings;
 import controller.shared.TCPClientEmulator;
-import controller.shared.TCPServerMainApp;
 import model.emulator.History.EventDuringCheck;
 import model.shared.CheckInOut;
 

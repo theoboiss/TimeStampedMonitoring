@@ -1,14 +1,11 @@
 package controller.mainapp;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import controller.shared.TCPServerMainApp;
-import controller.emulator.EmulatorSettings;
 import controller.shared.TCPClientMainApp;
-import controller.shared.TCPServerEmulator;
-import model.mainapp.Company;
-import model.mainapp.Department;
-import model.mainapp.Employee;
 import model.mainapp.SearchInMainapp;
 import model.shared.CheckInOut;
 import view.mainapp.ViewMainApp;
@@ -47,11 +44,20 @@ public class Mainapp extends MainappSettings {
 		else 
 			new Mainapp(lastModifiedFileRelatedTo(target));
 		
+		CheckInOut check1 = new CheckInOut(SearchInMainapp.searchEmployee(getCurrentModel()).get(1).getID(), LocalDateTime.now(), true);
+		CheckInOut check2 = new CheckInOut(SearchInMainapp.searchEmployee(getCurrentModel()).get(1).getID(), LocalDateTime.now(), true);
+		CheckInOut check3 = new CheckInOut(SearchInMainapp.searchEmployee(getCurrentModel()).get(3).getID(), LocalDateTime.now(), true);
+		CheckInOut check4 = new CheckInOut(SearchInMainapp.searchEmployee(getCurrentModel()).get(2).getID(), LocalDateTime.now(), true);
+		
+		ArrayList<CheckInOut> checks = new ArrayList<CheckInOut>();
+		checks.add(check1);
+		checks.add(check2);
+		checks.add(check3);
+		checks.add(check4);
 		
 		new ViewMainApp();
-		EmulatorSettings emulator = new EmulatorSettings();
-		new Thread(new TCPServerEmulator(emulator, emulator.getIPaddressServer(), emulator.getNumPortServer())).start(); //just test, to suppress
 		new Thread(new TCPServerMainApp(mainappSaved.getIPaddressServer(), mainappSaved.getNumPortServer())).start();
+		
 		try {
 			new Thread(new TCPClientMainApp(mainappSaved.getEmployeeInfo(), mainappSaved.getIPaddressClient(), mainappSaved.getNumPortClient())).start();
 		} catch (Exception e) {

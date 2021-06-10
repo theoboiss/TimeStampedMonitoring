@@ -10,6 +10,8 @@ import model.shared.EmployeeInfo;
 public class Employee extends EmployeeInfo {
 
 
+	private static final long serialVersionUID = 1L;
+	
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/

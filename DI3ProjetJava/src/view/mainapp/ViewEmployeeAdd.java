@@ -1,6 +1,5 @@
 package view.mainapp;
 
-import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import controller.mainapp.BrowserMainapp;
-import controller.mainapp.MainappBackup;
 
 public class ViewEmployeeAdd extends ViewModel {
 	

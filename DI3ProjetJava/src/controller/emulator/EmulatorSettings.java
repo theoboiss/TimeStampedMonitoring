@@ -13,6 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import model.emulator.History;
+import model.shared.CheckInOut;
 import model.shared.EmployeeInfo;
 
 public class EmulatorSettings extends TCPEmulatorSettings {
@@ -27,6 +28,7 @@ private static final long serialVersionUID = -786389681881788698L;
 	private static History currentModel;
 	private transient EmulatorBackup backupData;
 	private ArrayList<EmployeeInfo> listEmployeeID;
+	private ArrayList<CheckInOut> waitingChecks;
 	private LocalDateTime dateTime;
 	private String backupFileName;
 	private long[] timersForBackup = {5*1000, 30*60*1000}; //in milliseconds
@@ -200,6 +202,21 @@ private static final long serialVersionUID = -786389681881788698L;
 	public void setListEmployeeID(ArrayList<EmployeeInfo> listEmployeeID) {
 		this.listEmployeeID = listEmployeeID;
 	}
+	
+	/**
+	 * @return the waitingChecks
+	 */
+	public ArrayList<CheckInOut> getWaitingChecks() {
+		return waitingChecks;
+	}
+
+	/**
+	 * @param waitingChecks the waitingChecks to set
+	 */
+	public void setWaitingChecks(ArrayList<CheckInOut> waitingChecks) {
+		this.waitingChecks = waitingChecks;
+	}
+
 
 	/**
 	 * @return the dateTime

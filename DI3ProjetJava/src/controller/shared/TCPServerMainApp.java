@@ -2,6 +2,7 @@ package controller.shared;
 
 import java.io.*;
 import java.net.InetAddress;
+import java.util.ArrayList;
 
 import controller.mainapp.Mainapp;
 import model.shared.CheckInOut; 
@@ -11,6 +12,25 @@ public class TCPServerMainApp extends TCPServerMainAppBuilder implements Runnabl
 	
 	public TCPServerMainApp(InetAddress IPaddress, int numPort) {
 		super(IPaddress, numPort);
+	}
+	
+	public static void addChecksToMainApp(ArrayList<CheckInOut> readChecks) {
+		if (readChecks != null) {
+			for (int i = 0; i < readChecks.size(); i++) {
+				Employee employee = SearchInMainapp.searchEmployee(Mainapp.getCurrentModel(), readChecks.get(i).getEmployeeID());
+				 if (employee != null) {
+					 try {
+						Mainapp.getCurrentModel().getDepartment(employee.getDepartment()).getListEmployees().get(employee.getID()).getListChecks().add(readChecks.get(i));
+						System.out.println("Server mainapp received : " + readChecks.get(i).toString());
+					} catch (Exception e) {
+						System.out.println("Exception TCPServerMainApp : " + e.getMessage());
+					}
+					 
+				 }
+			}
+		} else {
+			System.out.println("No checks to save");
+		}
 	}
 
 	public void run( ) { 
@@ -22,14 +42,8 @@ public class TCPServerMainApp extends TCPServerMainAppBuilder implements Runnabl
 				 System.out.println("Hello, the server mainApp accepts");
 				 sIn = s.getInputStream();
 				 ois = new ObjectInputStream(sIn);
-				 CheckInOut readCheck = (CheckInOut) ois.readObject();
-				 Employee employee = SearchInMainapp.searchEmployee(Mainapp.getCurrentModel(), readCheck.getEmployeeID());
-				 if (employee != null) {
-					 Mainapp.getCurrentModel().getDepartment(employee.getDepartment()).getListEmployees().get(employee.getID()).getListChecks().add(readCheck);
-					 System.out.println("Server mainapp received :" + readCheck);
-				 } else {
-					 System.out.println("Employee not in mainapp");
-				 }
+				 ArrayList<CheckInOut> readChecks = (ArrayList<CheckInOut>) ois.readObject();
+				 addChecksToMainApp(readChecks);
 				 ois.close();
 				 s.close();
 			 }

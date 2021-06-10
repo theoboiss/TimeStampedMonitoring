@@ -1,6 +1,5 @@
 package controller.mainapp;
 
-import java.awt.GridBagConstraints;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collection;
@@ -9,7 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import model.mainapp.Company;
