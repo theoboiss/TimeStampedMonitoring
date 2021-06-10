@@ -1,5 +1,6 @@
 package controller.mainapp;
 
+import java.awt.GridBagConstraints;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collection;
@@ -8,9 +9,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import model.mainapp.Company;
+import model.mainapp.Department;
 import model.mainapp.Employee;
 import model.mainapp.SearchInMainapp;
 import model.shared.CheckInOut;
@@ -23,7 +26,7 @@ public class BrowserMainapp {
 	/*********************************************************************/
 
 	final static private List<String> viewsIndex = Arrays.asList(
-		"ViewResultsCheckInOuts","ViewResultsEmployees","ViewResultsEmployeeDetails"
+		"NoView","ViewResultsCheckInOuts","ViewResultsEmployees","ViewResultsEmployeeDetails"
 	);
 	private String view;
 	private Company model;
@@ -358,4 +361,30 @@ public class BrowserMainapp {
 		JTable result = new JTable(data,titles);
 	}
 	*/
+	
+	
+	/*********************************************************************/
+	/****************************** SEARCH *******************************/
+	/*********************************************************************/
+	
+	
+	public String addEmployee(HashMap<String,JTextField> request) {
+		//extract informations from the request
+		String firstnameNewEmployee = request.get("firstname").getText().split(getRegexPattern())[0];
+		String lastnameNewEmployee = request.get("lastname").getText().split(getRegexPattern())[0];
+		String departmentNewEmployee = request.get("department_name").getText().split(getRegexPattern())[0];
+		
+		try {
+			Department correspondingDepartment = getModel().getDepartment(departmentNewEmployee);
+			if (correspondingDepartment != null) {
+				correspondingDepartment.addEmployee(new Employee(firstnameNewEmployee, lastnameNewEmployee));
+				return "Successful addition";
+			}
+			else
+				throw new Exception("This department does not exist.");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return "Addition failed          ";
+		}
+	}
 }
