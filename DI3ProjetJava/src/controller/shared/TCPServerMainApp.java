@@ -20,17 +20,18 @@ public class TCPServerMainApp extends TCPServerMainAppBuilder implements Runnabl
 				 ois = new ObjectInputStream(sIn);
 				 CheckInOut readCheck = (CheckInOut) ois.readObject();
 				 Employee employee = SearchInMainapp.searchEmployee(Mainapp.getCurrentModel(), readCheck.getEmployeeID());
-				 System.out.println(employee);
-				 Mainapp.getCurrentModel().getDepartment(employee.getDepartment()).getListEmployees().get(employee.getID()).getListChecks().add(readCheck);
-				 System.out.println(readCheck);
+				 if (employee != null) {
+					 Mainapp.getCurrentModel().getDepartment(employee.getDepartment()).getListEmployees().get(employee.getID()).getListChecks().add(readCheck);
+					 System.out.println(readCheck);
+				 } else {
+					 System.out.println("Employee not in mainapp");
+				 }
 				 ois.close();
 				 s.close();
 			 }
 
 		 	} catch(IOException e) { 
-		 		
-			 System.out.println("IOException TCPServerMainApp : " + e.getMessage());
-			 
+		 		System.out.println("IOException TCPServerMainApp : " + e.getMessage());
 		 	} catch (ClassNotFoundException e) {
 		 		System.out.println("ClassNotFoundException TCPServerMainApp : " + e.getMessage());
 			} catch (Exception e) {

@@ -228,7 +228,7 @@ public class ViewEmulator extends JFrame  implements ActionListener
 		
 		public static void main(String[] args) //MODIFIE PAR SARAH
 		{	
-			//new Emulator();
+			new Emulator();
 			new ViewEmulator();
 			//Mainapp.main(null);
 			//new Thread(new TCPServerMainApp()).start(); 
@@ -237,13 +237,27 @@ public class ViewEmulator extends JFrame  implements ActionListener
 		
 		@Override
 		public void actionPerformed(ActionEvent event) { //AJOUTE PAR SARAH
-		//TODO a mettre dans un controlleur afin de vérifier l'existence de l'employé, ou si l'id est vide
+		//TODO a mettre dans un controlleur
 		// sauvegarder le check dans le fichier texte backupEmulator si ne peut être envoyé à l'application main
 			Object source = event.getSource();
 			 
 			if (source == startButton) {
-				CheckInOut checkInOutToSend = new CheckInOut(Integer.parseInt(IDField.getText()), LocalDateTime.now(), true );
-				new Thread(new TCPClientEmulator(checkInOutToSend)).start();
+				
+				try {
+					Integer.parseInt(IDField.getText());
+					
+					//TODO if (employé présent dans émulateur) on effectue la suite du try
+					
+					CheckInOut checkInOutToSend = new CheckInOut(Integer.parseInt(IDField.getText()), LocalDateTime.now(), true );
+					
+					//TODO integration du check dans l'historique de l'émulateur
+					
+					new Thread(new TCPClientEmulator(checkInOutToSend)).start();
+				} catch (NumberFormatException e) {
+					System.out.println("Le format attendu n\'est pas respecté");
+				}
+
+				
 			}
 			
 		}
