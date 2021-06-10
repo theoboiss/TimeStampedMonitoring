@@ -33,7 +33,7 @@ public class TCPClientEmulatorBuilder {
 	protected void setSocket() throws IOException { 
 		isA = new InetSocketAddress(IPaddress, numPort); 
 		s = new Socket(isA.getHostName(), isA.getPort());
-		/** we can include more setting, later … */ 
+
 	} 
 
 }

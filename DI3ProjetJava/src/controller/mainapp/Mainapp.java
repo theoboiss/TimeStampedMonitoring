@@ -2,6 +2,10 @@ package controller.mainapp;
 
 import java.io.IOException;
 
+import controller.shared.TCPServerMainApp;
+import controller.shared.TCPClientMainApp;
+import controller.shared.TCPServerEmulator;
+import model.mainapp.SearchInMainapp;
 import view.mainapp.ViewMainApp;
 
 
@@ -40,6 +44,9 @@ public class Mainapp extends MainappSettings {
 		
 		
 		new ViewMainApp();
+		//new Thread(new TCPServerEmulator(mainappSaved.getIPaddressClient(), mainappSaved.getNumPortClient())).start(); //just test, to suppress
+		new Thread(new TCPServerMainApp(mainappSaved.getIPaddressServer(), mainappSaved.getNumPortServer())).start();
+		new Thread(new TCPClientMainApp(SearchInMainapp.searchEmployee(getCurrentModel()), mainappSaved.getIPaddressClient(), mainappSaved.getNumPortClient())).start();
 		
 		/*
 		Company companyToSave = null;

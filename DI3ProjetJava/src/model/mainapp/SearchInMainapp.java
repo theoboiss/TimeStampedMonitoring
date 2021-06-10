@@ -147,4 +147,24 @@ public abstract class SearchInMainapp {
 		return resultList;
 	}
 	
+	
+	/******************************** all ********************************/
+	
+	static public ArrayList<Employee> searchEmployee(Department department) {
+		ArrayList<Employee> resultList = new ArrayList<Employee>();
+		for (Employee currentEmployee : department.getListEmployees().values()) {
+			resultList.add(currentEmployee);
+		}
+		return resultList;
+	}
+	
+	//overall
+		static public ArrayList<Employee> searchEmployee(Company company) {
+			ArrayList<Employee> resultList = new ArrayList<Employee>();
+			for (Department currentDepartment : company.getListDepartment()) {
+	        	resultList.addAll(searchEmployee(currentDepartment));
+	        }
+			return resultList;
+		}
+	
 }

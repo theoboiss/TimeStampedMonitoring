@@ -1,38 +1,40 @@
 package controller.shared;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.InetAddress;
+import java.util.ArrayList;
+
+import model.mainapp.Employee;
+
 
 public class TCPServerEmulator extends TCPServerEmulatorBuilder implements Runnable {
 	
-	TCPServerEmulator(InetAddress IPaddress, int numPort) {
+	public TCPServerEmulator(InetAddress IPaddress, int numPort) {
 		super(IPaddress, numPort);
 	}
 
 	public void run( ) { 
-		 try { 
+		try { 
 			 System.out.println("TCPServerEmulator launched ..."); 
-			 setSocket(); 
-			 do {
-				 System.out.println("Hello, the server emulator accepts");
-				 receive(s);
-				 System.out.println("received");
-			 } while(true);
-		 } 
-		 catch(IOException e) 
-		 	{ 
-				 System.out.println("IOException TCPServerEmulator"); 
-				 try {
-					s.close();
-					ss.close();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}   
-		 	} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-	 } 
+			 setSocket();
+			 while(true) { 
+				 s = ss.accept();
+				 System.out.println("Hello, the server Emulator accepts");
+				 sIn = s.getInputStream();
+				 ois = new ObjectInputStream(sIn);
+				 ArrayList<Employee> listEmployees = (ArrayList<Employee>) ois.readObject();
+				 System.out.println("Server emulator received : " + listEmployees.toString());
+				 ois.close();
+				 s.close();
+			 }
 
+		 	} catch(IOException e) { 
+		 		System.out.println("IOException TCPServerMainApp : " + e.getMessage());
+		 	} catch (ClassNotFoundException e) {
+		 		System.out.println("ClassNotFoundException TCPServerMainApp : " + e.getMessage());
+			} catch (Exception e) {
+				System.out.println("Exception TCPServerMainApp : " + e.getMessage());
+			} 
+	}
 }

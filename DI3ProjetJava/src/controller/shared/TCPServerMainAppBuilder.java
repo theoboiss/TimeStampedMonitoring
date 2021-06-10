@@ -26,7 +26,6 @@ public class TCPServerMainAppBuilder {
 		
 		isA = new InetSocketAddress(IPaddress , numPort);
 		ss = new ServerSocket(isA.getPort());
-		//ss.setSoTimeout(10000);
 		 
 	}
 

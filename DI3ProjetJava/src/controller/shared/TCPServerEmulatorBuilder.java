@@ -28,8 +28,7 @@ public class TCPServerEmulatorBuilder extends ExchangeViaSocket {
 	public void setSocket() throws IOException { 
 		
 		isA = new InetSocketAddress(IPaddress,numPort);
-		ss = new ServerSocket(isA.getPort());
-		s = ss.accept(); 
+		ss = new ServerSocket(isA.getPort()); 
 	}
 
 }
