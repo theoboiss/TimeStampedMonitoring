@@ -14,6 +14,10 @@ public class Emulator extends EmulatorSettings {
 	private static final long serialVersionUID = 1L;
 	/****************************** BUILDERS *****************************/
 
+	public Emulator()
+	{
+		super();
+	}
 	public Emulator(EmulatorSettings emulatorSettingsSaved, EmulatorBackup emulatorRestorationProcess) {
 		super(emulatorSettingsSaved, emulatorRestorationProcess);
 	}
