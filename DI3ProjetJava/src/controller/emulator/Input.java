@@ -1,81 +1,38 @@
 package controller.emulator;
 
-import model.emulator.Settings;
+
+import java.time.LocalDate;
+
+import model.emulator.History;
+import model.emulator.History.EventDuringCheck;
 import model.shared.CheckInOut;
+import model.shared.EmployeeInfo;
+import view.emulator.ViewEmulator;
 public class Input 
 {
-	/* ================================================================= */
-	/************************* CLASS ATTRIBUTES **************************/
-	/*********************************************************************/
-
-	private Settings settings;
-
-	/*********************************************************************/
-	/*********************************************************************/
-	/* ================================================================= */
-
-	/* ================================================================= */
-	/*************************** CONSTRUCTORS ****************************/
-	/*********************************************************************/
-
-	/**
-	 * @brief Default Constructor
-	 */
-	public Input() 
-	{
-		settings = new Settings();
-	}
-
-	/**
-	 * @brief Copy Constructor
-	 * @param settings
-	 * @param checks
-	 */
-	public Input(Settings settings, CheckInOut checks) 
-	{
-		super();
-		this.settings = settings;
-	}
-
-	/*********************************************************************/
-	/*********************************************************************/
-	/* ================================================================= */
-
-	/* ================================================================= */
-	/********************** GETTERS AND SETTERS **************************/
-	/*********************************************************************/
-
-	/**
-	 * @return the settings
-	 */
-	public Settings getSettings() 
-	{
-		return settings;
-	}
-
-	/**
-	 * @param settings the settings to set
-	 */
-	public void setSettings(Settings settings) 
-	{
-		this.settings = settings;
-	}
-	/*********************************************************************/
-	/*********************************************************************/
-	/* ================================================================= */
+	private CheckInOut checksFromEmulator;
+	private EventDuringCheck event;
 	
-	/* ================================================================= */
-	/***************************** METHODS *******************************/
-	/*********************************************************************/
+	/**
+	 * @throws Exception
+	 * @brief Method to add Employee ID and time of CheckInOut
+	 */
+	public void addElmentToCheckInOut() throws Exception {
 
-	@Override
-	public String toString() 
-	{
-		return "Input [settings=" + settings + "]";
+		EmployeeInfo info = new EmployeeInfo();
+		LocalDate date = LocalDate.now();
+		date = ViewEmulator.getDate();
+		CheckInOut checks = new CheckInOut();
+		checks = ViewEmulator.getChecks();
+		info.setID(checks.getEmployeeID());
+
+		// Creating a check in out
+		checksFromEmulator.setEmployeeID(checks.getEmployeeID());
+		checksFromEmulator.setCheckTime(checks.getCheckTime());
+		checksFromEmulator.setEvent(checks.getEvent());
+
+		// Adding checks to history database
+		History.addToHistory(checksFromEmulator, info, date);
+
 	}
-
-	
-	/*********************************************************************/
-	/*********************************************************************/
-	/* ================================================================= */
 }
