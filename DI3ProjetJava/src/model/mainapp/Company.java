@@ -65,7 +65,7 @@ public class Company implements Serializable, Cloneable {
 	 */
 	public Department getDepartment(String departmentName) throws Exception {
 		for (Department currentDepartment : getListDepartment()) {
-			if (currentDepartment.getName() == departmentName)
+			if (currentDepartment.getName().equals(departmentName))
 				return currentDepartment;
 		}
 		return null;

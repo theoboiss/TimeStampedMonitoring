@@ -70,7 +70,7 @@ public abstract class SearchInMainapp {
 				resultList.add(currentEmployee);
 			}
 		}
-		return new ArrayList<Employee>(resultList);
+		return resultList;
 	}
 	
 	//overall
@@ -79,7 +79,7 @@ public abstract class SearchInMainapp {
 		for (Department currentDepartment : company.getListDepartment()) {
         	resultList.addAll(searchEmployee(currentDepartment, beforeCheck, afterCheck));
         }
-		return new ArrayList<Employee>(resultList);
+		return resultList;
 	}
 
 	
@@ -114,7 +114,7 @@ public abstract class SearchInMainapp {
 				resultList.add(currentEmployee);
 			}
 		}
-		return new ArrayList<Employee>(resultList);
+		return resultList;
 	}
 
 	static public ArrayList<Employee> searchEmployee(Department department, String name, Integer nName) {
@@ -126,7 +126,7 @@ public abstract class SearchInMainapp {
 				resultList.add(currentEmployee);
 			}
 		}
-		return new ArrayList<Employee>(resultList);
+		return resultList;
 	}
 	
 	//overall
@@ -135,7 +135,7 @@ public abstract class SearchInMainapp {
 		for (Department currentDepartment : company.getListDepartment()) {
         	resultList.addAll(searchEmployee(currentDepartment, firstname, lastname));
         }
-		return new ArrayList<Employee>(resultList);
+		return resultList;
 	}
 	
 	//overall
@@ -144,7 +144,7 @@ public abstract class SearchInMainapp {
 		for (Department currentDepartment : company.getListDepartment()) {
         	resultList.addAll(searchEmployee(currentDepartment, name, nName));
         }
-		return new ArrayList<Employee>(resultList);
+		return resultList;
 	}
 	
 }

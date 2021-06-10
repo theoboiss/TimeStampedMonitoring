@@ -1,5 +1,6 @@
 package view.mainapp;
 
+import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +24,8 @@ public class ViewEmployeeAdd extends ViewModel {
 	private JLabel labelFirstName;
 	private JLabel labelLastName;
 	private JLabel labelDepartment;
+	
+	private JLabel labelResponse;
 	
 	
 	/*********************************************************************/
@@ -144,8 +147,25 @@ public class ViewEmployeeAdd extends ViewModel {
 	public void setLabelDepartment(JLabel labelDepartment) {
 		this.labelDepartment = labelDepartment;
 	}
+
+	/*************************** labelresponse ***************************/
 	
-	
+	/**
+	 * @return the labelResponse
+	 */
+	public JLabel getLabelResponse() {
+		return labelResponse;
+	}
+
+
+	/**
+	 * @param labelResponse the labelResponse to set
+	 */
+	public void setLabelResponse(JLabel labelResponse) {
+		this.labelResponse = labelResponse;
+	}
+
+
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
@@ -180,6 +200,18 @@ public class ViewEmployeeAdd extends ViewModel {
 			submitMap.put("firstname", textFieldArray.get(0));
 			submitMap.put("lastname", textFieldArray.get(1));
 			submitMap.put("department_name", textFieldArray.get(2));
+
+			if (getLabelResponse() != null)
+				getPanel().remove(getLabelResponse());
+			try {
+				BrowserMainapp controller = new BrowserMainapp("NoView");
+				setLabelResponse(new JLabel(controller.addEmployee(submitMap)));
+				
+				getPanel().add(getLabelResponse());
+				getPanel().revalidate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}

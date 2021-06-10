@@ -10,7 +10,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import model.emulator.History;
+import model.shared.EmployeeInfo;
 
 public class EmulatorSettings extends TCPEmulatorSettings {
 
@@ -23,6 +26,8 @@ private static final long serialVersionUID = -786389681881788698L;
 
 	private static History currentModel;
 	private transient EmulatorBackup backupData;
+	private CopyOnWriteArrayList<EmployeeInfo> listEmployeeID;
+	private LocalDateTime dateTime;
 	private String backupFileName;
 	private long[] timersForBackup = {5*1000, 30*60*1000}; //in milliseconds
 	
