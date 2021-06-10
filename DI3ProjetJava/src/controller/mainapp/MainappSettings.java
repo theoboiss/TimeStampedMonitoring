@@ -24,7 +24,7 @@ public abstract class MainappSettings extends TCPMainAppSettings implements Seri
 	private static Company currentModel;
 	private transient MainappBackup dataManagment;
 	private String backupFileName;
-	private long[] timersForBackup = {5*1000, 30*60*1000}; //in milliseconds
+	private long[] timersForBackup = {5*1000, 5*60*1000}; //in milliseconds
 	
 	
 	/*********************************************************************/
@@ -170,7 +170,7 @@ public abstract class MainappSettings extends TCPMainAppSettings implements Seri
 	private class PeriodicSave extends TimerTask implements Serializable {
 		private static final long serialVersionUID = 4275212943329005505L;
 		
-		public MainappSettings settingsData;
+		public transient MainappSettings settingsData;
 		
 		public PeriodicSave(MainappSettings settingsData) {
 			this.settingsData = settingsData;
