@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import model.emulator.History;
 import model.shared.EmployeeInfo;
@@ -26,7 +26,7 @@ private static final long serialVersionUID = -786389681881788698L;
 
 	private static History currentModel;
 	private transient EmulatorBackup backupData;
-	private CopyOnWriteArrayList<EmployeeInfo> listEmployeeID;
+	private ArrayList<EmployeeInfo> listEmployeeID;
 	private LocalDateTime dateTime;
 	private String backupFileName;
 	private long[] timersForBackup = {5*1000, 30*60*1000}; //in milliseconds
@@ -173,6 +173,49 @@ private static final long serialVersionUID = -786389681881788698L;
 	}
 	
 	
+	/**
+	 * @return the backupData
+	 */
+	public EmulatorBackup getBackupData() {
+		return backupData;
+	}
+
+	/**
+	 * @param backupData the backupData to set
+	 */
+	public void setBackupData(EmulatorBackup backupData) {
+		this.backupData = backupData;
+	}
+
+	/**
+	 * @return the listEmployeeID
+	 */
+	public ArrayList<EmployeeInfo> getListEmployeeID() {
+		return listEmployeeID;
+	}
+
+	/**
+	 * @param listEmployeeID the listEmployeeID to set
+	 */
+	public void setListEmployeeID(ArrayList<EmployeeInfo> listEmployeeID) {
+		this.listEmployeeID = listEmployeeID;
+	}
+
+	/**
+	 * @return the dateTime
+	 */
+	public LocalDateTime getDateTime() {
+		return dateTime;
+	}
+
+	/**
+	 * @param dateTime the dateTime to set
+	 */
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
+	}
+
+
 	/*********************************************************************/
 	/**************************** INTERN CLASS ***************************/
 	/*********************************************************************/

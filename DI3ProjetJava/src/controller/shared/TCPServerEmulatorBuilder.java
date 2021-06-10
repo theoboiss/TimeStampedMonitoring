@@ -6,6 +6,8 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import controller.emulator.EmulatorSettings;
+
 
 public class TCPServerEmulatorBuilder extends ExchangeViaSocket {
 	
@@ -13,10 +15,12 @@ public class TCPServerEmulatorBuilder extends ExchangeViaSocket {
 	protected int numPort;
 	protected ServerSocket ss; protected Socket s; // the passive and active sockets 
 	protected InetSocketAddress isA; // the address 
+	protected EmulatorSettings emulator;
 	  
-	TCPServerEmulatorBuilder(InetAddress IPaddress, int numPort) { 
+	TCPServerEmulatorBuilder(EmulatorSettings emulator, InetAddress IPaddress, int numPort) { 
 		this.IPaddress = IPaddress;
 		this.numPort = numPort;
+		this.emulator = emulator;
 		ss = null; s = null; 
 		isA = null; 
 		sIn = null;

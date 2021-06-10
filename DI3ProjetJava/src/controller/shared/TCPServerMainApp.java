@@ -40,7 +40,14 @@ public class TCPServerMainApp extends TCPServerMainAppBuilder implements Runnabl
 		 		System.out.println("ClassNotFoundException TCPServerMainApp : " + e.getMessage());
 			} catch (Exception e) {
 				System.out.println("Exception TCPServerMainApp : " + e.getMessage());
-			} 
+			} finally {
+				try {
+					s.close();
+					run();
+				} catch (IOException e) {
+					System.out.println("IOException TCPServerMainApp : " + e.getMessage());
+				}
+			}
 	 }
 
 }

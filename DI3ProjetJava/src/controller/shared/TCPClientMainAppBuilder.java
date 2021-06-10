@@ -3,7 +3,7 @@ package controller.shared;
 import java.net.*;
 import java.util.ArrayList;
 
-import model.mainapp.Employee;
+import model.shared.EmployeeInfo;
 
 import java.io.*; 
 
@@ -13,9 +13,9 @@ public class TCPClientMainAppBuilder extends ExchangeViaSocket {
 	protected int numPort;
 	protected Socket s; 
 	protected InetSocketAddress isA; 
-	protected ArrayList<Employee> listEmployees;
+	protected ArrayList<EmployeeInfo> listEmployees;
 	
-	TCPClientMainAppBuilder(ArrayList<Employee> listEmployees, InetAddress IPaddress, int numPort) { 
+	TCPClientMainAppBuilder(ArrayList<EmployeeInfo> listEmployees, InetAddress IPaddress, int numPort) { 
 		this.IPaddress = IPaddress;
 		this.numPort = numPort;
 		this.listEmployees = listEmployees;

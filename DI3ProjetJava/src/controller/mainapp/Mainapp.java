@@ -3,9 +3,14 @@ package controller.mainapp;
 import java.io.IOException;
 
 import controller.shared.TCPServerMainApp;
+import controller.emulator.EmulatorSettings;
 import controller.shared.TCPClientMainApp;
 import controller.shared.TCPServerEmulator;
+import model.mainapp.Company;
+import model.mainapp.Department;
+import model.mainapp.Employee;
 import model.mainapp.SearchInMainapp;
+import model.shared.CheckInOut;
 import view.mainapp.ViewMainApp;
 
 
@@ -44,9 +49,14 @@ public class Mainapp extends MainappSettings {
 		
 		
 		new ViewMainApp();
-		//new Thread(new TCPServerEmulator(mainappSaved.getIPaddressClient(), mainappSaved.getNumPortClient())).start(); //just test, to suppress
+		EmulatorSettings emulator = new EmulatorSettings();
+		new Thread(new TCPServerEmulator(emulator, emulator.getIPaddressServer(), emulator.getNumPortServer())).start(); //just test, to suppress
 		new Thread(new TCPServerMainApp(mainappSaved.getIPaddressServer(), mainappSaved.getNumPortServer())).start();
-		new Thread(new TCPClientMainApp(SearchInMainapp.searchEmployee(getCurrentModel()), mainappSaved.getIPaddressClient(), mainappSaved.getNumPortClient())).start();
+		try {
+			new Thread(new TCPClientMainApp(mainappSaved.getEmployeeInfo(), mainappSaved.getIPaddressClient(), mainappSaved.getNumPortClient())).start();
+		} catch (Exception e) {
+			System.out.println("Exception in Mainapp main : " + e.getMessage());
+		}
 		
 		/*
 		Company companyToSave = null;

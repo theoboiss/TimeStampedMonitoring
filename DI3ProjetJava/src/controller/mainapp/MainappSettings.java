@@ -7,11 +7,15 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import model.mainapp.Company;
+import model.mainapp.Employee;
+import model.mainapp.SearchInMainapp;
+import model.shared.EmployeeInfo;
 
 public abstract class MainappSettings extends TCPMainAppSettings implements Serializable {
 
@@ -271,5 +275,14 @@ public abstract class MainappSettings extends TCPMainAppSettings implements Seri
 		//receiving.setBackupFileName("backupMainapp/serializedData.ser"); //to force the new destination
 		receiving.setTimersForBackup(this.getTimersForBackup());
 		//more settings to copy soon, including TCP settings
+	}
+	
+	public ArrayList<EmployeeInfo> getEmployeeInfo() throws Exception {
+		ArrayList<EmployeeInfo> arrayToReturn = new ArrayList<EmployeeInfo>();
+		ArrayList<Employee> arrayToCast = SearchInMainapp.searchEmployee(getCurrentModel());
+		for (int i = 0; i < arrayToCast.size() ; i++) {
+			arrayToReturn.add(arrayToCast.get(i).castInEmployeeInfo());
+		}
+		return arrayToReturn;
 	}
 }

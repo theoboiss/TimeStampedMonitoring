@@ -4,12 +4,12 @@ import java.io.*;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
-import model.mainapp.Employee; 
+import model.shared.EmployeeInfo; 
 
 public class TCPClientMainApp extends TCPClientMainAppBuilder implements Runnable {
 	
 	
-	 public TCPClientMainApp(ArrayList<Employee> listEmployees, InetAddress IPaddress, int numPort) {
+	 public TCPClientMainApp(ArrayList<EmployeeInfo> listEmployees, InetAddress IPaddress, int numPort) {
 		super(listEmployees, IPaddress, numPort);
 	}
 
@@ -26,7 +26,7 @@ public class TCPClientMainApp extends TCPClientMainAppBuilder implements Runnabl
 			 oos.close();
 			 s.close();
 		 } catch(IOException e) { 
-			 System.out.println("IOException TCPClientMainApp" + e.getMessage());  
+			 System.out.println("IOException TCPClientMainApp : " + e.getMessage());  
 		 } 
 	}
 	 

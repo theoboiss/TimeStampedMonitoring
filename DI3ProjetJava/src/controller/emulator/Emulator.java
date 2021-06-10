@@ -1,7 +1,11 @@
 package controller.emulator;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import controller.emulator.Emulator;
+import controller.shared.TCPServerEmulator;
 import view.emulator.ViewEmulator;
 
 /**
@@ -40,15 +44,15 @@ public class Emulator extends EmulatorSettings {
 		} catch (ClassCastException e) {
 			System.out.println("Information : backup did not contain settings data.");
 		}
-
+		
 		if (emulatorSaved != null)
 			new Emulator(emulatorSaved, restorationProcess);
 		else
 			new Emulator(lastModifiedFileRelatedTo(target));
+		
 
 		new ViewEmulator();
-
-		// TODO main function lance vue + serveur emulateur
+		new Thread(new TCPServerEmulator(emulatorSaved, emulatorSaved.getIPaddressServer(), emulatorSaved.getNumPortServer())).start(); 
 
 	}
 }

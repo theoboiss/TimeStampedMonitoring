@@ -150,4 +150,25 @@ public abstract class SearchInEmulator {
 		return new ArrayList<Employee>(resultList);
 	}
 	
+	
+	/******************************* all *********************************/
+	
+	
+	static public ArrayList<Employee> searchEmployee(Department department) {
+		ArrayList<Employee> resultList = new ArrayList<Employee>();
+		for (Employee currentEmployee : department.getListEmployees().values()) {
+				resultList.add(currentEmployee);
+		}
+		return new ArrayList<Employee>(resultList);
+	}
+	
+	//overall
+		static public ArrayList<Employee> searchEmployee(Company company) {
+			ArrayList<Employee> resultList = new ArrayList<Employee>();
+			for (Department currentDepartment : company.getListDepartment()) {
+	        	resultList.addAll(searchEmployee(currentDepartment));
+	        }
+			return new ArrayList<Employee>(resultList);
+		}
+	
 }

@@ -5,13 +5,14 @@ import java.io.ObjectInputStream;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
-import model.mainapp.Employee;
+import controller.emulator.EmulatorSettings;
+import model.shared.EmployeeInfo;
 
 
 public class TCPServerEmulator extends TCPServerEmulatorBuilder implements Runnable {
 	
-	public TCPServerEmulator(InetAddress IPaddress, int numPort) {
-		super(IPaddress, numPort);
+	public TCPServerEmulator(EmulatorSettings emulator, InetAddress IPaddress, int numPort) {
+		super(emulator, IPaddress, numPort);
 	}
 
 	public void run( ) { 
@@ -23,8 +24,11 @@ public class TCPServerEmulator extends TCPServerEmulatorBuilder implements Runna
 				 System.out.println("Hello, the server Emulator accepts");
 				 sIn = s.getInputStream();
 				 ois = new ObjectInputStream(sIn);
-				 ArrayList<Employee> listEmployees = (ArrayList<Employee>) ois.readObject();
-				 System.out.println("Server emulator received : " + listEmployees.toString());
+				 ArrayList<EmployeeInfo> listEmployees = (ArrayList<EmployeeInfo>) ois.readObject();
+				 if (listEmployees != null) {
+					 emulator.setListEmployeeID(listEmployees);
+					 System.out.println("Server emulator received : " + listEmployees.toString());
+				 }
 				 ois.close();
 				 s.close();
 			 }
