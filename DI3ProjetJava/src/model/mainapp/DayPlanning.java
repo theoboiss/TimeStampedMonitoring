@@ -3,7 +3,12 @@ package model.mainapp;
 import java.io.Serializable;
 import java.time.LocalTime;
 
-
+/**
+ * 
+ * @brief Class which represents a day in an Employee planning.
+ * @implNote Implements Serializable.
+ *
+ */
 public class DayPlanning implements Serializable {
 	
 	private static final long serialVersionUID = -1187588611307841876L;
@@ -20,12 +25,16 @@ public class DayPlanning implements Serializable {
 	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
 	
+	/**
+	 * @brief Default constructor.
+	 */
 	public DayPlanning() {
 		setArrivalTime(LocalTime.of(8, 15));
 		setLeavingTime(LocalTime.of(17, 0));
 	}
 	
 	/**
+	 * @brief Constructor.
 	 * @param arrivalTime
 	 * @param leavingTime
 	 */
@@ -79,15 +88,7 @@ public class DayPlanning implements Serializable {
 	@Override
 	public String toString() {return "Arrival Time : " + this.arrivalTime + "\nLeaving Time : " + this.leavingTime;}
 			
-	public static void main(String[] args){
-		LocalTime arrivalTime = LocalTime.of(9, 0);
-		LocalTime leavingTime = LocalTime.of(17, 30);
-		DayPlanning day = new DayPlanning(arrivalTime, leavingTime);
-		DayPlanning day2 = new DayPlanning();
-		System.out.println(day);
-		System.out.println(day2);
-	}
-
+	
 }
 
 

@@ -7,7 +7,10 @@ import java.time.LocalDateTime;
 import model.emulator.History.EventDuringCheck;
 
 /**
- * @author RMICH Mohammed
+ * 
+ * 
+ * @brief Class which represents a ChechInOut.
+ * @implNote Implements Serializable.
  *
  */
 public class CheckInOut implements Serializable {
@@ -21,7 +24,39 @@ public class CheckInOut implements Serializable {
 	private Integer employeeID;
 	private LocalDateTime checkTime;
 	private EventDuringCheck event;
+	private boolean status;
+
+
+	/* ================================================================= */
+	/*************************** CONSTRUCTORS ****************************/
+	/*********************************************************************/
+
 	/**
+	 * @brief Default Constructor.
+	 */
+	public CheckInOut() 
+	{
+		employeeID = 0;
+		checkTime = LocalDateTime.now();
+		status = true;
+	}
+
+	/**
+	 * @brief Copy Constructor.
+	 * @param departmentName
+	 * @param employeeID
+	 * @param checkTime
+	 * @param status.
+	 */
+	public CheckInOut(Integer employeeID, LocalDateTime checkTime, boolean status) 
+	{
+		setEmployeeID(employeeID);
+		setCheckTime(checkTime);
+		setStatus(status);
+	}
+	
+	/**
+	 * @brief Constructor.
 	 * @param employeeID
 	 * @param checkTime
 	 * @param event
@@ -35,62 +70,13 @@ public class CheckInOut implements Serializable {
 		this.status = status;
 	}
 
-	/**
-	 * @return the event
-	 */
-	public EventDuringCheck getEvent() {
-		return event;
-	}
-
-	/**
-	 * @param event the event to set
-	 */
-	public void setEvent(EventDuringCheck event) {
-		this.event = event;
-	}
-
-	private boolean status;
-
-	/*********************************************************************/
-	/*********************************************************************/
-	/* ================================================================= */
-
-	/* ================================================================= */
-	/*************************** CONSTRUCTORS ****************************/
-	/*********************************************************************/
-
-	/**
-	 * @brief Default Constructor
-	 */
-	public CheckInOut() 
-	{
-		employeeID = 0;
-		checkTime = LocalDateTime.now();
-		status = true;
-	}
-
-	/**
-	 * @brief Copy Constructor
-	 * @param departmentName
-	 * @param employeeID
-	 * @param checkTime
-	 * @param status.
-	 */
-	public CheckInOut(Integer employeeID, LocalDateTime checkTime, boolean status) 
-	{
-		setEmployeeID(employeeID);
-		setCheckTime(checkTime);
-		setStatus(status);
-	}
-
-	/*********************************************************************/
-	/*********************************************************************/
-	/* ================================================================= */
 
 	/* ================================================================= */
 	/********************** GETTERS AND SETTERS **************************/
 	/*********************************************************************/
 
+	/***************************** employeeID ****************************/
+	
 	/**
 	 * @return the employeeID
 	 */
@@ -106,6 +92,8 @@ public class CheckInOut implements Serializable {
 	{
 		this.employeeID = employeeID;
 	}
+	
+	/***************************** checkTime *****************************/
 
 	/**
 	 * @return the checkTime
@@ -122,6 +110,24 @@ public class CheckInOut implements Serializable {
 	{
 		this.checkTime = checkTime;
 	}
+	
+	/******************************* event *******************************/
+	
+	/**
+	 * @return the event
+	 */
+	public EventDuringCheck getEvent() {
+		return event;
+	}
+
+	/**
+	 * @param event the event to set
+	 */
+	public void setEvent(EventDuringCheck event) {
+		this.event = event;
+	}
+	
+	/******************************* status ******************************/
 
 	/**
 	 * @return the status
@@ -138,9 +144,7 @@ public class CheckInOut implements Serializable {
 	{
 		this.status = status;
 	}
-	/*********************************************************************/
-	/*********************************************************************/
-	/* ================================================================= */
+
 	
 	/* ================================================================= */
 	/***************************** METHODS *******************************/
@@ -151,7 +155,5 @@ public class CheckInOut implements Serializable {
 	{
 		return "CheckInOut [employeeID=" + employeeID + ", checkTime=" + checkTime + ", status=" + status + "]";
 	}
-	/*********************************************************************/
-	/*********************************************************************/
-	/* ================================================================= */
+
 }

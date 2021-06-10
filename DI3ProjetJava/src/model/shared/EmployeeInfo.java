@@ -2,6 +2,14 @@ package model.shared;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @brief Class which represents main informations about an Employee.
+ * 		  Useful for the Emulator which do not have to know about all
+ * 	      the other informations about an Employee instance.
+ * @implNote Implements Serializable.
+ *
+ */
 public class EmployeeInfo implements Serializable {
 
 	private static final long serialVersionUID = -2361731577118015767L;
@@ -20,6 +28,7 @@ public class EmployeeInfo implements Serializable {
 	/*********************************************************************/
 
 	/**
+	 * @brief Default constructor.
 	 * @throws Exception
 	 */
 	public EmployeeInfo() throws Exception {
@@ -27,6 +36,7 @@ public class EmployeeInfo implements Serializable {
 	}
 	
 	/**
+	 * @brief Constructor.
 	 * @param ID
 	 * @param firstname
 	 * @param lastname
@@ -45,31 +55,31 @@ public class EmployeeInfo implements Serializable {
 	/********************************* ID ********************************/
 	
 	/**
-	 * @return
+	 * @return the ID
 	 */
 	public Integer getID() {
 		return ID;
 	}
 	
 	/**
-	 * @param ID
+	 * @param ID the ID to set
 	 * @throws Exception 
 	 */
 	public void setID(Integer ID) throws Exception {
 		this.ID = ID;
 	}
 
-	/******************************** Names *******************************/
+	/***************************** firstName *****************************/
 
 	/**
-	 * @return
+	 * @return the firstname
 	 */
 	public String getFirstname() {
 		return firstname;
 	}
 	
 	/**
-	 * @param firstname
+	 * @param firstname the firstname to set
 	 * @throws Exception 
 	 */
 	public void setFirstname(String firstname) throws Exception {
@@ -79,15 +89,17 @@ public class EmployeeInfo implements Serializable {
 		this.firstname = firstname;
 	}
 	
+	/****************************** lastName *****************************/
+	
 	/**
-	 * @return
+	 * @return the lastname
 	 */
 	public String getLastname() {
 		return lastname;
 	}
 	
 	/**
-	 * @param lastname
+	 * @param lastname the lastname to set
 	 * @throws Exception 
 	 */
 	public void setLastname(String lastname) throws Exception {
@@ -95,10 +107,12 @@ public class EmployeeInfo implements Serializable {
 			throw new Exception("Error in setFirstname : please specify a lastname.");
 		this.lastname = lastname;
 	}
+	
+	/******************************** Names *******************************/
 
 	/**
-	 * @param firstname
-	 * @param lastname
+	 * @param firstname the firstname to set
+	 * @param lastname the lastname to set
 	 * @throws Exception 
 	 */
 	public void setNames(String firstname, String lastname) throws Exception {

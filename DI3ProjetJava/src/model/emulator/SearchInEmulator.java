@@ -8,8 +8,20 @@ import model.mainapp.Department;
 import model.mainapp.Employee;
 import model.shared.*;
 
+/**
+ * 
+ * @brief Abstract class which implements method to search employee
+ * 		  or CheckInOuts in an Emulator.
+ *
+ */
 public abstract class SearchInEmulator {
 	
+	/**
+	 * @brief Static method which returns true if str1 begin by str2.
+	 * @param str1
+	 * @param str2
+	 * @return boolean
+	 */
 	static public boolean areStringsMatching(String str1, String str2) {
 		String str1Temp = str1.toLowerCase();
 		String str2Temp = str2.toLowerCase();
@@ -22,10 +34,17 @@ public abstract class SearchInEmulator {
 		return false;
 	}
 	
+	
 	/*********************************************************************/
 	/*************************** RETURN CHECKS ***************************/
 	/*********************************************************************/
 	
+	/**
+	 * @param employee
+	 * @param beforeCheck
+	 * @param afterCheck
+	 * @return ArrayList<CheckInOut>
+	 */
 	static public ArrayList<CheckInOut> searchCheckInOut(Employee employee, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
 		ArrayList<CheckInOut> resultList = new ArrayList<CheckInOut>();
 		ArrayList<CheckInOut> listChecks = new ArrayList<>(employee.getListChecks());
@@ -42,6 +61,12 @@ public abstract class SearchInEmulator {
 		return resultList;
 	}
 	
+	/**
+	 * @param department
+	 * @param beforeCheck
+	 * @param afterCheck
+	 * @return ArrayList<CheckInOut>
+	 */
 	static public ArrayList<CheckInOut> searchCheckInOut(Department department, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
 		ArrayList<CheckInOut> resultList = new ArrayList<CheckInOut>();
 		for (Employee currentEmployee : department.getListEmployees().values()) {
@@ -51,6 +76,12 @@ public abstract class SearchInEmulator {
 	}
 	
 	//overall
+	/**
+	 * @param company
+	 * @param beforeCheck
+	 * @param afterCheck
+	 * @return ArrayList<CheckInOut>
+	 */
     static public ArrayList<CheckInOut> searchCheckInOut(Company company, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
         ArrayList<CheckInOut> resultList = new ArrayList<CheckInOut>();
         for (Department currentDepartment : company.getListDepartment()) {
@@ -66,6 +97,12 @@ public abstract class SearchInEmulator {
 	
 	/************************ according to check *************************/
 	
+    /**
+     * @param department
+     * @param beforeCheck
+     * @param afterCheck
+     * @return ArrayList<Employee>
+     */
 	static public ArrayList<Employee> searchEmployee(Department department, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
 		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Employee currentEmployee : department.getListEmployees().values()) {
@@ -77,6 +114,12 @@ public abstract class SearchInEmulator {
 	}
 	
 	//overall
+	/**
+	 * @param company
+	 * @param beforeCheck
+	 * @param afterCheck
+	 * @return ArrayList<Employee>
+	 */
 	static public ArrayList<Employee> searchEmployee(Company company, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
 		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Department currentDepartment : company.getListDepartment()) {
@@ -86,15 +129,24 @@ public abstract class SearchInEmulator {
 	}
 
 	
-	
 	/************************* according to ID ***************************/
 	//necessarily only one employee per ID
 	
+	/**
+	 * @param department
+	 * @param ID
+	 * @return Employee
+	 */
 	static public Employee searchEmployee(Department department, Integer ID) {
 		return department.getListEmployees().get(ID);
 	}
 	
 	//overall
+	/**
+	 * @param company
+	 * @param ID
+	 * @return Employee
+	 */
 	static public Employee searchEmployee(Company company, Integer ID) {
 		for (Department currentDepartment : company.getListDepartment()) {
         	if (searchEmployee(currentDepartment, ID) != null) {
@@ -107,7 +159,12 @@ public abstract class SearchInEmulator {
 	
 	/************************ according to name **************************/
 	
-	//per name
+	/**
+	 * @param department
+	 * @param firstname
+	 * @param lastname
+	 * @return ArrayList<Employee>
+	 */
 	static public ArrayList<Employee> searchEmployee(Department department, String firstname, String lastname) {
 		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Employee currentEmployee : department.getListEmployees().values()) {
@@ -120,6 +177,12 @@ public abstract class SearchInEmulator {
 		return new ArrayList<Employee>(resultList);
 	}
 
+	/**
+	 * @param department
+	 * @param name
+	 * @param nName
+	 * @return ArrayList<Employee>
+	 */
 	static public ArrayList<Employee> searchEmployee(Department department, String name, Integer nName) {
 		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Employee currentEmployee : department.getListEmployees().values()) {
@@ -133,6 +196,12 @@ public abstract class SearchInEmulator {
 	}
 	
 	//overall
+	/**
+	 * @param company
+	 * @param firstname
+	 * @param lastname
+	 * @return ArrayList<Employee>
+	 */
 	static public ArrayList<Employee> searchEmployee(Company company, String firstname, String lastname) {
 		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Department currentDepartment : company.getListDepartment()) {
@@ -142,6 +211,12 @@ public abstract class SearchInEmulator {
 	}
 	
 	//overall
+	/**
+	 * @param company
+	 * @param name
+	 * @param nName
+	 * @return ArrayList<Employee>
+	 */
 	static public ArrayList<Employee> searchEmployee(Company company, String name, Integer nName) {
 		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Department currentDepartment : company.getListDepartment()) {
@@ -153,7 +228,10 @@ public abstract class SearchInEmulator {
 	
 	/******************************* all *********************************/
 	
-	
+	/**
+	 * @param department
+	 * @return ArrayList<Employee>
+	 */
 	static public ArrayList<Employee> searchEmployee(Department department) {
 		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Employee currentEmployee : department.getListEmployees().values()) {
@@ -163,12 +241,16 @@ public abstract class SearchInEmulator {
 	}
 	
 	//overall
-		static public ArrayList<Employee> searchEmployee(Company company) {
-			ArrayList<Employee> resultList = new ArrayList<Employee>();
-			for (Department currentDepartment : company.getListDepartment()) {
-	        	resultList.addAll(searchEmployee(currentDepartment));
-	        }
-			return new ArrayList<Employee>(resultList);
-		}
+	/**
+	 * @param company
+	 * @return ArrayList<Employee>
+	 */
+	static public ArrayList<Employee> searchEmployee(Company company) {
+		ArrayList<Employee> resultList = new ArrayList<Employee>();
+		for (Department currentDepartment : company.getListDepartment()) {
+	       	resultList.addAll(searchEmployee(currentDepartment));
+	       }
+		return new ArrayList<Employee>(resultList);
+	}
 	
 }

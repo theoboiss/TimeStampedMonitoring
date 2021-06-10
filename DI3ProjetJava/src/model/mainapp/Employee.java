@@ -7,6 +7,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import model.shared.CheckInOut;
 import model.shared.EmployeeInfo;
 
+/**
+ * @brief Class which represents an Employee in the company.
+ */
 public class Employee extends EmployeeInfo {
 
 
@@ -16,7 +19,7 @@ public class Employee extends EmployeeInfo {
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 	
-	//ID 0 is forbiden
+	//ID 0 is forbidden
 	private static ArrayList<Integer> listUsedIDs = new ArrayList<>(Arrays.asList(0));
 	private String department;
 	private Planning planning;
@@ -28,6 +31,7 @@ public class Employee extends EmployeeInfo {
 	/*********************************************************************/
 
 	/**
+	 * @brief Default constructor.
 	 * @throws Exception 
 	 */
 	public Employee() throws Exception {
@@ -35,6 +39,7 @@ public class Employee extends EmployeeInfo {
 	}
 	
 	/**
+	 * @brief Constructor.
 	 * @param firstname
 	 * @param lastname
 	 * @throws Exception 
@@ -61,15 +66,15 @@ public class Employee extends EmployeeInfo {
 	/***************************** listUsedIDs ****************************/
 	
 	/**
-	 * @return
+	 * @return listUsedIDs
 	 */
 	@SuppressWarnings("unchecked")
-	public static  ArrayList<Integer> getlistUsedIDs() {
+	public static ArrayList<Integer> getlistUsedIDs() {
 		return (ArrayList<Integer>) listUsedIDs.clone();
 	}
 
 	/**
-	 * @param ID
+	 * @param ID the ID to add
 	 */
 	public static void addUsedIDToList(Integer ID) {
 		Employee.listUsedIDs.add(ID);
@@ -94,14 +99,14 @@ public class Employee extends EmployeeInfo {
 	/****************************** Planning *****************************/
 
 	/**
-	 * @return
+	 * @return planning
 	 */
 	public Planning getPlanning() {
 		return planning;
 	}
 
 	/**
-	 * @param planning
+	 * @param planning the planning to set
 	 */
 	public void setPlanning(Planning planning) {
 		this.planning = planning;
@@ -110,14 +115,14 @@ public class Employee extends EmployeeInfo {
 	/***************************** ListChecks ****************************/
 
 	/**
-	 * @return
+	 * @return listChecks
 	 */
 	public CopyOnWriteArrayList<CheckInOut> getListChecks() {
 		return listChecks;
 	}
 	
 	/**
-	 * @param listChecks
+	 * @param listChecks the listChecks to set
 	 */
 	protected void setListChecks(CopyOnWriteArrayList<CheckInOut> listChecks) {
 		this.listChecks = listChecks;
@@ -128,7 +133,11 @@ public class Employee extends EmployeeInfo {
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
 	
-	
+	/**
+	 * @brief Method which cast an Employee in an EmployeeInfo.
+	 * @return EmployeeInfo
+	 * @throws Exception
+	 */
 	public EmployeeInfo castInEmployeeInfo() throws Exception {
 		EmployeeInfo employeeToReturn = new EmployeeInfo(this.getID(), this.getFirstname(), this.getLastname());
 		return employeeToReturn;
@@ -143,27 +152,4 @@ public class Employee extends EmployeeInfo {
 				+ ", listChecks=" + getListChecks() + "]";
 	}
 	
-	
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		ArrayList<Employee> listEmployees = new ArrayList<>();
-		
-		try {
-			listEmployees.add(new Employee("Barney", "Stinson"));
-			listEmployees.add(new Employee("Ted", "Mosby"));
-			listEmployees.add(new Employee("Rachel", "Green"));
-			listEmployees.add(new Employee("Joey", "Tribiani"));
-			listEmployees.add(new Employee("Jesse", "Pinkman"));
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		System.out.println("UsedIDs " + Employee.getlistUsedIDs());
-		for (Integer Iterator = 0; Iterator < 5; Iterator++)
-		{
-			System.out.println(listEmployees.get(Iterator).toString());
-		}
-	}
 }

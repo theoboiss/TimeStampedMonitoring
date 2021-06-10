@@ -1,9 +1,14 @@
 package model.mainapp;
 
 import java.io.Serializable;
-import java.time.LocalTime;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 
+ * @brief Class which represents the weekly planning for an Employee.
+ * @implNote Implements Serializable.
+ *
+ */
 public class Planning implements Serializable {
 
 	private static final long serialVersionUID = 7718443083220533564L;
@@ -14,7 +19,6 @@ public class Planning implements Serializable {
 	
 	private ConcurrentHashMap <DayName, DayPlanning> planning;
 
-	
 	
 	/*********************************************************************/
 	/****************************** BUILDERS *****************************/
@@ -33,7 +37,6 @@ public class Planning implements Serializable {
 	
 	/**
 	 * @brief Copy constructor.
-	 * 
 	 * @param planning
 	 */
 	public Planning(ConcurrentHashMap<DayName, DayPlanning> planning) {
@@ -77,12 +80,5 @@ public class Planning implements Serializable {
 		return this.planning.toString().replace("=", "\n").replace(",", "\n\n");
 	}
 	
-	public static void main(String[] args){
-		Planning planning = new Planning();
-		LocalTime leavingTime = LocalTime.of(12, 0);
-		planning.getDayPlanning(DayName.FRIDAY).setLeavingTime(leavingTime);
-		System.out.println(planning);
-	}
-
 	
 }
