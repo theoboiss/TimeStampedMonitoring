@@ -144,10 +144,5 @@ public class ViewMainApp extends JFrame {
                 null);
 		
 	}
-
-	
-	public static void main(String[] args) {
-		new ViewMainApp();
-	}
 	
 }

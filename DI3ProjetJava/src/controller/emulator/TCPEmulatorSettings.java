@@ -10,8 +10,8 @@ public abstract class TCPEmulatorSettings {
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 	
-	protected static InetAddress IPaddress;
-	protected static int numPort;
+	protected InetAddress IPaddress;
+	protected int numPort;
 	
 	
 	/*********************************************************************/
@@ -41,14 +41,14 @@ public abstract class TCPEmulatorSettings {
 	/**
 	 * @return the iPaddress
 	 */
-	public static InetAddress getIPaddress() {
-		return TCPEmulatorSettings.IPaddress;
+	public InetAddress getIPaddress() {
+		return IPaddress;
 	}
 	/**
 	 * @param iPaddress the iPaddress to set
 	 */
-	public static void setIPaddress(InetAddress iPaddress) {
-		TCPEmulatorSettings.IPaddress = iPaddress;
+	public void setIPaddress(InetAddress iPaddress) {
+		this.IPaddress = iPaddress;
 	}
 	
 	/****************************** numPort ******************************/
@@ -56,14 +56,14 @@ public abstract class TCPEmulatorSettings {
 	/**
 	 * @return the numPort
 	 */
-	public static int getNumPort() {
-		return TCPEmulatorSettings.numPort;
+	public int getNumPort() {
+		return numPort;
 	}
 	/**
 	 * @param numPort the numPort to set
 	 */
-	public static void setNumPort(int numPort) {
-		TCPEmulatorSettings.numPort = numPort;
+	public void setNumPort(int numPort) {
+		this.numPort = numPort;
 	}
 	
 }

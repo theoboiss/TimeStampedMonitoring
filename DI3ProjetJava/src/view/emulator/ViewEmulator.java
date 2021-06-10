@@ -225,20 +225,9 @@ public class ViewEmulator extends JFrame  implements ActionListener
 		/* ================================================================= */
 		
 		
-		
-		public static void main(String[] args) //MODIFIE PAR SARAH
-		{	
-			new Emulator();
-			new ViewEmulator();
-			//Mainapp.main(null);
-			//new Thread(new TCPServerMainApp()).start(); 
-		}
-		
-		
 		@Override
 		public void actionPerformed(ActionEvent event) { //AJOUTE PAR SARAH
 		//TODO a mettre dans un controlleur
-		// sauvegarder le check dans le fichier texte backupEmulator si ne peut être envoyé à l'application main
 			Object source = event.getSource();
 			 
 			if (source == startButton) {
@@ -254,7 +243,7 @@ public class ViewEmulator extends JFrame  implements ActionListener
 					
 					new Thread(new TCPClientEmulator(checkInOutToSend)).start();
 				} catch (NumberFormatException e) {
-					System.out.println("Le format attendu n\'est pas respecté");
+					System.out.println("Unexpected argument");
 				}
 
 				

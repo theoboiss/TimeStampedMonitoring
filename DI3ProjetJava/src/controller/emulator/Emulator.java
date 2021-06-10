@@ -105,4 +105,7 @@ public class Emulator extends EmulatorSettings {
 		this.checksFromEmulator = new CheckInOut();
 		this.event = null;
 	}
+	
+	
+	//TODO main function lance vue + serveur emulateur
 }

@@ -14,8 +14,8 @@ public abstract class TCPMainAppSettings implements Serializable {
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 	
-	protected static InetAddress IPaddress;
-	protected static int numPort;
+	protected InetAddress IPaddress;
+	protected int numPort;
 	
 	
 	/*********************************************************************/
@@ -44,14 +44,14 @@ public abstract class TCPMainAppSettings implements Serializable {
 	/**
 	 * @return the iPaddress
 	 */
-	public static InetAddress getIPaddress() {
-		return TCPMainAppSettings.IPaddress;
+	public InetAddress getIPaddress() {
+		return IPaddress;
 	}
 	/**
 	 * @param iPaddress the iPaddress to set
 	 */
-	public static void setIPaddress(InetAddress iPaddress) {
-		TCPMainAppSettings.IPaddress = iPaddress;
+	public void setIPaddress(InetAddress iPaddress) {
+		this.IPaddress = iPaddress;
 	}
 	
 	/****************************** numPort ******************************/
@@ -59,14 +59,14 @@ public abstract class TCPMainAppSettings implements Serializable {
 	/**
 	 * @return the numPort
 	 */
-	public static int getNumPort() {
-		return TCPMainAppSettings.numPort;
+	public int getNumPort() {
+		return numPort;
 	}
 	/**
 	 * @param numPort the numPort to set
 	 */
-	public static void setNumPort(int numPort) {
-		TCPMainAppSettings.numPort = numPort;
+	public void setNumPort(int numPort) {
+		this.numPort = numPort;
 	}
 
 }
