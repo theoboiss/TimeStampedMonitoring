@@ -8,6 +8,8 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import javax.swing.*;
+
+import controller.emulator.EmulatorSettings;
 import controller.emulator.Input;
 import model.shared.CheckInOut;
 
@@ -99,62 +101,16 @@ public class ViewEmulator extends JFrame implements ActionListener {
 	/**
 	 * @brief Default constructor
 	 */
-	public ViewEmulator() {
-		// Panel creation
-		frame = new JFrame();
-		panel = (JPanel) frame.getContentPane();
-
-		// Panel configuration
-		frame.setTitle(FRAME_TITLE);
-		frame.setSize(FRAME_SIZE_X, FRAME_SIZE_Y);
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		panel.setName(PANEL_NAME);
-		panel.setLayout(null);
-
-		// Check in/out button
-		startButton = new JButton(BUTTON_NAME); // MODIFIE PAR SARAH
-		startButton.setBounds(BUTTON_LOCATION_X, BUTTON_LOCATION_Y, BUTTON_SIZE_X, BUTTON_SIZE_Y);
-		startButton.addActionListener(this); // MODIFIE PAR SARAH
-
-		// Clock
-		reelTimeClock = new JLabel();
-		roundTime = new JLabel();
-
-		currentDate = new Date();
-		time = LocalTime.now();
-		lastQuarter = time.truncatedTo(ChronoUnit.HOURS).plusMinutes(15 * (time.getMinute() / 15));
-		date = LocalDate.now();
-
-		// Other elements
-		frontTitle = new JLabel();
-		IDLabel = new JLabel(ID_LABEL);
-		IDField = new JTextField(); // MODIFIE PAR SARAH
-
-		frontTitle.setText(PANEL_NAME);
-
-		reelTimeClock.setText("Today is : " + currentDate);
-		reelTimeClock.setBounds(TIME_X, TIME_Y, TIME_W, TIME_H);
-		roundTime.setText("Let's say : " + lastQuarter);
-		roundTime.setBounds(ROUNDED_TIME_X, ROUNDED_TIME_Y, ROUNDED_TIME_W, ROUNDED_TIME_H);
-
-		sizeTitle = frontTitle.getPreferredSize();
-		frontTitle.setBounds(FRONT_TITLE_X, FRONT_TITLE_Y, sizeTitle.width, sizeTitle.height);
-
-		sizeIDLabel = IDLabel.getPreferredSize();
-		IDLabel.setBounds(ID_LABEL_X, ID_LABEL_Y, sizeIDLabel.width, sizeIDLabel.height);
-		IDField.setBounds(ID_FIELD_X, ID_FIELD_Y, ID_FIELD_W, ID_FIELD_H);
-
-		// Add previous element to panel
-		frame.add(startButton);
-		panel.add(IDLabel);
-		panel.add(IDField);
-		panel.add(reelTimeClock);
-		panel.add(roundTime);
-		panel.add(frontTitle);
-		frame.setVisible(true);
-
+	public ViewEmulator(EmulatorSettings current) {
+		build();
+		
+		//make a save when we close the app
+		getFrame().addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				current.save();
+			}
+		});
 	}
 
 	/* ================================================================= */
@@ -589,6 +545,64 @@ public class ViewEmulator extends JFrame implements ActionListener {
 	/* ================================================================= */
 	/****************************** METHOD *******************************/
 	/*********************************************************************/
+	
+	public void build() {
+		// Panel creation
+		frame = new JFrame();
+		panel = (JPanel) frame.getContentPane();
+
+		// Panel configuration
+		frame.setTitle(FRAME_TITLE);
+		frame.setSize(FRAME_SIZE_X, FRAME_SIZE_Y);
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
+		panel.setName(PANEL_NAME);
+		panel.setLayout(null);
+
+		// Check in/out button
+		startButton = new JButton(BUTTON_NAME); // MODIFIE PAR SARAH
+		startButton.setBounds(BUTTON_LOCATION_X, BUTTON_LOCATION_Y, BUTTON_SIZE_X, BUTTON_SIZE_Y);
+		startButton.addActionListener(this); // MODIFIE PAR SARAH
+
+		// Clock
+		reelTimeClock = new JLabel();
+		roundTime = new JLabel();
+
+		currentDate = new Date();
+		time = LocalTime.now();
+		lastQuarter = time.truncatedTo(ChronoUnit.HOURS).plusMinutes(15 * (time.getMinute() / 15));
+		date = LocalDate.now();
+
+		// Other elements
+		frontTitle = new JLabel();
+		IDLabel = new JLabel(ID_LABEL);
+		IDField = new JTextField(); // MODIFIE PAR SARAH
+
+		frontTitle.setText(PANEL_NAME);
+
+		reelTimeClock.setText("Today is : " + currentDate);
+		reelTimeClock.setBounds(TIME_X, TIME_Y, TIME_W, TIME_H);
+		roundTime.setText("Let's say : " + lastQuarter);
+		roundTime.setBounds(ROUNDED_TIME_X, ROUNDED_TIME_Y, ROUNDED_TIME_W, ROUNDED_TIME_H);
+
+		sizeTitle = frontTitle.getPreferredSize();
+		frontTitle.setBounds(FRONT_TITLE_X, FRONT_TITLE_Y, sizeTitle.width, sizeTitle.height);
+
+		sizeIDLabel = IDLabel.getPreferredSize();
+		IDLabel.setBounds(ID_LABEL_X, ID_LABEL_Y, sizeIDLabel.width, sizeIDLabel.height);
+		IDField.setBounds(ID_FIELD_X, ID_FIELD_Y, ID_FIELD_W, ID_FIELD_H);
+
+		// Add previous element to panel
+		frame.add(startButton);
+		panel.add(IDLabel);
+		panel.add(IDField);
+		panel.add(reelTimeClock);
+		panel.add(roundTime);
+		panel.add(frontTitle);
+		frame.setVisible(true);
+	}
+	
 	/**
 	 * 
 	 */

@@ -9,7 +9,7 @@ import model.mainapp.Employee;
 import model.mainapp.SearchInMainapp;
 import model.shared.CheckInOut;
 import controller.shared.TCPClientMainApp;
-import view.mainapp.ViewMainApp;
+import view.mainapp.ViewMainapp;
 
 public class Mainapp extends MainappSettings {
 
@@ -80,7 +80,7 @@ public class Mainapp extends MainappSettings {
 		setCurrentModel(companyToSave);
 		*/
 
-		new ViewMainApp(current);
+		new ViewMainapp(current);
 		new Thread(new TCPServerMainApp(current.getIPaddressServer(), current.getNumPortServer())).start();
 
 		try {

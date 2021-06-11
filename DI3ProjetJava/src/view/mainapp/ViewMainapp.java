@@ -4,7 +4,7 @@ import javax.swing.*;
 
 import controller.mainapp.MainappSettings;
 
-public class ViewMainApp extends JFrame {
+public class ViewMainapp extends JFrame {
 	
 	/**
 	 * @brief serialVersionUID.
@@ -30,7 +30,7 @@ public class ViewMainApp extends JFrame {
 	  * @brief Default constructor.
 	  * @param current
 	  */
-	public ViewMainApp (MainappSettings current) {
+	public ViewMainapp (MainappSettings current) {
 		build();
 		
 		//make a save when we close the app

@@ -70,7 +70,7 @@ public class Emulator extends EmulatorSettings {
 		else
 			current = new Emulator(lastModifiedFileRelatedTo(target));
 
-		new ViewEmulator();
+		new ViewEmulator(current);
 		new Thread(new TCPServerEmulator(current, current.getIPaddressServer(), current.getNumPortServer())).start();
 
 		try {
@@ -79,6 +79,6 @@ public class Emulator extends EmulatorSettings {
 		} catch (Exception e) {
 			System.out.println("Exception in Emulator main : " + e.getMessage());
 		}
-		System.out.println(current.getWaitingChecks().toString());
+		System.out.println(Emulator.getWaitingChecks().toString());
 	}
 }
