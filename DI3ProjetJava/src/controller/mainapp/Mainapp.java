@@ -6,9 +6,6 @@ import java.util.ArrayList;
 
 import controller.shared.TCPServerMainApp;
 import controller.shared.TCPClientMainApp;
-import model.mainapp.Company;
-import model.mainapp.Department;
-import model.mainapp.Employee;
 import model.mainapp.SearchInMainapp;
 import model.shared.CheckInOut;
 import view.mainapp.ViewMainApp;
@@ -76,7 +73,7 @@ public class Mainapp extends MainappSettings {
 			SearchInMainapp.searchEmployee(B,"default",1).get(0).setFirstname("Theo");
 			SearchInMainapp.searchEmployee(B,"Theo","default").get(0).setLastname("Boisseau");
 		}
-		catch (Exception e) {};
+		catch (Exception e) { System.out.println(e.getMessage()); };
 		
 		setCurrentModel(companyToSave);
 		*/
