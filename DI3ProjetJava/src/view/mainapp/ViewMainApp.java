@@ -122,7 +122,7 @@ public class ViewMainApp extends JFrame {
 		
 		//create frame
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setBounds(300,300,500,500);
+		this.setBounds(425,150,500,500);
 		this.setTitle("Main application");
 		
 		//create panel	
