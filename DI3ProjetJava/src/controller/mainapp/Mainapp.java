@@ -1,13 +1,14 @@
 package controller.mainapp;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import controller.shared.TCPServerMainApp;
-import controller.shared.TCPClientMainApp;
+import model.mainapp.Company;
+import model.mainapp.Department;
+import model.mainapp.Employee;
 import model.mainapp.SearchInMainapp;
 import model.shared.CheckInOut;
+import controller.shared.TCPClientMainApp;
 import view.mainapp.ViewMainApp;
 
 
@@ -42,7 +43,7 @@ public class Mainapp extends MainappSettings {
 		
 		if (mainappSaved != null)
 			current = new Mainapp(mainappSaved, restorationProcess);
-		else 
+		else
 			current = new Mainapp(lastModifiedFileRelatedTo(target));
 		
 		/*
@@ -78,7 +79,7 @@ public class Mainapp extends MainappSettings {
 		setCurrentModel(companyToSave);
 		*/
 		
-		new ViewMainApp();
+		new ViewMainApp(current);
 		new Thread(new TCPServerMainApp(current.getIPaddressServer(), current.getNumPortServer())).start();
 		
 		try {
