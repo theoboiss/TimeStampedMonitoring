@@ -414,6 +414,15 @@ public class BrowserMainapp {
 					Employee.getlistUsedIDs().set(index, index + 1);
 					Employee.getlistUsedIDs().remove(Employee.getlistUsedIDs().size() - 1);
 				}
+				try {
+					MainappSettings settings = new MainappSettings();
+					new Thread(new TCPClientMainApp(
+							MainappSettings.castInEmployeeInfo(
+									SearchInMainapp.searchEmployee(MainappSettings.getCurrentModel())),
+							settings.getIPaddressClient(), settings.getNumPortClient())).start();
+				} catch (Exception e) {
+					System.out.println("Exception in Mainapp main : " + e.getMessage());
+				}
 				return "Removed";
 			}
 		}
