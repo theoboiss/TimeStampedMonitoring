@@ -595,16 +595,15 @@ public class ViewEmulator extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent event) { // AJOUTE PAR SARAH
 		Object source = event.getSource();
-		Input inputCheck = new Input();
 
 		if (source == startButton) {
 			try {
+				Input inputCheck = new Input();
 				inputCheck.sendCheck(getIDField());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	/*

@@ -22,14 +22,21 @@ public abstract class TCPMainAppSettings implements Serializable {
 	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
 
+	/**
+	 * 
+	 */
 	public TCPMainAppSettings() {
-		//byte[] ipAddrS = new byte[] { 127, 0, 0, 3 };
-		//byte[] ipAddrC = new byte[] { 127, 0, 0, 2 };
+		byte[] ipAddrS = new byte[] { 127, 0, 0, 3 };
+		byte[] ipAddrC = new byte[] { 127, 0, 0, 2 };
 
-		setIPaddressServer(getIPaddressServer()); // to change when it will be possible to serialize
-		setNumPortServer(getNumPortServer()); // to change when it will be possible to serialize
-		setIPaddressClient(getIPaddressClient());
-		setNumPortClient(getNumPortClient());
+		try {
+			setIPaddressServer(InetAddress.getByAddress(ipAddrS)); // to change when it will be possible to serialize
+			setNumPortServer(8085); // to change when it will be possible to serialize
+			setIPaddressClient(InetAddress.getByAddress(ipAddrC));
+			setNumPortClient(4045);
+		} catch (UnknownHostException e) {
+			System.out.println("UnknownHostException TCPMainappSettings : " + e.getMessage());
+		}
 	}
 
 	/*********************************************************************/

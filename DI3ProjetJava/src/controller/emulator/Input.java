@@ -17,43 +17,10 @@ import view.emulator.ViewEmulator;
  *
  */
 public class Input {
-
-	/* ================================================================= */
-	/*************************** ATTRIBUTES ******************************/
+	
 	/*********************************************************************/
-
-	private CheckInOut checksFromEmulator;
-
-	/* ================================================================= */
 	/***************************** METHODS *******************************/
 	/*********************************************************************/
-
-	/**
-	 * @brief Method to create and add a check in out
-	 * @throws Exception
-	 * @brief Method to add Employee ID and time of CheckInOut
-	 */
-	public void addElmentToCheckInOut() throws Exception {
-
-		EmployeeInfo info = new EmployeeInfo();
-		
-		LocalDate date = LocalDate.now();
-		date = ViewEmulator.getDate();
-		
-		CheckInOut checks = new CheckInOut();
-		checks = ViewEmulator.getChecks();
-		
-		History history = new History();
-		info.setID(checks.getEmployeeID());
-
-		// Creating a check in out
-		checksFromEmulator.setEmployeeID(checks.getEmployeeID());
-		checksFromEmulator.setCheckTime(checks.getCheckTime());
-
-		// Adding checks to history database
-		history.addToHistory(checksFromEmulator, info, date);
-
-	}
 
 	/**
 	 * @brief Method to send the check in out when an employee enters his id
@@ -61,46 +28,40 @@ public class Input {
 	 * @throws Exception
 	 * @brief Method to get employee id during a check in out and to send it.
 	 */
-	@SuppressWarnings("unlikely-arg-type")
 	public void sendCheck(JTextField request) throws Exception {
-
-		
-		Input inputCheck = new Input();
-
+		CheckInOut checkInOutToSend = null;
 		try {
 			Integer ID = Integer.parseInt(request.getText());
+			checkInOutToSend = new CheckInOut(Integer.parseInt(request.getText()),
+						LocalDateTime.now(), true);
 			
 			// Employee in Emulator database
-			
-			if (EmulatorSettings.getListEmployeeID().contains(ID))
-			{
-				CheckInOut checkInOutToSend = new CheckInOut(Integer.parseInt(request.getText()),
-						LocalDateTime.now(), true);
-
-				// Creating and adding check to history
-				inputCheck.addElmentToCheckInOut();
-				try {
+			boolean found = false;
+			for (EmployeeInfo employeeTemp : EmulatorSettings.getListEmployeeInfo()) {
+				if (employeeTemp.getID().equals(ID)) {
+					found = true;
+					EmulatorSettings.addWaitingChecks(checkInOutToSend);
+					
 					EmulatorSettings settings = new EmulatorSettings();
 					new Thread(new TCPClientEmulator(checkInOutToSend, settings.getIPaddressClient(),
 							settings.getNumPortClient())).start();
-					// Creating and adding check to history if the operation is successful
-					inputCheck.addElmentToCheckInOut();
-				} catch (ConnectException ce) {
-					System.out.println("Check in out could not be sent !");
-					
-					// Adding the check in out to the waiting list
-					checkInOutToSend.setStatus(false);
-					EmulatorSettings.addWaitingChecks(checkInOutToSend);
+					if (!Emulator.getWaitingChecks().contains(checkInOutToSend)) {
+						checkInOutToSend.setStatus(true);
+						Emulator.getCurrentModel().addToHistory(checkInOutToSend, employeeTemp);
+					}
 				}
-				
 			}
-			else 
-			{
+			if (!found)
 				System.out.println("Error : ID does not exist in the list !");
-			}
 		} catch (NumberFormatException e) {
 			System.out.println("Unexpected argument");
 		}
-
+		
+		if (Emulator.getWaitingChecks().contains(checkInOutToSend)) {
+			System.out.println("Check in out could not be sent !");
+			
+			// Adding the check in out to the waiting list
+			checkInOutToSend.setStatus(false);
+		}
 	}
 }

@@ -1,10 +1,12 @@
 package controller.emulator;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import controller.emulator.Emulator;
 import controller.shared.TCPClientEmulator;
 import controller.shared.TCPServerEmulator;
+import model.shared.CheckInOut;
 import view.emulator.ViewEmulator;
 
 /**
@@ -13,7 +15,6 @@ import view.emulator.ViewEmulator;
  */
 public class Emulator extends EmulatorSettings {
 
-	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 
 	/* ================================================================= */
@@ -73,11 +74,11 @@ public class Emulator extends EmulatorSettings {
 		new Thread(new TCPServerEmulator(current, current.getIPaddressServer(), current.getNumPortServer())).start();
 
 		try {
-			new Thread(new TCPClientEmulator(current, current.getWaitingChecks(), current.getIPaddressClient(),
+			new Thread(new TCPClientEmulator(current, EmulatorSettings.getWaitingChecks(), current.getIPaddressClient(),
 					current.getNumPortClient())).start();
 		} catch (Exception e) {
 			System.out.println("Exception in Emulator main : " + e.getMessage());
-			
 		}
+		System.out.println(current.getWaitingChecks().toString());
 	}
 }

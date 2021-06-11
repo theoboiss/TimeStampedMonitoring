@@ -22,7 +22,6 @@ import model.shared.EmployeeInfo;
  */
 public class EmulatorSettings extends TCPEmulatorSettings {
 
-	@SuppressWarnings("unused")
 	private static final long serialVersionUID = -786389681881788698L;
 
 	/*********************************************************************/
@@ -30,12 +29,12 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	/*********************************************************************/
 
 	private static History currentModel;
-	private transient EmulatorBackup backupData;
-	private static ArrayList<EmployeeInfo> listEmployeeID;
+	private static ArrayList<EmployeeInfo> listEmployeeInfo;
 	private static ArrayList<CheckInOut> waitingChecks;
+	private transient EmulatorBackup backupData;
 	private LocalDateTime dateTime;
 	private String backupFileName;
-	private long[] timersForBackup = { 5 * 1000, 30 * 60 * 1000 }; // in milliseconds
+	private long[] timersForBackup = { 20 * 1000, 30 * 60 * 1000 }; // in milliseconds
 
 	/*********************************************************************/
 	/****************************** BUILDERS *****************************/
@@ -53,7 +52,8 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	 * @brief One argument constructor
 	 */
 	public EmulatorSettings(String backupFileName) {
-		listEmployeeID = new ArrayList<EmployeeInfo>();
+		setWaitingChecks(new ArrayList<CheckInOut>());
+		setListEmployeeInfo(new ArrayList<EmployeeInfo>());
 		setBackupFileName(backupFileName);
 		setBackupData(new EmulatorBackup());
 
@@ -90,7 +90,8 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	 */
 	@SuppressWarnings("unchecked")
 	public EmulatorSettings(EmulatorSettings mainappSettingsSaved, EmulatorBackup mainappRestorationProcess) {
-		listEmployeeID = new ArrayList<EmployeeInfo>();
+		setWaitingChecks(new ArrayList<CheckInOut>());
+		setListEmployeeInfo(new ArrayList<EmployeeInfo>());
 		mainappSettingsSaved.copiesIn(this);
 		setBackupData(mainappRestorationProcess);
 
@@ -179,15 +180,15 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	/**
 	 * @return the listEmployeeID
 	 */
-	public static ArrayList<EmployeeInfo> getListEmployeeID() {
-		return listEmployeeID;
+	public static ArrayList<EmployeeInfo> getListEmployeeInfo() {
+		return listEmployeeInfo;
 	}
 
 	/**
 	 * @param listEmployeeID the listEmployeeID to set
 	 */
-	public static void setListEmployeeID(ArrayList<EmployeeInfo> listEmployeeID) {
-		EmulatorSettings.listEmployeeID = listEmployeeID;
+	public static void setListEmployeeInfo(ArrayList<EmployeeInfo> listEmployeeID) {
+		EmulatorSettings.listEmployeeInfo = listEmployeeID;
 	}
 
 	/*************************** waitingChecks ***************************/
@@ -242,7 +243,7 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	private class PeriodicSave extends TimerTask implements Serializable {
 		private static final long serialVersionUID = 4275212943329005505L;
 
-		public EmulatorSettings settingsData;
+		private EmulatorSettings settingsData;
 
 		public PeriodicSave(EmulatorSettings settingsData) {
 			this.settingsData = settingsData;
@@ -278,9 +279,9 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 
 				try {
 					getBackupData().saveData(getBackupFileName(), settingsData, 1);
-					getBackupData().saveData(getBackupFileName(), getWaitingChecks(), 0);
+					getBackupData().saveData(getBackupFileName(), new ArrayList<CheckInOut>(getWaitingChecks()), 0);
 					getBackupData().saveData(getBackupFileName(), getCurrentModel(), -1);
-					System.out.println("(Backup made on " + nowTime.format(DateTimeFormatter.ISO_LOCAL_DATE) + " at "
+					System.out.println("(Backup (emulator) made on " + nowTime.format(DateTimeFormatter.ISO_LOCAL_DATE) + " at "
 							+ nowTime.format(DateTimeFormatter.ofPattern("HH:mm")) + ")");
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -292,6 +293,14 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
+	
+	/**
+	 * @brief Make a save manually
+	 */
+	public void save() {
+		PeriodicSave newSave = new PeriodicSave(this);
+		newSave.run();
+	}
 
 	/**
 	 * @brief Method to add checks which failed to be sent
@@ -361,10 +370,10 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	public void copiesIn(EmulatorSettings receiving) {
 		receiving.setBackupFileName(this.getBackupFileName());
 		receiving.setTimersForBackup(this.getTimersForBackup());
-		receiving.setIPaddressClient(this.getIPaddressClient());
+		/*receiving.setIPaddressClient(this.getIPaddressClient());
 		receiving.setIPaddressServer(this.getIPaddressServer());
 		receiving.setNumPortClient(this.getNumPortClient());
-		receiving.setNumPortServer(this.getNumPortServer());
+		receiving.setNumPortServer(this.getNumPortServer());*/
 	}
 
 }

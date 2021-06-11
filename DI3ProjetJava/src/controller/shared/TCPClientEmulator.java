@@ -38,6 +38,7 @@ public class TCPClientEmulator extends TCPClientEmulatorBuilder implements Runna
 				 oos.close();
 				 ois.close();
 				 s.close();
+				 checkInOut.removeAll(checkInOut);
 			 } catch(IOException e) { 
 					 System.out.println("IOException TCPClientEmulator : " + e.getMessage());
 					 if(this.s != null && s.isConnected()) {

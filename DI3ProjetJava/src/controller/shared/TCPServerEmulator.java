@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
+import controller.emulator.Emulator;
 import controller.emulator.EmulatorSettings;
 import model.shared.EmployeeInfo;
 
@@ -25,9 +26,10 @@ public class TCPServerEmulator extends TCPServerEmulatorBuilder implements Runna
 				 System.out.println("Hello, the server Emulator accepts");
 				 sIn = s.getInputStream();
 				 ois = new ObjectInputStream(sIn);
-				 ArrayList<EmployeeInfo> listEmployees = (ArrayList<EmployeeInfo>) ois.readObject();
+				 @SuppressWarnings("unchecked")
+				ArrayList<EmployeeInfo> listEmployees = (ArrayList<EmployeeInfo>) ois.readObject();
 				 if (listEmployees != null) {
-					 emulator.setListEmployeeID(listEmployees);
+					 Emulator.setListEmployeeInfo(listEmployees);
 					 System.out.println("Server emulator received : " + listEmployees.toString());
 				 }
 				 sOut = s.getOutputStream();

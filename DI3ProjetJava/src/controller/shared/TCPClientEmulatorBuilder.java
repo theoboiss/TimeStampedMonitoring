@@ -36,6 +36,7 @@ public class TCPClientEmulatorBuilder {
 		isWaitingCheckList = false;
 		checkInOut = new ArrayList<CheckInOut>();
 		checkInOut.add(checkInOutToSend);
+		checkInOutToSend.setStatus(false);
 	} 
 	
 	TCPClientEmulatorBuilder(EmulatorSettings emulator, ArrayList<CheckInOut> checkInOutToSend, InetAddress IPaddress, int numPort) {

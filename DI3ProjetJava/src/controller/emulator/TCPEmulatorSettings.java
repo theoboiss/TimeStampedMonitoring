@@ -30,7 +30,7 @@ public abstract class TCPEmulatorSettings implements Serializable {
 	 * @brief Constructor
 	 */
 	public TCPEmulatorSettings() {
-		/*byte[] ipAddrS = new byte[] { 127, 0, 0, 2 };
+		byte[] ipAddrS = new byte[] { 127, 0, 0, 2 };
 		byte[] ipAddrC = new byte[] { 127, 0, 0, 3 };
 
 		try {
@@ -40,7 +40,7 @@ public abstract class TCPEmulatorSettings implements Serializable {
 			setNumPortClient(8085);
 		} catch (UnknownHostException e) {
 			System.out.println("UnknownHostException TCPEmulatorSettings : " + e.getMessage());
-		}*/
+		}
 
 	}
 

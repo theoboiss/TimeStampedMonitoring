@@ -165,6 +165,8 @@ public class History implements Serializable {
 		
 		list = checksPerEmployee.get(info);
 		checksPerEmployee.put(info, list);
+		
+		addToHistory(LocalDate.now(), checksPerEmployee);
 	}
 
 	/**
@@ -173,12 +175,8 @@ public class History implements Serializable {
 	 * @param info
 	 * @param date
 	 */
-	public void addToHistory(CheckInOut check, EmployeeInfo info, LocalDate date) {
-		CopyOnWriteArrayList<CheckInOut> list = new CopyOnWriteArrayList<CheckInOut>();
-		list = checksPerEmployee.get(info);
-		checksPerEmployee.put(info, list);
+	public void addToHistory(LocalDate date, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee) {
 		checksPerEmployeePerDay.put(date, checksPerEmployee);
-
 	}
 
 	/**
