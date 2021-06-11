@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+/**
+ * @brief Serialized class for emulator settings
+ *
+ */
 public abstract class TCPEmulatorSettings implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -22,6 +26,9 @@ public abstract class TCPEmulatorSettings implements Serializable {
 	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
 
+	/**
+	 * @brief Constructor
+	 */
 	public TCPEmulatorSettings() {
 		byte[] ipAddrS = new byte[] { 127, 0, 0, 2 };
 		byte[] ipAddrC = new byte[] { 127, 0, 0, 3 };
