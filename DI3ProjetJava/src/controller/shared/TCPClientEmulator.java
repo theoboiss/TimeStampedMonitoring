@@ -1,6 +1,7 @@
 package controller.shared;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -19,19 +20,40 @@ public class TCPClientEmulator extends TCPClientEmulatorBuilder implements Runna
 	}
 
 	public void run() { 
-		 try { 
-			 System.out.println("TCPClientEmulator launched ...");
-			 setSocket(); 
-			 System.out.println("Hello, the client emulator is connected"); 
-			 sOut = s.getOutputStream();
-			 oos = new ObjectOutputStream(sOut);
-			 oos.writeObject(checkInOut);
-			 oos.flush();
-			 oos.close();
-			 s.close();
-		 } catch(IOException e) { 
-				 System.out.println("IOException TCPClientEmulator : " + e.getMessage());
-		 }
+		boolean dataSent = false;
+		do {
+			 try { 
+				 System.out.println("TCPClientEmulator launched ...");
+				 setSocket(); 
+				 System.out.println("Hello, the client emulator is connected"); 
+				 sOut = s.getOutputStream();
+				 oos = new ObjectOutputStream(sOut);
+				 oos.writeObject(checkInOut);
+				 oos.flush();
+				 sIn = s.getInputStream();
+				 ois = new ObjectInputStream(sIn);
+				 if(ois.readBoolean()) {
+					 dataSent = true;
+				 }				 
+				 oos.close();
+				 ois.close();
+				 s.close();
+			 } catch(IOException e) { 
+					 System.out.println("IOException TCPClientEmulator : " + e.getMessage());
+					 if(this.s != null && s.isConnected()) {
+						 try {
+							s.close();
+						} catch (IOException e1) {
+							System.out.println("IOException TCPClientEmulator : " + e1.getMessage());
+						}
+					 }
+					 try {
+						Thread.sleep(10000);
+					} catch (InterruptedException e1) {
+						System.out.println("InterruptedException TCPClientEmulator : " + e1.getMessage());
+					}
+			 }
+		} while(isWaitingCheckList && !dataSent);
 	 } 
 	
 }

@@ -2,6 +2,7 @@ package controller.shared;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
@@ -29,7 +30,12 @@ public class TCPServerEmulator extends TCPServerEmulatorBuilder implements Runna
 					 emulator.setListEmployeeID(listEmployees);
 					 System.out.println("Server emulator received : " + listEmployees.toString());
 				 }
+				 sOut = s.getOutputStream();
+				 oos = new ObjectOutputStream(sOut);
+				 oos.writeBoolean(true);
+				 oos.flush();
 				 ois.close();
+				 oos.close();
 				 s.close();
 			 }
 

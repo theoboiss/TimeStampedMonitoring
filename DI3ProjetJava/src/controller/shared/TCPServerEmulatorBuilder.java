@@ -1,6 +1,10 @@
 package controller.shared;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -9,13 +13,17 @@ import java.net.Socket;
 import controller.emulator.EmulatorSettings;
 
 
-public class TCPServerEmulatorBuilder extends ExchangeViaSocket {
+public class TCPServerEmulatorBuilder {
 	
 	protected InetAddress IPaddress;
 	protected int numPort;
 	protected ServerSocket ss; protected Socket s; // the passive and active sockets 
 	protected InetSocketAddress isA; // the address 
 	protected EmulatorSettings emulator;
+	protected transient InputStream sIn;
+	protected transient ObjectInputStream ois;
+	protected transient OutputStream sOut;
+	protected transient ObjectOutputStream oos;
 	  
 	TCPServerEmulatorBuilder(EmulatorSettings emulator, InetAddress IPaddress, int numPort) { 
 		this.IPaddress = IPaddress;

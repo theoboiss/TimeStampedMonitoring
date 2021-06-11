@@ -12,6 +12,8 @@ public class TCPServerMainAppBuilder {
 	protected InetSocketAddress isA; // the address 
 	protected transient InputStream sIn;
 	protected transient ObjectInputStream ois;
+	protected transient OutputStream sOut;
+	protected transient ObjectOutputStream oos;
 	  
 	TCPServerMainAppBuilder(InetAddress IPaddress, int numPort) { 
 		this.IPaddress = IPaddress;

@@ -44,6 +44,11 @@ public class TCPServerMainApp extends TCPServerMainAppBuilder implements Runnabl
 				 ois = new ObjectInputStream(sIn);
 				 ArrayList<CheckInOut> readChecks = (ArrayList<CheckInOut>) ois.readObject();
 				 addChecksToMainApp(readChecks);
+				 System.out.println("ServerMainApp received : " + readChecks.toString());
+				 sOut = s.getOutputStream();
+				 oos = new ObjectOutputStream(sOut);
+				 oos.writeBoolean(true);
+				 oos.flush();
 				 ois.close();
 				 s.close();
 			 }
@@ -54,14 +59,7 @@ public class TCPServerMainApp extends TCPServerMainAppBuilder implements Runnabl
 		 		System.out.println("ClassNotFoundException TCPServerMainApp : " + e.getMessage());
 			} catch (Exception e) {
 				System.out.println("Exception TCPServerMainApp : " + e.getMessage());
-			} finally {
-				try {
-					s.close();
-					run();
-				} catch (IOException e) {
-					System.out.println("IOException TCPServerMainApp : " + e.getMessage());
-				}
-			}
+			} 
 	 }
 
 }
