@@ -31,8 +31,8 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 
 	private static History currentModel;
 	private transient EmulatorBackup backupData;
-	private ArrayList<EmployeeInfo> listEmployeeID;
-	private ArrayList<CheckInOut> waitingChecks;
+	private static ArrayList<EmployeeInfo> listEmployeeID;
+	private static ArrayList<CheckInOut> waitingChecks;
 	private LocalDateTime dateTime;
 	private String backupFileName;
 	private long[] timersForBackup = { 5 * 1000, 30 * 60 * 1000 }; // in milliseconds
@@ -45,13 +45,15 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	 * @brief Default constructor
 	 */
 	public EmulatorSettings() {
-		super();
+		currentModel = new History();
+		backupData = new EmulatorBackup();
 	}
 
 	/**
 	 * @brief One argument constructor
 	 */
 	public EmulatorSettings(String backupFileName) {
+		listEmployeeID = new ArrayList<EmployeeInfo>();
 		setBackupFileName(backupFileName);
 		setBackupData(new EmulatorBackup());
 
@@ -86,13 +88,17 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	 * @brief Two arguments constructor
 	 * @param mainappSettingsSaved
 	 */
+	@SuppressWarnings("unchecked")
 	public EmulatorSettings(EmulatorSettings mainappSettingsSaved, EmulatorBackup mainappRestorationProcess) {
+		listEmployeeID = new ArrayList<EmployeeInfo>();
 		mainappSettingsSaved.copiesIn(this);
 		setBackupData(mainappRestorationProcess);
 
 		Scanner input = new Scanner(System.in);
 		do {
 			try {
+				// Warning
+				setWaitingChecks((ArrayList<CheckInOut>) getBackupData().restoreData(getBackupFileName(), 0));
 				setCurrentModel((History) getBackupData().restoreData(getBackupFileName(), -1));
 			} catch (FileNotFoundException e) {
 				try {
@@ -173,30 +179,30 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	/**
 	 * @return the listEmployeeID
 	 */
-	public ArrayList<EmployeeInfo> getListEmployeeID() {
+	public static ArrayList<EmployeeInfo> getListEmployeeID() {
 		return listEmployeeID;
 	}
 
 	/**
 	 * @param listEmployeeID the listEmployeeID to set
 	 */
-	public void setListEmployeeID(ArrayList<EmployeeInfo> listEmployeeID) {
-		this.listEmployeeID = listEmployeeID;
+	public static void setListEmployeeID(ArrayList<EmployeeInfo> listEmployeeID) {
+		EmulatorSettings.listEmployeeID = listEmployeeID;
 	}
 
 	/*************************** waitingChecks ***************************/
 	/**
 	 * @return the waitingChecks
 	 */
-	public ArrayList<CheckInOut> getWaitingChecks() {
+	public static ArrayList<CheckInOut> getWaitingChecks() {
 		return waitingChecks;
 	}
 
 	/**
 	 * @param waitingChecks the waitingChecks to set
 	 */
-	public void setWaitingChecks(ArrayList<CheckInOut> waitingChecks) {
-		this.waitingChecks = waitingChecks;
+	public static void setWaitingChecks(ArrayList<CheckInOut> waitingChecks) {
+		EmulatorSettings.waitingChecks = waitingChecks;
 	}
 
 	/***************************** dateTime ******************************/
@@ -272,6 +278,7 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 
 				try {
 					getBackupData().saveData(getBackupFileName(), settingsData, 1);
+					getBackupData().saveData(getBackupFileName(), getWaitingChecks(), 0);
 					getBackupData().saveData(getBackupFileName(), getCurrentModel(), -1);
 					System.out.println("(Backup made on " + nowTime.format(DateTimeFormatter.ISO_LOCAL_DATE) + " at "
 							+ nowTime.format(DateTimeFormatter.ofPattern("HH:mm")) + ")");
@@ -290,7 +297,7 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	 * @brief Method to add checks which failed to be sent
 	 * @param check
 	 */
-	public void addWaitingChecks(CheckInOut check) {
+	public static void addWaitingChecks(CheckInOut check) {
 		waitingChecks.add(check);
 	}
 
@@ -353,10 +360,11 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	 */
 	public void copiesIn(EmulatorSettings receiving) {
 		receiving.setBackupFileName(this.getBackupFileName());
-		// receiving.setBackupFileName("backupMainapp/serializedData.ser"); //to force
-		// the new destination
 		receiving.setTimersForBackup(this.getTimersForBackup());
-		// more settings to copy soon, including TCP settings
+		receiving.setIPaddressClient(this.getIPaddressClient());
+		receiving.setIPaddressServer(this.getIPaddressServer());
+		receiving.setNumPortClient(this.getNumPortClient());
+		receiving.setNumPortServer(this.getNumPortServer());
 	}
 
 }

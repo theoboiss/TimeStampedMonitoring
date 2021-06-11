@@ -218,11 +218,10 @@ public class ViewEmulator extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent event) { // AJOUTE PAR SARAH
 		Object source = event.getSource();
 		Input inputCheck = new Input();
-		ViewEmulator emulator = new ViewEmulator();
 
 		if (source == startButton) {
 			try {
-				inputCheck.sendCheck(emulator);
+				inputCheck.sendCheck(getIDField());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

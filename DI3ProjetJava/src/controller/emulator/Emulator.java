@@ -77,6 +77,7 @@ public class Emulator extends EmulatorSettings {
 					current.getNumPortClient())).start();
 		} catch (Exception e) {
 			System.out.println("Exception in Emulator main : " + e.getMessage());
+			
 		}
 	}
 }
