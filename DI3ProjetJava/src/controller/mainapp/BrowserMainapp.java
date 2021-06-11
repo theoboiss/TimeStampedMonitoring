@@ -1,6 +1,7 @@
 package controller.mainapp;
 
 import java.net.InetAddress;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,15 +9,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JTextField;
 
 import controller.shared.TCPClientMainApp;
-import model.mainapp.Company;
-import model.mainapp.Department;
-import model.mainapp.Employee;
-import model.mainapp.SearchInMainapp;
+import model.mainapp.*;
 import model.shared.CheckInOut;
 import model.shared.EmployeeInfo;
 
@@ -327,16 +326,49 @@ public class BrowserMainapp {
 
 		return data;
 	}
-	/*
-	 * NOT AVAILABLE YET public JTable
-	 * searchEmployeeDetails(HashMap<String,JTextField> request) { String[] titles;
-	 * 
-	 * 
-	 * Object[][] data; JTable result = new JTable(data,titles); }
-	 */
+
+	public Object[][][] searchEmployeeDetails(String request) {
+		Integer IDemployee = Integer.parseInt(request);
+		Employee searchedEmployee = SearchInMainapp.searchEmployee(getModel(), IDemployee);
+
+		String[][] tableInfo = new String[4][];
+		for (String[] str : tableInfo)
+			str = new String[1];
+		tableInfo[0][0] = searchedEmployee.getID().toString();
+		tableInfo[1][0] = searchedEmployee.getFirstname();
+		tableInfo[2][0] = searchedEmployee.getLastname();
+		tableInfo[3][0] = searchedEmployee.getDepartment();
+
+		String[][] tablePlanning = new String[5][];
+		HashMap<DayName, DayPlanning> searchedEmployeePlanning = new HashMap<>(
+				searchedEmployee.getPlanning().getPlanning());
+		Integer iteratorX = 0;
+		for (DayName day : DayName.values()) {
+			tablePlanning[iteratorX] = new String[2];
+			tablePlanning[iteratorX][0] = searchedEmployeePlanning.get(day).getArrivalTime()
+					.format(DateTimeFormatter.ofPattern("HH:mm"));
+			tablePlanning[iteratorX][1] = searchedEmployeePlanning.get(day).getLeavingTime()
+					.format(DateTimeFormatter.ofPattern("HH:mm"));
+		}
+
+		String[][] tableChecks = new String[1][];
+		ArrayList<CheckInOut> listEmployeeChecks = SearchInMainapp.searchCheckInOut(searchedEmployee, LocalDateTime.MIN,
+				LocalDateTime.MAX);
+		tableChecks[0] = new String[listEmployeeChecks.size()];
+		for (Integer iterator = 0; iterator < listEmployeeChecks.size(); iterator++) {
+			tableChecks[0][iterator] = listEmployeeChecks.get(iterator).getCheckTime()
+					.format(DateTimeFormatter.ofPattern("HH:mm"));
+		}
+
+		Object[][][] data = new Object[3][][];
+		data[0] = tableInfo;
+		data[1] = tablePlanning;
+		data[2] = tableChecks;
+		return data;
+	}
 
 	/*********************************************************************/
-	/****************************** SEARCH *******************************/
+	/******************************** ADD ********************************/
 	/*********************************************************************/
 
 	public String addEmployee(HashMap<String, JTextField> request) {
@@ -365,5 +397,27 @@ public class BrowserMainapp {
 			System.out.println(e.getMessage());
 			return "Addition failed          ";
 		}
+	}
+
+	/*********************************************************************/
+	/******************************** DEL ********************************/
+	/*********************************************************************/
+
+	public String delEmployee(String request) {
+		Integer IDemployee = Integer.parseInt(request);
+
+		for (Department currentDepartment : getModel().getListDepartment()) {
+			HashMap<Integer, Employee> listEmployeesInCurrentDepartment = currentDepartment.getListEmployees();
+			if (listEmployeesInCurrentDepartment.remove(IDemployee) != null) {
+				Integer indexOfIDtoRemove = Employee.getlistUsedIDs().indexOf(IDemployee);
+				for (Integer index = indexOfIDtoRemove; index < Employee.getlistUsedIDs().size() - 1; index++) {
+					Employee.getlistUsedIDs().set(index, index + 1);
+					Employee.getlistUsedIDs().remove(Employee.getlistUsedIDs().size() - 1);
+				}
+				return "Removed";
+			}
+		}
+
+		return "Could not find the empoyee in the application";
 	}
 }
