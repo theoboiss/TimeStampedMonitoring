@@ -9,10 +9,24 @@ import model.shared.CheckInOut;
 import model.shared.EmployeeInfo;
 import view.emulator.ViewEmulator;
 
+/**
+ * @brief Class for emulator inputs and checks
+ *
+ */
 public class Input {
+
+	/* ================================================================= */
+	/*************************** ATTRIBUTES ******************************/
+	/*********************************************************************/
+
 	private CheckInOut checksFromEmulator;
 
+	/* ================================================================= */
+	/***************************** METHODS *******************************/
+	/*********************************************************************/
+
 	/**
+	 * @brief Method to create and add a check in out
 	 * @throws Exception
 	 * @brief Method to add Employee ID and time of CheckInOut
 	 */
@@ -35,6 +49,7 @@ public class Input {
 	}
 
 	/**
+	 * @brief Method to send the check in out when an employee enters his id
 	 * @param emulator
 	 * @throws Exception
 	 * @brief Method to get employee id during a check in out and to send it.
