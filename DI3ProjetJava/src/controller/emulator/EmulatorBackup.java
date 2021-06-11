@@ -18,6 +18,10 @@ import model.shared.EmployeeInfo;
  */
 public class EmulatorBackup extends SerializationProcess {
 
+	/* ================================================================= */
+	/***************************** METHODS *******************************/
+	/*********************************************************************/
+
 	/**
 	 * @brief Method to store data from the emulator using a file and data supposed
 	 *        to be saved

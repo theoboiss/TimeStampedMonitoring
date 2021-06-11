@@ -229,5 +229,10 @@ public class ViewEmulator extends JFrame implements ActionListener {
 		}
 
 	}
+	
+	public static void main(String[] arg)
+	{
+		new ViewEmulator();
+	}
 
 }
