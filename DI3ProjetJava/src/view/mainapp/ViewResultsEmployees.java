@@ -77,6 +77,7 @@ public class ViewResultsEmployees extends ViewResults {
 		    button.setOpaque(true);
 		    button.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
+		        fireEditingStopped();
 		        System.out.println("Button details");
 		    }
 		 });
@@ -95,6 +96,7 @@ public class ViewResultsEmployees extends ViewResults {
 		    //button.setOpaque(true);
 		    button.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
+		        fireEditingStopped();
 		        System.out.println("Button delete");
 		    }
 		 });

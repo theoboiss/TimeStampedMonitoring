@@ -286,7 +286,10 @@ public class MainappSettings extends TCPMainAppSettings implements Serializable 
 		receiving.setBackupFileName(this.getBackupFileName());
 		//receiving.setBackupFileName("backupMainapp/serializedData.ser"); //to force the new destination
 		receiving.setTimersForBackup(this.getTimersForBackup());
-		//more settings to copy soon, including TCP settings
+		receiving.setIPaddressClient(this.getIPaddressClient());
+		receiving.setIPaddressServer(this.getIPaddressServer());
+		receiving.setNumPortClient(this.getNumPortClient());
+		receiving.setNumPortServer(this.getNumPortServer());
 	}
 	
 	public ArrayList<EmployeeInfo> getEmployeeInfo() throws Exception {
