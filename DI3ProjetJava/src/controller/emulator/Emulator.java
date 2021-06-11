@@ -15,12 +15,13 @@ public class Emulator extends EmulatorSettings {
 
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
+
 	/****************************** BUILDERS *****************************/
 
-	public Emulator()
-	{
+	public Emulator() {
 		super();
 	}
+
 	public Emulator(EmulatorSettings emulatorSettingsSaved, EmulatorBackup emulatorRestorationProcess) {
 		super(emulatorSettingsSaved, emulatorRestorationProcess);
 	}
@@ -35,7 +36,7 @@ public class Emulator extends EmulatorSettings {
 		String target = "backupEmulator/serializedData.ser";
 		EmulatorBackup restorationProcess = new EmulatorBackup();
 		EmulatorSettings emulatorSaved = null;
-		Emulator current =null;
+		Emulator current = null;
 		try {
 			emulatorSaved = (EmulatorSettings) restorationProcess.restoreData(lastModifiedFileRelatedTo(target), 1);
 		} catch (ClassNotFoundException | IOException e) {
@@ -43,18 +44,18 @@ public class Emulator extends EmulatorSettings {
 		} catch (ClassCastException e) {
 			System.out.println("Information : backup did not contain settings data.");
 		}
-		
+
 		if (emulatorSaved != null)
 			current = new Emulator(emulatorSaved, restorationProcess);
 		else
 			current = new Emulator(lastModifiedFileRelatedTo(target));
-		
 
 		new ViewEmulator();
-		new Thread(new TCPServerEmulator(current, current.getIPaddressServer(), current.getNumPortServer())).start(); 
+		new Thread(new TCPServerEmulator(current, current.getIPaddressServer(), current.getNumPortServer())).start();
 
 		try {
-			new Thread(new TCPClientEmulator(current, current.getWaitingChecks(), current.getIPaddressClient(), current.getNumPortClient())).start(); 
+			new Thread(new TCPClientEmulator(current, current.getWaitingChecks(), current.getIPaddressClient(),
+					current.getNumPortClient())).start();
 		} catch (Exception e) {
 			System.out.println("Exception in Emulator main : " + e.getMessage());
 		}
