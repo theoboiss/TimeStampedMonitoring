@@ -24,11 +24,11 @@ public class History implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// All CheckInOut per employee from the first day
-	private static Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee;
+	private Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee;
 	
 	/* All CheckInOut per employee during a day. The table is reset to 0 at the end
 	   of day */
-	private static Hashtable<LocalDate, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay;
+	private Hashtable<LocalDate, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay;
 	private CheckInOut checkInOut;
 	private LocalDateTime dateTime;
 	private Integer employeeID;
@@ -74,40 +74,38 @@ public class History implements Serializable {
 	/*********************************************************************/
 	
 	/************************** checksPerEmployee ************************/
-	
 	/**
 	 * @return the checksPerEmployee
 	 */
-	public static Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> getChecksPerEmployee() {
+	public Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> getChecksPerEmployee() {
 		return checksPerEmployee;
 	}
-	
+
 	/**
 	 * @param checksPerEmployee the checksPerEmployee to set
 	 */
-	public static void setChecksPerEmployee(Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee) {
-		History.checksPerEmployee = checksPerEmployee;
+	public void setChecksPerEmployee(Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee) {
+		this.checksPerEmployee = checksPerEmployee;
 	}
-	
+
 	/*********************** checksPerEmployeePerDay *********************/
-	
 	/**
 	 * @return the checksPerEmployeePerDay
 	 */
-	public static Hashtable<LocalDate, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>> getChecksPerEmployeePerDay() {
+	public Hashtable<LocalDate, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>> getChecksPerEmployeePerDay() {
 		return checksPerEmployeePerDay;
 	}
-	
+
 	/**
 	 * @param checksPerEmployeePerDay the checksPerEmployeePerDay to set
 	 */
-	public static void setChecksPerEmployeePerDay(
+	public void setChecksPerEmployeePerDay(
 			Hashtable<LocalDate, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay) {
-		History.checksPerEmployeePerDay = checksPerEmployeePerDay;
+		this.checksPerEmployeePerDay = checksPerEmployeePerDay;
 	}
+
 	
 	/***************************** checkInOut ****************************/
-	
 	/**
 	 * @return the checkInOut
 	 */
@@ -123,7 +121,6 @@ public class History implements Serializable {
 	}
 	
 	/****************************** dateTime *****************************/
-	
 	/**
 	 * @return the dateTime
 	 */
@@ -139,7 +136,6 @@ public class History implements Serializable {
 	}
 	
 	/**************************** employeeID *****************************/
-	
 	/**
 	 * @return the employeeID
 	 */
@@ -160,12 +156,13 @@ public class History implements Serializable {
 	/*********************************************************************/
 
 	/**
-	 * @brief Static method which add a check to the EmployeeInfo list.
+	 * @brief Static method which adds a check to the EmployeeInfo list.
 	 * @param check
 	 * @param info
 	 */
-	public static void addToHistory(CheckInOut check, EmployeeInfo info) {
+	public void addToHistory(CheckInOut check, EmployeeInfo info) {
 		CopyOnWriteArrayList<CheckInOut> list = new CopyOnWriteArrayList<CheckInOut>();
+		
 		list = checksPerEmployee.get(info);
 		checksPerEmployee.put(info, list);
 	}
@@ -176,7 +173,7 @@ public class History implements Serializable {
 	 * @param info
 	 * @param date
 	 */
-	public static void addToHistory(CheckInOut check, EmployeeInfo info, LocalDate date) {
+	public void addToHistory(CheckInOut check, EmployeeInfo info, LocalDate date) {
 		CopyOnWriteArrayList<CheckInOut> list = new CopyOnWriteArrayList<CheckInOut>();
 		list = checksPerEmployee.get(info);
 		checksPerEmployee.put(info, list);

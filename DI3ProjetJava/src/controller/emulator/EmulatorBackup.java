@@ -68,11 +68,11 @@ public class EmulatorBackup extends SerializationProcess {
 		if (backup instanceof History) {
 
 			// get keys() from HashTable and iterate
-			Enumeration<EmployeeInfo> enumeration = History.getChecksPerEmployee().keys();
+			Enumeration<EmployeeInfo> enumeration = ((History) backup).getChecksPerEmployee().keys();
 			// iterate using enumeration object
 			while (enumeration.hasMoreElements()) {
 				EmployeeInfo key = enumeration.nextElement();
-				History.addToHistory(History.getChecksPerEmployee().get(key).get(i), key);
+				((History) backup).addToHistory(((History) backup).getChecksPerEmployee().get(key).get(i), key);
 				i += 1;
 			}
 
@@ -103,11 +103,11 @@ public class EmulatorBackup extends SerializationProcess {
 		if (backup instanceof History) {
 
 			// get keys() from HashTable and iterate
-			Enumeration<EmployeeInfo> enumeration = History.getChecksPerEmployee().keys();
+			Enumeration<EmployeeInfo> enumeration = ((History) backup).getChecksPerEmployee().keys();
 			// iterate using enumeration object
 			while (enumeration.hasMoreElements()) {
 				EmployeeInfo key = enumeration.nextElement();
-				History.addToHistory(History.getChecksPerEmployee().get(key).get(i), key);
+				((History) backup).addToHistory(((History) backup).getChecksPerEmployee().get(key).get(i), key);
 				i += 1;
 			}
 

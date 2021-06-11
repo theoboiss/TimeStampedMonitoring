@@ -33,10 +33,14 @@ public class Input {
 	public void addElmentToCheckInOut() throws Exception {
 
 		EmployeeInfo info = new EmployeeInfo();
+		
 		LocalDate date = LocalDate.now();
 		date = ViewEmulator.getDate();
+		
 		CheckInOut checks = new CheckInOut();
 		checks = ViewEmulator.getChecks();
+		
+		History history = new History();
 		info.setID(checks.getEmployeeID());
 
 		// Creating a check in out
@@ -44,7 +48,7 @@ public class Input {
 		checksFromEmulator.setCheckTime(checks.getCheckTime());
 
 		// Adding checks to history database
-		History.addToHistory(checksFromEmulator, info, date);
+		history.addToHistory(checksFromEmulator, info, date);
 
 	}
 
