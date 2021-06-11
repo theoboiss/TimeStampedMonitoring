@@ -394,8 +394,8 @@ public class BrowserMainapp {
 			} else
 				throw new Exception("This department does not exist.");
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return "Addition failed          ";
+			Employee.getlistUsedIDs().remove(Employee.getlistUsedIDs().size()-1);
+			return e.getMessage();
 		}
 	}
 
