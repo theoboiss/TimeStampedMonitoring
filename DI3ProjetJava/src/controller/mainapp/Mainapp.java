@@ -5,10 +5,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import controller.shared.TCPServerMainApp;
-import controller.emulator.EmulatorSettings;
-import controller.shared.TCPClientEmulator;
 import controller.shared.TCPClientMainApp;
-import controller.shared.TCPServerEmulator;
+import model.mainapp.Company;
+import model.mainapp.Department;
+import model.mainapp.Employee;
 import model.mainapp.SearchInMainapp;
 import model.shared.CheckInOut;
 import view.mainapp.ViewMainApp;
@@ -35,6 +35,7 @@ public class Mainapp extends MainappSettings {
 		String target = "backupMainapp/serializedData.ser";
 		MainappBackup restorationProcess = new MainappBackup();
 		MainappSettings mainappSaved = null;
+		Mainapp current = null;
 		
 		try {
 			mainappSaved = (MainappSettings) restorationProcess.restore(lastModifiedFileRelatedTo(target), 1);
@@ -43,20 +44,9 @@ public class Mainapp extends MainappSettings {
 		} catch (ClassCastException e) { System.out.println("Information : backup did not contain settings data."); }
 		
 		if (mainappSaved != null)
-			new Mainapp(mainappSaved, restorationProcess);
+			current = new Mainapp(mainappSaved, restorationProcess);
 		else 
-			new Mainapp(lastModifiedFileRelatedTo(target));
-		
-		
-		new ViewMainApp();
-		
-		new Thread(new TCPServerMainApp(mainappSaved.getIPaddressServer(), mainappSaved.getNumPortServer())).start();
-		
-		try {
-			new Thread(new TCPClientMainApp(mainappSaved.getEmployeeInfo(), mainappSaved.getIPaddressClient(), mainappSaved.getNumPortClient())).start(); 
-		} catch (Exception e) {
-			System.out.println("Exception in Mainapp main : " + e.getMessage());
-		}
+			current = new Mainapp(lastModifiedFileRelatedTo(target));
 		
 		/*
 		Company companyToSave = null;
@@ -88,6 +78,27 @@ public class Mainapp extends MainappSettings {
 		}
 		catch (Exception e) {};
 		
-		setCurrentModel(companyToSave);*/
+		setCurrentModel(companyToSave);
+		*/
+		
+		CheckInOut check1 = new CheckInOut(SearchInMainapp.searchEmployee(getCurrentModel()).get(1).getID(), LocalDateTime.now(), true);
+		CheckInOut check2 = new CheckInOut(SearchInMainapp.searchEmployee(getCurrentModel()).get(1).getID(), LocalDateTime.now(), true);
+		CheckInOut check3 = new CheckInOut(SearchInMainapp.searchEmployee(getCurrentModel()).get(3).getID(), LocalDateTime.now(), true);
+		CheckInOut check4 = new CheckInOut(SearchInMainapp.searchEmployee(getCurrentModel()).get(2).getID(), LocalDateTime.now(), true);
+		
+		ArrayList<CheckInOut> checks = new ArrayList<CheckInOut>();
+		checks.add(check1);
+		checks.add(check2);
+		checks.add(check3);
+		checks.add(check4);
+		
+		new ViewMainApp();
+		new Thread(new TCPServerMainApp(current.getIPaddressServer(), current.getNumPortServer())).start();
+		
+		try {
+			new Thread(new TCPClientMainApp(current.getEmployeeInfo(), current.getIPaddressClient(), current.getNumPortClient())).start();
+		} catch (Exception e) {
+			System.out.println("Exception in Mainapp main : " + e.getMessage());
+		}
 	}
 }
