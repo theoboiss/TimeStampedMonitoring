@@ -23,10 +23,6 @@ public class History implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	public static enum EventDuringCheck {
-		enter, leave
-	}
-
 	// All CheckInOut per employee from the first day
 	private static Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee;
 	
@@ -36,9 +32,7 @@ public class History implements Serializable {
 	private CheckInOut checkInOut;
 	private LocalDateTime dateTime;
 	private Integer employeeID;
-	private EventDuringCheck eventDuringCheck;
 
-	
 	/* ================================================================= */
 	/*************************** BUILDERS ********************************/
 	/*********************************************************************/
@@ -57,7 +51,6 @@ public class History implements Serializable {
 	 * @param ID
 	 */
 	public History(Integer ID) {
-		eventDuringCheck = null;
 		employeeID = ID;
 		dateTime = null;
 		checkInOut = null;
@@ -161,23 +154,7 @@ public class History implements Serializable {
 		this.employeeID = employeeID;
 	}
 	
-	/************************* eventDuringCheck **************************/
-
-	/**
-	 * @return the eventDuringCheck
-	 */
-	public EventDuringCheck getEventDuringCheck() {
-		return eventDuringCheck;
-	}
-
-	/**
-	 * @param eventDuringCheck the eventDuringCheck to set
-	 */
-	public void setEventDuringCheck(EventDuringCheck eventDuringCheck) {
-		this.eventDuringCheck = eventDuringCheck;
-	}
 	
-
 	/* ================================================================= */
 	/***************************** METHODS *******************************/
 	/*********************************************************************/
@@ -225,30 +202,9 @@ public class History implements Serializable {
 	 * @brief Method which delete an event from history.
 	 */
 	public void deleteElementFromHistory() {
-		eventDuringCheck = null;
 		employeeID = 0;
 		dateTime = null;
 		checkInOut = null;
-	}
-
-	/**
-	 * @brief toString method to show events when a CheckInOut takes place.
-	 */
-	public String toString() {
-
-		String event = "Unusual event";
-		switch (eventDuringCheck) {
-		case enter:
-			event = "Employee arrived";
-			break;
-		case leave:
-			event = "Employee left";
-			break;
-		default:
-			event = "Unusual event";
-			break;
-		}
-		return event;
 	}
 
 }

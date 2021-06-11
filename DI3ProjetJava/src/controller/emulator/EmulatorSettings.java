@@ -231,6 +231,14 @@ private static final long serialVersionUID = -786389681881788698L;
 	public void setDateTime(LocalDateTime dateTime) {
 		this.dateTime = dateTime;
 	}
+	
+	/**
+	 * @param check
+	 */
+	public void addWaitingChecks(CheckInOut check)
+	{
+		waitingChecks.add(check);
+	}
 
 
 	/*********************************************************************/

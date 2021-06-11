@@ -35,7 +35,7 @@ public class Emulator extends EmulatorSettings {
 		String target = "backupEmulator/serializedData.ser";
 		EmulatorBackup restorationProcess = new EmulatorBackup();
 		EmulatorSettings emulatorSaved = null;
-
+		Emulator current =null;
 		try {
 			emulatorSaved = (EmulatorSettings) restorationProcess.restoreData(lastModifiedFileRelatedTo(target), 1);
 		} catch (ClassNotFoundException | IOException e) {
@@ -45,16 +45,16 @@ public class Emulator extends EmulatorSettings {
 		}
 		
 		if (emulatorSaved != null)
-			new Emulator(emulatorSaved, restorationProcess);
+			current = new Emulator(emulatorSaved, restorationProcess);
 		else
-			new Emulator(lastModifiedFileRelatedTo(target));
+			current = new Emulator(lastModifiedFileRelatedTo(target));
 		
 
 		new ViewEmulator();
-		new Thread(new TCPServerEmulator(emulatorSaved, emulatorSaved.getIPaddressServer(), emulatorSaved.getNumPortServer())).start(); 
+		new Thread(new TCPServerEmulator(current, current.getIPaddressServer(), current.getNumPortServer())).start(); 
 
 		try {
-			new Thread(new TCPClientEmulator(emulatorSaved, emulatorSaved.getWaitingChecks(), emulatorSaved.getIPaddressClient(), emulatorSaved.getNumPortClient())).start(); 
+			new Thread(new TCPClientEmulator(current, current.getWaitingChecks(), current.getIPaddressClient(), current.getNumPortClient())).start(); 
 		} catch (Exception e) {
 			System.out.println("Exception in Emulator main : " + e.getMessage());
 		}
