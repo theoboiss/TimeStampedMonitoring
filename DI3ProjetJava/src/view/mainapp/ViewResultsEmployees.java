@@ -1,21 +1,122 @@
 package view.mainapp;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import java.awt.Color;
 
 public class ViewResultsEmployees extends ViewResults {
 	
+	public class ButtonDetailsRenderer extends JButton implements TableCellRenderer {
+
+		 /**
+		 * @brief serialVersionUID.
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public ButtonDetailsRenderer() {
+		    super("Details");
+		  }
+
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			 if (isSelected) {
+			      setBackground(Color.lightGray);
+			 } else {
+				 setBackground(table.getBackground());
+			 }
+			return this;
+			}
+		}
+	
+	public class ButtonDeleteRenderer extends JButton implements TableCellRenderer {
+
+		 /**
+		 * @brief serialVersionUID.
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public ButtonDeleteRenderer() {
+		    super("Delete");
+		  }
+
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			 if (isSelected) {
+			      setBackground(Color.lightGray);
+			 } else {
+				 setBackground(table.getBackground());
+			 }
+			return this;
+			}
+		}
+	
+	class ButtonDetailsEditor extends DefaultCellEditor {
+		 
+		private static final long serialVersionUID = 1L;
+
+		protected JButton button;
+
+		public ButtonDetailsEditor(JCheckBox checkBox) {
+		    super(checkBox);
+		    button = new JButton();
+		    button.setOpaque(true);
+		    button.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        System.out.println("Button details");
+		    }
+		 });
+		}
+	}
+	
+	class ButtonDeleteEditor extends DefaultCellEditor {
+		 
+		private static final long serialVersionUID = 1L;
+
+		protected JButton button;
+
+		public ButtonDeleteEditor(JCheckBox checkBox) {
+		    super(checkBox);
+		    button = new JButton();
+		    //button.setOpaque(true);
+		    button.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        System.out.println("Button delete");
+		    }
+		 });
+		}
+	}
+
+	
+	
 	
 	/**
-	 * 
+	 * @brief serialVersionUID.
 	 */
 	private static final long serialVersionUID = 5485924175594067340L;
 
+	
+	/*********************************************************************/
+	/***************************** ATTRIBUTES ****************************/
+	/*********************************************************************/
+	
+	private TableColumn buttonsDetails;
+	private TableColumn buttonsDelete;
+	
 	
 	/*********************************************************************/
 	/****************************** BUILDERS *****************************/
@@ -31,6 +132,46 @@ public class ViewResultsEmployees extends ViewResults {
 
 	
 	/*********************************************************************/
+	/***************************** GETS/SETS *****************************/
+	/*********************************************************************/
+	
+	/*************************** buttonsDetails **************************/
+	
+	/**
+	 * @return the buttonsDetails
+	 */
+	public TableColumn getButtonsDetails() {
+		return buttonsDetails;
+	}
+
+
+	/**
+	 * @param buttonsDetails the buttonsDetails to set
+	 */
+	public void setButtonsDetails(TableColumn buttonsDetails) {
+		this.buttonsDetails = buttonsDetails;
+	}
+
+	
+	/**************************** buttonsDelete **************************/
+	
+	/**
+	 * @return the buttonsDelete
+	 */
+	public TableColumn getButtonsDelete() {
+		return buttonsDelete;
+	}
+
+
+	/**
+	 * @param buttonsDelete the buttonsDelete to set
+	 */
+	public void setButtonsDelete(TableColumn buttonsDelete) {
+		this.buttonsDelete = buttonsDelete;
+	}
+	
+	
+	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
 	
@@ -41,9 +182,20 @@ public class ViewResultsEmployees extends ViewResults {
 		setTitles(titles);
 		setDataTable(new JTable(dataEntry, titles));
 		
+		buttonsDetails = new TableColumn();
+		buttonsDelete = new TableColumn();
+		
+		buttonsDetails.setCellRenderer(new ButtonDetailsRenderer());
+		buttonsDelete.setCellRenderer(new ButtonDeleteRenderer());
+		
+		buttonsDetails.setCellEditor(new ButtonDetailsEditor(new JCheckBox()));
+		buttonsDelete.setCellEditor(new ButtonDeleteEditor(new JCheckBox()));
+
+		dataTable.addColumn(buttonsDetails);
+		dataTable.addColumn(buttonsDelete);
 	}
-	
-	
+
+
 	protected void build() {
 		
 		//create frame
@@ -53,10 +205,17 @@ public class ViewResultsEmployees extends ViewResults {
 		
 		//create panel
 		buildContentPanel();
-		GridBagConstraints constraintsColumns = new GridBagConstraints();
-		constraintsColumns.gridx = 1;
-		constraintsColumns.gridy = 1;
+
+		//add buttons details and delete
+		/*for (int i = 0; i < getDataTable().getRowCount(); i++) {
+			GridBagConstraints constraintsButtonDetails = new GridBagConstraints();
+			constraintsButtonDetails.gridx = 1;
+			constraintsButtonDetails.gridy = (i+1)*dataTable.getRowHeight(0);
+			//constraintsButtonDetails.gridheight = dataTable.getHeight()/(dataTable.getRowCount()+1);
+			panel.add(buttonsDetails.get(i), constraintsButtonDetails);
+		}*/
 		
+		/*
 		//add buttons for details and deleting
 		Integer nbRows = getDataTable().getRowCount();
 		JButton[] detailsArray = new JButton[nbRows];
@@ -75,7 +234,7 @@ public class ViewResultsEmployees extends ViewResults {
 			constraintsColumns.gridx--;
 			
 			constraintsColumns.gridy++;
-		}
+		}*/
 
 		add(panel);
 		setVisible(true);
