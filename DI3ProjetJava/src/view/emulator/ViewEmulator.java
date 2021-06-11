@@ -94,8 +94,11 @@ public class ViewEmulator extends JFrame implements ActionListener {
 	private static CheckInOut checks;
 
 	/* ================================================================= */
-	/*************************** BUILDER ****************************/
+	/***************************** BUILDER *******************************/
 	/*********************************************************************/
+	/**
+	 * @brief Default constructor
+	 */
 	public ViewEmulator() {
 		// Panel creation
 		frame = new JFrame();
@@ -155,44 +158,160 @@ public class ViewEmulator extends JFrame implements ActionListener {
 	}
 
 	/* ================================================================= */
-	/********************** GETTERS AND SETTERS **************************/
+	/**************************** GETS/SETS ******************************/
 	/*********************************************************************/
+
+	/****************************** frame ********************************/
 	/**
-	 *
+	 * @return the frame
 	 */
-	@Override
-	public String toString() {
-		return "ViewEmulator [checks=" + checks + "]";
+	public JFrame getFrame() {
+		return frame;
 	}
 
 	/**
-	 * @return the date
+	 * @param frame the frame to set
 	 */
-	public static LocalDate getDate() {
-		return date;
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+
+	/****************************** panel ********************************/
+	/**
+	 * @return the panel
+	 */
+	public JPanel getPanel() {
+		return panel;
 	}
 
 	/**
-	 * @param date the date to set
+	 * @param panel the panel to set
 	 */
-	public static void setDate(LocalDate date) {
-		ViewEmulator.date = date;
+	public void setPanel(JPanel panel) {
+		this.panel = panel;
+	}
+
+	/**************************** frontTitle *****************************/
+	/**
+	 * @return the frontTitle
+	 */
+	public JLabel getFrontTitle() {
+		return frontTitle;
 	}
 
 	/**
-	 * @return the checks
+	 * @param frontTitle the frontTitle to set
 	 */
-	public static CheckInOut getChecks() {
-		return checks;
+	public void setFrontTitle(JLabel frontTitle) {
+		this.frontTitle = frontTitle;
+	}
+
+	/************************** reelTimeClock ****************************/
+	/**
+	 * @return the reelTimeClock
+	 */
+	public JLabel getReelTimeClock() {
+		return reelTimeClock;
 	}
 
 	/**
-	 * @param checks the checks to set
+	 * @param reelTimeClock the reelTimeClock to set
 	 */
-	public static void setChecks(CheckInOut checks) {
-		ViewEmulator.checks = checks;
+	public void setReelTimeClock(JLabel reelTimeClock) {
+		this.reelTimeClock = reelTimeClock;
 	}
 
+	/**************************** roundTime ******************************/
+	/**
+	 * @return the roundTime
+	 */
+	public JLabel getRoundTime() {
+		return roundTime;
+	}
+
+	/**
+	 * @param roundTime the roundTime to set
+	 */
+	public void setRoundTime(JLabel roundTime) {
+		this.roundTime = roundTime;
+	}
+
+	/***************************** IDLabel *******************************/
+	/**
+	 * @return the iDLabel
+	 */
+	public JLabel getIDLabel() {
+		return IDLabel;
+	}
+
+	/**
+	 * @param iDLabel the iDLabel to set
+	 */
+	public void setIDLabel(JLabel iDLabel) {
+		IDLabel = iDLabel;
+	}
+
+	/*************************** currentDate *****************************/
+	/**
+	 * @return the currentDate
+	 */
+	public Date getCurrentDate() {
+		return currentDate;
+	}
+
+	/**
+	 * @param currentDate the currentDate to set
+	 */
+	public void setCurrentDate(Date currentDate) {
+		this.currentDate = currentDate;
+	}
+
+	/****************************** time *********************************/
+	/**
+	 * @return the time
+	 */
+	public LocalTime getTime() {
+		return time;
+	}
+
+	/**
+	 * @param time the time to set
+	 */
+	public void setTime(LocalTime time) {
+		this.time = time;
+	}
+
+	/*************************** lastQuarter *****************************/
+	/**
+	 * @return the lastQuarter
+	 */
+	public LocalTime getLastQuarter() {
+		return lastQuarter;
+	}
+
+	/**
+	 * @param lastQuarter the lastQuarter to set
+	 */
+	public void setLastQuarter(LocalTime lastQuarter) {
+		this.lastQuarter = lastQuarter;
+	}
+
+	/*************************** startButton *****************************/
+	/**
+	 * @return the startButton
+	 */
+	public JButton getStartButton() {
+		return startButton;
+	}
+
+	/**
+	 * @param startButton the startButton to set
+	 */
+	public void setStartButton(JButton startButton) {
+		this.startButton = startButton;
+	}
+
+	/**************************** IDField ********************************/
 	/**
 	 * @return the iDField
 	 */
@@ -207,10 +326,269 @@ public class ViewEmulator extends JFrame implements ActionListener {
 		IDField = iDField;
 	}
 
-	/*********************************************************************/
-	/*********************************************************************/
-	/* ================================================================= */
+	/*************************** sizeTitle *******************************/
+	/**
+	 * @return the sizeTitle
+	 */
+	public Dimension getSizeTitle() {
+		return sizeTitle;
+	}
 
+	/**
+	 * @param sizeTitle the sizeTitle to set
+	 */
+	public void setSizeTitle(Dimension sizeTitle) {
+		this.sizeTitle = sizeTitle;
+	}
+
+	/************************** sizeIDLabel ******************************/
+	/**
+	 * @return the sizeIDLabel
+	 */
+	public Dimension getSizeIDLabel() {
+		return sizeIDLabel;
+	}
+
+	/**
+	 * @param sizeIDLabel the sizeIDLabel to set
+	 */
+	public void setSizeIDLabel(Dimension sizeIDLabel) {
+		this.sizeIDLabel = sizeIDLabel;
+	}
+
+	/**************************** date ***********************************/
+	/**
+	 * @return the date
+	 */
+	public static LocalDate getDate() {
+		return date;
+	}
+
+	/**
+	 * @param date the date to set
+	 */
+	public static void setDate(LocalDate date) {
+		ViewEmulator.date = date;
+	}
+
+	/*************************** checks ***********************************/
+	/**
+	 * @return the checks
+	 */
+	public static CheckInOut getChecks() {
+		return checks;
+	}
+
+	/**
+	 * @param checks the checks to set
+	 */
+	public static void setChecks(CheckInOut checks) {
+		ViewEmulator.checks = checks;
+	}
+
+	/************************** FRAME_SIZE_X *****************************/
+	/**
+	 * @return the frameSizeX
+	 */
+	public static int getFrameSizeX() {
+		return FRAME_SIZE_X;
+	}
+
+	/************************** FRAME_SIZE_Y *****************************/
+	/**
+	 * @return the frameSizeY
+	 */
+	public static int getFrameSizeY() {
+		return FRAME_SIZE_Y;
+	}
+
+	/************************ BUTTON_LOCATION_X **************************/
+	/**
+	 * @return the buttonLocationX
+	 */
+	public static int getButtonLocationX() {
+		return BUTTON_LOCATION_X;
+	}
+
+	/************************ BUTTON_LOCATION_Y **************************/
+	/**
+	 * @return the buttonLocationY
+	 */
+	public static int getButtonLocationY() {
+		return BUTTON_LOCATION_Y;
+	}
+
+	/************************** BUTTON_SIZE_X ****************************/
+	/**
+	 * @return the buttonSizeX
+	 */
+	public static int getButtonSizeX() {
+		return BUTTON_SIZE_X;
+	}
+
+	/************************** BUTTON_SIZE_Y ****************************/
+	/**
+	 * @return the buttonSizeY
+	 */
+	public static int getButtonSizeY() {
+		return BUTTON_SIZE_Y;
+	}
+
+	/*************************** ID_FIELD_X ******************************/
+	/**
+	 * @return the idFieldX
+	 */
+	public static int getIdFieldX() {
+		return ID_FIELD_X;
+	}
+
+	/*************************** ID_FIELD_Y ******************************/
+	/**
+	 * @return the idFieldY
+	 */
+	public static int getIdFieldY() {
+		return ID_FIELD_Y;
+	}
+
+	/*************************** ID_FIELD_W ******************************/
+	/**
+	 * @return the idFieldW
+	 */
+	public static int getIdFieldW() {
+		return ID_FIELD_W;
+	}
+
+	/*************************** ID_FIELD_H ******************************/
+	/**
+	 * @return the idFieldH
+	 */
+	public static int getIdFieldH() {
+		return ID_FIELD_H;
+	}
+
+	/************************** FRONT_TITLE_X ****************************/
+	/**
+	 * @return the frontTitleX
+	 */
+	public static int getFrontTitleX() {
+		return FRONT_TITLE_X;
+	}
+
+	/************************** FRONT_TITLE_Y ****************************/
+	/**
+	 * @return the frontTitleY
+	 */
+	public static int getFrontTitleY() {
+		return FRONT_TITLE_Y;
+	}
+
+	/**************************** TIME_X *********************************/
+	/**
+	 * @return the timeX
+	 */
+	public static int getTimeX() {
+		return TIME_X;
+	}
+
+	/**************************** TIME_Y *********************************/
+	/**
+	 * @return the timeY
+	 */
+	public static int getTimeY() {
+		return TIME_Y;
+	}
+
+	/**************************** TIME_W *********************************/
+	/**
+	 * @return the timeW
+	 */
+	public static int getTimeW() {
+		return TIME_W;
+	}
+
+	/**************************** TIME_H *********************************/
+	/**
+	 * @return the timeH
+	 */
+	public static int getTimeH() {
+		return TIME_H;
+	}
+
+	/************************* ROUNDED_TIME_X ****************************/
+	/**
+	 * @return the roundedTimeX
+	 */
+	public static int getRoundedTimeX() {
+		return ROUNDED_TIME_X;
+	}
+
+	/************************* ROUNDED_TIME_Y ****************************/
+	/**
+	 * @return the roundedTimeY
+	 */
+	public static int getRoundedTimeY() {
+		return ROUNDED_TIME_Y;
+	}
+
+	/************************* ROUNDED_TIME_W ****************************/
+	/**
+	 * @return the roundedTimeW
+	 */
+	public static int getRoundedTimeW() {
+		return ROUNDED_TIME_W;
+	}
+
+	/*************************** ID_LABEL_X ******************************/
+	/**
+	 * @return the idLabelX
+	 */
+	public static int getIdLabelX() {
+		return ID_LABEL_X;
+	}
+
+	/*************************** ID_LABEL_Y ******************************/
+	/**
+	 * @return the idLabelY
+	 */
+	public static int getIdLabelY() {
+		return ID_LABEL_Y;
+	}
+
+	/************************** FRAME_TITLE ******************************/
+	/**
+	 * @return the frameTitle
+	 */
+	public static String getFrameTitle() {
+		return FRAME_TITLE;
+	}
+
+	/************************** PANEL_NAME ******************************/
+	/**
+	 * @return the panelName
+	 */
+	public static String getPanelName() {
+		return PANEL_NAME;
+	}
+
+	/************************** BUTTON_NAME ******************************/
+	/**
+	 * @return the buttonName
+	 */
+	public static String getButtonName() {
+		return BUTTON_NAME;
+	}
+
+	/*************************** ID_LABEL ********************************/
+	/**
+	 * @return the idLabel
+	 */
+	public static String getIdLabel() {
+		return ID_LABEL;
+	}
+
+	/* ================================================================= */
+	/****************************** METHOD *******************************/
+	/*********************************************************************/
 	/**
 	 * 
 	 */
@@ -228,10 +606,9 @@ public class ViewEmulator extends JFrame implements ActionListener {
 		}
 
 	}
-	
-	public static void main(String[] arg)
-	{
-		new ViewEmulator();
-	}
+
+	/*
+	 * public static void main(String[] arg) { new ViewEmulator(); }
+	 */
 
 }
