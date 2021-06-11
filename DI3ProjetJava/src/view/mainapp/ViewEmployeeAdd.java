@@ -173,7 +173,7 @@ public class ViewEmployeeAdd extends ViewModel {
 		labelArray = new ArrayList<JLabel>();
 		labelFirstName = new JLabel("First Name");
 		labelLastName = new JLabel("Last Name");
-		labelDepartment = new JLabel("Department Name");
+		labelDepartment = new JLabel("Department Name ");
 		labelArray.add(labelFirstName);
 		labelArray.add(labelLastName);
 		labelArray.add(labelDepartment);

@@ -140,8 +140,8 @@ public class ViewSettings extends ViewModel{
 	@Override
 	protected void initializeAttributes() {
 		labelArray = new ArrayList<JLabel>();
-		labelPortNumber = new JLabel("Port Number");
-		labelIPAddress = new JLabel("IP Address");
+		labelPortNumber = new JLabel("Port Number ");
+		labelIPAddress = new JLabel("IP Address ");
 		labelPortNumber.setBounds(20,20,20,20);
 		labelIPAddress.setBounds(20,20,20,20);
 		labelArray.add(labelPortNumber);

@@ -149,7 +149,7 @@ public class ViewMainApp extends JFrame {
 	}
 
 	/**
-	 * @brief Method which build main tabbedPane.
+	 * @brief Method which builds main tabbedPane.
 	 */
 	private void buildContentMainTabbedPane(){
 		mainTabbedPane = new JTabbedPane();

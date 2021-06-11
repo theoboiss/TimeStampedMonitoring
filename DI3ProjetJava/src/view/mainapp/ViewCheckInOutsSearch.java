@@ -247,12 +247,12 @@ public class ViewCheckInOutsSearch extends ViewModel  {
 protected void initializeAttributes() {
 		
 		labelArray = new ArrayList<JLabel>();
-		labelEmployeeFirstName = new JLabel("By Employee First Name");
-		labelEmployeeLastName = new JLabel("By Employee Last Name");
-		labelEmployeeID = new JLabel("By Employee ID");
-		labelDepartmentName = new JLabel("By Department Name");
-		labelStartDate = new JLabel("By start DateTime (MM-dd-yyyy HH:mm)");
-		labelEndDate = new JLabel("By end DateTime (MM-dd-yyyy HH:mm)");
+		labelEmployeeFirstName = new JLabel("By Employee First Name ");
+		labelEmployeeLastName = new JLabel("By Employee Last Name ");
+		labelEmployeeID = new JLabel("By Employee ID ");
+		labelDepartmentName = new JLabel("By Department Name ");
+		labelStartDate = new JLabel("By start DateTime (MM-dd-yyyy HH:mm) ");
+		labelEndDate = new JLabel("By end DateTime (MM-dd-yyyy HH:mm) ");
 		labelArray.add(labelEmployeeFirstName);
 		labelArray.add(labelEmployeeLastName);
 		labelArray.add(labelEmployeeID);

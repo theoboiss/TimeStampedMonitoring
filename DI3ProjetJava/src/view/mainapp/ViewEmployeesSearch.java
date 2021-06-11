@@ -190,7 +190,7 @@ public class ViewEmployeesSearch extends ViewModel  {
 			labelFirstName = new JLabel("By First Name");
 			labelLastName = new JLabel("By Last Name");
 			labelID = new JLabel("By ID");
-			labelDepartment = new JLabel("By Department Name");
+			labelDepartment = new JLabel("By Department Name ");
 			labelArray.add(labelFirstName);
 			labelArray.add(labelLastName);
 			labelArray.add(labelID);
