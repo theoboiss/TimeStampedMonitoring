@@ -27,7 +27,7 @@ public class History implements Serializable {
 	private static Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee;
 	
 	/* All CheckInOut per employee during a day. The table is reset to 0 at the end
-	 of day */
+	   of day */
 	private static Hashtable<LocalDate, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay;
 	private CheckInOut checkInOut;
 	private LocalDateTime dateTime;
