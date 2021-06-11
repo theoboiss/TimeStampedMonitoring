@@ -8,7 +8,7 @@ import controller.shared.TCPServerEmulator;
 import view.emulator.ViewEmulator;
 
 /**
- * Class to collect data from emulator
+ * @brief Principal Class to control the emulator
  *
  */
 public class Emulator extends EmulatorSettings {
@@ -16,22 +16,41 @@ public class Emulator extends EmulatorSettings {
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 
-	/****************************** BUILDERS *****************************/
+	/* ================================================================= */
+	/**************************** BUILDERS *******************************/
+	/*********************************************************************/
 
+	/**
+	 * @brief Default constructor
+	 */
 	public Emulator() {
 		super();
 	}
 
+	/**
+	 * @brief Two arguments constructor
+	 * @param emulatorSettingsSaved
+	 * @param emulatorRestorationProcess
+	 */
 	public Emulator(EmulatorSettings emulatorSettingsSaved, EmulatorBackup emulatorRestorationProcess) {
 		super(emulatorSettingsSaved, emulatorRestorationProcess);
 	}
 
+	/**
+	 * @brief One argument constructor
+	 * @param backupFileName
+	 */
 	public Emulator(String backupFileName) {
 		super(backupFileName);
 	}
 
-	/**************************** MAIN METHOD ****************************/
-
+	/* ================================================================= */
+	/*************************** MAIN METHOD *****************************/
+	/*********************************************************************/
+	/**
+	 * @brief Main method to launch emulator
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		String target = "backupEmulator/serializedData.ser";
 		EmulatorBackup restorationProcess = new EmulatorBackup();

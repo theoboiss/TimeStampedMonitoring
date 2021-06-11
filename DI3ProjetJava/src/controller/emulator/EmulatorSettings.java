@@ -16,6 +16,10 @@ import model.emulator.History;
 import model.shared.CheckInOut;
 import model.shared.EmployeeInfo;
 
+/**
+ * @brief Settings Class to manage the emulator
+ *
+ */
 public class EmulatorSettings extends TCPEmulatorSettings {
 
 	@SuppressWarnings("unused")
@@ -37,18 +41,24 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
 
+	/**
+	 * @brief Default constructor
+	 */
 	public EmulatorSettings() {
 		super();
 	}
 
+	/**
+	 * @brief One argument constructor
+	 */
 	public EmulatorSettings(String backupFileName) {
 		setBackupFileName(backupFileName);
-		setDataManagment(new EmulatorBackup());
+		setBackupData(new EmulatorBackup());
 
 		Scanner input = new Scanner(System.in);
 		do {
 			try {
-				setCurrentModel((History) getDataManagment().restoreData(getBackupFileName()));
+				setCurrentModel((History) getBackupData().restoreData(getBackupFileName()));
 			} catch (FileNotFoundException e) {
 				try {
 					handleInvalidFileName(getBackupFileName(), input);
@@ -73,17 +83,17 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	}
 
 	/**
-	 * @brief Copy constructor
+	 * @brief Two arguments constructor
 	 * @param mainappSettingsSaved
 	 */
 	public EmulatorSettings(EmulatorSettings mainappSettingsSaved, EmulatorBackup mainappRestorationProcess) {
 		mainappSettingsSaved.copiesIn(this);
-		setDataManagment(mainappRestorationProcess);
+		setBackupData(mainappRestorationProcess);
 
 		Scanner input = new Scanner(System.in);
 		do {
 			try {
-				setCurrentModel((History) getDataManagment().restoreData(getBackupFileName(), -1));
+				setCurrentModel((History) getBackupData().restoreData(getBackupFileName(), -1));
 			} catch (FileNotFoundException e) {
 				try {
 					handleInvalidFileName(getBackupFileName(), input);
@@ -111,6 +121,7 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
 
+	/************************** BackupFileName ***************************/
 	/**
 	 * @return the fileName
 	 */
@@ -128,49 +139,22 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 		this.backupFileName = backupFileName;
 	}
 
+	/*************************** currentModel ****************************/
 	/**
 	 * @return the currentModel
 	 */
 	public static History getCurrentModel() {
-		return EmulatorSettings.currentModel;
+		return currentModel;
 	}
 
 	/**
 	 * @param currentModel the currentModel to set
-	 * @throws Exception
 	 */
 	public static void setCurrentModel(History currentModel) {
 		EmulatorSettings.currentModel = currentModel;
 	}
 
-	/**
-	 * @return the backupData
-	 */
-	public EmulatorBackup getDataManagment() {
-		return this.backupData;
-	}
-
-	/**
-	 * @param backupData the backupData to set
-	 */
-	public void setDataManagment(EmulatorBackup backupData) {
-		this.backupData = backupData;
-	}
-
-	/**
-	 * @return the timersForBackup
-	 */
-	public long[] getTimersForBackup() {
-		return timersForBackup;
-	}
-
-	/**
-	 * @param timersForBackup the timersForBackup to set
-	 */
-	public void setTimersForBackup(long[] timersForBackup) {
-		this.timersForBackup = timersForBackup;
-	}
-
+	/**************************** backupData *****************************/
 	/**
 	 * @return the backupData
 	 */
@@ -185,6 +169,7 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 		this.backupData = backupData;
 	}
 
+	/************************** listEmployeeID ***************************/
 	/**
 	 * @return the listEmployeeID
 	 */
@@ -199,6 +184,7 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 		this.listEmployeeID = listEmployeeID;
 	}
 
+	/*************************** waitingChecks ***************************/
 	/**
 	 * @return the waitingChecks
 	 */
@@ -213,6 +199,7 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 		this.waitingChecks = waitingChecks;
 	}
 
+	/***************************** dateTime ******************************/
 	/**
 	 * @return the dateTime
 	 */
@@ -227,11 +214,19 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 		this.dateTime = dateTime;
 	}
 
+	/************************** timersForBackup **************************/
 	/**
-	 * @param check
+	 * @return the timersForBackup
 	 */
-	public void addWaitingChecks(CheckInOut check) {
-		waitingChecks.add(check);
+	public long[] getTimersForBackup() {
+		return timersForBackup;
+	}
+
+	/**
+	 * @param timersForBackup the timersForBackup to set
+	 */
+	public void setTimersForBackup(long[] timersForBackup) {
+		this.timersForBackup = timersForBackup;
 	}
 
 	/*********************************************************************/
@@ -276,8 +271,8 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 				}
 
 				try {
-					getDataManagment().saveData(getBackupFileName(), settingsData, 1);
-					getDataManagment().saveData(getBackupFileName(), getCurrentModel(), -1);
+					getBackupData().saveData(getBackupFileName(), settingsData, 1);
+					getBackupData().saveData(getBackupFileName(), getCurrentModel(), -1);
 					System.out.println("(Backup made on " + nowTime.format(DateTimeFormatter.ISO_LOCAL_DATE) + " at "
 							+ nowTime.format(DateTimeFormatter.ofPattern("HH:mm")) + ")");
 				} catch (IOException e) {
@@ -292,6 +287,15 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	/*********************************************************************/
 
 	/**
+	 * @brief Method to add checks which failed to be sent
+	 * @param check
+	 */
+	public void addWaitingChecks(CheckInOut check) {
+		waitingChecks.add(check);
+	}
+
+	/**
+	 * @brief Method to verify file name
 	 * @param fileName
 	 * @param input
 	 * @throws IOException
@@ -309,6 +313,11 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 		}
 	}
 
+	/**
+	 * @brief Method to manage serialized files
+	 * @param fileName
+	 * @return
+	 */
 	public static String lastModifiedFileRelatedTo(String fileName) {
 		if (new File(fileName).exists()) {
 			File directory = new File(fileName).getParentFile();
@@ -338,6 +347,10 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 		return fileName;
 	}
 
+	/**
+	 * @brief Method to copy copy element into file
+	 * @param receiving
+	 */
 	public void copiesIn(EmulatorSettings receiving) {
 		receiving.setBackupFileName(this.getBackupFileName());
 		// receiving.setBackupFileName("backupMainapp/serializedData.ser"); //to force
