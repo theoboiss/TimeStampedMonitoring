@@ -4,14 +4,11 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import javax.swing.*;
-import controller.emulator.EmulatorSettings;
 import controller.emulator.Input;
-import controller.shared.TCPClientEmulator;
 import model.shared.CheckInOut;
 
 public class ViewEmulator extends JFrame implements ActionListener {

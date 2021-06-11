@@ -34,6 +34,13 @@ public class Input {
 
 	}
 
+	/**
+	 * @param emulator
+	 * @throws Exception
+	 * @brief Method to get employee id during a check in out
+	 * 		  and to send it.
+	 */
+	@SuppressWarnings("unlikely-arg-type")
 	public void sendCheck(ViewEmulator emulator) throws Exception {
 
 		EmulatorSettings settings = new EmulatorSettings();
@@ -43,8 +50,7 @@ public class Input {
 			Integer ID = Integer.parseInt(emulator.getIDField().getText());
 
 			// Employee in Emulator database
-			if (settings.getListEmployeeID().contains(ID))
-				;
+			if (settings.getListEmployeeID().contains(ID));
 			{
 				CheckInOut checkInOutToSend = new CheckInOut(Integer.parseInt(emulator.getIDField().getText()),
 						LocalDateTime.now(), true);
