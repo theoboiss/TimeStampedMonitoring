@@ -19,6 +19,7 @@ public class ViewMainApp extends JFrame {
 	private ViewEmployeesSearch frameEmployeesSearch;
 	private ViewEmployeeAdd frameEmployeeAdd;
 	private ViewCheckInOutsSearch frameCheckInOuts;
+	private ViewSettings frameSettings;
 	
 	
 	/*********************************************************************/
@@ -110,11 +111,26 @@ public class ViewMainApp extends JFrame {
 		this.frameCheckInOuts = frameCheckInOuts;
 	}
 	
+	/************************* frameSettings *************************/
+	
+	/**
+	 * @return the frameSettings
+	 */
+	public ViewSettings getFrameSettings() {
+		return frameSettings;
+	}
+
+	/**
+	 * @param frameSettings the frameSettings to set
+	 */
+	public void setFrameSettings(ViewSettings frameSettings) {
+		this.frameSettings = frameSettings;
+	}
 	
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
-	
+
 	/**
 	 * @brief Method which create main frame and panel.
 	 */
@@ -122,8 +138,8 @@ public class ViewMainApp extends JFrame {
 		
 		//create frame
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setBounds(425,150,500,500);
-		this.setTitle("Main application");
+		this.setBounds(425,125,500,500);
+		this.setTitle("Main application™");
 		
 		//create panel	
 		buildContentMainTabbedPane();
@@ -153,9 +169,10 @@ public class ViewMainApp extends JFrame {
 		mainTabbedPane.addTab("CheckInOuts", tabbedPaneCheckInOuts);
 		
 		//Settings
-		JComponent panelSettings = new JPanel();
-		mainTabbedPane.addTab("Settings", null, panelSettings,
-                null);
+		frameSettings = new ViewSettings();
+		//JTabbedPane tabbedPaneSettings = new JTabbedPane();
+		//tabbedPaneSettings.addTab("Settings", frameSettings.getPanel());
+		mainTabbedPane.addTab("Settings", frameSettings.getPanel());
 		
 	}
 	
