@@ -81,17 +81,6 @@ public class Mainapp extends MainappSettings {
 		setCurrentModel(companyToSave);
 		*/
 		
-		CheckInOut check1 = new CheckInOut(SearchInMainapp.searchEmployee(getCurrentModel()).get(1).getID(), LocalDateTime.now(), true);
-		CheckInOut check2 = new CheckInOut(SearchInMainapp.searchEmployee(getCurrentModel()).get(1).getID(), LocalDateTime.now(), true);
-		CheckInOut check3 = new CheckInOut(SearchInMainapp.searchEmployee(getCurrentModel()).get(3).getID(), LocalDateTime.now(), true);
-		CheckInOut check4 = new CheckInOut(SearchInMainapp.searchEmployee(getCurrentModel()).get(2).getID(), LocalDateTime.now(), true);
-		
-		ArrayList<CheckInOut> checks = new ArrayList<CheckInOut>();
-		checks.add(check1);
-		checks.add(check2);
-		checks.add(check3);
-		checks.add(check4);
-		
 		new ViewMainApp();
 		new Thread(new TCPServerMainApp(current.getIPaddressServer(), current.getNumPortServer())).start();
 		

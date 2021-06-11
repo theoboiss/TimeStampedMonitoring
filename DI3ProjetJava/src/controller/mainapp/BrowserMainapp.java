@@ -1,6 +1,8 @@
 package controller.mainapp;
 
+import java.net.InetAddress;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,11 +12,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JTextField;
 
+import controller.shared.TCPClientMainApp;
 import model.mainapp.Company;
 import model.mainapp.Department;
 import model.mainapp.Employee;
 import model.mainapp.SearchInMainapp;
 import model.shared.CheckInOut;
+import model.shared.EmployeeInfo;
 
 public class BrowserMainapp {
 
@@ -376,6 +380,12 @@ public class BrowserMainapp {
 			Department correspondingDepartment = getModel().getDepartment(departmentNewEmployee);
 			if (correspondingDepartment != null) {
 				correspondingDepartment.addEmployee(new Employee(firstnameNewEmployee, lastnameNewEmployee));
+				try {
+					MainappSettings settings = new MainappSettings();
+					new Thread(new TCPClientMainApp(MainappSettings.castInEmployeeInfo(SearchInMainapp.searchEmployee(MainappSettings.getCurrentModel())), settings.getIPaddressClient(), settings.getNumPortClient())).start();
+				} catch (Exception e) {
+					System.out.println("Exception in Mainapp main : " + e.getMessage());
+				}
 				return "Successful addition";
 			}
 			else

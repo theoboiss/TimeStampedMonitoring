@@ -17,7 +17,7 @@ import model.mainapp.Employee;
 import model.mainapp.SearchInMainapp;
 import model.shared.EmployeeInfo;
 
-public abstract class MainappSettings extends TCPMainAppSettings implements Serializable {
+public class MainappSettings extends TCPMainAppSettings implements Serializable {
 
 	private static final long serialVersionUID = -786389681881788698L;
 	
@@ -34,6 +34,10 @@ public abstract class MainappSettings extends TCPMainAppSettings implements Seri
 	/*********************************************************************/
 	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
+	
+	public MainappSettings() {
+		super();
+	}
 
 	public MainappSettings(String backupFileName) {
 		setBackupFileName(backupFileName);
@@ -281,7 +285,15 @@ public abstract class MainappSettings extends TCPMainAppSettings implements Seri
 		ArrayList<EmployeeInfo> arrayToReturn = new ArrayList<EmployeeInfo>();
 		ArrayList<Employee> arrayToCast = SearchInMainapp.searchEmployee(getCurrentModel());
 		for (int i = 0; i < arrayToCast.size() ; i++) {
-			arrayToReturn.add(arrayToCast.get(i).castInEmployeeInfo());
+			arrayToReturn.add((EmployeeInfo)arrayToCast.get(i));
+		}
+		return arrayToReturn;
+	}
+	
+	public static ArrayList<EmployeeInfo> castInEmployeeInfo(ArrayList<Employee> arrayToCast) throws Exception {
+		ArrayList<EmployeeInfo> arrayToReturn = new ArrayList<EmployeeInfo>();
+		for (int i = 0; i < arrayToCast.size() ; i++) {
+			arrayToReturn.add((EmployeeInfo)arrayToCast.get(i));
 		}
 		return arrayToReturn;
 	}

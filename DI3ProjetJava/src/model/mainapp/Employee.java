@@ -131,18 +131,7 @@ public class Employee extends EmployeeInfo {
 	
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
-	/*********************************************************************/
-	
-	/**
-	 * @brief Method which cast an Employee in an EmployeeInfo.
-	 * @return EmployeeInfo
-	 * @throws Exception
-	 */
-	public EmployeeInfo castInEmployeeInfo() throws Exception {
-		EmployeeInfo employeeToReturn = new EmployeeInfo(this.getID(), this.getFirstname(), this.getLastname());
-		return employeeToReturn;
-	}
-	
+	/*********************************************************************/	
 	
 	@Override
 	public String toString() {
