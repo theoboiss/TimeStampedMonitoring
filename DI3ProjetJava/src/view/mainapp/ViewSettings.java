@@ -6,36 +6,50 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-/**Gestion des paramètres (param IP & port de l’application principale pour la pointeuse, etc.)*/
+/**
+ * @brief Class to manage and modify connection settings (port number and IP
+ *        address for the main application)
+ *
+ */
+public class ViewSettings extends ViewModel {
 
-public class ViewSettings extends ViewModel{
-	
+	/* ================================================================= */
+	/**************************** ATTRIBUTES *****************************/
+	/*********************************************************************/
+
 	private Integer portNumber;
 	private Integer IPAddress;
-	
+
 	private JTextField fieldPortNumber;
 	private JTextField fieldIPAddress;
-	
+
 	private JLabel labelPortNumber;
 	private JLabel labelIPAddress;
 
-	
-	public ViewSettings () {
+	/* ================================================================= */
+	/**************************** BUILDER ********************************/
+	/*********************************************************************/
+
+	/**
+	 * @brief Default constructor
+	 */
+	public ViewSettings() {
 		setArraySize(2);
 		initializeAttributes();
 		buildContentPanel();
 	}
-	
-	
-	
+
+	/* ================================================================= */
+	/*************************** SETS/GETS *******************************/
+	/*********************************************************************/
+
+	/************************** portNumber *******************************/
 	/**
 	 * @return the portNumber
 	 */
 	public Integer getPortNumber() {
 		return portNumber;
 	}
-
-
 
 	/**
 	 * @param portNumber the portNumber to set
@@ -44,16 +58,13 @@ public class ViewSettings extends ViewModel{
 		this.portNumber = portNumber;
 	}
 
-
-
+	/*************************** iPAddress *******************************/
 	/**
 	 * @return the iPAddress
 	 */
 	public Integer getIPAddress() {
 		return IPAddress;
 	}
-
-
 
 	/**
 	 * @param iPAddress the iPAddress to set
@@ -62,16 +73,13 @@ public class ViewSettings extends ViewModel{
 		IPAddress = iPAddress;
 	}
 
-
-
+	/************************ fieldPortNumber ****************************/
 	/**
 	 * @return the fieldPortNumber
 	 */
 	public JTextField getFieldPortNumber() {
 		return fieldPortNumber;
 	}
-
-
 
 	/**
 	 * @param fieldPortNumber the fieldPortNumber to set
@@ -80,16 +88,13 @@ public class ViewSettings extends ViewModel{
 		this.fieldPortNumber = fieldPortNumber;
 	}
 
-
-
+	/************************* fieldIPAddress ****************************/
 	/**
 	 * @return the fieldIPAddress
 	 */
 	public JTextField getFieldIPAddress() {
 		return fieldIPAddress;
 	}
-
-
 
 	/**
 	 * @param fieldIPAddress the fieldIPAddress to set
@@ -98,16 +103,13 @@ public class ViewSettings extends ViewModel{
 		this.fieldIPAddress = fieldIPAddress;
 	}
 
-
-
+	/************************* labelPortNumber ***************************/
 	/**
 	 * @return the labelPortNumber
 	 */
 	public JLabel getLabelPortNumber() {
 		return labelPortNumber;
 	}
-
-
 
 	/**
 	 * @param labelPortNumber the labelPortNumber to set
@@ -116,16 +118,13 @@ public class ViewSettings extends ViewModel{
 		this.labelPortNumber = labelPortNumber;
 	}
 
-
-
+	/************************** labelIPAddress ***************************/
 	/**
 	 * @return the labelIPAddress
 	 */
 	public JLabel getLabelIPAddress() {
 		return labelIPAddress;
 	}
-
-
 
 	/**
 	 * @param labelIPAddress the labelIPAddress to set
@@ -134,16 +133,15 @@ public class ViewSettings extends ViewModel{
 		this.labelIPAddress = labelIPAddress;
 	}
 
-
-	
+	/* ================================================================= */
+	/**************************** METHODS ********************************/
+	/*********************************************************************/
 
 	@Override
 	protected void initializeAttributes() {
 		labelArray = new ArrayList<JLabel>();
 		labelPortNumber = new JLabel("Port Number ");
 		labelIPAddress = new JLabel("IP Address ");
-		labelPortNumber.setBounds(20,20,20,20);
-		labelIPAddress.setBounds(20,20,20,20);
 		labelArray.add(labelPortNumber);
 		labelArray.add(labelIPAddress);
 		textFieldArray = new ArrayList<JTextField>();
@@ -151,13 +149,13 @@ public class ViewSettings extends ViewModel{
 		fieldIPAddress = new JTextField();
 		textFieldArray.add(fieldPortNumber);
 		textFieldArray.add(fieldIPAddress);
-		
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
