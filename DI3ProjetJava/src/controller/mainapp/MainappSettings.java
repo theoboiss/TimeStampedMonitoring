@@ -28,7 +28,7 @@ public class MainappSettings extends TCPMainAppSettings implements Serializable 
 	private static Company currentModel;
 	private transient MainappBackup dataManagment;
 	private String backupFileName;
-	private long[] timersForBackup = {20*1000, 5*60*1000}; //in milliseconds
+	private long[] timersForBackup = {60*1000, 5*60*1000}; //in milliseconds
 	
 	
 	/*********************************************************************/
@@ -178,7 +178,7 @@ public class MainappSettings extends TCPMainAppSettings implements Serializable 
 	private class PeriodicSave extends TimerTask implements Serializable {
 		private static final long serialVersionUID = 4275212943329005505L;
 		
-		public transient MainappSettings settingsData;
+		private transient MainappSettings settingsData;
 		
 		public PeriodicSave(MainappSettings settingsData) {
 			this.settingsData = settingsData;
@@ -227,6 +227,14 @@ public class MainappSettings extends TCPMainAppSettings implements Serializable 
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
+	
+	/**
+	 * @brief Make a save manually
+	 */
+	public void save() {
+		PeriodicSave newSave = new PeriodicSave(this);
+		newSave.run();
+	}
 	
 	/**
 	 * @param fileName

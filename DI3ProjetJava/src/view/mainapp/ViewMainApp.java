@@ -2,6 +2,8 @@ package view.mainapp;
 
 import javax.swing.*;
 
+import controller.mainapp.MainappSettings;
+
 public class ViewMainApp extends JFrame {
 	
 	/**
@@ -21,10 +23,19 @@ public class ViewMainApp extends JFrame {
 	
 	/*********************************************************************/
 	/****************************** BUILDERS *****************************/
-	/*********************************************************************/
+	/**
+	 * @param current *******************************************************************/
 	
-	public ViewMainApp () {
+	public ViewMainApp (MainappSettings current) {
 		build();
+		
+		//make a save when we close the app
+		addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				current.save();
+			}
+		});
 	}
 	
 	/*********************************************************************/
@@ -144,5 +155,6 @@ public class ViewMainApp extends JFrame {
                 null);
 		
 	}
+	
 	
 }
