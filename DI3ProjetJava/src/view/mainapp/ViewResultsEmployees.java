@@ -105,7 +105,30 @@ public class ViewResultsEmployees extends ViewResults {
 			button.setOpaque(true);
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					fireEditingStopped();
+					System.out.println(getCellEditorValue());
+					
+					String buttonIdentity = (String) getCellEditorValue();
+					if (buttonIdentity != null) {
+						
+						if (buttonIdentity.equals("details")) {
+							try {
+								BrowserMainapp controller = new BrowserMainapp();
+								Object[][][] dataEntry = controller.searchEmployeeDetails(label); 
+								String[][] titles = {
+										{"ID", "Firstname", "Lastname", "Department"},
+										{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"},
+										{"Checks (in/out)"}
+								};
+								ViewResultsEmployeeDetails frameEmployeeDetailsResults = new ViewResultsEmployeeDetails(dataEntry, titles);
+		
+							} catch (Exception e1) {
+								e1.printStackTrace();
+							}
+						}
+						
+					}
+					
+					fireEditingStopped(); //suppress any action from the button
 				}
 			});
 		}
@@ -139,26 +162,10 @@ public class ViewResultsEmployees extends ViewResults {
 
 		public Object getCellEditorValue() {
 			if (isPushed) {
-				
-				try {
-					
-					BrowserMainapp controller = new BrowserMainapp();
-					Object[][][] dataEntry = controller.searchEmployeeDetails(label); 
-					String[][] titles = {
-							{"ID", "Firstname", "Lastname", "Department"},
-							{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"},
-							{"Checks (in/out)"}
-					};
-					ViewResultsEmployeeDetails frameEmployeeDetailsResults = new ViewResultsEmployeeDetails(dataEntry, titles);
-
-				} catch (Exception e) {
-					//not all exceptions are handled yet (especially in Browser)
-					e.printStackTrace();
-				}
-				System.out.println(super.label + ": Boom!");
+				;
 			}
 			isPushed = false;
-			return new String(label);
+			return "details";
 		}
 	}
 	
@@ -174,11 +181,11 @@ public class ViewResultsEmployees extends ViewResults {
 		}
 
 		public Object getCellEditorValue() {
-			if (super.isPushed) {
-				System.out.println(super.label + ": Bim!");
+			if (isPushed) {
+				;
 			}
-			super.isPushed = false;
-			return new String(super.label);
+			isPushed = false;
+			return "delete";
 		}
 	}
 	
@@ -253,7 +260,9 @@ public class ViewResultsEmployees extends ViewResults {
 
 		buttonsDetails = new TableColumn();
 		buttonsDelete = new TableColumn();
-
+		buttonsDetails.setHeaderValue("");
+		buttonsDelete.setHeaderValue("");
+		
 		buttonsDetails.setCellRenderer(new ButtonDetailsRenderer());
 		buttonsDelete.setCellRenderer(new ButtonDeleteRenderer());
 

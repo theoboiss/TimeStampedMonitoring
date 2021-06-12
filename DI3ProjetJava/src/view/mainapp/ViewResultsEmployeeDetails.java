@@ -23,7 +23,9 @@ public class ViewResultsEmployeeDetails extends JFrame {
 	/*********************************************************************/
 	
 	private JTabbedPane mainTabbedPane;
-	private JLabel employeeMainInfo;
+	
+	private JPanel frameInfo;
+	private JTable infoTable;
 	
 	private JPanel framePlanning;
 	private JTable planningTable;
@@ -65,14 +67,14 @@ public class ViewResultsEmployeeDetails extends JFrame {
 	/**
 	 * @return the employeeMainInfo
 	 */
-	public JLabel getEmployeeMainInfo() {
-		return employeeMainInfo;
+	public JTable getInfoTable() {
+		return infoTable;
 	}
 	/**
 	 * @param employeeMainInfo the employeeMainInfo to set
 	 */
-	public void setEmployeeMainInfo(JLabel employeeMainInfo) {
-		this.employeeMainInfo = employeeMainInfo;
+	public void setInfoTable(JTable infoTable) {
+		this.infoTable = infoTable;
 	}
 	
 	/**************************** framePlanning **************************/
@@ -163,12 +165,15 @@ public class ViewResultsEmployeeDetails extends JFrame {
 	private void buildContentMainTabbedPane(Object[][][] dataEntry, String[][] titles){
 		initializeAttributes(dataEntry, titles);
 		mainTabbedPane = new JTabbedPane();
+
+		//Info
+		mainTabbedPane.addTab("Info", frameInfo);
 		
 		//Planning
-		mainTabbedPane.addTab("Planning", planningTable);
+		mainTabbedPane.addTab("Planning", framePlanning);
 		
 		//CheckInOuts
-		mainTabbedPane.addTab("CheckInOuts", checksTable);
+		mainTabbedPane.addTab("CheckInOuts", frameChecks);
 	
 	}
 	
@@ -180,22 +185,23 @@ public class ViewResultsEmployeeDetails extends JFrame {
 	 */
 	private void initializeAttributes(Object[][][] dataEntry, String[][] titles) {
 		
-		employeeMainInfo = new JLabel(titles[0][0] + " : " + dataEntry[0][0][0]
-									+ titles[0][1] + " : " + dataEntry[0][1][0]
-									+ titles[0][2] + " : " + dataEntry[0][2][0]
-									+ titles[0][3] + " : " + dataEntry[0][3][0]);
+		//Frame info
+		frameInfo = new JPanel();
+		infoTable = new JTable(dataEntry[0], titles[0]);
+		frameInfo.add(infoTable.getTableHeader());
+		frameInfo.add(infoTable); //<- bug
 		
 		//Frame planning
 		framePlanning = new JPanel();
 		planningTable = new JTable(dataEntry[1], titles[1]);
-		framePlanning.add(employeeMainInfo);
-		framePlanning.add(planningTable);
+		framePlanning.add(planningTable.getTableHeader());
+		framePlanning.add(planningTable); //<- bug
 		
 		//Frame Checks
 		frameChecks = new JPanel();
 		checksTable = new JTable(dataEntry[2], titles[2]);
-		frameChecks.add(employeeMainInfo);
-		frameChecks.add(checksTable);
+		frameChecks.add(checksTable.getTableHeader());
+		frameChecks.add(checksTable); //<- bug
 		
 	}
 }
