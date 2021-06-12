@@ -208,7 +208,7 @@ public class ViewEmployeeAdd extends ViewModel {
 			if (getLabelResponse() != null)
 				getPanel().remove(getLabelResponse());
 			try {
-				BrowserMainapp controller = new BrowserMainapp("NoView");
+				BrowserMainapp controller = new BrowserMainapp();
 				setLabelResponse(new JLabel(controller.addEmployee(submitMap)));
 				
 				getPanel().add(getLabelResponse());

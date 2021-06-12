@@ -25,9 +25,6 @@ public class BrowserMainapp {
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
 
-	final static private List<String> viewsIndex = Arrays.asList("NoView", "ViewResultsCheckInOuts",
-			"ViewResultsEmployees", "ViewResultsEmployeeDetails");
-	private String view;
 	private Company model;
 	private DateTimeFormatter formatter;
 	private String regexPattern;
@@ -41,11 +38,7 @@ public class BrowserMainapp {
 	 * @param request
 	 * @throws Exception
 	 */
-	public BrowserMainapp(String view) throws Exception {
-		if (!getViewsIndex().contains(view)) {
-			throw new IllegalArgumentException("The requested result view is not available.");
-		}
-		setView(view);
+	public BrowserMainapp() throws Exception {
 		setModel(Mainapp.getCurrentModel());
 		setFormatter(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm"));
 		setRegexPattern(", |,| ");
@@ -54,27 +47,6 @@ public class BrowserMainapp {
 	/*********************************************************************/
 	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
-
-	/**
-	 * @return the viewsIndex
-	 */
-	static public List<String> getViewsIndex() {
-		return viewsIndex;
-	}
-
-	/**
-	 * @return the view
-	 */
-	public String getView() {
-		return view;
-	}
-
-	/**
-	 * @param view the view to set
-	 */
-	public void setView(String view) {
-		this.view = view;
-	}
 
 	/**
 	 * @return the model
@@ -332,8 +304,8 @@ public class BrowserMainapp {
 		Employee searchedEmployee = SearchInMainapp.searchEmployee(getModel(), IDemployee);
 
 		String[][] tableInfo = new String[4][];
-		for (String[] str : tableInfo)
-			str = new String[1];
+		for (Integer iteratorTable = 0; iteratorTable < 4; iteratorTable++)
+			tableInfo[iteratorTable] = new String[1];
 		tableInfo[0][0] = searchedEmployee.getID().toString();
 		tableInfo[1][0] = searchedEmployee.getFirstname();
 		tableInfo[2][0] = searchedEmployee.getLastname();
@@ -349,14 +321,15 @@ public class BrowserMainapp {
 					.format(DateTimeFormatter.ofPattern("HH:mm"));
 			tablePlanning[iteratorX][1] = searchedEmployeePlanning.get(day).getLeavingTime()
 					.format(DateTimeFormatter.ofPattern("HH:mm"));
+			iteratorX++;
 		}
 
 		String[][] tableChecks = new String[1][];
 		ArrayList<CheckInOut> listEmployeeChecks = SearchInMainapp.searchCheckInOut(searchedEmployee, LocalDateTime.MIN,
 				LocalDateTime.MAX);
 		tableChecks[0] = new String[listEmployeeChecks.size()];
-		for (Integer iterator = 0; iterator < listEmployeeChecks.size(); iterator++) {
-			tableChecks[0][iterator] = listEmployeeChecks.get(iterator).getCheckTime()
+		for (Integer iteratorY = 0; iteratorY < listEmployeeChecks.size(); iteratorY++) {
+			tableChecks[0][iteratorY] = listEmployeeChecks.get(iteratorY).getCheckTime()
 					.format(DateTimeFormatter.ofPattern("HH:mm"));
 		}
 

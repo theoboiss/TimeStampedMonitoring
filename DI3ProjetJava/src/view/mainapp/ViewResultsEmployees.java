@@ -15,6 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+
+import controller.mainapp.BrowserMainapp;
+
 import java.awt.Color;
 
 
@@ -92,9 +95,9 @@ public class ViewResultsEmployees extends ViewResults {
 
 		protected JButton button;
 
-		private String label;
+		protected String label;
 
-		private boolean isPushed;
+		protected boolean isPushed;
 
 		public ButtonEditor(JCheckBox checkBox) {
 			super(checkBox);
@@ -135,11 +138,27 @@ public class ViewResultsEmployees extends ViewResults {
 		}
 
 		public Object getCellEditorValue() {
-			if (super.isPushed) {
+			if (isPushed) {
+				
+				try {
+					
+					BrowserMainapp controller = new BrowserMainapp();
+					Object[][][] dataEntry = controller.searchEmployeeDetails(label); 
+					String[][] titles = {
+							{"ID", "Firstname", "Lastname", "Department"},
+							{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"},
+							{"Checks (in/out)"}
+					};
+					ViewResultsEmployeeDetails frameEmployeeDetailsResults = new ViewResultsEmployeeDetails(dataEntry, titles);
+
+				} catch (Exception e) {
+					//not all exceptions are handled yet (especially in Browser)
+					e.printStackTrace();
+				}
 				System.out.println(super.label + ": Boom!");
 			}
-			super.isPushed = false;
-			return new String(super.label);
+			isPushed = false;
+			return new String(label);
 		}
 	}
 	

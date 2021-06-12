@@ -146,7 +146,7 @@ public class ViewResultsEmployeeDetails extends JFrame {
 	private void build(Object[][][] dataEntry, String[][] titles) {
 		
 		//create frame
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 		this.setBounds(300,300,500,500);
 		this.setTitle("Employee Details");
 		
@@ -180,10 +180,10 @@ public class ViewResultsEmployeeDetails extends JFrame {
 	 */
 	private void initializeAttributes(Object[][][] dataEntry, String[][] titles) {
 		
-		employeeMainInfo = new JLabel("ID : " + dataEntry[0][1].toString()
-									+"\nFirst Name : " + dataEntry[0][2].toString()
-									+"\nLast Name : " + dataEntry[0][3].toString()
-									+"\nDepartment : " + dataEntry[0][4].toString());
+		employeeMainInfo = new JLabel(titles[0][0] + " : " + dataEntry[0][0][0]
+									+ titles[0][1] + " : " + dataEntry[0][1][0]
+									+ titles[0][2] + " : " + dataEntry[0][2][0]
+									+ titles[0][3] + " : " + dataEntry[0][3][0]);
 		
 		//Frame planning
 		framePlanning = new JPanel();
@@ -193,7 +193,7 @@ public class ViewResultsEmployeeDetails extends JFrame {
 		
 		//Frame Checks
 		frameChecks = new JPanel();
-		planningTable = new JTable(dataEntry[2], titles[2]);
+		checksTable = new JTable(dataEntry[2], titles[2]);
 		frameChecks.add(employeeMainInfo);
 		frameChecks.add(checksTable);
 		
