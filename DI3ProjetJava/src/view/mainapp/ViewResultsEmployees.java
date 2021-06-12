@@ -105,15 +105,6 @@ public class ViewResultsEmployees extends ViewResults {
 			super(checkBox);
 			button = new JButton();
 			button.setOpaque(true);
-			button.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					// creates a similar exception... it seems like there are editors who disappear
-					//System.out.println(getCellEditorListeners()[1]);
-					
-					//if (getCellEditorListeners().length > 0)
-					fireEditingStopped(); // stops any action from the button
-				}
-			});
 		}
 
 		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
@@ -140,25 +131,27 @@ public class ViewResultsEmployees extends ViewResults {
 
 		public ButtonDetailsEditor(JCheckBox checkBox) {
 			super(checkBox);
+			button.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					fireEditingStopped(); // stops any action from the button
+					
+					try {
+						BrowserMainapp controller = new BrowserMainapp();
+						dataEntry = controller.searchEmployeeDetails(label);
+						titles = new String[][] {
+								{ "ID", "Firstname", "Lastname", "Department" },
+								{ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" },
+								{ "Checks (in/out)" } };
+						frameEmployeeDetailsResults = new ViewResultsEmployeeDetails(dataEntry, titles);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					
+				}
+			});
 		}
 
 		public Object getCellEditorValue() {
-			if (isPushed) {
-				
-				try {
-					BrowserMainapp controller = new BrowserMainapp();
-					dataEntry = controller.searchEmployeeDetails(label);
-					titles = new String[][] {
-							{ "ID", "Firstname", "Lastname", "Department" },
-							{ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" },
-							{ "Checks (in/out)" } };
-					frameEmployeeDetailsResults = new ViewResultsEmployeeDetails(dataEntry, titles);
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-
-			}
-			isPushed = false;
 			return label;
 		}
 	}
@@ -172,20 +165,22 @@ public class ViewResultsEmployees extends ViewResults {
 
 		public ButtonDeleteEditor(JCheckBox checkBox) {
 			super(checkBox);
+			button.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					try {
+						BrowserMainapp controller = new BrowserMainapp();
+						setLabelResponse(new JLabel(controller.delEmployee(label)));
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					
+					fireEditingStopped(); // stops any action from the button
+				}
+			});
 		}
 
 		public Object getCellEditorValue() {
-			if (isPushed) {
-
-				try {
-					BrowserMainapp controller = new BrowserMainapp();
-					setLabelResponse(new JLabel(controller.delEmployee(label)));
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-
-			}
-			isPushed = false;
 			return label;
 		}
 	}
