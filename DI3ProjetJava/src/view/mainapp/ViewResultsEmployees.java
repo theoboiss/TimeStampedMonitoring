@@ -106,7 +106,7 @@ public class ViewResultsEmployees extends ViewResults {
 					// creates a similar exception... it seems like there are editors who disappear
 					//System.out.println(getCellEditorListeners()[1]);
 					
-					// if (getCellEditorListeners().length > 0)
+					//if (getCellEditorListeners().length > 0)
 					fireEditingStopped(); // stops any action from the button
 				}
 			});
