@@ -2,9 +2,12 @@ package view.mainapp;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import controller.mainapp.BrowserMainapp;
 
 /**
  * @brief Class to manage and modify connection settings (port number and IP
@@ -154,8 +157,16 @@ public class ViewSettings extends ViewModel {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		// TODO Auto-generated method stub
+
+		Object source = event.getSource();
+
+		if (source == submitButton) {
+			submitMap = new HashMap<String, JTextField>();
+			submitMap.put("portnumber", textFieldArray.get(0));
+			submitMap.put("ipaddress", textFieldArray.get(1));
+			System.out.println(submitMap);
+
+		}
 
 	}
-
 }
