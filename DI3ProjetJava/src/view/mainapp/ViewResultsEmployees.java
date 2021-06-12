@@ -96,6 +96,10 @@ public class ViewResultsEmployees extends ViewResults {
 		protected String label;
 
 		protected boolean isPushed;
+		
+		protected Object[][][] dataEntry;
+		protected String[][] titles;
+		protected ViewResultsEmployeeDetails frameEmployeeDetailsResults;
 
 		public ButtonEditor(JCheckBox checkBox) {
 			super(checkBox);
@@ -122,7 +126,6 @@ public class ViewResultsEmployees extends ViewResults {
 				button.setBackground(table.getBackground());
 			}
 			label = (value == null) ? "" : value.toString();
-			// button.setText(label);
 			isPushed = true;
 			return button;
 		}
@@ -141,15 +144,15 @@ public class ViewResultsEmployees extends ViewResults {
 
 		public Object getCellEditorValue() {
 			if (isPushed) {
-
+				
 				try {
 					BrowserMainapp controller = new BrowserMainapp();
-					Object[][][] dataEntry = controller.searchEmployeeDetails(label);
-					String[][] titles = {
+					dataEntry = controller.searchEmployeeDetails(label);
+					titles = new String[][] {
 							{ "ID", "Firstname", "Lastname", "Department" },
 							{ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" },
 							{ "Checks (in/out)" } };
-					ViewResultsEmployeeDetails frameEmployeeDetailsResults = new ViewResultsEmployeeDetails(dataEntry, titles);
+					frameEmployeeDetailsResults = new ViewResultsEmployeeDetails(dataEntry, titles);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
