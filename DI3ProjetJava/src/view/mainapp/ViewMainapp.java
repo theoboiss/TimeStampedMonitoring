@@ -3,6 +3,7 @@ package view.mainapp;
 import javax.swing.*;
 
 import controller.mainapp.MainappSettings;
+import controller.mainapp.TCPMainAppSettings;
 
 /**
  * 
@@ -26,6 +27,7 @@ public class ViewMainapp extends JFrame {
 	private ViewEmployeeAdd frameEmployeeAdd;
 	private ViewCheckInOutsSearch frameCheckInOuts;
 	private ViewSettings frameSettings;
+	private MainappSettings current;
 	
 	
 	/*********************************************************************/
@@ -175,7 +177,7 @@ public class ViewMainapp extends JFrame {
 		mainTabbedPane.addTab("CheckInOuts", tabbedPaneCheckInOuts);
 		
 		//Settings
-		frameSettings = new ViewSettings();
+		frameSettings = new ViewSettings((TCPMainAppSettings) current);
 		//JTabbedPane tabbedPaneSettings = new JTabbedPane();
 		//tabbedPaneSettings.addTab("Settings", frameSettings.getPanel());
 		mainTabbedPane.addTab("Settings", frameSettings.getPanel());

@@ -1,6 +1,7 @@
 package view.mainapp;
 
 import java.awt.event.ActionEvent;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,6 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import controller.mainapp.BrowserMainapp;
+import controller.mainapp.MainappSettings;
+import controller.mainapp.ModifyTCPSettings;
+import controller.mainapp.TCPMainAppSettings;
 
 /**
  * @brief Class to manage and modify connection settings (port number and IP
@@ -20,14 +24,13 @@ public class ViewSettings extends ViewModel {
 	/**************************** ATTRIBUTES *****************************/
 	/*********************************************************************/
 
-	private Integer portNumber;
-	private Integer IPAddress;
-
 	private JTextField fieldPortNumber;
 	private JTextField fieldIPAddress;
 
 	private JLabel labelPortNumber;
 	private JLabel labelIPAddress;
+	
+	private TCPMainAppSettings settings;
 
 	/* ================================================================= */
 	/**************************** BUILDER ********************************/
@@ -42,39 +45,16 @@ public class ViewSettings extends ViewModel {
 		buildContentPanel();
 	}
 
+	public ViewSettings(TCPMainAppSettings settings)
+	{
+		this.settings = settings;
+		setArraySize(2);
+		initializeAttributes();
+		buildContentPanel();
+	}
 	/* ================================================================= */
 	/*************************** SETS/GETS *******************************/
 	/*********************************************************************/
-
-	/************************** portNumber *******************************/
-	/**
-	 * @return the portNumber
-	 */
-	public Integer getPortNumber() {
-		return portNumber;
-	}
-
-	/**
-	 * @param portNumber the portNumber to set
-	 */
-	public void setPortNumber(Integer portNumber) {
-		this.portNumber = portNumber;
-	}
-
-	/*************************** iPAddress *******************************/
-	/**
-	 * @return the iPAddress
-	 */
-	public Integer getIPAddress() {
-		return IPAddress;
-	}
-
-	/**
-	 * @param iPAddress the iPAddress to set
-	 */
-	public void setIPAddress(Integer iPAddress) {
-		IPAddress = iPAddress;
-	}
 
 	/************************ fieldPortNumber ****************************/
 	/**
@@ -162,10 +142,18 @@ public class ViewSettings extends ViewModel {
 
 		if (source == submitButton) {
 			submitMap = new HashMap<String, JTextField>();
-			submitMap.put("portnumber", textFieldArray.get(0));
-			submitMap.put("ipaddress", textFieldArray.get(1));
+			submitMap.put("portnumber_server", textFieldArray.get(0));
+			submitMap.put("ipaddress_server", textFieldArray.get(1));
 			System.out.println(submitMap);
 
+			ModifyTCPSettings settingsToModify = new ModifyTCPSettings(settings);
+			try {
+				settingsToModify.ModifyConnectionSettings(submitMap);
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.getMessage());
+			}
+			
 		}
 
 	}
