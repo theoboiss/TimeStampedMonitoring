@@ -9,6 +9,12 @@ import javax.swing.JTextField;
 
 import controller.mainapp.BrowserMainapp;
 
+/**
+ * 
+ * @brief View that allow to add an Employee in the company.
+ * @implNote ViewModel.
+ *
+ */
 public class ViewEmployeeAdd extends ViewModel {
 	
 	/*********************************************************************/

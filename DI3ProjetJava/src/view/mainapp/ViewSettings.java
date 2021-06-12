@@ -8,7 +8,7 @@ import javax.swing.JTextField;
 
 /**
  * @brief Class to manage and modify connection settings (port number and IP
- *        address for the main application)
+ *        address for the main application).
  *
  */
 public class ViewSettings extends ViewModel {

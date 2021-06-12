@@ -10,6 +10,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
+/**
+ * 
+ * @brief Abstract View used to build some of the Views concerning the 
+ * 		  results of a research.
+ * @implNote ActionListener.
+ *
+ */
 public abstract class ViewResults extends JFrame implements ActionListener {
 	
 	/**

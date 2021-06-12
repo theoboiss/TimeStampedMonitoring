@@ -9,6 +9,13 @@ import java.util.ArrayList;
 import controller.emulator.EmulatorSettings;
 import model.shared.CheckInOut;
 
+/**
+ * 
+ * @brief Class which represents,a client tcp from the emulator.
+ * 		  Extends TCPClientEmulatorBuilder.
+ * @implNote Runnable.
+ *
+ */
 public class TCPClientEmulator extends TCPClientEmulatorBuilder implements Runnable {
 
 	public TCPClientEmulator(CheckInOut checkInOutToSend, InetAddress IPaddress, int numPort) {
@@ -19,6 +26,12 @@ public class TCPClientEmulator extends TCPClientEmulatorBuilder implements Runna
 		super(emulator, checkInOutToSend, IPaddress, numPort);
 	}
 
+	/**
+	 * @apiNote When the emulator start it try to send the list of 
+	 * 	        checkInOuts until success.
+	 * 			When it is just one check to send the emulator try 
+	 * 			to send just once.
+	 */
 	public void run() { 
 		boolean dataSent = false;
 		do {
