@@ -4,6 +4,12 @@ import javax.swing.*;
 
 import controller.mainapp.MainappSettings;
 
+/**
+ * 
+ * @brief Main view of the main app. Contains all the others from
+ * 		  the package.
+ *
+ */
 public class ViewMainapp extends JFrame {
 	
 	/**

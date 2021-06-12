@@ -6,6 +6,11 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 
+/**
+ * 
+ * @brief View which represents the results of an Employee research.
+ *
+ */
 public class ViewResultsEmployeeDetails extends JFrame {
 
 	/**

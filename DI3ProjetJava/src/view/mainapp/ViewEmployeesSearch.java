@@ -9,6 +9,13 @@ import javax.swing.JTextField;
 
 import controller.mainapp.BrowserMainapp;
 
+/**
+ * 
+ * @brief View which allow to search an Employee or a group of Employee
+ * 		  in the Company.
+ * @implNote ViewModel.
+ *
+ */
 public class ViewEmployeesSearch extends ViewModel  {
 	
 	/*********************************************************************/

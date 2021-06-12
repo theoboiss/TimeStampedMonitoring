@@ -7,6 +7,12 @@ import java.util.HashMap;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+/**
+ * 
+ * @brief View build with the results of a checkInOut research.
+ * @implNote ViewModel.
+ *
+ */
 public class ViewCheckInOutsSearch extends ViewModel  {
 
 	/*********************************************************************/

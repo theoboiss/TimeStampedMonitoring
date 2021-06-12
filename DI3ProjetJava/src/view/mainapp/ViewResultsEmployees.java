@@ -17,6 +17,12 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.Color;
 
+
+/**
+ * 
+ * @brief View which represents the results of Employee(s) research.
+ *
+ */
 public class ViewResultsEmployees extends ViewResults {
 
 	/**

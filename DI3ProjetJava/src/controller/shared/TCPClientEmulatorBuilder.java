@@ -13,6 +13,11 @@ import java.util.ArrayList;
 import controller.emulator.EmulatorSettings;
 import model.shared.CheckInOut;
 
+/**
+ * 
+ * @brief Class used to build a TCPClientEmulator.
+ *
+ */
 public class TCPClientEmulatorBuilder {
 	
 	protected InetAddress IPaddress;
@@ -26,6 +31,13 @@ public class TCPClientEmulatorBuilder {
 	protected transient ObjectOutputStream oos;
 	protected transient boolean isWaitingCheckList;
 	
+	/**
+	 * @brief Constructor used when there is just one checkInOut 
+	 * 		  to send.
+	 * @param checkInOutToSend
+	 * @param IPaddress
+	 * @param numPort
+	 */
 	TCPClientEmulatorBuilder(CheckInOut checkInOutToSend, InetAddress IPaddress, int numPort) {
 		this.IPaddress = IPaddress;
 		this.numPort = numPort;
@@ -39,6 +51,14 @@ public class TCPClientEmulatorBuilder {
 		checkInOutToSend.setStatus(false);
 	} 
 	
+	/**
+	 * @brief Constructor used when there the emulator start and it
+	 * 		  have to send a list of checkInOuts.
+	 * @param emulator
+	 * @param checkInOutToSend
+	 * @param IPaddress
+	 * @param numPort
+	 */
 	TCPClientEmulatorBuilder(EmulatorSettings emulator, ArrayList<CheckInOut> checkInOutToSend, InetAddress IPaddress, int numPort) {
 		this.IPaddress = IPaddress;
 		this.numPort = numPort;
@@ -50,6 +70,10 @@ public class TCPClientEmulatorBuilder {
 		checkInOut = checkInOutToSend;
 	} 
 	
+	/**
+	 * @brief Method which set parameters for the connection.
+	 * @throws IOException
+	 */
 	protected void setSocket() throws IOException { 
 		isA = new InetSocketAddress(IPaddress, numPort); 
 		s = new Socket(isA.getHostName(), isA.getPort());

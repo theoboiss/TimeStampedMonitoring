@@ -12,6 +12,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * 
+ * @brief Abstract View used to build all the main view of the main
+ * 		  application.
+ * @implNote ActionListener.
+ *
+ */
 public abstract class ViewModel implements ActionListener {
 
 	/*********************************************************************/
