@@ -103,8 +103,9 @@ public class Department implements Serializable {
 	 * @throws Exception 
 	 */
 	public void addEmployee(Employee employee) throws Exception {
-		if (getListEmployees().containsKey(employee.getID()))
+		if (getListEmployees().containsKey(employee.getID())) {
 			throw new Exception("This employee is already in the department");
+		}
 		
 		employee.setDepartment(getName());
 		getListEmployees().put(employee.getID(), employee);
