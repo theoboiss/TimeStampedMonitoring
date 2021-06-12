@@ -188,20 +188,20 @@ public class ViewResultsEmployeeDetails extends JFrame {
 		//Frame info
 		frameInfo = new JPanel();
 		infoTable = new JTable(dataEntry[0], titles[0]);
-		frameInfo.add(infoTable.getTableHeader());
-		frameInfo.add(infoTable); //<- bug
+		//frameInfo.add(infoTable.getTableHeader()); //should be done automatically by the next line ?
+		//frameInfo.add(infoTable); //<- bug
 		
 		//Frame planning
 		framePlanning = new JPanel();
 		planningTable = new JTable(dataEntry[1], titles[1]);
-		framePlanning.add(planningTable.getTableHeader());
-		framePlanning.add(planningTable); //<- bug
+		//framePlanning.add(planningTable.getTableHeader()); //should be done automatically by the next line ?
+		//framePlanning.add(planningTable); //<- bug
 		
 		//Frame Checks
 		frameChecks = new JPanel();
 		checksTable = new JTable(dataEntry[2], titles[2]);
-		frameChecks.add(checksTable.getTableHeader());
-		frameChecks.add(checksTable); //<- bug
+		//frameChecks.add(checksTable.getTableHeader()); //should be done automatically by the next line ?
+		//frameChecks.add(checksTable); //<- no bug but does not print entirely
 		
 	}
 }

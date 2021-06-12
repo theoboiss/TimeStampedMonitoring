@@ -20,7 +20,6 @@ import controller.mainapp.BrowserMainapp;
 
 import java.awt.Color;
 
-
 /**
  * 
  * @brief View which represents the results of Employee(s) research.
@@ -32,8 +31,7 @@ public class ViewResultsEmployees extends ViewResults {
 	 * @brief serialVersionUID.
 	 */
 	private static final long serialVersionUID = 5485924175594067340L;
-	
-	
+
 	/*********************************************************************/
 	/**************************** INTERN CLASS ***************************/
 	/*********************************************************************/
@@ -105,30 +103,11 @@ public class ViewResultsEmployees extends ViewResults {
 			button.setOpaque(true);
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					System.out.println(getCellEditorValue());
+					// creates a similar exception... it seems like there are editors who disappear
+					//System.out.println(getCellEditorListeners()[1]);
 					
-					String buttonIdentity = (String) getCellEditorValue();
-					if (buttonIdentity != null) {
-						
-						if (buttonIdentity.equals("details")) {
-							try {
-								BrowserMainapp controller = new BrowserMainapp();
-								Object[][][] dataEntry = controller.searchEmployeeDetails(label); 
-								String[][] titles = {
-										{"ID", "Firstname", "Lastname", "Department"},
-										{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"},
-										{"Checks (in/out)"}
-								};
-								ViewResultsEmployeeDetails frameEmployeeDetailsResults = new ViewResultsEmployeeDetails(dataEntry, titles);
-		
-							} catch (Exception e1) {
-								e1.printStackTrace();
-							}
-						}
-						
-					}
-					
-					fireEditingStopped(); //suppress any action from the button
+					// if (getCellEditorListeners().length > 0)
+					fireEditingStopped(); // stops any action from the button
 				}
 			});
 		}
@@ -143,12 +122,12 @@ public class ViewResultsEmployees extends ViewResults {
 				button.setBackground(table.getBackground());
 			}
 			label = (value == null) ? "" : value.toString();
-			button.setText(button.getName());
+			// button.setText(label);
 			isPushed = true;
 			return button;
 		}
 	}
-	
+
 	class ButtonDetailsEditor extends ButtonEditor {
 
 		/**
@@ -162,13 +141,25 @@ public class ViewResultsEmployees extends ViewResults {
 
 		public Object getCellEditorValue() {
 			if (isPushed) {
-				;
+
+				try {
+					BrowserMainapp controller = new BrowserMainapp();
+					Object[][][] dataEntry = controller.searchEmployeeDetails(label);
+					String[][] titles = {
+							{ "ID", "Firstname", "Lastname", "Department" },
+							{ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" },
+							{ "Checks (in/out)" } };
+					ViewResultsEmployeeDetails frameEmployeeDetailsResults = new ViewResultsEmployeeDetails(dataEntry, titles);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+
 			}
 			isPushed = false;
-			return "details";
+			return label;
 		}
 	}
-	
+
 	class ButtonDeleteEditor extends ButtonEditor {
 
 		/**
@@ -182,14 +173,20 @@ public class ViewResultsEmployees extends ViewResults {
 
 		public Object getCellEditorValue() {
 			if (isPushed) {
-				;
+
+				try {
+					BrowserMainapp controller = new BrowserMainapp();
+					setLabelResponse(new JLabel(controller.delEmployee(label)));
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+
 			}
 			isPushed = false;
-			return "delete";
+			return label;
 		}
 	}
-	
-	
+
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
@@ -197,7 +194,8 @@ public class ViewResultsEmployees extends ViewResults {
 	private TableColumn buttonsDetails;
 	private TableColumn buttonsDelete;
 
-	
+	private JLabel labelResponse;
+
 	/*********************************************************************/
 	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
@@ -210,7 +208,6 @@ public class ViewResultsEmployees extends ViewResults {
 		build();
 	}
 
-	
 	/*********************************************************************/
 	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
@@ -247,7 +244,22 @@ public class ViewResultsEmployees extends ViewResults {
 		this.buttonsDelete = buttonsDelete;
 	}
 
-	
+	/*************************** labelresponse ***************************/
+
+	/**
+	 * @return the labelResponse
+	 */
+	public JLabel getLabelResponse() {
+		return labelResponse;
+	}
+
+	/**
+	 * @param labelResponse the labelResponse to set
+	 */
+	public void setLabelResponse(JLabel labelResponse) {
+		this.labelResponse = labelResponse;
+	}
+
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
@@ -262,7 +274,7 @@ public class ViewResultsEmployees extends ViewResults {
 		buttonsDelete = new TableColumn();
 		buttonsDetails.setHeaderValue("");
 		buttonsDelete.setHeaderValue("");
-		
+
 		buttonsDetails.setCellRenderer(new ButtonDetailsRenderer());
 		buttonsDelete.setCellRenderer(new ButtonDeleteRenderer());
 

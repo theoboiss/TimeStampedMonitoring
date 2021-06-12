@@ -291,8 +291,12 @@ public class BrowserMainapp {
 				CheckInOut lastCheckInOut = foundEmployee.getListChecks().get(foundEmployee.getListChecks().size() - 1);
 				foundEmployeeLastCheckInOut = lastCheckInOut.getCheckTime().format(getFormatter());
 			}
-			final Object[] line = { foundEmployee.getID().toString(), foundEmployee.getFirstname(),
-					foundEmployee.getLastname(), foundEmployee.getDepartment(), foundEmployeeLastCheckInOut };
+			final Object[] line = {
+					foundEmployee.getID().toString(),
+					foundEmployee.getFirstname(),
+					foundEmployee.getLastname(),
+					foundEmployee.getDepartment(),
+					foundEmployeeLastCheckInOut };
 			data[iterator++] = line;
 		}
 
