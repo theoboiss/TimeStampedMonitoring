@@ -19,6 +19,16 @@ import java.awt.Color;
 
 public class ViewResultsEmployees extends ViewResults {
 
+	/**
+	 * @brief serialVersionUID.
+	 */
+	private static final long serialVersionUID = 5485924175594067340L;
+	
+	
+	/*********************************************************************/
+	/**************************** INTERN CLASS ***************************/
+	/*********************************************************************/
+
 	public class ButtonDetailsRenderer extends JButton implements TableCellRenderer {
 
 		/**
@@ -84,6 +94,11 @@ public class ViewResultsEmployees extends ViewResults {
 			super(checkBox);
 			button = new JButton();
 			button.setOpaque(true);
+			button.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					fireEditingStopped();
+				}
+			});
 		}
 
 		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
@@ -100,14 +115,6 @@ public class ViewResultsEmployees extends ViewResults {
 			isPushed = true;
 			return button;
 		}
-
-		public Object getCellEditorValue() {
-			if (isPushed) {
-				System.out.println(label + ": Ouch!");
-			}
-			isPushed = false;
-			return new String(label);
-		}
 	}
 	
 	class ButtonDetailsEditor extends ButtonEditor {
@@ -119,13 +126,15 @@ public class ViewResultsEmployees extends ViewResults {
 
 		public ButtonDetailsEditor(JCheckBox checkBox) {
 			super(checkBox);
-			button.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					fireEditingStopped();
-				}
-			});
 		}
-		
+
+		public Object getCellEditorValue() {
+			if (super.isPushed) {
+				System.out.println(super.label + ": Boom!");
+			}
+			super.isPushed = false;
+			return new String(super.label);
+		}
 	}
 	
 	class ButtonDeleteEditor extends ButtonEditor {
@@ -137,21 +146,18 @@ public class ViewResultsEmployees extends ViewResults {
 
 		public ButtonDeleteEditor(JCheckBox checkBox) {
 			super(checkBox);
-			button.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					fireEditingStopped();
-				}
-			});
 		}
-		
+
+		public Object getCellEditorValue() {
+			if (super.isPushed) {
+				System.out.println(super.label + ": Bim!");
+			}
+			super.isPushed = false;
+			return new String(super.label);
+		}
 	}
 	
-
-	/**
-	 * @brief serialVersionUID.
-	 */
-	private static final long serialVersionUID = 5485924175594067340L;
-
+	
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
@@ -159,6 +165,7 @@ public class ViewResultsEmployees extends ViewResults {
 	private TableColumn buttonsDetails;
 	private TableColumn buttonsDelete;
 
+	
 	/*********************************************************************/
 	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
@@ -171,6 +178,7 @@ public class ViewResultsEmployees extends ViewResults {
 		build();
 	}
 
+	
 	/*********************************************************************/
 	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
@@ -207,12 +215,12 @@ public class ViewResultsEmployees extends ViewResults {
 		this.buttonsDelete = buttonsDelete;
 	}
 
+	
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
 
 	protected void initializeAttributes(Object[][] dataEntry, String[] titles) {
-
 		setDataEntry(dataEntry);
 		sortDataByIDEmployees();
 		setTitles(titles);
@@ -241,41 +249,12 @@ public class ViewResultsEmployees extends ViewResults {
 		// create panel
 		buildContentPanel();
 
-		// add buttons details and delete
-		/*
-		 * for (int i = 0; i < getDataTable().getRowCount(); i++) { GridBagConstraints
-		 * constraintsButtonDetails = new GridBagConstraints();
-		 * constraintsButtonDetails.gridx = 1; constraintsButtonDetails.gridy =
-		 * (i+1)*dataTable.getRowHeight(0); //constraintsButtonDetails.gridheight =
-		 * dataTable.getHeight()/(dataTable.getRowCount()+1);
-		 * panel.add(buttonsDetails.get(i), constraintsButtonDetails); }
-		 */
-
-		/*
-		 * //add buttons for details and deleting Integer nbRows =
-		 * getDataTable().getRowCount(); JButton[] detailsArray = new JButton[nbRows];
-		 * JButton[] deleteArray = new JButton[nbRows]; for (Integer iterator = 0;
-		 * iterator < nbRows; iterator++) { detailsArray[iterator] = new
-		 * JButton("Details"); detailsArray[iterator].setPreferredSize(new Dimension(50,
-		 * 20)); detailsArray[iterator].setMargin(new Insets(0,0,0,0));
-		 * getPanel().add(detailsArray[iterator], constraintsColumns);
-		 * 
-		 * constraintsColumns.gridx++; deleteArray[iterator] = new JButton("Delete");
-		 * deleteArray[iterator].setPreferredSize(new Dimension(50, 20));
-		 * deleteArray[iterator].setMargin(new Insets(0,0,0,0));
-		 * getPanel().add(deleteArray[iterator], constraintsColumns);
-		 * constraintsColumns.gridx--;
-		 * 
-		 * constraintsColumns.gridy++; }
-		 */
-
 		add(panel);
 		setVisible(true);
 
 	}
 
 	private void sortDataByIDEmployees() {
-
 		for (int i = 0; i < dataEntry.length; i++) {
 			for (int j = 0; j < dataEntry.length; j++) {
 				if (Integer.parseInt((String) dataEntry[i][0]) < Integer.parseInt((String) dataEntry[j][0])) {
@@ -285,14 +264,11 @@ public class ViewResultsEmployees extends ViewResults {
 				}
 			}
 		}
-
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-
 		Object source = event.getSource();
-
 	}
 
 }

@@ -66,12 +66,7 @@ public class Employee extends EmployeeInfo {
 			setPlanning(new Planning());
 			setListChecks(new CopyOnWriteArrayList<CheckInOut>());
 		} catch (Exception e) {
-			Integer indexOfIDtoRemove = Employee.getlistUsedIDs().indexOf(getID());
-			Integer lastIndex = Employee.getlistUsedIDs().size() - 1;
-			for (Integer index = indexOfIDtoRemove; index < lastIndex; index++) {
-				Employee.getlistUsedIDs().set(index, Employee.getlistUsedIDs().get(index + 1));
-			}
-			Employee.getlistUsedIDs().remove(lastIndex);
+			Employee.getlistUsedIDs().remove(getlistUsedIDs().size()-1);
 			throw e;
 		}
 	}
@@ -86,9 +81,8 @@ public class Employee extends EmployeeInfo {
 	/**
 	 * @return listUsedIDs
 	 */
-	@SuppressWarnings("unchecked")
 	public static ArrayList<Integer> getlistUsedIDs() {
-		return (ArrayList<Integer>) listUsedIDs.clone();
+		return listUsedIDs;
 	}
 
 	/**

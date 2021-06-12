@@ -384,19 +384,14 @@ public class BrowserMainapp {
 			Department correspondingDepartment = getModel().getDepartment(departmentNewEmployee);
 			if (correspondingDepartment != null) {
 				correspondingDepartment.addEmployee(newEmployee);
-				try {
-					MainappSettings settings = new MainappSettings();
-					new Thread(new TCPClientMainApp(
-							MainappSettings.castInEmployeeInfo(
-									SearchInMainapp.searchEmployee(MainappSettings.getCurrentModel())),
-							settings.getIPaddressClient(), settings.getNumPortClient())).start();
-					return "Successful addition                  ";
-				} catch (Exception e) {
-					System.out.println("Exception in Mainapp main : " + e.getMessage());
-					return e.getMessage();
-				}
+				MainappSettings settings = new MainappSettings();
+				new Thread(new TCPClientMainApp(
+						MainappSettings.castInEmployeeInfo(
+								SearchInMainapp.searchEmployee(MainappSettings.getCurrentModel())),
+						settings.getIPaddressClient(), settings.getNumPortClient())).start();
+				return "Successful addition                       ";
 			} else {
-				
+				Employee.getlistUsedIDs().remove(Employee.getlistUsedIDs().size()-1);
 				throw new Exception("This department does not exist.");
 			}
 		} catch (Exception e) {
@@ -415,10 +410,7 @@ public class BrowserMainapp {
 			HashMap<Integer, Employee> listEmployeesInCurrentDepartment = currentDepartment.getListEmployees();
 			if (listEmployeesInCurrentDepartment.remove(IDemployee) != null) {
 				Integer indexOfIDtoRemove = Employee.getlistUsedIDs().indexOf(IDemployee);
-				for (Integer index = indexOfIDtoRemove; index < Employee.getlistUsedIDs().size() - 1; index++) {
-					Employee.getlistUsedIDs().set(index, index + 1);
-					Employee.getlistUsedIDs().remove(Employee.getlistUsedIDs().size() - 1);
-				}
+				Employee.getlistUsedIDs().remove(indexOfIDtoRemove);
 				try {
 					MainappSettings settings = new MainappSettings();
 					new Thread(new TCPClientMainApp(
@@ -426,7 +418,8 @@ public class BrowserMainapp {
 									SearchInMainapp.searchEmployee(MainappSettings.getCurrentModel())),
 							settings.getIPaddressClient(), settings.getNumPortClient())).start();
 				} catch (Exception e) {
-					System.out.println("Exception in Mainapp main : " + e.getMessage());
+					System.out.println("Exception in Mainapp main : ");
+					e.printStackTrace();
 				}
 				return "Removed";
 			}
