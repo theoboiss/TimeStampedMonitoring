@@ -2,6 +2,8 @@ package model.shared;
 
 import java.io.Serializable;
 
+import model.mainapp.Employee;
+
 /**
  * 
  * @brief Class which represents main informations about an Employee.
@@ -84,7 +86,7 @@ public class EmployeeInfo implements Serializable {
 	 */
 	public void setFirstname(String firstname) throws Exception {
 		if (firstname.isBlank())
-			throw new Exception("Error in setFirstname : please specify a firstname.");
+			throw new Exception("Please specify a firstname.     ");
 		
 		this.firstname = firstname;
 	}
@@ -104,7 +106,8 @@ public class EmployeeInfo implements Serializable {
 	 */
 	public void setLastname(String lastname) throws Exception {
 		if (lastname.isBlank())
-			throw new Exception("Error in setFirstname : please specify a lastname.");
+			throw new Exception("Please specify a lastname.      ");
+		
 		this.lastname = lastname;
 	}
 	

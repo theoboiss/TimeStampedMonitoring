@@ -32,7 +32,7 @@ public class Mainapp extends MainappSettings {
 		MainappBackup restorationProcess = new MainappBackup();
 		MainappSettings mainappSaved = null;
 		Mainapp current = null;
-
+		/*
 		try {
 			mainappSaved = (MainappSettings) restorationProcess.restore(lastModifiedFileRelatedTo(target), 1);
 		} catch (ClassNotFoundException | IOException e) {
@@ -40,13 +40,13 @@ public class Mainapp extends MainappSettings {
 		} catch (ClassCastException e) {
 			System.out.println("Information : backup did not contain settings data.");
 		}
-
+		*/
 		if (mainappSaved != null)
 			current = new Mainapp(mainappSaved, restorationProcess);
 		else
 			current = new Mainapp(lastModifiedFileRelatedTo(target));
 
-		/*
+		
 		Company companyToSave = null;
 		try {
 			companyToSave = new Company();
@@ -56,7 +56,6 @@ public class Mainapp extends MainappSettings {
 			companyToSave.addDepartment(B);
 
 			// add few checks to A
-
 			CheckInOut exempleCheck1 = new CheckInOut();
 			exempleCheck1.setEmployeeID(1);
 			SearchInMainapp.searchEmployee(A, 1).getListChecks().add(exempleCheck1);
@@ -78,7 +77,7 @@ public class Mainapp extends MainappSettings {
 		}
 		
 		setCurrentModel(companyToSave);
-		*/
+		
 
 		new ViewMainapp(current);
 		new Thread(new TCPServerMainApp(current.getIPaddressServer(), current.getNumPortServer())).start();

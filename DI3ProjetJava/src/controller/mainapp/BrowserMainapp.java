@@ -377,24 +377,29 @@ public class BrowserMainapp {
 		String lastnameNewEmployee = request.get("lastname").getText().split(getRegexPattern())[0];
 		String departmentNewEmployee = request.get("department_name").getText().split(getRegexPattern())[0];
 
+		
+		Employee newEmployee = null;
 		try {
+			newEmployee = new Employee(firstnameNewEmployee, lastnameNewEmployee);
 			Department correspondingDepartment = getModel().getDepartment(departmentNewEmployee);
 			if (correspondingDepartment != null) {
-				correspondingDepartment.addEmployee(new Employee(firstnameNewEmployee, lastnameNewEmployee));
+				correspondingDepartment.addEmployee(newEmployee);
 				try {
 					MainappSettings settings = new MainappSettings();
 					new Thread(new TCPClientMainApp(
 							MainappSettings.castInEmployeeInfo(
 									SearchInMainapp.searchEmployee(MainappSettings.getCurrentModel())),
 							settings.getIPaddressClient(), settings.getNumPortClient())).start();
+					return "Successful addition                  ";
 				} catch (Exception e) {
 					System.out.println("Exception in Mainapp main : " + e.getMessage());
+					return e.getMessage();
 				}
-				return "Successful addition";
-			} else
+			} else {
+				
 				throw new Exception("This department does not exist.");
+			}
 		} catch (Exception e) {
-			Employee.getlistUsedIDs().remove(Employee.getlistUsedIDs().size()-1);
 			return e.getMessage();
 		}
 	}

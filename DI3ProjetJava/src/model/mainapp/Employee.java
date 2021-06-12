@@ -46,16 +46,34 @@ public class Employee extends EmployeeInfo {
 	 */
 	public Employee(String firstname, String lastname) throws Exception {
 		//generate a new ID
-		ArrayList<Integer> listUsedIDss = getlistUsedIDs();
-		Integer availableID = listUsedIDss.get(listUsedIDss.size()-1) + 1;
+		Integer availableID;
+		ArrayList<Integer> listUnusedIDs = new ArrayList<Integer>();
+		for (Integer unusedID = 0; unusedID < getlistUsedIDs().size(); unusedID++) {
+			if (!getlistUsedIDs().contains(unusedID))
+				listUnusedIDs.add(unusedID);
+		}
+		if (!listUnusedIDs.isEmpty())
+			availableID = listUnusedIDs.get(0);
+		else
+			availableID = getlistUsedIDs().size();
 		
 		addUsedIDToList(availableID); //reserve availableID in listUsedIDs
-		setID(availableID);
-		setFirstname(firstname);
-		setLastname(lastname);
-		setDepartment("default");
-		setPlanning(new Planning());
-		setListChecks(new CopyOnWriteArrayList<CheckInOut>());
+		try {
+			setID(availableID);
+			setFirstname(firstname);
+			setLastname(lastname);
+			setDepartment("default");
+			setPlanning(new Planning());
+			setListChecks(new CopyOnWriteArrayList<CheckInOut>());
+		} catch (Exception e) {
+			Integer indexOfIDtoRemove = Employee.getlistUsedIDs().indexOf(getID());
+			Integer lastIndex = Employee.getlistUsedIDs().size() - 1;
+			for (Integer index = indexOfIDtoRemove; index < lastIndex; index++) {
+				Employee.getlistUsedIDs().set(index, Employee.getlistUsedIDs().get(index + 1));
+			}
+			Employee.getlistUsedIDs().remove(lastIndex);
+			throw e;
+		}
 	}
 	
 	
