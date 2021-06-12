@@ -12,6 +12,7 @@ import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import controller.mainapp.TCPMainAppSettings;
 import model.emulator.History;
 import model.shared.CheckInOut;
 import model.shared.EmployeeInfo;
@@ -57,28 +58,29 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 		setBackupFileName(backupFileName);
 		setBackupData(new EmulatorBackup());
 
-		Scanner input = new Scanner(System.in);
+		//Scanner input = new Scanner(System.in);
 		do {
 			try {
 				setCurrentModel((History) getBackupData().restoreData(getBackupFileName()));
-			} catch (FileNotFoundException e) {
+			}
+			catch (FileNotFoundException e) {
 				try {
-					handleInvalidFileName(getBackupFileName(), input);
-				} catch (IOException | ClassNotFoundException e1) {
-					System.out.println(e1.getMessage());
+					//handleInvalidFileName(getBackupFileName(), input);
+					File newFile = new File(getBackupFileName());
+					newFile.createNewFile();
 				}
-			} catch (EOFException e) {
+				catch (IOException e1) { System.out.println(e1.getMessage()); }
+			}
+			catch (EOFException e) {
 				try {
 					setCurrentModel(new History());
-				} catch (Exception e1) {
-					e1.printStackTrace();
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
+				catch (Exception e1) { e1.printStackTrace(); }
 			}
+			catch (Exception e) { e.printStackTrace(); }
 		} while (getCurrentModel() == null);
-		if (input != null)
-			input.close();
+		/*if (input != null)
+			input.close();*/
 
 		Timer timer = new Timer();
 		timer.schedule(new PeriodicSave(this), timersForBackup[0], timersForBackup[1]);
@@ -98,7 +100,7 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 		Scanner input = new Scanner(System.in);
 		do {
 			try {
-				// Warning
+				setListEmployeeInfo((ArrayList<EmployeeInfo>) getBackupData().restoreData(getBackupFileName(), 0));
 				setWaitingChecks((ArrayList<CheckInOut>) getBackupData().restoreData(getBackupFileName(), 0));
 				setCurrentModel((History) getBackupData().restoreData(getBackupFileName(), -1));
 			} catch (FileNotFoundException e) {
@@ -279,6 +281,7 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 
 				try {
 					getBackupData().saveData(getBackupFileName(), settingsData, 1);
+					getBackupData().saveData(getBackupFileName(), new ArrayList<EmployeeInfo>(getListEmployeeInfo()), 0);
 					getBackupData().saveData(getBackupFileName(), new ArrayList<CheckInOut>(getWaitingChecks()), 0);
 					getBackupData().saveData(getBackupFileName(), getCurrentModel(), -1);
 					System.out.println("(Backup (emulator) made on " + nowTime.format(DateTimeFormatter.ISO_LOCAL_DATE) + " at "
@@ -368,12 +371,8 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	 * @param receiving
 	 */
 	public void copiesIn(EmulatorSettings receiving) {
+		((TCPEmulatorSettings) this).copiesIn(receiving);
 		receiving.setBackupFileName(this.getBackupFileName());
 		receiving.setTimersForBackup(this.getTimersForBackup());
-		/*receiving.setIPaddressClient(this.getIPaddressClient());
-		receiving.setIPaddressServer(this.getIPaddressServer());
-		receiving.setNumPortClient(this.getNumPortClient());
-		receiving.setNumPortServer(this.getNumPortServer());*/
 	}
-
 }

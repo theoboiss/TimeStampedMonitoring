@@ -555,7 +555,7 @@ public class ViewEmulator extends JFrame implements ActionListener {
 		frame.setTitle(FRAME_TITLE);
 		frame.setSize(FRAME_SIZE_X, FRAME_SIZE_Y);
 		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.setResizable(false);
 		panel.setName(PANEL_NAME);
 		panel.setLayout(null);

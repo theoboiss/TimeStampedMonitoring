@@ -58,8 +58,6 @@ public class Input {
 		}
 		
 		if (Emulator.getWaitingChecks().contains(checkInOutToSend)) {
-			System.out.println("Check in out could not be sent !");
-			
 			// Adding the check in out to the waiting list
 			checkInOutToSend.setStatus(false);
 		}

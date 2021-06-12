@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import controller.mainapp.TCPMainAppSettings;
+
 /**
  * @brief Serialized class for emulator settings
  *
@@ -111,5 +113,16 @@ public abstract class TCPEmulatorSettings implements Serializable {
 	public void setNumPortClient(int numPortClient) {
 		this.numPortClient = numPortClient;
 	}
+	
 
+	/*********************************************************************/
+	/*************************** OTHER METHODS ***************************/
+	/*********************************************************************/
+	
+	public void copiesIn(TCPEmulatorSettings receiving) {
+		receiving.setIPaddressClient(this.getIPaddressClient());
+		receiving.setIPaddressServer(this.getIPaddressServer());
+		receiving.setNumPortClient(this.getNumPortClient());
+		receiving.setNumPortServer(this.getNumPortServer());
+	}
 }

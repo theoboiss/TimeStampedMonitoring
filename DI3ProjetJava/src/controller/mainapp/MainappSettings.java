@@ -44,16 +44,18 @@ public class MainappSettings extends TCPMainAppSettings implements Serializable 
 		setDataManagment(new MainappBackup());
 		
 
-		Scanner input = new Scanner(System.in);
+		//Scanner input = new Scanner(System.in);
 		do {
 			try {
 				  setCurrentModel((Company) getDataManagment().restore(getBackupFileName()));
 			}
 			catch (FileNotFoundException e) {
 				try {
-					handleInvalidFileName(getBackupFileName(), input);
+					//handleInvalidFileName(getBackupFileName(), input);
+					File newFile = new File(getBackupFileName());
+					newFile.createNewFile();
 				}
-				catch (IOException | ClassNotFoundException e1) { System.out.println(e1.getMessage()); }
+				catch (IOException e1) { System.out.println(e1.getMessage()); }
 			}
 			catch (EOFException e) {
 				try {
@@ -63,8 +65,8 @@ public class MainappSettings extends TCPMainAppSettings implements Serializable 
 			}
 			catch (Exception e) { e.printStackTrace(); }
 		} while (getCurrentModel() == null);
-		if (input != null)
-			input.close();
+		/*if (input != null)
+			input.close();*/
 
 		Timer timer = new Timer();
 	    timer.schedule(new PeriodicSave(this), timersForBackup[0], timersForBackup[1]);
@@ -282,14 +284,6 @@ public class MainappSettings extends TCPMainAppSettings implements Serializable 
 		return fileName;
 	}
 	
-	public void copiesIn(MainappSettings receiving) {
-		receiving.setBackupFileName(this.getBackupFileName());
-		receiving.setTimersForBackup(this.getTimersForBackup());
-		/*receiving.setIPaddressClient(this.getIPaddressClient());
-		receiving.setIPaddressServer(this.getIPaddressServer());
-		receiving.setNumPortClient(this.getNumPortClient());
-		receiving.setNumPortServer(this.getNumPortServer());*/
-	}
 	
 	public ArrayList<EmployeeInfo> getEmployeeInfo() throws Exception {
 		ArrayList<EmployeeInfo> arrayToReturn = new ArrayList<EmployeeInfo>();
@@ -306,5 +300,11 @@ public class MainappSettings extends TCPMainAppSettings implements Serializable 
 			arrayToReturn.add((EmployeeInfo)arrayToCast.get(i));
 		}
 		return arrayToReturn;
+	}
+	
+	public void copiesIn(MainappSettings receiving) {
+		((TCPMainAppSettings) this).copiesIn(receiving);
+		receiving.setBackupFileName(this.getBackupFileName());
+		receiving.setTimersForBackup(this.getTimersForBackup());
 	}
 }

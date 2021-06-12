@@ -79,6 +79,5 @@ public class Emulator extends EmulatorSettings {
 		} catch (Exception e) {
 			System.out.println("Exception in Emulator main : " + e.getMessage());
 		}
-		System.out.println(Emulator.getWaitingChecks().toString());
 	}
 }

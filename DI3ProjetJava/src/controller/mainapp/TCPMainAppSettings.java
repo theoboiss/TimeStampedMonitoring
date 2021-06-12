@@ -106,5 +106,16 @@ public abstract class TCPMainAppSettings implements Serializable {
 	public void setNumPortClient(int numPortClient) {
 		this.numPortClient = numPortClient;
 	}
+	
 
+	/*********************************************************************/
+	/*************************** OTHER METHODS ***************************/
+	/*********************************************************************/
+	
+	public void copiesIn(TCPMainAppSettings receiving) {
+		receiving.setIPaddressClient(this.getIPaddressClient());
+		receiving.setIPaddressServer(this.getIPaddressServer());
+		receiving.setNumPortClient(this.getNumPortClient());
+		receiving.setNumPortServer(this.getNumPortServer());
+	}
 }
