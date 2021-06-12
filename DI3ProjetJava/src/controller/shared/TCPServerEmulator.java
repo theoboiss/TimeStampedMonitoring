@@ -10,13 +10,23 @@ import controller.emulator.Emulator;
 import controller.emulator.EmulatorSettings;
 import model.shared.EmployeeInfo;
 
-
+/**
+ * 
+ * @brief Class which represents a server tcp from the emulator.
+ * 		  Extends TCPServerEmulatorBuilder.
+ * @implNote Runnable.
+ *
+ */
 public class TCPServerEmulator extends TCPServerEmulatorBuilder implements Runnable {
 	
 	public TCPServerEmulator(EmulatorSettings emulator, InetAddress IPaddress, int numPort) {
 		super(emulator, IPaddress, numPort);
 	}
 
+	/**
+	 * @brief Method which add the received data in the database of the main application.
+	 * @param readChecks
+	 */
 	public void run( ) { 
 		try { 
 			 System.out.println("TCPServerEmulator launched ..."); 

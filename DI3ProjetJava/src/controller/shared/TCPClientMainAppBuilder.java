@@ -7,6 +7,11 @@ import model.shared.EmployeeInfo;
 
 import java.io.*; 
 
+/**
+ * 
+ * @brief Class used to build a TCPClientMainApp.
+ *
+ */
 public class TCPClientMainAppBuilder {
 	
 	protected InetAddress IPaddress;
@@ -19,6 +24,12 @@ public class TCPClientMainAppBuilder {
 	protected transient OutputStream sOut;
 	protected transient ObjectOutputStream oos;
 	
+	/**
+	 * @brief Constructor.
+	 * @param listEmployees
+	 * @param IPaddress
+	 * @param numPort
+	 */
 	TCPClientMainAppBuilder(ArrayList<EmployeeInfo> listEmployees, InetAddress IPaddress, int numPort) { 
 		this.IPaddress = IPaddress;
 		this.numPort = numPort;
@@ -31,6 +42,10 @@ public class TCPClientMainAppBuilder {
 		oos = null;
 	} 
 	
+	/**
+	 * @brief Method used to set the connection.
+	 * @throws IOException
+	 */
 	protected void setSocket() throws IOException { 
 		isA = new InetSocketAddress(IPaddress, numPort); 
 		s = new Socket(isA.getHostName(), isA.getPort());

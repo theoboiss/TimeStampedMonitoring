@@ -4,6 +4,11 @@ import java.net.*;
 
 import java.io.*; 
 
+/**
+ * 
+ * @brief Class used to build a TCPServerMainApp.
+ *
+ */
 public class TCPServerMainAppBuilder {
 
 	protected InetAddress IPaddress;
@@ -14,7 +19,12 @@ public class TCPServerMainAppBuilder {
 	protected transient ObjectInputStream ois;
 	protected transient OutputStream sOut;
 	protected transient ObjectOutputStream oos;
-	  
+	 
+	/**
+	 * @brief Constructor.
+	 * @param IPaddress
+	 * @param numPort
+	 */
 	TCPServerMainAppBuilder(InetAddress IPaddress, int numPort) { 
 		this.IPaddress = IPaddress;
 		this.numPort = numPort;
@@ -24,6 +34,10 @@ public class TCPServerMainAppBuilder {
 		ois = null;
 	} 
 	 
+	/**
+	 * @brief Method used to set the connection.
+	 * @throws IOException
+	 */
 	public void setSocket() throws IOException { 
 		
 		isA = new InetSocketAddress(IPaddress , numPort);
