@@ -4,6 +4,13 @@ import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+/**
+ * 
+ * @brief Abstract class which represents TCP settings for the
+ * 		  main application.
+ * @implNote Serializable.
+ *
+ */
 public abstract class TCPMainAppSettings implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -23,7 +30,7 @@ public abstract class TCPMainAppSettings implements Serializable {
 	/*********************************************************************/
 
 	/**
-	 * 
+	 * @brief Default constructor.
 	 */
 	public TCPMainAppSettings() {
 		byte[] ipAddrS = new byte[] { 127, 0, 0, 3 };
@@ -112,6 +119,10 @@ public abstract class TCPMainAppSettings implements Serializable {
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
 	
+	/**
+	 * @brief Used for serialization.
+	 * @param receiving
+	 */
 	public void copiesIn(TCPMainAppSettings receiving) {
 		receiving.setIPaddressClient(this.getIPaddressClient());
 		receiving.setIPaddressServer(this.getIPaddressServer());

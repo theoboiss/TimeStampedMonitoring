@@ -12,7 +12,11 @@ import java.net.Socket;
 
 import controller.emulator.EmulatorSettings;
 
-
+/**
+ * 
+ * @brief Class used to build a TCPServerEmulator.
+ *
+ */
 public class TCPServerEmulatorBuilder {
 	
 	protected InetAddress IPaddress;
@@ -24,7 +28,13 @@ public class TCPServerEmulatorBuilder {
 	protected transient ObjectInputStream ois;
 	protected transient OutputStream sOut;
 	protected transient ObjectOutputStream oos;
-	  
+	 
+	/**
+	 * @brief Constructor.
+	 * @param emulator
+	 * @param IPaddress
+	 * @param numPort
+	 */
 	TCPServerEmulatorBuilder(EmulatorSettings emulator, InetAddress IPaddress, int numPort) { 
 		this.IPaddress = IPaddress;
 		this.numPort = numPort;
@@ -36,7 +46,11 @@ public class TCPServerEmulatorBuilder {
 		ois = null;
 		oos = null;
 	} 
-	 
+	
+	/**
+	 * @brief Method used to set the connection.
+	 * @throws IOException
+	 */
 	public void setSocket() throws IOException { 
 		
 		isA = new InetSocketAddress(IPaddress,numPort);

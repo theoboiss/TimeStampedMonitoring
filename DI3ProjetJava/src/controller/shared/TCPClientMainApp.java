@@ -6,6 +6,13 @@ import java.util.ArrayList;
 
 import model.shared.EmployeeInfo; 
 
+/**
+ * 
+ * @brief Class which represents a client tcp from the main application.
+ * 		  Extends TCPClientMainAppBuilder.
+ * @implNote Runnable.
+ *
+ */
 public class TCPClientMainApp extends TCPClientMainAppBuilder implements Runnable {
 	
 	
@@ -13,6 +20,9 @@ public class TCPClientMainApp extends TCPClientMainAppBuilder implements Runnabl
 		super(listEmployees, IPaddress, numPort);
 	}
 
+	/**
+	 * @apiNote Try to send data until success.
+	 */
 	public void run() { 
 		boolean dataSent = false;
 		while (!dataSent) {
@@ -26,6 +36,8 @@ public class TCPClientMainApp extends TCPClientMainAppBuilder implements Runnabl
 				 oos.flush();
 				 sIn = s.getInputStream();
 				 ois = new ObjectInputStream(sIn);
+				 /* while data have been sent the client wait for a response
+				    from the server */
 				 if(ois.readBoolean()) {
 					 dataSent = true;
 				 }

@@ -11,7 +11,7 @@ import model.shared.CheckInOut;
 
 /**
  * 
- * @brief Class which represents,a client tcp from the emulator.
+ * @brief Class which represents a client tcp from the emulator.
  * 		  Extends TCPClientEmulatorBuilder.
  * @implNote Runnable.
  *
@@ -45,6 +45,8 @@ public class TCPClientEmulator extends TCPClientEmulatorBuilder implements Runna
 				 oos.flush();
 				 sIn = s.getInputStream();
 				 ois = new ObjectInputStream(sIn);
+				 /* while data have been sent the client wait for a response
+				    from the server */
 				 if(ois.readBoolean()) {
 					 dataSent = true;
 				 }				 

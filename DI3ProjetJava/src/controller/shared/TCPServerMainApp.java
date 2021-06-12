@@ -8,12 +8,23 @@ import controller.mainapp.Mainapp;
 import model.shared.CheckInOut; 
 import model.mainapp.*;
 
+/**
+ * 
+ * @brief Class which represents a server tcp from the main application.
+ * 		  Extends TCPServerMainAppBuilder.
+ * @implNote Runnable.
+ *
+ */
 public class TCPServerMainApp extends TCPServerMainAppBuilder implements Runnable {
 	
 	public TCPServerMainApp(InetAddress IPaddress, int numPort) {
 		super(IPaddress, numPort);
 	}
 	
+	/**
+	 * @brief Method which add the received data in the database of the main application.
+	 * @param readChecks
+	 */
 	public static void addChecksToMainApp(ArrayList<CheckInOut> readChecks) {
 		if (readChecks != null) {
 			for (int i = 0; i < readChecks.size(); i++) {
@@ -33,6 +44,9 @@ public class TCPServerMainApp extends TCPServerMainAppBuilder implements Runnabl
 		}
 	}
 
+	/**
+	 * @apiNote The server always run, until there is an exception.
+	 */
 	public void run( ) { 
 		 try { 
 			 System.out.println("TCPServerMainApp launched ..."); 
@@ -47,7 +61,9 @@ public class TCPServerMainApp extends TCPServerMainAppBuilder implements Runnabl
 				 System.out.println("ServerMainApp received : " + readChecks.toString());
 				 sOut = s.getOutputStream();
 				 oos = new ObjectOutputStream(sOut);
-				 oos.writeBoolean(true);
+				/*while data have been received the server send a response
+				  to the client */
+				 oos.writeBoolean(true);  
 				 oos.flush();
 				 ois.close();
 				 s.close();
