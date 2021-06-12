@@ -19,7 +19,7 @@ public class ModifyTCPSettings implements Serializable {
 	/*********************************************************************/
 
 	private static final long serialVersionUID = -8826014027937834304L;
-	private String regexPattern;
+	private String regexPattern = "\\.";
 	private TCPMainAppSettings settings;
 
 	/* ================================================================= */
@@ -87,23 +87,34 @@ public class ModifyTCPSettings implements Serializable {
 	public String ModifyConnectionSettings(HashMap<String, JTextField> request) throws UnknownHostException {
 
 		// extract information from the request
-		String newPortNumberServer = request.get("portnumber_server").getText().split(getRegexPattern())[0];
-		String newIPAddressServer = request.get("ipaddress_server").getText().split(getRegexPattern())[0];
-		String newPortNumberClient = request.get("portnumber_client").getText().split(getRegexPattern())[0];
-		String newIPAddressClient = request.get("ipaddress_client").getText().split(getRegexPattern())[0];
-
-		// Converting strings to the correct form
-		Integer portNumberServerToSet = Integer.parseInt(newPortNumberServer);
-		byte[] IPAddressServerToSet = newIPAddressServer.getBytes();
-		Integer portNumberClientToSet = Integer.parseInt(newPortNumberClient);
-		byte[] IPAddressClientToSet = newIPAddressClient.getBytes();
-
-		// Changing elements
-		settings.setNumPortServer(portNumberServerToSet);
-		settings.setIPaddressServer(InetAddress.getByAddress(IPAddressServerToSet));
-		settings.setNumPortServer(portNumberClientToSet);
-		settings.setIPaddressServer(InetAddress.getByAddress(IPAddressClientToSet));
-
-		return "Port number and IP address successfully changed.";
+		String newPortNumberServer = request.get("portnumber_server").getText();
+		String[] newIPAddressServerStr = request.get("ipaddress_server").getText().split(getRegexPattern());
+		String newPortNumberClient = request.get("portnumber_client").getText();
+		String[] newIPAddressClientStr = request.get("ipaddress_client").getText().split(getRegexPattern());
+		
+		if (	!newPortNumberServer.isBlank()
+			 && !newPortNumberClient.isBlank()
+			 && newIPAddressServerStr.length == 4
+			 && newIPAddressClientStr.length == 4)
+		{
+			// Converting strings to the correct form
+			Integer portNumberServerToSet = Integer.parseInt(newPortNumberServer);
+			byte[] IPAddressServerToSet = new byte[4];
+			for (Integer iterator = 0; iterator < 4; iterator++)
+				IPAddressServerToSet[iterator] = Integer.valueOf(Integer.parseInt(newIPAddressServerStr[iterator])).byteValue();
+			Integer portNumberClientToSet = Integer.parseInt(newPortNumberClient);
+			byte[] IPAddressClientToSet = new byte[4];
+			for (Integer iterator = 0; iterator < 4; iterator++)
+				IPAddressClientToSet[iterator] = Integer.valueOf(Integer.parseInt(newIPAddressClientStr[iterator])).byteValue();
+	
+			// Changing elements
+			settings.setNumPortServer(portNumberServerToSet);
+			settings.setIPaddressServer(InetAddress.getByAddress(IPAddressServerToSet));
+			settings.setNumPortServer(portNumberClientToSet);
+			settings.setIPaddressServer(InetAddress.getByAddress(IPAddressClientToSet));
+	
+			return "Successfull change       ";
+		}
+		else return "Formulaire incorrect";
 	}
 }

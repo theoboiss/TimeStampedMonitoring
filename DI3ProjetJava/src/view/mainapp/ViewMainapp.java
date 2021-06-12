@@ -39,6 +39,7 @@ public class ViewMainapp extends JFrame {
 	  * @param current
 	  */
 	public ViewMainapp (MainappSettings current) {
+		this.current = current;
 		build();
 		
 		//make a save when we close the app

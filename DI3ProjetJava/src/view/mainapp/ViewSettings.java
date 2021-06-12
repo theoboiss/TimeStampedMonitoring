@@ -30,6 +30,8 @@ public class ViewSettings extends ViewModel {
 	private JLabel labelPortNumberClient;
 	private JLabel labelIPAddressClient;
 
+	private JLabel labelResponse;
+
 	private TCPMainAppSettings settings;
 
 	/* ================================================================= */
@@ -175,6 +177,23 @@ public class ViewSettings extends ViewModel {
 	public void setLabelIPAddressClient(JLabel labelIPAddressClient) {
 		this.labelIPAddressClient = labelIPAddressClient;
 	}
+
+	/*************************** labelresponse ***************************/
+	
+	/**
+	 * @return the labelResponse
+	 */
+	public JLabel getLabelResponse() {
+		return labelResponse;
+	}
+
+
+	/**
+	 * @param labelResponse the labelResponse to set
+	 */
+	public void setLabelResponse(JLabel labelResponse) {
+		this.labelResponse = labelResponse;
+	}
 	
 	/**************************** settings *******************************/
 	/**
@@ -235,9 +254,14 @@ public class ViewSettings extends ViewModel {
 			submitMap.put("ipaddress_client", textFieldArray.get(3));
 			System.out.println(submitMap);
 
-			ModifyTCPSettings settingsToModify = new ModifyTCPSettings(settings);
+			if (getLabelResponse() != null)
+				getPanel().remove(getLabelResponse());
 			try {
-				settingsToModify.ModifyConnectionSettings(submitMap);
+				ModifyTCPSettings settingsToModify = new ModifyTCPSettings(settings);
+				setLabelResponse(new JLabel(settingsToModify.ModifyConnectionSettings(submitMap)));
+				
+				getPanel().add(getLabelResponse());
+				getPanel().revalidate();
 			} catch (UnknownHostException e) {
 				System.out.println(e.getMessage());
 			}
