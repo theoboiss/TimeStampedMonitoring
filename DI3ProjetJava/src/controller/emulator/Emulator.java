@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 import controller.emulator.Emulator;
-import controller.shared.TCPClientEmulator;
-import controller.shared.TCPServerEmulator;
+import controller.emulator.tcp.TCPClientEmulator;
+import controller.emulator.tcp.TCPServerEmulator;
 import model.shared.CheckInOut;
 import view.emulator.ViewEmulator;
 
@@ -53,10 +53,16 @@ public class Emulator extends EmulatorSettings {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String target = "backupEmulator/serializedData.ser";
+		String target;
+		if (args.length == 1)
+			target = args[0];
+		else
+			target = "backupEmulator/serializedData.ser";
+		
 		EmulatorBackup restorationProcess = new EmulatorBackup();
 		EmulatorSettings emulatorSaved = null;
 		Emulator current = null;
+		
 		try {
 			emulatorSaved = (EmulatorSettings) restorationProcess.restoreData(lastModifiedFileRelatedTo(target), 1);
 		} catch (ClassNotFoundException | IOException e) {
@@ -64,15 +70,16 @@ public class Emulator extends EmulatorSettings {
 		} catch (ClassCastException e) {
 			System.out.println("Information : backup did not contain settings data.");
 		}
-
 		if (emulatorSaved != null)
 			current = new Emulator(emulatorSaved, restorationProcess);
 		else
 			current = new Emulator(lastModifiedFileRelatedTo(target));
 
+		
 		new Thread(new TCPServerEmulator(current, current.getIPaddressServer(), current.getNumPortServer())).start();
 
 		new ViewEmulator(current);
+		
 		try {
 			new Thread(new TCPClientEmulator(current, EmulatorSettings.getWaitingChecks(), current.getIPaddressClient(),
 					current.getNumPortClient())).start();

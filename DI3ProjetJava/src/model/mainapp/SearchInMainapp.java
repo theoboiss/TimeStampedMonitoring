@@ -7,12 +7,12 @@ import model.shared.*;
 
 /**
  * 
- * @brief Abstract class which implements method to search Employees
- * 		  or CheckInOuts in the Main Application.
+ * @brief Abstract class which implements method to search Employees or
+ *        CheckInOuts in the Main Application.
  *
  */
 public abstract class SearchInMainapp {
-	
+
 	/**
 	 * @brief Static method which returns true if str1 begin by str2.
 	 * @param str1
@@ -30,11 +30,11 @@ public abstract class SearchInMainapp {
 		}
 		return false;
 	}
-	
+
 	/*********************************************************************/
 	/*************************** RETURN CHECKS ***************************/
 	/*********************************************************************/
-	
+
 	/**
 	 * 
 	 * @param employee
@@ -42,93 +42,96 @@ public abstract class SearchInMainapp {
 	 * @param afterCheck
 	 * @return ArrayList<CheckInOut>
 	 */
-	static public ArrayList<CheckInOut> searchCheckInOut(Employee employee, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
+	static public ArrayList<CheckInOut> searchCheckInOut(Employee employee, LocalDateTime beforeCheck,
+			LocalDateTime afterCheck) {
 		ArrayList<CheckInOut> resultList = new ArrayList<CheckInOut>();
 		ArrayList<CheckInOut> listChecks = new ArrayList<>(employee.getListChecks());
-		
-		//the most recent checks are in the end of the array so we start searching from there
-		for (Integer iterator = listChecks.size()-1; iterator >= 0; iterator--) {
+
+		// the most recent checks are in the end of the array so we start searching from
+		// there
+		for (Integer iterator = listChecks.size() - 1; iterator >= 0; iterator--) {
 			CheckInOut checkTmp = listChecks.get(iterator);
-			if (checkTmp.getCheckTime().isAfter(beforeCheck)
-			 && checkTmp.getCheckTime().isBefore(afterCheck)) {
+			if (checkTmp.getCheckTime().isAfter(beforeCheck) && checkTmp.getCheckTime().isBefore(afterCheck)) {
 				resultList.add(checkTmp);
 			}
 		}
-		
+
 		return resultList;
 	}
-	
+
 	/**
 	 * @param department
 	 * @param beforeCheck
 	 * @param afterCheck
 	 * @return ArrayList<CheckInOut>
 	 */
-	static public ArrayList<CheckInOut> searchCheckInOut(Department department, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
+	static public ArrayList<CheckInOut> searchCheckInOut(Department department, LocalDateTime beforeCheck,
+			LocalDateTime afterCheck) {
 		ArrayList<CheckInOut> resultList = new ArrayList<CheckInOut>();
 		for (Employee currentEmployee : department.getListEmployees().values()) {
-			resultList.addAll(searchCheckInOut(currentEmployee,beforeCheck, afterCheck));
+			resultList.addAll(searchCheckInOut(currentEmployee, beforeCheck, afterCheck));
 		}
 		return resultList;
 	}
-	
-	//overall
+
+	// overall
 	/**
 	 * @param company
 	 * @param beforeCheck
 	 * @param afterCheck
 	 * @return ArrayList<CheckInOut>
 	 */
-    static public ArrayList<CheckInOut> searchCheckInOut(Company company, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
-        ArrayList<CheckInOut> resultList = new ArrayList<CheckInOut>();
-        for (Department currentDepartment : company.getListDepartment()) {
-        	resultList.addAll(searchCheckInOut(currentDepartment, beforeCheck, afterCheck));
-        }
-        return resultList;
-    }
-	
-	
+	static public ArrayList<CheckInOut> searchCheckInOut(Company company, LocalDateTime beforeCheck,
+			LocalDateTime afterCheck) {
+		ArrayList<CheckInOut> resultList = new ArrayList<CheckInOut>();
+		for (Department currentDepartment : company.getListDepartment()) {
+			resultList.addAll(searchCheckInOut(currentDepartment, beforeCheck, afterCheck));
+		}
+		return resultList;
+	}
+
 	/*********************************************************************/
 	/************************* RETURN EMPLOYEES **************************/
 	/*********************************************************************/
-	
+
 	/************************ according to check *************************/
-	
-    /**
-     * @param department
-     * @param beforeCheck
-     * @param afterCheck
-     * @return ArrayList<Employee>
-     */
-	static public ArrayList<Employee> searchEmployee(Department department, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
+
+	/**
+	 * @param department
+	 * @param beforeCheck
+	 * @param afterCheck
+	 * @return ArrayList<Employee>
+	 */
+	static public ArrayList<Employee> searchEmployee(Department department, LocalDateTime beforeCheck,
+			LocalDateTime afterCheck) {
 		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Employee currentEmployee : department.getListEmployees().values()) {
-			if (!searchCheckInOut(currentEmployee,beforeCheck, afterCheck).isEmpty()) {
+			if (!searchCheckInOut(currentEmployee, beforeCheck, afterCheck).isEmpty()) {
 				resultList.add(currentEmployee);
 			}
 		}
 		return resultList;
 	}
-	
-	//overall
+
+	// overall
 	/**
 	 * @param company
 	 * @param beforeCheck
 	 * @param afterCheck
 	 * @return ArrayList<Employee>
 	 */
-	static public ArrayList<Employee> searchEmployee(Company company, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
+	static public ArrayList<Employee> searchEmployee(Company company, LocalDateTime beforeCheck,
+			LocalDateTime afterCheck) {
 		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Department currentDepartment : company.getListDepartment()) {
-        	resultList.addAll(searchEmployee(currentDepartment, beforeCheck, afterCheck));
-        }
+			resultList.addAll(searchEmployee(currentDepartment, beforeCheck, afterCheck));
+		}
 		return resultList;
 	}
 
-	
 	/************************* according to ID ***************************/
-	//necessarily only one employee per ID
-	
+	// necessarily only one employee per ID
+
 	/**
 	 * @param department
 	 * @param ID
@@ -137,8 +140,8 @@ public abstract class SearchInMainapp {
 	static public Employee searchEmployee(Department department, Integer ID) {
 		return department.getListEmployees().get(ID);
 	}
-	
-	//overall
+
+	// overall
 	/**
 	 * @param company
 	 * @param ID
@@ -146,16 +149,15 @@ public abstract class SearchInMainapp {
 	 */
 	static public Employee searchEmployee(Company company, Integer ID) {
 		for (Department currentDepartment : company.getListDepartment()) {
-        	if (searchEmployee(currentDepartment, ID) != null) {
-        		return searchEmployee(currentDepartment, ID);
-        	}
-        }
+			if (searchEmployee(currentDepartment, ID) != null) {
+				return searchEmployee(currentDepartment, ID);
+			}
+		}
 		return null;
 	}
-	
-	
+
 	/************************ according to name **************************/
-	
+
 	/**
 	 * @param department
 	 * @param firstname
@@ -166,8 +168,7 @@ public abstract class SearchInMainapp {
 		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Employee currentEmployee : department.getListEmployees().values()) {
 			if (areStringsMatching(currentEmployee.getFirstname(), firstname)
-			 && areStringsMatching(currentEmployee.getLastname(), lastname))
-			{
+					&& areStringsMatching(currentEmployee.getLastname(), lastname)) {
 				resultList.add(currentEmployee);
 			}
 		}
@@ -184,15 +185,14 @@ public abstract class SearchInMainapp {
 		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Employee currentEmployee : department.getListEmployees().values()) {
 			if ((areStringsMatching(currentEmployee.getFirstname(), name) && nName == 0)
-			 || (areStringsMatching(currentEmployee.getLastname(), name) && nName == 1))
-			{
+					|| (areStringsMatching(currentEmployee.getLastname(), name) && nName == 1)) {
 				resultList.add(currentEmployee);
 			}
 		}
 		return resultList;
 	}
-	
-	//overall
+
+	// overall
 	/**
 	 * @param company
 	 * @param firstname
@@ -202,12 +202,12 @@ public abstract class SearchInMainapp {
 	static public ArrayList<Employee> searchEmployee(Company company, String firstname, String lastname) {
 		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Department currentDepartment : company.getListDepartment()) {
-        	resultList.addAll(searchEmployee(currentDepartment, firstname, lastname));
-        }
+			resultList.addAll(searchEmployee(currentDepartment, firstname, lastname));
+		}
 		return resultList;
 	}
-	
-	//overall
+
+	// overall
 	/**
 	 * @param company
 	 * @param name
@@ -217,14 +217,13 @@ public abstract class SearchInMainapp {
 	static public ArrayList<Employee> searchEmployee(Company company, String name, Integer nName) {
 		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Department currentDepartment : company.getListDepartment()) {
-        	resultList.addAll(searchEmployee(currentDepartment, name, nName));
-        }
+			resultList.addAll(searchEmployee(currentDepartment, name, nName));
+		}
 		return resultList;
 	}
-	
-	
+
 	/******************************** all ********************************/
-	
+
 	/**
 	 * @param department
 	 * @return ArrayList<Employee>
@@ -236,8 +235,8 @@ public abstract class SearchInMainapp {
 		}
 		return resultList;
 	}
-	
-	//overall
+
+	// overall
 	/**
 	 * @param company
 	 * @return ArrayList<Employee>
@@ -245,9 +244,9 @@ public abstract class SearchInMainapp {
 	static public ArrayList<Employee> searchEmployee(Company company) {
 		ArrayList<Employee> resultList = new ArrayList<Employee>();
 		for (Department currentDepartment : company.getListDepartment()) {
-	       	resultList.addAll(searchEmployee(currentDepartment));
-	       }
+			resultList.addAll(searchEmployee(currentDepartment));
+		}
 		return resultList;
 	}
-	
+
 }

@@ -3,46 +3,44 @@ package view.mainapp;
 import javax.swing.*;
 
 import controller.mainapp.MainappSettings;
-import controller.mainapp.TCPMainAppSettings;
+import controller.mainapp.tcp.TCPMainAppSettings;
 
 /**
  * 
- * @brief Main view of the main app. Contains all the others from
- * 		  the package.
+ * @brief Main view of the main app. Contains all the others from the package.
  *
  */
 public class ViewMainapp extends JFrame {
-	
+
 	/**
 	 * @brief serialVersionUID.
 	 */
 	private static final long serialVersionUID = 3511639449947083712L;
-	
+
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
-	
+
 	private JTabbedPane mainTabbedPane;
 	private ViewEmployeesSearch frameEmployeesSearch;
 	private ViewEmployeeAdd frameEmployeeAdd;
 	private ViewCheckInOutsSearch frameCheckInOuts;
 	private ViewSettings frameSettings;
 	private MainappSettings current;
-	
-	
+
 	/*********************************************************************/
 	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
-	
-	 /** 
-	  * @brief Default constructor.
-	  * @param current
-	  */
-	public ViewMainapp (MainappSettings current) {
+
+	/**
+	 * @brief Default constructor.
+	 * @param current
+	 */
+	public ViewMainapp(MainappSettings current) {
 		this.current = current;
 		build();
-		
-		//make a save when we close the app
+
+		// make a save when we close the app
 		addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -50,13 +48,13 @@ public class ViewMainapp extends JFrame {
 			}
 		});
 	}
-	
+
 	/*********************************************************************/
 	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
-	
+
 	/*************************** mainTabbedPane **************************/
-	
+
 	/**
 	 * @return the mainTabbedPane
 	 */
@@ -70,9 +68,9 @@ public class ViewMainapp extends JFrame {
 	public void setMainTabbedPane(JTabbedPane mainTabbedPane) {
 		this.mainTabbedPane = mainTabbedPane;
 	}
-	
+
 	/*********************** frameEmployeesSearch ***********************/
-	
+
 	/**
 	 * @return the frameEmployeesSearch
 	 */
@@ -86,9 +84,9 @@ public class ViewMainapp extends JFrame {
 	public void setFrameEmployeesSearch(ViewEmployeesSearch frameEmployeesSearch) {
 		this.frameEmployeesSearch = frameEmployeesSearch;
 	}
-	
+
 	/************************ frameEmployeesAdd *************************/
-	
+
 	/**
 	 * @return the frameEmployeeAdd
 	 */
@@ -103,9 +101,8 @@ public class ViewMainapp extends JFrame {
 		this.frameEmployeeAdd = frameEmployeeAdd;
 	}
 
-	
 	/************************* frameCheckInOuts *************************/
-	
+
 	/**
 	 * @return the frameCheckInOuts
 	 */
@@ -119,9 +116,9 @@ public class ViewMainapp extends JFrame {
 	public void setFrameCheckInOuts(ViewCheckInOutsSearch frameCheckInOuts) {
 		this.frameCheckInOuts = frameCheckInOuts;
 	}
-	
+
 	/************************* frameSettings *************************/
-	
+
 	/**
 	 * @return the frameSettings
 	 */
@@ -135,7 +132,7 @@ public class ViewMainapp extends JFrame {
 	public void setFrameSettings(ViewSettings frameSettings) {
 		this.frameSettings = frameSettings;
 	}
-	
+
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
@@ -144,13 +141,13 @@ public class ViewMainapp extends JFrame {
 	 * @brief Method which create main frame and panel.
 	 */
 	private void build() {
-		
-		//create frame
+
+		// create frame
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setBounds(425,125,500,500);
+		this.setBounds(425, 125, 500, 500);
 		this.setTitle("Main application™");
-		
-		//create panel	
+
+		// create panel
 		buildContentMainTabbedPane();
 
 		this.add(mainTabbedPane);
@@ -160,30 +157,29 @@ public class ViewMainapp extends JFrame {
 	/**
 	 * @brief Method which builds main tabbedPane.
 	 */
-	private void buildContentMainTabbedPane(){
+	private void buildContentMainTabbedPane() {
 		mainTabbedPane = new JTabbedPane();
-		
-		//Employees
+
+		// Employees
 		frameEmployeesSearch = new ViewEmployeesSearch();
 		frameEmployeeAdd = new ViewEmployeeAdd();
 		JTabbedPane tabbedPaneEmployees = new JTabbedPane();
 		tabbedPaneEmployees.addTab("Search", frameEmployeesSearch.getPanel());
 		tabbedPaneEmployees.addTab("Add", frameEmployeeAdd.getPanel());
 		mainTabbedPane.addTab("Employees", tabbedPaneEmployees);
-		
-		//CheckInOuts
+
+		// CheckInOuts
 		frameCheckInOuts = new ViewCheckInOutsSearch();
 		JTabbedPane tabbedPaneCheckInOuts = new JTabbedPane();
 		tabbedPaneCheckInOuts.addTab("Search", frameCheckInOuts.getPanel());
 		mainTabbedPane.addTab("CheckInOuts", tabbedPaneCheckInOuts);
-		
-		//Settings
+
+		// Settings
 		frameSettings = new ViewSettings((TCPMainAppSettings) current);
-		//JTabbedPane tabbedPaneSettings = new JTabbedPane();
-		//tabbedPaneSettings.addTab("Settings", frameSettings.getPanel());
+		// JTabbedPane tabbedPaneSettings = new JTabbedPane();
+		// tabbedPaneSettings.addTab("Settings", frameSettings.getPanel());
 		mainTabbedPane.addTab("Settings", frameSettings.getPanel());
-		
+
 	}
-	
-	
+
 }

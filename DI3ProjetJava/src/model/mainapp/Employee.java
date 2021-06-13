@@ -12,19 +12,17 @@ import model.shared.EmployeeInfo;
  */
 public class Employee extends EmployeeInfo {
 
-
 	private static final long serialVersionUID = 1L;
-	
+
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
-	
-	//ID 0 is forbidden
+
+	// ID 0 is forbidden
 	private static ArrayList<Integer> listUsedIDs = new ArrayList<>(Arrays.asList(0));
 	private String department;
 	private Planning planning;
 	private CopyOnWriteArrayList<CheckInOut> listChecks;
-
 
 	/*********************************************************************/
 	/****************************** BUILDERS *****************************/
@@ -32,20 +30,20 @@ public class Employee extends EmployeeInfo {
 
 	/**
 	 * @brief Default constructor.
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public Employee() throws Exception {
-		this("default","default");
+		this("default", "default");
 	}
-	
+
 	/**
 	 * @brief Constructor.
 	 * @param firstname
 	 * @param lastname
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public Employee(String firstname, String lastname) throws Exception {
-		//generate a new ID
+		// generate a new ID
 		Integer availableID;
 		ArrayList<Integer> listUnusedIDs = new ArrayList<Integer>();
 		for (Integer unusedID = 0; unusedID < getlistUsedIDs().size(); unusedID++) {
@@ -56,8 +54,8 @@ public class Employee extends EmployeeInfo {
 			availableID = listUnusedIDs.get(0);
 		else
 			availableID = getlistUsedIDs().size();
-		
-		addUsedIDToList(availableID); //reserve availableID in listUsedIDs
+
+		addUsedIDToList(availableID); // reserve availableID in listUsedIDs
 		try {
 			setID(availableID);
 			setFirstname(firstname);
@@ -66,18 +64,17 @@ public class Employee extends EmployeeInfo {
 			setPlanning(new Planning());
 			setListChecks(new CopyOnWriteArrayList<CheckInOut>());
 		} catch (Exception e) {
-			Employee.getlistUsedIDs().remove(getlistUsedIDs().size()-1);
+			Employee.getlistUsedIDs().remove(getlistUsedIDs().size() - 1);
 			throw e;
 		}
 	}
-	
-	
+
 	/*********************************************************************/
 	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
-	
+
 	/***************************** listUsedIDs ****************************/
-	
+
 	/**
 	 * @return listUsedIDs
 	 */
@@ -93,7 +90,7 @@ public class Employee extends EmployeeInfo {
 	}
 
 	/***************************** Department ****************************/
-	
+
 	/**
 	 * @return the department
 	 */
@@ -132,7 +129,7 @@ public class Employee extends EmployeeInfo {
 	public CopyOnWriteArrayList<CheckInOut> getListChecks() {
 		return listChecks;
 	}
-	
+
 	/**
 	 * @param listChecks the listChecks to set
 	 */
@@ -140,17 +137,16 @@ public class Employee extends EmployeeInfo {
 		this.listChecks = listChecks;
 	}
 
-	
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
-	/*********************************************************************/	
-	
+	/*********************************************************************/
+
 	@Override
 	public String toString() {
 		return "Employee [ID=" + getID() + ", firstname=" + getFirstname() + ", lastname=" + getLastname()
 				+ ", department=" + getDepartment()
-				//+ ", planning=\n" + getPlanning() + "\n\n"
+				// + ", planning=\n" + getPlanning() + "\n\n"
 				+ ", listChecks=" + getListChecks() + "]";
 	}
-	
+
 }

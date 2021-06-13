@@ -18,7 +18,6 @@ public abstract class SerializationProcess {
 	protected transient ObjectInputStream ois;
 	protected transient ObjectOutputStream oos;
 
-	
 	/*********************************************************************/
 	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
@@ -78,50 +77,51 @@ public abstract class SerializationProcess {
 	public void setOos(ObjectOutputStream oos) {
 		this.oos = oos;
 	}
-	
 
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
 
 	/**************************** initialize *****************************/
-	
+
 	public void initialize(InputStream sIn) throws IOException {
 		setsIn(sIn);
 		setOis(new ObjectInputStream(sIn));
 	}
-	
+
 	public void initialize(OutputStream sOut) throws IOException {
 		setsOut(sOut);
 		setOos(new ObjectOutputStream(sOut));
 	}
 
 	/****************************** insert *******************************/
-	
+
 	/**
 	 * @param objectToInsert
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public void insert(Object objectToInsert) throws IOException {
 		if (getsOut() == null || getOos() == null) {
-			throw new IllegalArgumentException("SerializationProcess have not been initialized to extract data from a stream");
+			throw new IllegalArgumentException(
+					"SerializationProcess have not been initialized to extract data from a stream");
 		}
-		
-		getOos().writeObject(objectToInsert); //serialize Object
+
+		getOos().writeObject(objectToInsert); // serialize Object
 		getOos().flush();
 		getOos().close();
 	}
-	
+
 	/**
 	 * @param objectToInsert
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public void insert(Object objectToInsert, int streamStatus) throws IOException {
 		if (getsOut() == null || getOos() == null) {
-			throw new IllegalArgumentException("SerializationProcess have not been initialized to extract data from a stream");
+			throw new IllegalArgumentException(
+					"SerializationProcess have not been initialized to extract data from a stream");
 		}
-		
-		getOos(). writeObject(objectToInsert); //serialize Object
+
+		getOos().writeObject(objectToInsert); // serialize Object
 		getOos().flush();
 		if (streamStatus < 0) {
 			getOos().close();
@@ -129,7 +129,7 @@ public abstract class SerializationProcess {
 	}
 
 	/****************************** extract ******************************/
-	
+
 	/**
 	 * @return
 	 * @throws IOException
@@ -137,14 +137,15 @@ public abstract class SerializationProcess {
 	 */
 	public Object extract() throws IOException, ClassNotFoundException {
 		if (getsIn() == null || getOis() == null) {
-			throw new IllegalArgumentException("SerializationProcess have not been initialized to extract data from a stream");
+			throw new IllegalArgumentException(
+					"SerializationProcess have not been initialized to extract data from a stream");
 		}
-		
+
 		Object deserializedObject = (Object) getOis().readObject();
 		getOis().close();
 		return deserializedObject;
 	}
-	
+
 	/**
 	 * @return
 	 * @throws IOException
@@ -152,9 +153,10 @@ public abstract class SerializationProcess {
 	 */
 	public Object extract(int streamStatus) throws IOException, ClassNotFoundException {
 		if (getsIn() == null || getOis() == null) {
-			throw new IllegalArgumentException("SerializationProcess have not been initialized to extract data from a stream");
+			throw new IllegalArgumentException(
+					"SerializationProcess have not been initialized to extract data from a stream");
 		}
-		
+
 		Object deserializedObject = (Object) getOis().readObject();
 		if (streamStatus < 0)
 			getOis().close();

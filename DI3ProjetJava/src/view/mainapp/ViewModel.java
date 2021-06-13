@@ -14,8 +14,7 @@ import javax.swing.JTextField;
 
 /**
  * 
- * @brief Abstract View used to build all the main view of the main
- * 		  application.
+ * @brief Abstract View used to build all the main view of the main application.
  * @implNote ActionListener.
  *
  */
@@ -24,21 +23,20 @@ public abstract class ViewModel implements ActionListener {
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
-	
+
 	protected JPanel panel;
 	protected Integer arraySize;
 	protected ArrayList<JLabel> labelArray;
 	protected ArrayList<JTextField> textFieldArray;
 	protected JButton submitButton;
 	protected HashMap<String, JTextField> submitMap;
-	
-	
+
 	/*********************************************************************/
 	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
-	
+
 	/******************************** panel ******************************/
-	
+
 	/**
 	 * @return the panel
 	 */
@@ -52,9 +50,9 @@ public abstract class ViewModel implements ActionListener {
 	public void setPanel(JPanel panel) {
 		this.panel = panel;
 	}
-	
+
 	/****************************** arraySize ****************************/
-	
+
 	/**
 	 * @return the arraySize
 	 */
@@ -68,9 +66,9 @@ public abstract class ViewModel implements ActionListener {
 	public void setArraySize(Integer arraySize) {
 		this.arraySize = arraySize;
 	}
-	
+
 	/****************************** labelArray ***************************/
-	
+
 	/**
 	 * @return the labelArray
 	 */
@@ -84,7 +82,7 @@ public abstract class ViewModel implements ActionListener {
 	public void setLabelArray(ArrayList<JLabel> labelArray) {
 		this.labelArray = labelArray;
 	}
-	
+
 	/**************************** textFieldArray *************************/
 
 	/**
@@ -100,9 +98,9 @@ public abstract class ViewModel implements ActionListener {
 	public void setTextFieldArray(ArrayList<JTextField> textFieldArray) {
 		this.textFieldArray = textFieldArray;
 	}
-	
+
 	/***************************** submitButton **************************/
-	
+
 	/**
 	 * @return the submitButton
 	 */
@@ -116,9 +114,9 @@ public abstract class ViewModel implements ActionListener {
 	public void setSubmitButton(JButton submitButton) {
 		this.submitButton = submitButton;
 	}
-	
+
 	/****************************** submitMap ****************************/
-	
+
 	/**
 	 * @return the submitMap
 	 */
@@ -132,56 +130,54 @@ public abstract class ViewModel implements ActionListener {
 	public void setSubmitMap(HashMap<String, JTextField> submitMap) {
 		this.submitMap = submitMap;
 	}
-	
-		
+
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
-	
+
 	/**
 	 * @brief Method used to build panel.
 	 */
-	protected void buildContentPanel(){
-		
+	protected void buildContentPanel() {
+
 		panel = new JPanel(new GridBagLayout());
 		Integer iterator;
-		
-		for (iterator = 0; iterator < arraySize; iterator++) {	
-			
-			//Label
+
+		for (iterator = 0; iterator < arraySize; iterator++) {
+
+			// Label
 			GridBagConstraints constraintsLabel = new GridBagConstraints();
 			constraintsLabel.gridx = 0;
 			constraintsLabel.gridy = iterator;
 			panel.add(labelArray.get(iterator), constraintsLabel);
-					
-			//TextField
+
+			// TextField
 			GridBagConstraints constraintsTextField = new GridBagConstraints();
 			constraintsTextField.gridx = 1;
 			constraintsTextField.gridy = iterator;
 			textFieldArray.get(iterator).setColumns(10);
 			panel.add(textFieldArray.get(iterator), constraintsTextField);
-			
-		}		
-		
-		//SubmitButton
+
+		}
+
+		// SubmitButton
 		submitButton = new JButton("Submit");
 		GridBagConstraints constraintsSubmitButton = new GridBagConstraints();
 		constraintsSubmitButton.gridx = 2;
 		constraintsSubmitButton.gridy = iterator;
 		submitButton.addActionListener(this);
 		panel.add(submitButton, constraintsSubmitButton);
-		
+
 	}
-	
+
 	/*************************** undefined methods *************************/
-	
+
 	/**
 	 * @brief Method used to initialize attributes.
 	 */
 	protected abstract void initializeAttributes();
-	
-	
+
 	@Override
 	public abstract void actionPerformed(ActionEvent event);
-	
+
 }

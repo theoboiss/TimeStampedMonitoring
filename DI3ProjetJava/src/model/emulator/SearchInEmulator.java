@@ -10,12 +10,12 @@ import model.shared.*;
 
 /**
  * 
- * @brief Abstract class which implements method to search employee
- * 		  or CheckInOuts in an Emulator.
+ * @brief Abstract class which implements method to search employee or
+ *        CheckInOuts in an Emulator.
  *
  */
 public abstract class SearchInEmulator {
-	
+
 	/**
 	 * @brief Static method which returns true if str1 begin by str2.
 	 * @param str1
@@ -33,48 +33,45 @@ public abstract class SearchInEmulator {
 		}
 		return false;
 	}
-	
-	
+
 	/*********************************************************************/
 	/************************* RETURN EMPLOYEES **************************/
 	/*********************************************************************/
-	
+
 	/************************ according to check *************************/
-	
-	//overall
+
+	// overall
 	/**
 	 * @param history
 	 * @param beforeCheck
 	 * @param afterCheck
 	 * @return ArrayList<EmployeeInfo>
 	 */
-	static public ArrayList<EmployeeInfo> searchEmployee(History history, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
+	static public ArrayList<EmployeeInfo> searchEmployee(History history, LocalDateTime beforeCheck,
+			LocalDateTime afterCheck) {
 		ArrayList<EmployeeInfo> resultList = new ArrayList<EmployeeInfo>();
 		Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> totalList = history.getChecksPerEmployee();
-		
+
 		for (EmployeeInfo currentEmployeeInfo : totalList.keySet()) {
 			ArrayList<CheckInOut> listChecks = new ArrayList<>(history.getChecksPerEmployee().get(currentEmployeeInfo));
-			
+
 			boolean isInto = false;
-			for (Integer iterator = listChecks.size()-1; iterator >= 0 && !isInto; iterator--) {
+			for (Integer iterator = listChecks.size() - 1; iterator >= 0 && !isInto; iterator--) {
 				CheckInOut checkTmp = listChecks.get(iterator);
-				if (checkTmp.getCheckTime().isAfter(beforeCheck)
-				 && checkTmp.getCheckTime().isBefore(afterCheck))
-				{
+				if (checkTmp.getCheckTime().isAfter(beforeCheck) && checkTmp.getCheckTime().isBefore(afterCheck)) {
 					isInto = true;
 					resultList.add(currentEmployeeInfo);
 				}
 			}
-			
-        }
+
+		}
 		return new ArrayList<EmployeeInfo>(resultList);
 	}
 
-	
 	/************************* according to ID ***************************/
-	//necessarily only one employee per ID
-	
-	//overall
+	// necessarily only one employee per ID
+
+	// overall
 	/**
 	 * @param history
 	 * @param ID
@@ -82,17 +79,16 @@ public abstract class SearchInEmulator {
 	 */
 	static public EmployeeInfo searchEmployee(History history, Integer ID) {
 		for (EmployeeInfo currentEmployeeInfo : Emulator.getListEmployeeInfo()) {
-        	if (currentEmployeeInfo.getID().equals(ID)) {
-        		return currentEmployeeInfo;
-        	}
-        }
+			if (currentEmployeeInfo.getID().equals(ID)) {
+				return currentEmployeeInfo;
+			}
+		}
 		return null;
 	}
-	
-	
+
 	/************************ according to name **************************/
-	
-	//overall
+
+	// overall
 	/**
 	 * @param history
 	 * @param firstname
@@ -102,16 +98,15 @@ public abstract class SearchInEmulator {
 	static public ArrayList<EmployeeInfo> searchEmployee(History history, String firstname, String lastname) {
 		ArrayList<EmployeeInfo> resultList = new ArrayList<EmployeeInfo>();
 		for (EmployeeInfo currentEmployeeInfo : Emulator.getListEmployeeInfo()) {
-        	if (areStringsMatching(currentEmployeeInfo.getFirstname(), firstname)
-       			 && areStringsMatching(currentEmployeeInfo.getLastname(), lastname))
-       			{
-       				resultList.add(currentEmployeeInfo);
-       			}
-        }
+			if (areStringsMatching(currentEmployeeInfo.getFirstname(), firstname)
+					&& areStringsMatching(currentEmployeeInfo.getLastname(), lastname)) {
+				resultList.add(currentEmployeeInfo);
+			}
+		}
 		return new ArrayList<EmployeeInfo>(resultList);
 	}
-	
-	//overall
+
+	// overall
 	/**
 	 * @param history
 	 * @param name
@@ -121,12 +116,11 @@ public abstract class SearchInEmulator {
 	static public ArrayList<EmployeeInfo> searchEmployee(History history, String name, Integer nName) {
 		ArrayList<EmployeeInfo> resultList = new ArrayList<EmployeeInfo>();
 		for (EmployeeInfo currentEmployeeInfo : Emulator.getListEmployeeInfo()) {
-        	if ((areStringsMatching(currentEmployeeInfo.getFirstname(), name) && nName == 0)
-       			 || (areStringsMatching(currentEmployeeInfo.getLastname(), name) && nName == 1))
-       			{
-       				resultList.add(currentEmployeeInfo);
-       			}
-        }
+			if ((areStringsMatching(currentEmployeeInfo.getFirstname(), name) && nName == 0)
+					|| (areStringsMatching(currentEmployeeInfo.getLastname(), name) && nName == 1)) {
+				resultList.add(currentEmployeeInfo);
+			}
+		}
 		return new ArrayList<EmployeeInfo>(resultList);
 	}
 }

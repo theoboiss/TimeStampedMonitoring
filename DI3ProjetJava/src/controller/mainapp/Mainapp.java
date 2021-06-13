@@ -2,13 +2,13 @@ package controller.mainapp;
 
 import java.io.IOException;
 
-import controller.shared.TCPServerMainApp;
+import controller.mainapp.tcp.TCPClientMainApp;
+import controller.mainapp.tcp.TCPServerMainApp;
 import model.mainapp.Company;
 import model.mainapp.Department;
 import model.mainapp.Employee;
 import model.mainapp.SearchInMainapp;
 import model.shared.CheckInOut;
-import controller.shared.TCPClientMainApp;
 import view.mainapp.ViewMainapp;
 
 public class Mainapp extends MainappSettings {
@@ -28,11 +28,19 @@ public class Mainapp extends MainappSettings {
 	/**************************** MAIN METHOD ****************************/
 
 	public static void main(String[] args) {
-		String target = "backupMainapp/serializedData.ser";
+		String target;
+		if (args.length == 1)
+			target = args[0];
+		else
+			target = "backupMainapp/serializedData.ser";
+		
 		MainappBackup restorationProcess = new MainappBackup();
 		MainappSettings mainappSaved = null;
 		Mainapp current = null;
-		
+
+		/**
+		 * To comment until first "else" to make the build of a simulation data possible
+		 */
 		try {
 			mainappSaved = (MainappSettings) restorationProcess.restore(lastModifiedFileRelatedTo(target), 1);
 		} catch (ClassNotFoundException | IOException e) {
@@ -40,12 +48,15 @@ public class Mainapp extends MainappSettings {
 		} catch (ClassCastException e) {
 			System.out.println("Information : backup did not contain settings data.");
 		}
-		
+
 		if (mainappSaved != null)
 			current = new Mainapp(mainappSaved, restorationProcess);
 		else
 			current = new Mainapp(lastModifiedFileRelatedTo(target));
 
+		/**
+		 * Can be uncommented to build a simulation data
+		 */
 		/*
 		Company companyToSave = null;
 		try {
@@ -66,21 +77,20 @@ public class Mainapp extends MainappSettings {
 			SearchInMainapp.searchEmployee(A, 1).getListChecks().add(exempleCheck3);
 			exempleCheck3.setEmployeeID(1);
 
-			// add few employees to B
-			B.addEmployee(new Employee("test", "default"));
+			// add few employees to B B.addEmployee(new Employee("test", "default"));
 			B.addEmployee(new Employee("default3", "test"));
 
-			SearchInMainapp.searchEmployee(B, "default", 1).get(0).setFirstname("Theo");
-			SearchInMainapp.searchEmployee(B, "Theo", "default").get(0).setLastname("Boisseau");
+			SearchInMainapp.searchEmployee(B, "default", 0).get(0).setFirstname("Theo");
+			SearchInMainapp.searchEmployee(B, "Theo", "RH").get(0).setLastname("Boisseau");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
 		setCurrentModel(companyToSave);
 		*/
+		
+		new Thread(new TCPServerMainApp(current.getIPaddressServer(), current.getNumPortServer())).start();
 
 		new ViewMainapp(current);
-		new Thread(new TCPServerMainApp(current.getIPaddressServer(), current.getNumPortServer())).start();
 
 		try {
 			new Thread(new TCPClientMainApp(current.getEmployeeInfo(), current.getIPaddressClient(),

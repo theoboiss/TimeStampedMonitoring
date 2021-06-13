@@ -1,4 +1,4 @@
-package controller.shared;
+package controller.mainapp.tcp;
 
 import java.io.*;
 import java.net.InetAddress;

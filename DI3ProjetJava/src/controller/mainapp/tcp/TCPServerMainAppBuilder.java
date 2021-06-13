@@ -1,8 +1,8 @@
-package controller.shared;
+package controller.mainapp.tcp;
 
 import java.net.*;
 
-import java.io.*; 
+import java.io.*;
 
 /**
  * 
@@ -13,36 +13,38 @@ public class TCPServerMainAppBuilder {
 
 	protected InetAddress IPaddress;
 	protected int numPort;
-	protected ServerSocket ss; protected Socket s; // the passive and active sockets 
-	protected InetSocketAddress isA; // the address 
+	protected ServerSocket ss;
+	protected Socket s; // the passive and active sockets
+	protected InetSocketAddress isA; // the address
 	protected transient InputStream sIn;
 	protected transient ObjectInputStream ois;
 	protected transient OutputStream sOut;
 	protected transient ObjectOutputStream oos;
-	 
+
 	/**
 	 * @brief Constructor.
 	 * @param IPaddress
 	 * @param numPort
 	 */
-	TCPServerMainAppBuilder(InetAddress IPaddress, int numPort) { 
+	TCPServerMainAppBuilder(InetAddress IPaddress, int numPort) {
 		this.IPaddress = IPaddress;
 		this.numPort = numPort;
-		ss = null; s = null; 
-		isA = null; 
+		ss = null;
+		s = null;
+		isA = null;
 		sIn = null;
 		ois = null;
-	} 
-	 
+	}
+
 	/**
 	 * @brief Method used to set the connection.
 	 * @throws IOException
 	 */
-	public void setSocket() throws IOException { 
-		
-		isA = new InetSocketAddress(IPaddress , numPort);
+	public void setSocket() throws IOException {
+
+		isA = new InetSocketAddress(IPaddress, numPort);
 		ss = new ServerSocket(isA.getPort());
-		 
+
 	}
 
 }

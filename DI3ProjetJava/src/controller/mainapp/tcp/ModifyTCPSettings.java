@@ -1,4 +1,4 @@
-package controller.mainapp;
+package controller.mainapp.tcp;
 
 import java.io.Serializable;
 import java.net.InetAddress;
@@ -91,30 +91,29 @@ public class ModifyTCPSettings implements Serializable {
 		String[] newIPAddressServerStr = request.get("ipaddress_server").getText().split(getRegexPattern());
 		String newPortNumberClient = request.get("portnumber_client").getText();
 		String[] newIPAddressClientStr = request.get("ipaddress_client").getText().split(getRegexPattern());
-		
-		if (	!newPortNumberServer.isBlank()
-			 && !newPortNumberClient.isBlank()
-			 && newIPAddressServerStr.length == 4
-			 && newIPAddressClientStr.length == 4)
-		{
+
+		if (!newPortNumberServer.isBlank() && !newPortNumberClient.isBlank() && newIPAddressServerStr.length == 4
+				&& newIPAddressClientStr.length == 4) {
 			// Converting strings to the correct form
 			Integer portNumberServerToSet = Integer.parseInt(newPortNumberServer);
 			byte[] IPAddressServerToSet = new byte[4];
 			for (Integer iterator = 0; iterator < 4; iterator++)
-				IPAddressServerToSet[iterator] = Integer.valueOf(Integer.parseInt(newIPAddressServerStr[iterator])).byteValue();
+				IPAddressServerToSet[iterator] = Integer.valueOf(Integer.parseInt(newIPAddressServerStr[iterator]))
+						.byteValue();
 			Integer portNumberClientToSet = Integer.parseInt(newPortNumberClient);
 			byte[] IPAddressClientToSet = new byte[4];
 			for (Integer iterator = 0; iterator < 4; iterator++)
-				IPAddressClientToSet[iterator] = Integer.valueOf(Integer.parseInt(newIPAddressClientStr[iterator])).byteValue();
-	
+				IPAddressClientToSet[iterator] = Integer.valueOf(Integer.parseInt(newIPAddressClientStr[iterator]))
+						.byteValue();
+
 			// Changing elements
 			settings.setNumPortServer(portNumberServerToSet);
 			settings.setIPaddressServer(InetAddress.getByAddress(IPAddressServerToSet));
 			settings.setNumPortServer(portNumberClientToSet);
 			settings.setIPaddressServer(InetAddress.getByAddress(IPAddressClientToSet));
-	
+
 			return "Successfull change       ";
-		}
-		else return "Incorrect Form";
+		} else
+			return "Incorrect Form";
 	}
 }

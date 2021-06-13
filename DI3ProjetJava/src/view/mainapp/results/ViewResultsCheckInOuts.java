@@ -1,4 +1,4 @@
-package view.mainapp;
+package view.mainapp.results;
 
 public class ViewResultsCheckInOuts {
 

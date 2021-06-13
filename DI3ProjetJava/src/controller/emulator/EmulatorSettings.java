@@ -12,7 +12,8 @@ import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import controller.mainapp.TCPMainAppSettings;
+import controller.emulator.tcp.TCPEmulatorSettings;
+import controller.mainapp.tcp.TCPMainAppSettings;
 import model.emulator.History;
 import model.shared.CheckInOut;
 import model.shared.EmployeeInfo;
@@ -35,7 +36,7 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	private transient EmulatorBackup backupData;
 	private LocalDateTime dateTime;
 	private String backupFileName;
-	private long[] timersForBackup = { 40*1000, 2*60*1000 }; // in milliseconds
+	private long[] timersForBackup = { 40 * 1000, 2 * 60 * 1000 }; // in milliseconds
 
 	/*********************************************************************/
 	/****************************** BUILDERS *****************************/
@@ -58,29 +59,31 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 		setBackupFileName(backupFileName);
 		setBackupData(new EmulatorBackup());
 
-		//Scanner input = new Scanner(System.in);
+		// Scanner input = new Scanner(System.in);
 		do {
 			try {
 				setCurrentModel((History) getBackupData().restoreData(getBackupFileName()));
-			}
-			catch (FileNotFoundException e) {
+			} catch (FileNotFoundException e) {
 				try {
-					//handleInvalidFileName(getBackupFileName(), input);
+					// handleInvalidFileName(getBackupFileName(), input);
 					File newFile = new File(getBackupFileName());
 					newFile.createNewFile();
+				} catch (IOException e1) {
+					System.out.println("Backup file for Emulator is being creating");
 				}
-				catch (IOException e1) { System.out.println("Backup file for Emulator is being creating"); }
-			}
-			catch (EOFException e) {
+			} catch (EOFException e) {
 				try {
 					setCurrentModel(new History());
+				} catch (Exception e1) {
+					e1.printStackTrace();
 				}
-				catch (Exception e1) { e1.printStackTrace(); }
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			catch (Exception e) { e.printStackTrace(); }
 		} while (getCurrentModel() == null);
-		/*if (input != null)
-			input.close();*/
+		/*
+		 * if (input != null) input.close();
+		 */
 
 		Timer timer = new Timer();
 		timer.schedule(new PeriodicSave(this), timersForBackup[0], timersForBackup[1]);
@@ -281,11 +284,12 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 
 				try {
 					getBackupData().saveData(getBackupFileName(), settingsData, 1);
-					getBackupData().saveData(getBackupFileName(), new ArrayList<EmployeeInfo>(getListEmployeeInfo()), 0);
+					getBackupData().saveData(getBackupFileName(), new ArrayList<EmployeeInfo>(getListEmployeeInfo()),
+							0);
 					getBackupData().saveData(getBackupFileName(), new ArrayList<CheckInOut>(getWaitingChecks()), 0);
 					getBackupData().saveData(getBackupFileName(), getCurrentModel(), -1);
-					System.out.println("(Backup of emulator made on " + nowTime.format(DateTimeFormatter.ISO_LOCAL_DATE) + " at "
-							+ nowTime.format(DateTimeFormatter.ofPattern("HH:mm")) + ")");
+					System.out.println("(Backup of emulator made on " + nowTime.format(DateTimeFormatter.ISO_LOCAL_DATE)
+							+ " at " + nowTime.format(DateTimeFormatter.ofPattern("HH:mm")) + ")");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -296,7 +300,7 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
-	
+
 	/**
 	 * @brief Make a save manually
 	 */

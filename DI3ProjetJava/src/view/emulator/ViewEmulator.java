@@ -36,10 +36,10 @@ public class ViewEmulator extends JFrame implements ActionListener {
 	private LocalTime lastQuarter;
 
 	// Button
-	private JButton startButton; // MODIFIE PAR SARAH
+	private JButton startButton;
 
 	// Text field
-	private JTextField IDField; // MODIFIE PAR SARAH
+	private JTextField IDField;
 
 	// Dimension
 	private Dimension sizeTitle;
@@ -105,8 +105,8 @@ public class ViewEmulator extends JFrame implements ActionListener {
 	public ViewEmulator(EmulatorSettings current) {
 		this.settings = current;
 		build();
-		
-		//make a save when we close the app
+
+		// make a save when we close the app
 		getFrame().addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -344,174 +344,6 @@ public class ViewEmulator extends JFrame implements ActionListener {
 		this.checks = checks;
 	}
 
-	/************************** FRAME_SIZE_X *****************************/
-	/**
-	 * @return the frameSizeX
-	 */
-	public static int getFrameSizeX() {
-		return FRAME_SIZE_X;
-	}
-
-	/************************** FRAME_SIZE_Y *****************************/
-	/**
-	 * @return the frameSizeY
-	 */
-	public static int getFrameSizeY() {
-		return FRAME_SIZE_Y;
-	}
-
-	/************************ BUTTON_LOCATION_X **************************/
-	/**
-	 * @return the buttonLocationX
-	 */
-	public static int getButtonLocationX() {
-		return BUTTON_LOCATION_X;
-	}
-
-	/************************ BUTTON_LOCATION_Y **************************/
-	/**
-	 * @return the buttonLocationY
-	 */
-	public static int getButtonLocationY() {
-		return BUTTON_LOCATION_Y;
-	}
-
-	/************************** BUTTON_SIZE_X ****************************/
-	/**
-	 * @return the buttonSizeX
-	 */
-	public static int getButtonSizeX() {
-		return BUTTON_SIZE_X;
-	}
-
-	/************************** BUTTON_SIZE_Y ****************************/
-	/**
-	 * @return the buttonSizeY
-	 */
-	public static int getButtonSizeY() {
-		return BUTTON_SIZE_Y;
-	}
-
-	/*************************** ID_FIELD_X ******************************/
-	/**
-	 * @return the idFieldX
-	 */
-	public static int getIdFieldX() {
-		return ID_FIELD_X;
-	}
-
-	/*************************** ID_FIELD_Y ******************************/
-	/**
-	 * @return the idFieldY
-	 */
-	public static int getIdFieldY() {
-		return ID_FIELD_Y;
-	}
-
-	/*************************** ID_FIELD_W ******************************/
-	/**
-	 * @return the idFieldW
-	 */
-	public static int getIdFieldW() {
-		return ID_FIELD_W;
-	}
-
-	/*************************** ID_FIELD_H ******************************/
-	/**
-	 * @return the idFieldH
-	 */
-	public static int getIdFieldH() {
-		return ID_FIELD_H;
-	}
-
-	/************************** FRONT_TITLE_X ****************************/
-	/**
-	 * @return the frontTitleX
-	 */
-	public static int getFrontTitleX() {
-		return FRONT_TITLE_X;
-	}
-
-	/************************** FRONT_TITLE_Y ****************************/
-	/**
-	 * @return the frontTitleY
-	 */
-	public static int getFrontTitleY() {
-		return FRONT_TITLE_Y;
-	}
-
-	/**************************** TIME_X *********************************/
-	/**
-	 * @return the timeX
-	 */
-	public static int getTimeX() {
-		return TIME_X;
-	}
-
-	/**************************** TIME_Y *********************************/
-	/**
-	 * @return the timeY
-	 */
-	public static int getTimeY() {
-		return TIME_Y;
-	}
-
-	/**************************** TIME_W *********************************/
-	/**
-	 * @return the timeW
-	 */
-	public static int getTimeW() {
-		return TIME_W;
-	}
-
-	/**************************** TIME_H *********************************/
-	/**
-	 * @return the timeH
-	 */
-	public static int getTimeH() {
-		return TIME_H;
-	}
-
-	/************************* ROUNDED_TIME_X ****************************/
-	/**
-	 * @return the roundedTimeX
-	 */
-	public static int getRoundedTimeX() {
-		return ROUNDED_TIME_X;
-	}
-
-	/************************* ROUNDED_TIME_Y ****************************/
-	/**
-	 * @return the roundedTimeY
-	 */
-	public static int getRoundedTimeY() {
-		return ROUNDED_TIME_Y;
-	}
-
-	/************************* ROUNDED_TIME_W ****************************/
-	/**
-	 * @return the roundedTimeW
-	 */
-	public static int getRoundedTimeW() {
-		return ROUNDED_TIME_W;
-	}
-
-	/*************************** ID_LABEL_X ******************************/
-	/**
-	 * @return the idLabelX
-	 */
-	public static int getIdLabelX() {
-		return ID_LABEL_X;
-	}
-
-	/*************************** ID_LABEL_Y ******************************/
-	/**
-	 * @return the idLabelY
-	 */
-	public static int getIdLabelY() {
-		return ID_LABEL_Y;
-	}
-
 	/************************** FRAME_TITLE ******************************/
 	/**
 	 * @return the frameTitle
@@ -547,7 +379,7 @@ public class ViewEmulator extends JFrame implements ActionListener {
 	/* ================================================================= */
 	/****************************** METHOD *******************************/
 	/*********************************************************************/
-	
+
 	public void build() {
 		// Panel creation
 		frame = new JFrame();
@@ -563,9 +395,9 @@ public class ViewEmulator extends JFrame implements ActionListener {
 		panel.setLayout(null);
 
 		// Check in/out button
-		startButton = new JButton(BUTTON_NAME); // MODIFIE PAR SARAH
+		startButton = new JButton(BUTTON_NAME);
 		startButton.setBounds(BUTTON_LOCATION_X, BUTTON_LOCATION_Y, BUTTON_SIZE_X, BUTTON_SIZE_Y);
-		startButton.addActionListener(this); // MODIFIE PAR SARAH
+		startButton.addActionListener(this);
 
 		// Clock
 		reelTimeClock = new JLabel();
@@ -579,7 +411,7 @@ public class ViewEmulator extends JFrame implements ActionListener {
 		// Other elements
 		frontTitle = new JLabel();
 		IDLabel = new JLabel(ID_LABEL);
-		IDField = new JTextField(); // MODIFIE PAR SARAH
+		IDField = new JTextField();
 
 		frontTitle.setText(PANEL_NAME);
 
@@ -604,12 +436,12 @@ public class ViewEmulator extends JFrame implements ActionListener {
 		panel.add(frontTitle);
 		frame.setVisible(true);
 	}
-	
+
 	/**
 	 * 
 	 */
 	@Override
-	public void actionPerformed(ActionEvent event) { // AJOUTE PAR SARAH
+	public void actionPerformed(ActionEvent event) {
 		Object source = event.getSource();
 
 		if (source == startButton) {
@@ -622,9 +454,4 @@ public class ViewEmulator extends JFrame implements ActionListener {
 			}
 		}
 	}
-
-	/*
-	 * public static void main(String[] arg) { new ViewEmulator(); }
-	 */
-
 }

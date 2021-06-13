@@ -7,53 +7,53 @@ import java.util.HashMap;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import controller.mainapp.BrowserMainapp;
+
 /**
  * 
  * @brief View build with the results of a checkInOut research.
  * @implNote ViewModel.
  *
  */
-public class ViewCheckInOutsSearch extends ViewModel  {
+public class ViewCheckInOutsSearch extends ViewModel {
 
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
-	
+
 	private JTextField employeeFirstName;
 	private JTextField employeeLastName;
 	private JTextField employeeID;
 	private JTextField departmentName;
 	private JTextField startDate;
 	private JTextField endDate;
-	
+
 	private JLabel labelEmployeeFirstName;
 	private JLabel labelEmployeeLastName;
 	private JLabel labelEmployeeID;
 	private JLabel labelDepartmentName;
 	private JLabel labelStartDate;
 	private JLabel labelEndDate;
-	
-	
+
 	/*********************************************************************/
 	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
-	
+
 	/**
 	 * @brief Default constructor.
 	 */
-	public ViewCheckInOutsSearch () {
+	public ViewCheckInOutsSearch() {
 		setArraySize(6);
 		initializeAttributes();
 		buildContentPanel();
 	}
-	
-	
+
 	/*********************************************************************/
 	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
-	
+
 	/************************* employeeFirstName *************************/
-	
+
 	/**
 	 * @return the employeeFirstName
 	 */
@@ -68,9 +68,8 @@ public class ViewCheckInOutsSearch extends ViewModel  {
 		this.employeeFirstName = employeeFirstName;
 	}
 
-	
 	/************************* employeeLastName **************************/
-	
+
 	/**
 	 * @return the employeeLastName
 	 */
@@ -84,9 +83,9 @@ public class ViewCheckInOutsSearch extends ViewModel  {
 	public void setEmployeeLastName(JTextField employeeLastName) {
 		this.employeeLastName = employeeLastName;
 	}
-	
+
 	/**************************** employeeID *****************************/
-	
+
 	/**
 	 * @return the employeeID
 	 */
@@ -100,9 +99,9 @@ public class ViewCheckInOutsSearch extends ViewModel  {
 	public void setEmployeeID(JTextField employeeID) {
 		this.employeeID = employeeID;
 	}
-	
+
 	/************************** departmentName ***************************/
-	
+
 	/**
 	 * @return the departmentName
 	 */
@@ -116,9 +115,9 @@ public class ViewCheckInOutsSearch extends ViewModel  {
 	public void setDepartmentName(JTextField departmentName) {
 		this.departmentName = departmentName;
 	}
-	
+
 	/***************************** startDate *****************************/
-	
+
 	/**
 	 * @return the startDate
 	 */
@@ -132,9 +131,9 @@ public class ViewCheckInOutsSearch extends ViewModel  {
 	public void setStartDate(JTextField startDate) {
 		this.startDate = startDate;
 	}
-	
+
 	/****************************** endDate ******************************/
-	
+
 	/**
 	 * @return the endDate
 	 */
@@ -148,9 +147,9 @@ public class ViewCheckInOutsSearch extends ViewModel  {
 	public void setEndDate(JTextField endDate) {
 		this.endDate = endDate;
 	}
-	
+
 	/*********************** labelEmployeeFirstName **********************/
-	
+
 	/**
 	 * @return the labelEmployeeFirstName
 	 */
@@ -164,9 +163,9 @@ public class ViewCheckInOutsSearch extends ViewModel  {
 	public void setLabelEmployeeFirstName(JLabel labelEmployeeFirstName) {
 		this.labelEmployeeFirstName = labelEmployeeFirstName;
 	}
-	
+
 	/********************** labelEmployeeLastName ************************/
-	
+
 	/**
 	 * @return the labelEmployeeLastName
 	 */
@@ -180,9 +179,9 @@ public class ViewCheckInOutsSearch extends ViewModel  {
 	public void setLabelEmployeeLastName(JLabel labelEmployeeLastName) {
 		this.labelEmployeeLastName = labelEmployeeLastName;
 	}
-	
+
 	/************************* labelEmployeeID ***************************/
-	
+
 	/**
 	 * @return the labelEmployeeID
 	 */
@@ -196,9 +195,9 @@ public class ViewCheckInOutsSearch extends ViewModel  {
 	public void setLabelEmployeeID(JLabel labelEmployeeID) {
 		this.labelEmployeeID = labelEmployeeID;
 	}
-	
+
 	/************************ labelDepartmentName ************************/
-	
+
 	/**
 	 * @return the labelDepartmentName
 	 */
@@ -212,9 +211,9 @@ public class ViewCheckInOutsSearch extends ViewModel  {
 	public void setLabelDepartmentName(JLabel labelDepartmentName) {
 		this.labelDepartmentName = labelDepartmentName;
 	}
-	
+
 	/************************** labelStartDate ***************************/
-	
+
 	/**
 	 * @return the labelStartDate
 	 */
@@ -228,8 +227,8 @@ public class ViewCheckInOutsSearch extends ViewModel  {
 	public void setLabelStartDate(JLabel labelStartDate) {
 		this.labelStartDate = labelStartDate;
 	}
-	
-	/*************************** labelEndDate ****************************/	
+
+	/*************************** labelEndDate ****************************/
 
 	/**
 	 * @return the labelEndDate
@@ -245,13 +244,12 @@ public class ViewCheckInOutsSearch extends ViewModel  {
 		this.labelEndDate = labelEndDate;
 	}
 
-	
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
-	
-protected void initializeAttributes() {
-		
+
+	protected void initializeAttributes() {
+
 		labelArray = new ArrayList<JLabel>();
 		labelEmployeeFirstName = new JLabel("By Employee First Name ");
 		labelEmployeeLastName = new JLabel("By Employee Last Name ");
@@ -265,7 +263,7 @@ protected void initializeAttributes() {
 		labelArray.add(labelDepartmentName);
 		labelArray.add(labelStartDate);
 		labelArray.add(labelEndDate);
-		
+
 		textFieldArray = new ArrayList<JTextField>();
 		employeeFirstName = new JTextField();
 		employeeLastName = new JTextField();
@@ -279,16 +277,16 @@ protected void initializeAttributes() {
 		textFieldArray.add(departmentName);
 		textFieldArray.add(startDate);
 		textFieldArray.add(endDate);
-		
+
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		 
+
 		Object source = event.getSource();
-		
-		if(source == submitButton){
-			
+
+		if (source == submitButton) {
+
 			submitMap = new HashMap<String, JTextField>();
 			submitMap.put("firstname", textFieldArray.get(0));
 			submitMap.put("lastname", textFieldArray.get(1));
@@ -296,10 +294,20 @@ protected void initializeAttributes() {
 			submitMap.put("department_name", textFieldArray.get(3));
 			submitMap.put("before_date", textFieldArray.get(4));
 			submitMap.put("after_date", textFieldArray.get(5));
-			System.out.println(submitMap);
-			
+
+			try {
+
+				BrowserMainapp controller = new BrowserMainapp();
+				Object[][] dataEntry = controller.searchCheckInOut(getSubmitMap());
+				String[] titles = { "ID", "Firstname", "Lastname", "Department", "Date of last check" };
+				// ViewResultsCheckInOuts frameCheckInOutResults = new
+				// ViewResultsCheckInOuts(dataEntry, titles);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		
+
 	}
-	
+
 }

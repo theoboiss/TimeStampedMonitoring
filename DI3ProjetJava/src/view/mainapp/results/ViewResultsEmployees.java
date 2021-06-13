@@ -1,4 +1,4 @@
-package view.mainapp;
+package view.mainapp.results;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -96,7 +96,7 @@ public class ViewResultsEmployees extends ViewResults {
 		protected String label;
 
 		protected boolean isPushed;
-		
+
 		protected Object[][][] dataEntry;
 		protected String[][] titles;
 		protected ViewResultsEmployeeDetails frameEmployeeDetailsResults;
@@ -134,21 +134,19 @@ public class ViewResultsEmployees extends ViewResults {
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					fireEditingStopped(); // stops any action from the button
-					
+
 					try {
 						BrowserMainapp controller = new BrowserMainapp();
 						dataEntry = controller.searchEmployeeDetails(label);
 						if (dataEntry != null) {
-							titles = new String[][] {
-									{ "ID", "Firstname", "Lastname", "Department" },
-									{ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" },
-									{ "Checks (in/out)" } };
+							titles = new String[][] { { "ID", "Firstname", "Lastname", "Department" },
+									{ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" }, { "Checks (in/out)" } };
 							frameEmployeeDetailsResults = new ViewResultsEmployeeDetails(dataEntry, titles);
 						}
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
-					
+
 				}
 			});
 		}
@@ -169,14 +167,14 @@ public class ViewResultsEmployees extends ViewResults {
 			super(checkBox);
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
+
 					try {
 						BrowserMainapp controller = new BrowserMainapp();
 						controller.delEmployee(label);
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
-					
+
 					fireEditingStopped(); // stops any action from the button
 				}
 			});

@@ -1,9 +1,7 @@
 package model.shared;
 
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
 
 /**
  * 
@@ -13,9 +11,9 @@ import java.time.LocalDateTime;
  *
  */
 public class CheckInOut implements Serializable {
-	
+
 	private static final long serialVersionUID = 5245397379603866240L;
-	
+
 	/* ================================================================= */
 	/************************* CLASS ATTRIBUTES **************************/
 	/*********************************************************************/
@@ -24,7 +22,6 @@ public class CheckInOut implements Serializable {
 	private LocalDateTime checkTime;
 	private boolean status;
 
-
 	/* ================================================================= */
 	/*************************** CONSTRUCTORS ****************************/
 	/*********************************************************************/
@@ -32,8 +29,7 @@ public class CheckInOut implements Serializable {
 	/**
 	 * @brief Default Constructor.
 	 */
-	public CheckInOut() 
-	{
+	public CheckInOut() {
 		employeeID = 0;
 		checkTime = LocalDateTime.now();
 		status = true;
@@ -46,79 +42,70 @@ public class CheckInOut implements Serializable {
 	 * @param checkTime
 	 * @param status.
 	 */
-	public CheckInOut(Integer employeeID, LocalDateTime checkTime, boolean status) 
-	{
+	public CheckInOut(Integer employeeID, LocalDateTime checkTime, boolean status) {
 		setEmployeeID(employeeID);
 		setCheckTime(checkTime);
 		setStatus(status);
 	}
-	
+
 	/* ================================================================= */
 	/********************** GETTERS AND SETTERS **************************/
 	/*********************************************************************/
 
 	/***************************** employeeID ****************************/
-	
+
 	/**
 	 * @return the employeeID
 	 */
-	public Integer getEmployeeID() 
-	{
+	public Integer getEmployeeID() {
 		return employeeID;
 	}
 
 	/**
 	 * @param employeeID the employeeID to set
 	 */
-	public void setEmployeeID(Integer employeeID) 
-	{
+	public void setEmployeeID(Integer employeeID) {
 		this.employeeID = employeeID;
 	}
-	
+
 	/***************************** checkTime *****************************/
 
 	/**
 	 * @return the checkTime
 	 */
-	public LocalDateTime getCheckTime() 
-	{
+	public LocalDateTime getCheckTime() {
 		return checkTime;
 	}
 
 	/**
 	 * @param checkTime the checkTime to set
 	 */
-	public void setCheckTime(LocalDateTime checkTime) 
-	{
+	public void setCheckTime(LocalDateTime checkTime) {
 		this.checkTime = checkTime;
 	}
-	
+
 	/******************************* status ******************************/
 
 	/**
 	 * @return the status
 	 */
-	public boolean isStatus() 
-	{
+	public boolean isStatus() {
 		return status;
 	}
 
 	/**
 	 * @param status the status to set
 	 */
-	public void setStatus(boolean status) 
-	{
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
 
-	
 	/* ================================================================= */
 	/***************************** METHODS *******************************/
 	/*********************************************************************/
 
 	@Override
-	public String toString() 
-	{
+	public String toString() {
 		return "CheckInOut [employeeID=" + employeeID + ", checkTime=" + checkTime + ", status=" + status + "]";
 	}
 

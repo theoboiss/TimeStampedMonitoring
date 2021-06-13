@@ -1,4 +1,4 @@
-package model.mainapp;
+package model.mainapp.days;
 
 import java.io.Serializable;
 import java.time.LocalTime;
@@ -10,21 +10,20 @@ import java.time.LocalTime;
  *
  */
 public class DayPlanning implements Serializable {
-	
+
 	private static final long serialVersionUID = -1187588611307841876L;
-	
+
 	/*********************************************************************/
 	/***************************** ATTRIBUTES ****************************/
 	/*********************************************************************/
-	
+
 	private LocalTime arrivalTime;
 	private LocalTime leavingTime;
-	
-	
+
 	/*********************************************************************/
 	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
-	
+
 	/**
 	 * @brief Default constructor.
 	 */
@@ -32,7 +31,7 @@ public class DayPlanning implements Serializable {
 		setArrivalTime(LocalTime.of(8, 15));
 		setLeavingTime(LocalTime.of(17, 0));
 	}
-	
+
 	/**
 	 * @brief Constructor.
 	 * @param arrivalTime
@@ -42,14 +41,13 @@ public class DayPlanning implements Serializable {
 		setArrivalTime(arrivalTime);
 		setLeavingTime(leavingTime);
 	}
-	
-	
+
 	/*********************************************************************/
 	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
-	
+
 	/**************************** ArrivalTime ****************************/
-	
+
 	/**
 	 * @return the arrivalTime
 	 */
@@ -63,7 +61,7 @@ public class DayPlanning implements Serializable {
 	public void setArrivalTime(LocalTime arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
-	
+
 	/**************************** LeavingTime ***************************/
 
 	/**
@@ -79,16 +77,14 @@ public class DayPlanning implements Serializable {
 	public void setLeavingTime(LocalTime leavingTime) {
 		this.leavingTime = leavingTime;
 	}
-	
-	
+
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
-	
+
 	@Override
-	public String toString() {return "Arrival Time : " + this.arrivalTime + "\nLeaving Time : " + this.leavingTime;}
-			
-	
+	public String toString() {
+		return "Arrival Time : " + this.arrivalTime + "\nLeaving Time : " + this.leavingTime;
+	}
+
 }
-
-

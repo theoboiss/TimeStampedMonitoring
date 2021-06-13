@@ -1,4 +1,4 @@
-package controller.shared;
+package controller.emulator.tcp;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -49,8 +49,8 @@ public class TCPServerEmulator extends TCPServerEmulatorBuilder implements Runna
 									new CopyOnWriteArrayList<CheckInOut>());
 					}
 					System.out.println("Emulator received the list of employee's infos");
-					//System.out.println("Server emulator received : " + listEmployees.toString());
-					//System.out.println(Emulator.getListEmployeeInfo());
+					// System.out.println("Server emulator received : " + listEmployees.toString());
+					// System.out.println(Emulator.getListEmployeeInfo());
 				}
 				sOut = s.getOutputStream();
 				oos = new ObjectOutputStream(sOut);

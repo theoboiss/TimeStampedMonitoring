@@ -1,4 +1,4 @@
-package controller.shared;
+package controller.emulator.tcp;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -39,9 +39,9 @@ public class TCPClientEmulator extends TCPClientEmulatorBuilder implements Runna
 		boolean dataSent = false;
 		do {
 			try {
-				//System.out.println("TCPClientEmulator launched ...");
+				// System.out.println("TCPClientEmulator launched ...");
 				setSocket();
-				//System.out.println("Hello, the client emulator is connected");
+				// System.out.println("Hello, the client emulator is connected");
 				System.out.println("Emulator -> Mainapp");
 				sOut = s.getOutputStream();
 				oos = new ObjectOutputStream(sOut);
@@ -49,7 +49,7 @@ public class TCPClientEmulator extends TCPClientEmulatorBuilder implements Runna
 				oos.flush();
 				sIn = s.getInputStream();
 				ois = new ObjectInputStream(sIn);
-				//while data have been sent the client wait for a response from the server
+				// while data have been sent the client wait for a response from the server
 				if (ois.readBoolean()) {
 					dataSent = true;
 				}

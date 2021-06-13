@@ -1,4 +1,4 @@
-package controller.mainapp;
+package controller.mainapp.tcp;
 
 import java.io.Serializable;
 import java.net.InetAddress;
@@ -6,8 +6,7 @@ import java.net.UnknownHostException;
 
 /**
  * 
- * @brief Abstract class which represents TCP settings for the
- * 		  main application.
+ * @brief Abstract class which represents TCP settings for the main application.
  * @implNote Serializable.
  *
  */
@@ -113,12 +112,11 @@ public abstract class TCPMainAppSettings implements Serializable {
 	public void setNumPortClient(int numPortClient) {
 		this.numPortClient = numPortClient;
 	}
-	
 
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
-	
+
 	/**
 	 * @brief Used for serialization.
 	 * @param receiving

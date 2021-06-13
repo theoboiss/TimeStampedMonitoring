@@ -6,12 +6,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import controller.mainapp.ModifyTCPSettings;
-import controller.mainapp.TCPMainAppSettings;
+
+import controller.mainapp.tcp.ModifyTCPSettings;
+import controller.mainapp.tcp.TCPMainAppSettings;
 
 /**
- * @brief Class to show connection settings (port number and IP
- *        address for the main application) in the interface.
+ * @brief Class to show connection settings (port number and IP address for the
+ *        main application) in the interface.
  *
  */
 public class ViewSettings extends ViewModel {
@@ -87,7 +88,7 @@ public class ViewSettings extends ViewModel {
 	public void setFieldIPAddressServer(JTextField fieldIPAddressServer) {
 		this.fieldIPAddressServer = fieldIPAddressServer;
 	}
-	
+
 	/*********************** fieldPortNumberClient ***********************/
 	/**
 	 * @return the fieldPortNumberClient
@@ -102,7 +103,7 @@ public class ViewSettings extends ViewModel {
 	public void setFieldPortNumberClient(JTextField fieldPortNumberClient) {
 		this.fieldPortNumberClient = fieldPortNumberClient;
 	}
-	
+
 	/*********************** fieldIPAddressClient ************************/
 	/**
 	 * @return the fieldIPAddressClient
@@ -132,7 +133,7 @@ public class ViewSettings extends ViewModel {
 	public void setLabelPortNumberServer(JLabel labelPortNumberServer) {
 		this.labelPortNumberServer = labelPortNumberServer;
 	}
-	
+
 	/************************ labelIPAddressServer ***********************/
 	/**
 	 * @return the labelIPAddressServer
@@ -179,7 +180,7 @@ public class ViewSettings extends ViewModel {
 	}
 
 	/*************************** labelresponse ***************************/
-	
+
 	/**
 	 * @return the labelResponse
 	 */
@@ -187,14 +188,13 @@ public class ViewSettings extends ViewModel {
 		return labelResponse;
 	}
 
-
 	/**
 	 * @param labelResponse the labelResponse to set
 	 */
 	public void setLabelResponse(JLabel labelResponse) {
 		this.labelResponse = labelResponse;
 	}
-	
+
 	/**************************** settings *******************************/
 	/**
 	 * @return the settings
@@ -202,7 +202,7 @@ public class ViewSettings extends ViewModel {
 	public TCPMainAppSettings getSettings() {
 		return settings;
 	}
-	
+
 	/**
 	 * @param settings the settings to set
 	 */
@@ -252,14 +252,13 @@ public class ViewSettings extends ViewModel {
 			submitMap.put("ipaddress_server", textFieldArray.get(1));
 			submitMap.put("portnumber_client", textFieldArray.get(2));
 			submitMap.put("ipaddress_client", textFieldArray.get(3));
-			
-			
+
 			if (getLabelResponse() != null)
 				getPanel().remove(getLabelResponse());
 			try {
 				ModifyTCPSettings settingsToModify = new ModifyTCPSettings(settings);
 				setLabelResponse(new JLabel(settingsToModify.ModifyConnectionSettings(submitMap)));
-				
+
 				getPanel().add(getLabelResponse());
 				getPanel().revalidate();
 			} catch (UnknownHostException e) {

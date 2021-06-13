@@ -14,8 +14,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JTextField;
 
-import controller.shared.TCPClientMainApp;
+import controller.mainapp.tcp.TCPClientMainApp;
 import model.mainapp.*;
+import model.mainapp.days.DayName;
+import model.mainapp.days.DayPlanning;
 import model.shared.CheckInOut;
 import model.shared.EmployeeInfo;
 
@@ -93,45 +95,55 @@ public class BrowserMainapp {
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
-	/*
-	 * protected HashSet<Employee> selectEmployees(String[] searchedIDs, String[]
-	 * searchedFirstnames, String[] searchedLastnames) { //Will select the employees
-	 * to look into HashSet<Employee> selectedEmployees = new HashSet<>();
-	 * 
-	 * //Select employees by ID if (searchedIDs.length == 1) { if
-	 * (searchedIDs[0].isBlank()) { //we have to look for every employees by default
-	 * for (Department currentDepartment : getModel().getListDepartment())
-	 * selectedEmployees.addAll(currentDepartment.getListEmployees().values()); }
-	 * else selectedEmployees.add(SearchInMainapp.searchEmployee(getModel(),
-	 * Integer.valueOf(searchedIDs[0]))); } else for (String valueForID :
-	 * searchedIDs) { //we look for the only employees that are concerned by their
-	 * ID if (!valueForID.isBlank())
-	 * selectedEmployees.add(SearchInMainapp.searchEmployee(getModel(),
-	 * Integer.valueOf(valueForID))); }
-	 * 
-	 * //Select employees by name if (searchedFirstnames.length == 1 &&
-	 * searchedLastnames.length == 1) { if (searchedFirstnames[0].isBlank() &&
-	 * searchedLastnames[0].isBlank()) { //we have to look for every employees by
-	 * default for (Department currentDepartment : getModel().getListDepartment())
-	 * selectedEmployees.addAll(currentDepartment.getListEmployees().values()); }
-	 * else if (searchedFirstnames[0].isBlank())
-	 * selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(),
-	 * searchedLastnames[0], 1)); else
-	 * selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(),
-	 * searchedFirstnames[0], 0)); } else for (String valueForFirstname :
-	 * searchedFirstnames) { //we look for the only employees that are concerned by
-	 * their ID if (valueForFirstname.isBlank()) { for (String valueForLastname :
-	 * searchedLastnames) if (!valueForLastname.isBlank())
-	 * selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(),
-	 * valueForLastname, 1)); } else for (String valueForLastname :
-	 * searchedLastnames) { if (valueForLastname.isBlank())
-	 * selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(),
-	 * valueForFirstname, 0)); else
-	 * selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(),
-	 * valueForFirstname, valueForLastname)); } }
-	 * 
-	 * return selectedEmployees; }
-	 */
+
+	protected HashSet<Employee> selectEmployees(String[] searchedIDs, String[] searchedFirstnames,
+			String[] searchedLastnames) {
+		// Will select the employees to look into
+		HashSet<Employee> selectedEmployees = new HashSet<>();
+
+		// Select employees by ID
+		if (searchedIDs.length == 1) {
+			if (searchedIDs[0].isBlank()) { // we have to look for every employees by default
+				for (Department currentDepartment : getModel().getListDepartment())
+					selectedEmployees.addAll(currentDepartment.getListEmployees().values());
+			} else
+				selectedEmployees.add(SearchInMainapp.searchEmployee(getModel(), Integer.valueOf(searchedIDs[0])));
+		} else
+			for (String valueForID : searchedIDs) { // we look for the only employees that are concerned by their ID
+				if (!valueForID.isBlank())
+					selectedEmployees.add(SearchInMainapp.searchEmployee(getModel(), Integer.valueOf(valueForID)));
+			}
+
+		// Select employees by name
+		if (searchedFirstnames.length == 1 && searchedLastnames.length == 1) {
+			if (searchedFirstnames[0].isBlank() && searchedLastnames[0].isBlank()) {
+				// we have to look for every employees by default
+				for (Department currentDepartment : getModel().getListDepartment())
+					selectedEmployees.addAll(currentDepartment.getListEmployees().values());
+			} else if (searchedFirstnames[0].isBlank())
+				selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), searchedLastnames[0], 1));
+			else
+				selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), searchedFirstnames[0], 0));
+		} else
+			for (String valueForFirstname : searchedFirstnames) {
+				// we look for the only employees that are concerned by their ID
+				if (valueForFirstname.isBlank()) {
+					for (String valueForLastname : searchedLastnames)
+						if (!valueForLastname.isBlank())
+							selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), valueForLastname, 1));
+				} else
+					for (String valueForLastname : searchedLastnames) {
+						if (valueForLastname.isBlank())
+							selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), valueForFirstname, 0));
+						else
+							selectedEmployees.addAll(
+									SearchInMainapp.searchEmployee(getModel(), valueForFirstname, valueForLastname));
+					}
+			}
+
+		return selectedEmployees;
+	}
+
 	public void intersectionCollection(Collection<Employee> list1, Collection<Employee> list2) {
 		if (!list1.isEmpty())
 			list1.retainAll(list2);
@@ -162,48 +174,44 @@ public class BrowserMainapp {
 	 * @param request
 	 * @return
 	 */
-	/*
-	 * public Object[][] searchCheckInOut(HashMap<String,JTextField> request) {
-	 * //String[] titles = {"ID", "Firstname", "Lastname", "Date", "Status"};
-	 * 
-	 * 
-	 * //extract informations from the request String[] searchedIDs =
-	 * request.get("id").getText().split(getRegexPattern()); String[]
-	 * searchedFirstnames =
-	 * request.get("firstname").getText().split(getRegexPattern()); String[]
-	 * searchedLastnames =
-	 * request.get("lastname").getText().split(getRegexPattern()); //add
-	 * department_name String searchedAfterDate =
-	 * request.get("after_date").getText(); String searchedBeforeDate =
-	 * request.get("before_date").getText();
-	 * 
-	 * //select the searched employees HashSet<Employee> searchedEmployees =
-	 * selectEmployees(searchedIDs, searchedFirstnames, searchedLastnames);
-	 * 
-	 * //Search by the couple of dates using only the selected employees
-	 * ArrayList<CheckInOut> rawResult = new ArrayList<>(); for (Employee
-	 * selectedEmployee : searchedEmployees) {
-	 * rawResult.addAll(SearchInMainapp.searchCheckInOut( selectedEmployee,
-	 * LocalDateTime.parse(searchedAfterDate, getFormatter()),
-	 * LocalDateTime.parse(searchedBeforeDate, getFormatter()) ) ); }
-	 * 
-	 * 
-	 * //format the data Object[][] data = new Object[rawResult.size()][]; Integer
-	 * iterator = 0; for (CheckInOut foundCheck : rawResult) { Employee
-	 * correspondingEmployee = SearchInMainapp.searchEmployee(getModel(),
-	 * foundCheck.getEmployeeID()); Object[] line = {
-	 * foundCheck.getEmployeeID().toString(), correspondingEmployee.getFirstname(),
-	 * correspondingEmployee.getLastname(),
-	 * foundCheck.getCheckTime().format(getFormatter()),
-	 * Boolean.toString(foundCheck.isStatus()) }; data[iterator++] = line; }
-	 * 
-	 * return data; }
-	 */
+
+	public Object[][] searchCheckInOut(HashMap<String, JTextField> request) {
+		// String[] titles = {"ID", "Firstname", "Lastname", "Date", "Status"};
+
+		// extract informations from the request
+		String[] searchedIDs = request.get("id").getText().split(getRegexPattern());
+		String[] searchedFirstnames = request.get("firstname").getText().split(getRegexPattern());
+		String[] searchedLastnames = request.get("lastname").getText().split(getRegexPattern());
+		// add department_name
+		String searchedAfterDate = request.get("after_date").getText();
+		String searchedBeforeDate = request.get("before_date").getText();
+
+		// select the searched employees
+		HashSet<Employee> searchedEmployees = selectEmployees(searchedIDs, searchedFirstnames, searchedLastnames);
+
+		// Search by the couple of dates using only the selected employees
+		ArrayList<CheckInOut> rawResult = new ArrayList<>();
+		for (Employee selectedEmployee : searchedEmployees) {
+			rawResult.addAll(SearchInMainapp.searchCheckInOut(selectedEmployee,
+					LocalDateTime.parse(searchedAfterDate, getFormatter()),
+					LocalDateTime.parse(searchedBeforeDate, getFormatter())));
+		}
+
+		// format the data
+		Object[][] data = new Object[rawResult.size()][];
+		Integer iterator = 0;
+		for (CheckInOut foundCheck : rawResult) {
+			Employee correspondingEmployee = SearchInMainapp.searchEmployee(getModel(), foundCheck.getEmployeeID());
+			Object[] line = { foundCheck.getEmployeeID().toString(), correspondingEmployee.getFirstname(),
+					correspondingEmployee.getLastname(), foundCheck.getCheckTime().format(getFormatter()),
+					Boolean.toString(foundCheck.isStatus()) };
+			data[iterator++] = line;
+		}
+
+		return data;
+	}
 
 	public Object[][] searchEmployee(HashMap<String, JTextField> request) {
-		// String[] titles = {"ID", "Firstname", "Lastname", "Department", "Date of last
-		// check"};
-
 		// extract informations from the request
 		String[] searchedIDs = request.get("id").getText().split(getRegexPattern());
 		String[] searchedFirstnames = request.get("firstname").getText().split(getRegexPattern());
@@ -291,12 +299,8 @@ public class BrowserMainapp {
 				CheckInOut lastCheckInOut = foundEmployee.getListChecks().get(foundEmployee.getListChecks().size() - 1);
 				foundEmployeeLastCheckInOut = lastCheckInOut.getCheckTime().format(getFormatter());
 			}
-			final Object[] line = {
-					foundEmployee.getID().toString(),
-					foundEmployee.getFirstname(),
-					foundEmployee.getLastname(),
-					foundEmployee.getDepartment(),
-					foundEmployeeLastCheckInOut };
+			final Object[] line = { foundEmployee.getID().toString(), foundEmployee.getFirstname(),
+					foundEmployee.getLastname(), foundEmployee.getDepartment(), foundEmployeeLastCheckInOut };
 			data[iterator++] = line;
 		}
 
@@ -327,8 +331,8 @@ public class BrowserMainapp {
 					.format(DateTimeFormatter.ofPattern("HH:mm"));
 			dayToAdd[1] = searchedEmployeePlanning.get(day).getLeavingTime()
 					.format(DateTimeFormatter.ofPattern("HH:mm"));
-			tablePlanning[0][iteratorY] = dayToAdd[0].toString(); 
-			tablePlanning[1][iteratorY] = dayToAdd[1].toString(); 
+			tablePlanning[0][iteratorY] = dayToAdd[0].toString();
+			tablePlanning[1][iteratorY] = dayToAdd[1].toString();
 			iteratorY++;
 		}
 
@@ -338,9 +342,8 @@ public class BrowserMainapp {
 		Integer nbOfChecks = listEmployeeChecks.size();
 		if (nbOfChecks == 0) {
 			tableChecks = new Object[1][1];
-			tableChecks[0][0] = "no check yet"; 
-		}
-		else {
+			tableChecks[0][0] = "no check yet";
+		} else {
 			tableChecks = new Object[nbOfChecks][1];
 			for (Integer iteratorTable = 0; iteratorTable < nbOfChecks; iteratorTable++) {
 				tableChecks[iteratorTable][0] = new Object[1];
@@ -349,7 +352,6 @@ public class BrowserMainapp {
 			}
 		}
 
-		
 		Object[][][] data = new Object[3][][];
 		data[0] = tableInfo;
 		data[1] = tablePlanning;
@@ -367,7 +369,6 @@ public class BrowserMainapp {
 		String lastnameNewEmployee = request.get("lastname").getText().split(getRegexPattern())[0];
 		String departmentNewEmployee = request.get("department_name").getText().split(getRegexPattern())[0];
 
-		
 		Employee newEmployee = null;
 		try {
 			newEmployee = new Employee(firstnameNewEmployee, lastnameNewEmployee);
@@ -376,12 +377,12 @@ public class BrowserMainapp {
 				correspondingDepartment.addEmployee(newEmployee);
 				MainappSettings settings = new MainappSettings();
 				new Thread(new TCPClientMainApp(
-						MainappSettings.castInEmployeeInfo(
-								SearchInMainapp.searchEmployee(MainappSettings.getCurrentModel())),
+						MainappSettings
+								.castInEmployeeInfo(SearchInMainapp.searchEmployee(MainappSettings.getCurrentModel())),
 						settings.getIPaddressClient(), settings.getNumPortClient())).start();
 				return "Successful addition                       ";
 			} else {
-				Employee.getlistUsedIDs().remove(Employee.getlistUsedIDs().size()-1);
+				Employee.getlistUsedIDs().remove(Employee.getlistUsedIDs().size() - 1);
 				throw new Exception("This department does not exist.");
 			}
 		} catch (Exception e) {
@@ -392,7 +393,7 @@ public class BrowserMainapp {
 	/*********************************************************************/
 	/******************************** DEL ********************************/
 	/*********************************************************************/
-	
+
 	public String delEmployee(String request) {
 		Integer IDemployee = Integer.parseInt(request);
 

@@ -1,14 +1,12 @@
-package controller.emulator;
+package controller.emulator.tcp;
 
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-
 /**
  * 
- * @brief Abstract class which represents TCP settings for the
- * 		  emulator.
+ * @brief Abstract class which represents TCP settings for the emulator.
  * @implNote Serializable.
  *
  */
@@ -115,12 +113,11 @@ public abstract class TCPEmulatorSettings implements Serializable {
 	public void setNumPortClient(int numPortClient) {
 		this.numPortClient = numPortClient;
 	}
-	
 
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
-	
+
 	/**
 	 * @brief Used for serialization.
 	 * @param receiving

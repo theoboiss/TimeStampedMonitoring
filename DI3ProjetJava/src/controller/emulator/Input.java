@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 
 import javax.swing.JTextField;
 
-import controller.mainapp.TCPMainAppSettings;
-import controller.shared.TCPClientEmulator;
+import controller.emulator.tcp.TCPClientEmulator;
+import controller.mainapp.tcp.TCPMainAppSettings;
 import model.emulator.History;
 import model.shared.CheckInOut;
 import model.shared.EmployeeInfo;
@@ -22,7 +22,7 @@ public class Input {
 	/* ================================================================= */
 	/*************************** ATTRIBUTES ******************************/
 	/*********************************************************************/
-	
+
 	private EmulatorSettings settings;
 
 	/* ================================================================= */
@@ -37,8 +37,6 @@ public class Input {
 		this.settings = settings;
 	}
 
-	
-	
 	/*********************************************************************/
 	/***************************** METHODS *******************************/
 	/*********************************************************************/
@@ -53,24 +51,22 @@ public class Input {
 		CheckInOut checkInOutToSend = null;
 		try {
 			Integer ID = Integer.parseInt(request.getText());
-			checkInOutToSend = new CheckInOut(Integer.parseInt(request.getText()),
-						LocalDateTime.now(), false);
-			
+			checkInOutToSend = new CheckInOut(Integer.parseInt(request.getText()), LocalDateTime.now(), false);
+
 			// Employee in Emulator database
 			boolean found = false;
 			for (EmployeeInfo employeeTemp : EmulatorSettings.getListEmployeeInfo()) {
 				if (employeeTemp.getID().equals(ID)) {
 					found = true;
 					EmulatorSettings.getWaitingChecks().add(checkInOutToSend);
-					
+
 					new Thread(new TCPClientEmulator(checkInOutToSend, settings.getIPaddressClient(),
 							settings.getNumPortClient())).start();
-					//System.out.println("->" + Emulator.getCurrentModel().getChecksPerEmployee());
 				}
 			}
 			if (!found)
-				System.out.println("Error : ID does not exist in the list !");
-			
+				System.out.println("ID does not exist in the list.\nMaybe it needs to be downloaded. Try again in 2s...");
+
 		} catch (NumberFormatException e) {
 			System.out.println("Unexpected argument");
 		}

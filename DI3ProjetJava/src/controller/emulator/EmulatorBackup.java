@@ -68,11 +68,12 @@ public class EmulatorBackup extends SerializationProcess {
 			throws ClassNotFoundException, EOFException, IOException, FileNotFoundException {
 		initialize(new FileInputStream(backupFileName));
 		Object backup = (Object) extract();
-		
+
 		if (backup instanceof History) {
 			ArrayList<EmployeeInfo> extractedlist = Emulator.getListEmployeeInfo();
 			for (EmployeeInfo currentEmployeeInfo : extractedlist) {
-				Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> listofChecks = ((History) backup).getChecksPerEmployee();
+				Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> listofChecks = ((History) backup)
+						.getChecksPerEmployee();
 				if (listofChecks.get(currentEmployeeInfo) == null)
 					listofChecks.put(currentEmployeeInfo, new CopyOnWriteArrayList<CheckInOut>());
 			}
@@ -101,7 +102,8 @@ public class EmulatorBackup extends SerializationProcess {
 		if (backup instanceof History) {
 			ArrayList<EmployeeInfo> extractedlist = Emulator.getListEmployeeInfo();
 			for (EmployeeInfo currentEmployeeInfo : extractedlist) {
-				Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> listofChecks = ((History) backup).getChecksPerEmployee();
+				Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> listofChecks = ((History) backup)
+						.getChecksPerEmployee();
 				if (listofChecks.get(currentEmployeeInfo) == null)
 					listofChecks.put(currentEmployeeInfo, new CopyOnWriteArrayList<CheckInOut>());
 			}
