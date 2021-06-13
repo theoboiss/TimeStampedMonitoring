@@ -3,6 +3,10 @@ package launching;
 import controller.emulator.Emulator;
 import controller.mainapp.Mainapp;
 
+/**
+ * @brief Simulation class
+ *
+ */
 public abstract class Simulation {
 
 	public static void main(String[] args) {

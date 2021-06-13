@@ -7,6 +7,10 @@ import java.io.OutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * @brief Class for serialization
+ *
+ */
 public abstract class SerializationProcess {
 
 	/*********************************************************************/
@@ -84,11 +88,19 @@ public abstract class SerializationProcess {
 
 	/**************************** initialize *****************************/
 
+	/**
+	 * @param sIn
+	 * @throws IOException
+	 */
 	public void initialize(InputStream sIn) throws IOException {
 		setsIn(sIn);
 		setOis(new ObjectInputStream(sIn));
 	}
 
+	/**
+	 * @param sOut
+	 * @throws IOException
+	 */
 	public void initialize(OutputStream sOut) throws IOException {
 		setsOut(sOut);
 		setOos(new ObjectOutputStream(sOut));
@@ -131,7 +143,7 @@ public abstract class SerializationProcess {
 	/****************************** extract ******************************/
 
 	/**
-	 * @return
+	 * @return deserializedObject
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
@@ -147,7 +159,7 @@ public abstract class SerializationProcess {
 	}
 
 	/**
-	 * @return
+	 * @return deserializedObject
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
