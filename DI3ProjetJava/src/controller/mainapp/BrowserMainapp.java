@@ -3,6 +3,7 @@ package controller.mainapp;
 import java.net.InetAddress;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -96,50 +97,77 @@ public class BrowserMainapp {
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
 
-	protected HashSet<Employee> selectEmployees(String[] searchedIDs, String[] searchedFirstnames,
-			String[] searchedLastnames) {
-		// Will select the employees to look into
-		HashSet<Employee> selectedEmployees = new HashSet<>();
-
+	protected CopyOnWriteArrayList<Employee> selectEmployees(String[] searchedIDs, String[] searchedFirstnames,
+			String[] searchedLastnames, String[] searchedDepartments) {
 		// Select employees by ID
+		HashSet<Employee> selectedEmployeesByID = new HashSet<>();
 		if (searchedIDs.length == 1) {
-			if (searchedIDs[0].isBlank()) { // we have to look for every employees by default
-				for (Department currentDepartment : getModel().getListDepartment())
-					selectedEmployees.addAll(currentDepartment.getListEmployees().values());
-			} else
-				selectedEmployees.add(SearchInMainapp.searchEmployee(getModel(), Integer.valueOf(searchedIDs[0])));
+			if (!searchedIDs[0].isBlank())
+				selectedEmployeesByID.add(SearchInMainapp.searchEmployee(getModel(), Integer.valueOf(searchedIDs[0])));
 		} else
 			for (String valueForID : searchedIDs) { // we look for the only employees that are concerned by their ID
 				if (!valueForID.isBlank())
-					selectedEmployees.add(SearchInMainapp.searchEmployee(getModel(), Integer.valueOf(valueForID)));
+					selectedEmployeesByID.add(SearchInMainapp.searchEmployee(getModel(), Integer.valueOf(valueForID)));
 			}
 
 		// Select employees by name
+		HashSet<Employee> selectedEmployeesByName = new HashSet<>();
 		if (searchedFirstnames.length == 1 && searchedLastnames.length == 1) {
-			if (searchedFirstnames[0].isBlank() && searchedLastnames[0].isBlank()) {
-				// we have to look for every employees by default
-				for (Department currentDepartment : getModel().getListDepartment())
-					selectedEmployees.addAll(currentDepartment.getListEmployees().values());
-			} else if (searchedFirstnames[0].isBlank())
-				selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), searchedLastnames[0], 1));
+			if (!searchedFirstnames[0].isBlank() && !searchedLastnames[0].isBlank())
+				intersectionCollection(selectedEmployeesByName,
+						SearchInMainapp.searchEmployee(getModel(), searchedFirstnames[0], searchedLastnames[0]));
+			else if (!searchedFirstnames[0].isBlank())
+				intersectionCollection(selectedEmployeesByName,
+						SearchInMainapp.searchEmployee(getModel(), searchedFirstnames[0], 0));
 			else
-				selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), searchedFirstnames[0], 0));
+				intersectionCollection(selectedEmployeesByName,
+						SearchInMainapp.searchEmployee(getModel(), searchedLastnames[0], 1));
 		} else
-			for (String valueForFirstname : searchedFirstnames) {
-				// we look for the only employees that are concerned by their ID
+			for (String valueForFirstname : searchedFirstnames) { // we look for the only employees that are concerned
+																	// by their ID
 				if (valueForFirstname.isBlank()) {
 					for (String valueForLastname : searchedLastnames)
 						if (!valueForLastname.isBlank())
-							selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), valueForLastname, 1));
+							intersectionCollection(selectedEmployeesByName,
+									SearchInMainapp.searchEmployee(getModel(), valueForLastname, 1));
 				} else
 					for (String valueForLastname : searchedLastnames) {
 						if (valueForLastname.isBlank())
-							selectedEmployees.addAll(SearchInMainapp.searchEmployee(getModel(), valueForFirstname, 0));
+							intersectionCollection(selectedEmployeesByName,
+									SearchInMainapp.searchEmployee(getModel(), valueForFirstname, 0));
 						else
-							selectedEmployees.addAll(
+							intersectionCollection(selectedEmployeesByName,
 									SearchInMainapp.searchEmployee(getModel(), valueForFirstname, valueForLastname));
 					}
 			}
+
+		// Search the employees in the intersection of selectedEmployeesByName and
+		// selectedEmployeesByID
+		CopyOnWriteArrayList<Employee> selectedEmployees = new CopyOnWriteArrayList<>(selectedEmployeesByID);
+		intersectionCollection(selectedEmployees, selectedEmployeesByName);
+
+		if (!selectedEmployees.isEmpty()) {
+
+			for (Employee selectedEmployee : selectedEmployees) {
+				boolean isInSearchedDepartments = false;
+				for (Integer iterator = 0; (iterator < searchedDepartments.length)
+						&& !isInSearchedDepartments; iterator++) {
+					if (SearchInMainapp.areStringsMatching(selectedEmployee.getDepartment(),
+							searchedDepartments[iterator]))
+						isInSearchedDepartments = true;
+				}
+				if (!isInSearchedDepartments)
+					selectedEmployees.remove(selectedEmployee);
+			}
+		} else {
+			for (String currentDepartmentName : searchedDepartments) {
+				try {
+					selectedEmployees.addAll(getModel().getDepartment(currentDepartmentName).getListEmployees().values());
+				} catch (Exception e) {
+					// the company does not have the current department name but it is okay
+				}
+			}
+		}
 
 		return selectedEmployees;
 	}
@@ -155,48 +183,47 @@ public class BrowserMainapp {
 	/****************************** SEARCH *******************************/
 	/*********************************************************************/
 
-	/**
-	 * @details A request should be a HashMap like this :
-	 *          +----------------------------------------------------+ |"id" ->
-	 *          JTextField="1, 2, 3" |
-	 *          |----------------------------------------------------| |"firstname"
-	 *          -> JTextField="Steven" |
-	 *          |----------------------------------------------------| |"lastname"
-	 *          -> JTextField="" |
-	 *          |----------------------------------------------------| |"after_date"
-	 *          -> JTextField="01-01-2021 00:00" |
-	 *          |----------------------------------------------------|
-	 *          |"before_date" -> JTextField="01-01-2021 16:00" |
-	 *          +----------------------------------------------------+
-	 * 
-	 *          And we give the result of the intersection of these informations
-	 * 
-	 * @param request
-	 * @return
-	 */
 
 	public Object[][] searchCheckInOut(HashMap<String, JTextField> request) {
-		// String[] titles = {"ID", "Firstname", "Lastname", "Date", "Status"};
-
 		// extract informations from the request
 		String[] searchedIDs = request.get("id").getText().split(getRegexPattern());
 		String[] searchedFirstnames = request.get("firstname").getText().split(getRegexPattern());
 		String[] searchedLastnames = request.get("lastname").getText().split(getRegexPattern());
-		// add department_name
+		String[] searchedDepartments = request.get("department_name").getText().split(getRegexPattern());
 		String searchedAfterDate = request.get("after_date").getText();
 		String searchedBeforeDate = request.get("before_date").getText();
 
-		// select the searched employees
-		HashSet<Employee> searchedEmployees = selectEmployees(searchedIDs, searchedFirstnames, searchedLastnames);
+		
+		CopyOnWriteArrayList<Employee> selectedEmployees = selectEmployees(searchedIDs, searchedFirstnames, searchedLastnames, searchedDepartments);
 
+		
 		// Search by the couple of dates using only the selected employees
-		ArrayList<CheckInOut> rawResult = new ArrayList<>();
-		for (Employee selectedEmployee : searchedEmployees) {
-			rawResult.addAll(SearchInMainapp.searchCheckInOut(selectedEmployee,
-					LocalDateTime.parse(searchedAfterDate, getFormatter()),
-					LocalDateTime.parse(searchedBeforeDate, getFormatter())));
+		LocalDateTime dateTimeMinSearched = null;
+		try {
+			dateTimeMinSearched = LocalDateTime.parse(searchedAfterDate, getFormatter());
+		}
+		catch (DateTimeParseException e) {
+			System.out.println("For date/time format, use \"MM-dd-yyyy HH:mm\"");
+			dateTimeMinSearched = LocalDateTime.MIN;
 		}
 
+		LocalDateTime dateTimeMaxSearched = null;
+		try {
+			dateTimeMaxSearched = LocalDateTime.parse(searchedBeforeDate, getFormatter());
+		}
+		catch (DateTimeParseException e) {
+			System.out.println("For date/time format, use \"MM-dd-yyyy HH:mm\"");
+			dateTimeMaxSearched = LocalDateTime.MAX;
+		}
+		
+		ArrayList<CheckInOut> rawResult = new ArrayList<>();
+		for (Employee selectedEmployee : selectedEmployees) {
+			rawResult.addAll(SearchInMainapp.searchCheckInOut(selectedEmployee,
+					dateTimeMinSearched,
+					dateTimeMaxSearched));
+		}
+
+		
 		// format the data
 		Object[][] data = new Object[rawResult.size()][];
 		Integer iterator = 0;

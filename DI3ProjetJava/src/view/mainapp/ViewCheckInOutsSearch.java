@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import controller.mainapp.BrowserMainapp;
+import view.mainapp.results.ViewResultsCheckInOuts;
 
 /**
  * 
@@ -255,8 +256,8 @@ public class ViewCheckInOutsSearch extends ViewModel {
 		labelEmployeeLastName = new JLabel("By Employee Last Name ");
 		labelEmployeeID = new JLabel("By Employee ID ");
 		labelDepartmentName = new JLabel("By Department Name ");
-		labelStartDate = new JLabel("By start DateTime (MM-dd-yyyy HH:mm) ");
-		labelEndDate = new JLabel("By end DateTime (MM-dd-yyyy HH:mm) ");
+		labelStartDate = new JLabel("Before DateTime (MM-dd-yyyy HH:mm) ");
+		labelEndDate = new JLabel("After DateTime (MM-dd-yyyy HH:mm) ");
 		labelArray.add(labelEmployeeFirstName);
 		labelArray.add(labelEmployeeLastName);
 		labelArray.add(labelEmployeeID);
@@ -299,9 +300,8 @@ public class ViewCheckInOutsSearch extends ViewModel {
 
 				BrowserMainapp controller = new BrowserMainapp();
 				Object[][] dataEntry = controller.searchCheckInOut(getSubmitMap());
-				String[] titles = { "ID", "Firstname", "Lastname", "Department", "Date of last check" };
-				// ViewResultsCheckInOuts frameCheckInOutResults = new
-				// ViewResultsCheckInOuts(dataEntry, titles);
+				String[] titles = {"ID", "Firstname", "Lastname", "Date", "Status"};
+				ViewResultsCheckInOuts frameCheckInOutResults = new ViewResultsCheckInOuts(dataEntry, titles);
 
 			} catch (Exception e) {
 				e.printStackTrace();
