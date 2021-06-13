@@ -22,8 +22,8 @@ des pointages.
 Nous avons également suivi une conception qui respecte les procédures du *génie logiciel*,
 dans le but de rendre l'entretien de notre code plus facile.  
 Au niveau de l'emplacement des méthodes main, celle de l'application principale se trouve dans le package **controller.mainapp** et dans la classe **Mainapp**.Celle de l'émulateur a été placée dans le package **controller.emulator**, dans la classe **Emulator**. Les fichiers de sauvegarde des données sérialisées
-de l'application principale (respectivement l'émulateur) se trouve dans le dossier **backupMainapp** (respectivement **backupEmulator**), ainsi pour utiliser 
-une certaine sauvegarde, il suffit de se rendre dans l'un des deux dossiers en fonction de ce que l'utilisateur souhaite charger comme version.  
+de l'application principale (respectivement l'émulateur) se trouve dans le dossier **backupMainapp** (respectivement **backupEmulator**).
+Pour effectuer une sauvegarde, il suffit de fermer les fenêtres principales de l'émulateur, ensuite de l'application principale. Les sauvegardes se feront tout de même à des intervalles réguliers.   
 
 Afin que l'émulateur puisse communiquer avec l'application principale, celle-ci doit être allumée. Une fois la connexion établie,
 l'émulateur reçoit les dernières mises à jour des listes des employées inscrits dans le système, ce qui lui permettra
