@@ -6,10 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import controller.shared.SerializationProcess;
 import model.emulator.History;
 import model.shared.CheckInOut;
@@ -69,6 +67,7 @@ public class EmulatorBackup extends SerializationProcess {
 		initialize(new FileInputStream(backupFileName));
 		Object backup = (Object) extract();
 
+		// Check backup
 		if (backup instanceof History) {
 			ArrayList<EmployeeInfo> extractedlist = Emulator.getListEmployeeInfo();
 			for (EmployeeInfo currentEmployeeInfo : extractedlist) {
@@ -99,6 +98,7 @@ public class EmulatorBackup extends SerializationProcess {
 			initialize(getsIn());
 		Object backup = (Object) extract(streamStatus);
 
+		// Check backup
 		if (backup instanceof History) {
 			ArrayList<EmployeeInfo> extractedlist = Emulator.getListEmployeeInfo();
 			for (EmployeeInfo currentEmployeeInfo : extractedlist) {

@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import controller.emulator.tcp.TCPEmulatorSettings;
-import controller.mainapp.tcp.TCPMainAppSettings;
 import model.emulator.History;
 import model.shared.CheckInOut;
 import model.shared.EmployeeInfo;

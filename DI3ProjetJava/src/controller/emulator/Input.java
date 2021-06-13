@@ -1,17 +1,10 @@
 package controller.emulator;
 
-import java.net.ConnectException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import javax.swing.JTextField;
-
 import controller.emulator.tcp.TCPClientEmulator;
-import controller.mainapp.tcp.TCPMainAppSettings;
-import model.emulator.History;
 import model.shared.CheckInOut;
 import model.shared.EmployeeInfo;
-import view.emulator.ViewEmulator;
 
 /**
  * @brief Class for emulator inputs and checks
@@ -38,9 +31,27 @@ public class Input {
 	}
 
 	/*********************************************************************/
-	/***************************** METHODS *******************************/
+	/***************************** GETS/SETS *****************************/
 	/*********************************************************************/
 
+	/**
+	 * @return the settings
+	 */
+	public EmulatorSettings getSettings() {
+		return settings;
+	}
+
+	/**
+	 * @param settings the settings to set
+	 */
+	public void setSettings(EmulatorSettings settings) {
+		this.settings = settings;
+	}
+
+	/*********************************************************************/
+	/***************************** METHODS *******************************/
+	/*********************************************************************/
+	
 	/**
 	 * @brief Method to send the check in out when an employee enters his id
 	 * @param emulator

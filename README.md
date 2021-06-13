@@ -18,7 +18,7 @@ Nous avons utilisé le modèle **MVC** afin de mieux structurer notre projet et lu
 une meilleur lisibilité. Nous avons réparti l'ensemble de nos classes dans des packages **model**, **view**, et **controller**
 qui sont propres à chacun des deux programmes (application principale, émulateur).  
 En plus, nous avons créé des packages dont les classes permettent de s'occuper de la communication **TCP**
-(**controller.mainapp.tcp** et **controller.emulator.tcp**), et d'autres partagés (**.shared**) entre les deux programmes dont les classes facilitent la sérialisation.  
+(**controller.mainapp.tcp** et **controller.emulator.tcp**), et d'autres dont les classes sont partagées entre **l'application principale** et **l'émulateur**.  
 Nous avons également suivi une conception qui respecte les procédures du *génie logiciel*,
 dans le but de rendre l'entretien de notre code plus facile.  
 

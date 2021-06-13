@@ -1,12 +1,9 @@
 package controller.emulator;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-
 import controller.emulator.Emulator;
 import controller.emulator.tcp.TCPClientEmulator;
 import controller.emulator.tcp.TCPServerEmulator;
-import model.shared.CheckInOut;
 import view.emulator.ViewEmulator;
 
 /**

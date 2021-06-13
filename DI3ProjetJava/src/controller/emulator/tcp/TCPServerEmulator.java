@@ -26,7 +26,7 @@ public class TCPServerEmulator extends TCPServerEmulatorBuilder implements Runna
 	}
 
 	/**
-	 * @brief Method which add the received data in the database of the main
+	 * @brief Method which adds the received data in the database of the main
 	 *        application.
 	 * @param readChecks
 	 */

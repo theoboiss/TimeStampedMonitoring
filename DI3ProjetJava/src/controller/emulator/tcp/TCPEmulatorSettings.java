@@ -119,7 +119,7 @@ public abstract class TCPEmulatorSettings implements Serializable {
 	/*********************************************************************/
 
 	/**
-	 * @brief Used for serialization.
+	 * @brief Method Used for serialization.
 	 * @param receiving
 	 */
 	public void copiesIn(TCPEmulatorSettings receiving) {
