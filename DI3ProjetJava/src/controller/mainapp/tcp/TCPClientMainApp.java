@@ -15,11 +15,18 @@ import model.shared.EmployeeInfo;
  */
 public class TCPClientMainApp extends TCPClientMainAppBuilder implements Runnable {
 
+	/**
+	 * @brief Constructor
+	 * @param listEmployees
+	 * @param IPaddress
+	 * @param numPort
+	 */
 	public TCPClientMainApp(ArrayList<EmployeeInfo> listEmployees, InetAddress IPaddress, int numPort) {
 		super(listEmployees, IPaddress, numPort);
 	}
 
 	/**
+	 * @brief Send method
 	 * @apiNote Try to send data until success.
 	 */
 	public void run() {
