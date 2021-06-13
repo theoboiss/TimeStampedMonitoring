@@ -33,7 +33,7 @@ public class Input {
 		try {
 			Integer ID = Integer.parseInt(request.getText());
 			checkInOutToSend = new CheckInOut(Integer.parseInt(request.getText()),
-						LocalDateTime.now(), true);
+						LocalDateTime.now(), false);
 			
 			// Employee in Emulator database
 			boolean found = false;
@@ -45,6 +45,7 @@ public class Input {
 					EmulatorSettings settings = new EmulatorSettings();
 					new Thread(new TCPClientEmulator(checkInOutToSend, settings.getIPaddressClient(),
 							settings.getNumPortClient())).start();
+					Thread.sleep(6*1000); //wait the client to try to send the check
 					if (!Emulator.getWaitingChecks().contains(checkInOutToSend)) {
 						checkInOutToSend.setStatus(true);
 						Emulator.getCurrentModel().addToHistory(checkInOutToSend, employeeTemp);
@@ -55,11 +56,6 @@ public class Input {
 				System.out.println("Error : ID does not exist in the list !");
 		} catch (NumberFormatException e) {
 			System.out.println("Unexpected argument");
-		}
-		
-		if (Emulator.getWaitingChecks().contains(checkInOutToSend)) {
-			// Adding the check in out to the waiting list
-			checkInOutToSend.setStatus(false);
 		}
 	}
 }

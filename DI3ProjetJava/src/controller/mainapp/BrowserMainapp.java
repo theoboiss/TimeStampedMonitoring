@@ -318,38 +318,33 @@ public class BrowserMainapp {
 		Object[][] tablePlanning = new Object[2][5];
 		HashMap<DayName, DayPlanning> searchedEmployeePlanning = new HashMap<>(
 				searchedEmployee.getPlanning().getPlanning());
-		Integer iteratorX = 0;
+		Integer iteratorY = 0;
 		for (DayName day : DayName.values()) {
 			Object[] dayToAdd = new Object[2];
 			dayToAdd[0] = searchedEmployeePlanning.get(day).getArrivalTime()
 					.format(DateTimeFormatter.ofPattern("HH:mm"));
 			dayToAdd[1] = searchedEmployeePlanning.get(day).getLeavingTime()
 					.format(DateTimeFormatter.ofPattern("HH:mm"));
-			tablePlanning[0][iteratorX] = dayToAdd[0].toString(); 
-			tablePlanning[1][iteratorX] = dayToAdd[1].toString(); 
-			iteratorX++;
+			tablePlanning[0][iteratorY] = dayToAdd[0].toString(); 
+			tablePlanning[1][iteratorY] = dayToAdd[1].toString(); 
+			iteratorY++;
 		}
 
-		Integer n = 10;
-		Object[][] tableChecks = new Object[n][1];
+		Object[][] tableChecks = null;
 		ArrayList<CheckInOut> listEmployeeChecks = SearchInMainapp.searchCheckInOut(searchedEmployee, LocalDateTime.MIN,
 				LocalDateTime.MAX);
-		//tableChecks[0] = new String[listEmployeeChecks.size()];
-		//tableChecks[0] = new Object[n];
-		for (Integer iteratorTable = 0; iteratorTable < n; iteratorTable++)
-			tableChecks[iteratorTable][0] = new Object[1];
-		if (n > listEmployeeChecks.size()) {
-			for (Integer iteratorY = 0; iteratorY < listEmployeeChecks.size(); iteratorY++) {
-				tableChecks[iteratorY][0] = listEmployeeChecks.get(iteratorY).getCheckTime()
+		Integer nbOfChecks = listEmployeeChecks.size();
+		if (nbOfChecks == 0) {
+			tableChecks = new Object[1][1];
+			tableChecks[0][0] = "no check yet"; 
+		}
+		else {
+			tableChecks = new Object[nbOfChecks][1];
+			for (Integer iteratorTable = 0; iteratorTable < nbOfChecks; iteratorTable++) {
+				tableChecks[iteratorTable][0] = new Object[1];
+				tableChecks[iteratorTable][0] = listEmployeeChecks.get(iteratorTable).getCheckTime()
 						.format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm"));
 			}
-			for (Integer iteratorY = listEmployeeChecks.size(); iteratorY < n; iteratorY++) {
-				tableChecks[iteratorY][0] = "";
-			}
-		}
-		else for (Integer iteratorY = 0; iteratorY < n; iteratorY++) {
-			tableChecks[iteratorY][0] = listEmployeeChecks.get(iteratorY).getCheckTime()
-					.format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm"));
 		}
 
 		

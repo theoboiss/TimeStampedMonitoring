@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
+import controller.emulator.Emulator;
 import controller.emulator.EmulatorSettings;
 import model.shared.CheckInOut;
 
@@ -53,6 +54,7 @@ public class TCPClientEmulator extends TCPClientEmulatorBuilder implements Runna
 				 oos.close();
 				 ois.close();
 				 s.close();
+				 System.out.println(checkInOut);
 				 checkInOut.removeAll(checkInOut);
 			 } catch(IOException e) { 
 					 System.out.println("IOException TCPClientEmulator : " + e.getMessage());
@@ -64,7 +66,7 @@ public class TCPClientEmulator extends TCPClientEmulatorBuilder implements Runna
 						}
 					 }
 					 try {
-						Thread.sleep(10000);
+						Thread.sleep(5*1000);
 					} catch (InterruptedException e1) {
 						System.out.println("InterruptedException TCPClientEmulator : " + e1.getMessage());
 					}

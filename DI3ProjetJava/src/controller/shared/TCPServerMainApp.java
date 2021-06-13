@@ -27,18 +27,20 @@ public class TCPServerMainApp extends TCPServerMainAppBuilder implements Runnabl
 	 */
 	public static void addChecksToMainApp(ArrayList<CheckInOut> readChecks) {
 		if (readChecks != null) {
-			for (int i = 0; i < readChecks.size(); i++) {
-				Employee employee = SearchInMainapp.searchEmployee(Mainapp.getCurrentModel(), readChecks.get(i).getEmployeeID());
+			
+			for (CheckInOut currentReadCheck : readChecks) {
+				Employee employee = SearchInMainapp.searchEmployee(Mainapp.getCurrentModel(), currentReadCheck.getEmployeeID());
 				 if (employee != null) {
 					 try {
-						Mainapp.getCurrentModel().getDepartment(employee.getDepartment()).getListEmployees().get(employee.getID()).getListChecks().add(readChecks.get(i));
-						System.out.println("Server mainapp received : " + readChecks.get(i).toString());
+						Mainapp.getCurrentModel().getDepartment(employee.getDepartment()).getListEmployees().get(employee.getID()).getListChecks().add(currentReadCheck);
 					} catch (Exception e) {
 						System.out.println("Exception TCPServerMainApp : " + e.getMessage());
 					}
-					 
+					currentReadCheck.setStatus(true);
+					System.out.println("Server mainapp saved : " + currentReadCheck.toString());
 				 }
 			}
+			
 		} else {
 			System.out.println("No checks to save");
 		}
@@ -53,12 +55,13 @@ public class TCPServerMainApp extends TCPServerMainAppBuilder implements Runnabl
 			 setSocket();
 			 while(true) { 
 				 s = ss.accept();
-				 System.out.println("Hello, the server mainApp accepts");
+				 System.out.println("Hello, the server mainapp accepts");
 				 sIn = s.getInputStream();
 				 ois = new ObjectInputStream(sIn);
+				 @SuppressWarnings("unchecked")
 				 ArrayList<CheckInOut> readChecks = (ArrayList<CheckInOut>) ois.readObject();
+				 System.out.println("Server mainapp received : " + readChecks.toString());
 				 addChecksToMainApp(readChecks);
-				 System.out.println("ServerMainApp received : " + readChecks.toString());
 				 sOut = s.getOutputStream();
 				 oos = new ObjectOutputStream(sOut);
 				/*while data have been received the server send a response

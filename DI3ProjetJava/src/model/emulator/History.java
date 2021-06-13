@@ -6,8 +6,11 @@ import java.time.LocalDateTime;
 import model.shared.CheckInOut;
 import model.shared.EmployeeInfo;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import controller.emulator.EmulatorSettings;
 
 /**
  * 
@@ -23,15 +26,17 @@ public class History implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
+	private ArrayList<EmployeeInfo> listEmployeeInfo;
+	
 	// All CheckInOut per employee from the first day
 	private Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee;
 	
 	/* All CheckInOut per employee during a day. The table is reset to 0 at the end
 	   of day */
 	private Hashtable<LocalDate, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay;
-	private CheckInOut checkInOut;
-	private LocalDateTime dateTime;
-	private Integer employeeID;
+	Integer employeeID = 0;
+	LocalDateTime dateTime = null;
+	CheckInOut checkInOut = null;
 
 	/* ================================================================= */
 	/*************************** BUILDERS ********************************/
@@ -41,31 +46,9 @@ public class History implements Serializable {
 	 * @brief Default constructor.
 	 */
 	public History() {
-
+		listEmployeeInfo = EmulatorSettings.getListEmployeeInfo();
 		checksPerEmployee = new Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>();
 		checksPerEmployeePerDay = new Hashtable<LocalDate, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>>();
-	}
-
-	/**
-	 * @brief Constructor with an employee ID
-	 * @param ID
-	 */
-	public History(Integer ID) {
-		employeeID = ID;
-		dateTime = null;
-		checkInOut = null;
-	}
-
-	/**
-	 * @param employeeID
-	 * @param dateTime
-	 * @param checkInOut
-	 */
-	public History(Integer employeeID, LocalDateTime dateTime, CheckInOut checkInOut) {
-		super();
-		this.employeeID = employeeID;
-		this.dateTime = dateTime;
-		this.checkInOut = checkInOut;
 	}
 
 	
@@ -103,52 +86,6 @@ public class History implements Serializable {
 			Hashtable<LocalDate, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay) {
 		this.checksPerEmployeePerDay = checksPerEmployeePerDay;
 	}
-
-	
-	/***************************** checkInOut ****************************/
-	/**
-	 * @return the checkInOut
-	 */
-	public CheckInOut getCheckInOut() {
-		return checkInOut;
-	}
-	
-	/**
-	 * @param checkInOut the checkInOut to set
-	 */
-	public void setCheckInOut(CheckInOut checkInOut) {
-		this.checkInOut = checkInOut;
-	}
-	
-	/****************************** dateTime *****************************/
-	/**
-	 * @return the dateTime
-	 */
-	public LocalDateTime getDateTime() {
-		return dateTime;
-	}
-	
-	/**
-	 * @param dateTime the dateTime to set
-	 */
-	public void setDateTime(LocalDateTime dateTime) {
-		this.dateTime = dateTime;
-	}
-	
-	/**************************** employeeID *****************************/
-	/**
-	 * @return the employeeID
-	 */
-	public Integer getEmployeeID() {
-		return employeeID;
-	}
-	
-	/**
-	 * @param employeeID the employeeID to set
-	 */
-	public void setEmployeeID(Integer employeeID) {
-		this.employeeID = employeeID;
-	}
 	
 	
 	/* ================================================================= */
@@ -178,20 +115,6 @@ public class History implements Serializable {
 	public void addToHistory(LocalDate date, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee) {
 		checksPerEmployeePerDay.put(date, checksPerEmployee);
 	}
-
-	/**
-	 * @brief Method to create an event when an employee arrives or leaves the
-	 *        company.
-	 * @param event
-	 * @param empID
-	 * @param time
-	 * @param check
-	 */
-	/*
-	 * public void addToHistory(EventDuringCheck event, Integer empID, LocalDateTime
-	 * time, CheckInOut check) { eventDuringCheck = event; employeeID = empID;
-	 * dateTime = time; checkInOut = check; }
-	 */
 	
 	/**
 	 * @brief Method which delete an event from history.

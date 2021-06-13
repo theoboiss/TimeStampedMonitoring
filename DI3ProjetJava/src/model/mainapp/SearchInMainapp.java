@@ -47,7 +47,7 @@ public abstract class SearchInMainapp {
 		ArrayList<CheckInOut> listChecks = new ArrayList<>(employee.getListChecks());
 		
 		//the most recent checks are in the end of the array so we start searching from there
-		for (Integer iterator = listChecks.size()-1; iterator > 0; iterator--) {
+		for (Integer iterator = listChecks.size()-1; iterator >= 0; iterator--) {
 			CheckInOut checkTmp = listChecks.get(iterator);
 			if (checkTmp.getCheckTime().isAfter(beforeCheck)
 			 && checkTmp.getCheckTime().isBefore(afterCheck)) {
