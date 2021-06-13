@@ -72,6 +72,7 @@ public class TCPClientEmulator extends TCPClientEmulatorBuilder implements Runna
 		} while (isWaitingCheckList && !dataSent);
 		for (CheckInOut sentCheck : checkInOut) {
 			checkInOut.remove(sentCheck);
+			EmulatorSettings.getWaitingChecks().remove(sentCheck);
 			sentCheck.setStatus(true);
 			Emulator.getCurrentModel().addToHistory(sentCheck,
 					SearchInEmulator.searchEmployee(Emulator.getCurrentModel(), sentCheck.getEmployeeID()));
