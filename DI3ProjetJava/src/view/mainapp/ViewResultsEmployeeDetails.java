@@ -1,5 +1,8 @@
 package view.mainapp;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -185,26 +188,38 @@ public class ViewResultsEmployeeDetails extends JFrame {
 	 */
 	private void initializeAttributes(Object[][][] dataEntry, String[][] titles) {
 		
+		GridBagConstraints constraintsDataTableHeader = new GridBagConstraints();
+		constraintsDataTableHeader.gridx = 0;
+		constraintsDataTableHeader.gridy = 0;
+		
+		GridBagConstraints constraintsDataTable = new GridBagConstraints();
+		constraintsDataTable.gridx = 0;
+		constraintsDataTable.gridy = 1;
+		
 		//Frame info
-		frameInfo = new JPanel();
+		frameInfo = new JPanel(new GridBagLayout());
 		infoTable = new JTable(dataEntry[0], titles[0]);
 		//frameInfo.add(infoTable.getTableHeader()); //should be done automatically by the next line ?
 		//System.out.println(infoTable.getValueAt(0, 0));
-		frameInfo.add(infoTable); //<- bug
+		frameInfo.add(infoTable.getTableHeader(), constraintsDataTableHeader);
+		frameInfo.add(infoTable, constraintsDataTable); 
 		
 		//Frame planning
-		framePlanning = new JPanel();
+		framePlanning = new JPanel(new GridBagLayout());
 		planningTable = new JTable(dataEntry[1], titles[1]);
 		//framePlanning.add(planningTable.getTableHeader()); //should be done automatically by the next line ?
 		//System.out.println(planningTable.getValueAt(0, 0));
-		framePlanning.add(planningTable); //<- bug
+		framePlanning.add(planningTable.getTableHeader(), constraintsDataTableHeader);
+		framePlanning.add(planningTable, constraintsDataTable); 
 		
 		//Frame Checks
-		frameChecks = new JPanel();
+		frameChecks = new JPanel(new GridBagLayout());
 		checksTable = new JTable(dataEntry[2], titles[2]);
 		//frameChecks.add(checksTable.getTableHeader()); //should be done automatically by the next line ?
 		//System.out.println(checksTable.getValueAt(0, 0));
-		frameChecks.add(checksTable); //<- not as much a bug but does not print entirely
+		checksTable.getColumnModel().getColumn(0).setPreferredWidth(110);
+		frameChecks.add(checksTable.getTableHeader(), constraintsDataTableHeader);
+		frameChecks.add(checksTable, constraintsDataTable); 
 		
 	}
 }

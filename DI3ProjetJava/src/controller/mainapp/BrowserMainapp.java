@@ -307,44 +307,48 @@ public class BrowserMainapp {
 		Integer IDemployee = Integer.parseInt(request);
 		Employee searchedEmployee = SearchInMainapp.searchEmployee(getModel(), IDemployee);
 
-		Object[][] tableInfo = new Object[4][];
+		Object[][] tableInfo = new Object[1][4];
 		for (Integer iteratorTable = 0; iteratorTable < 4; iteratorTable++)
-			tableInfo[iteratorTable] = new Object[1];
+			tableInfo[0][iteratorTable] = new Object[1];
 		tableInfo[0][0] = searchedEmployee.getID().toString();
-		tableInfo[1][0] = searchedEmployee.getFirstname();
-		tableInfo[2][0] = searchedEmployee.getLastname();
-		tableInfo[3][0] = searchedEmployee.getDepartment();
+		tableInfo[0][1] = searchedEmployee.getFirstname();
+		tableInfo[0][2] = searchedEmployee.getLastname();
+		tableInfo[0][3] = searchedEmployee.getDepartment();
 
-		Object[][] tablePlanning = new Object[5][];
+		Object[][] tablePlanning = new Object[2][5];
 		HashMap<DayName, DayPlanning> searchedEmployeePlanning = new HashMap<>(
 				searchedEmployee.getPlanning().getPlanning());
 		Integer iteratorX = 0;
 		for (DayName day : DayName.values()) {
-			tablePlanning[iteratorX] = new Object[2];
-			tablePlanning[iteratorX][0] = searchedEmployeePlanning.get(day).getArrivalTime()
+			Object[] dayToAdd = new Object[2];
+			dayToAdd[0] = searchedEmployeePlanning.get(day).getArrivalTime()
 					.format(DateTimeFormatter.ofPattern("HH:mm"));
-			tablePlanning[iteratorX][1] = searchedEmployeePlanning.get(day).getLeavingTime()
+			dayToAdd[1] = searchedEmployeePlanning.get(day).getLeavingTime()
 					.format(DateTimeFormatter.ofPattern("HH:mm"));
+			tablePlanning[0][iteratorX] = dayToAdd[0].toString(); 
+			tablePlanning[1][iteratorX] = dayToAdd[1].toString(); 
 			iteratorX++;
 		}
 
-		Object[][] tableChecks = new Object[1][];
+		Integer n = 10;
+		Object[][] tableChecks = new Object[n][1];
 		ArrayList<CheckInOut> listEmployeeChecks = SearchInMainapp.searchCheckInOut(searchedEmployee, LocalDateTime.MIN,
 				LocalDateTime.MAX);
 		//tableChecks[0] = new String[listEmployeeChecks.size()];
-		Integer n = 10;
-		tableChecks[0] = new Object[n];
+		//tableChecks[0] = new Object[n];
+		for (Integer iteratorTable = 0; iteratorTable < n; iteratorTable++)
+			tableChecks[iteratorTable][0] = new Object[1];
 		if (n > listEmployeeChecks.size()) {
 			for (Integer iteratorY = 0; iteratorY < listEmployeeChecks.size(); iteratorY++) {
-				tableChecks[0][iteratorY] = listEmployeeChecks.get(iteratorY).getCheckTime()
+				tableChecks[iteratorY][0] = listEmployeeChecks.get(iteratorY).getCheckTime()
 						.format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm"));
 			}
 			for (Integer iteratorY = listEmployeeChecks.size(); iteratorY < n; iteratorY++) {
-				tableChecks[0][iteratorY] = "";
+				tableChecks[iteratorY][0] = "";
 			}
 		}
 		else for (Integer iteratorY = 0; iteratorY < n; iteratorY++) {
-			tableChecks[0][iteratorY] = listEmployeeChecks.get(iteratorY).getCheckTime()
+			tableChecks[iteratorY][0] = listEmployeeChecks.get(iteratorY).getCheckTime()
 					.format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm"));
 		}
 
