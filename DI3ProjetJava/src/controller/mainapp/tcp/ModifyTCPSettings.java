@@ -6,8 +6,6 @@ import java.net.UnknownHostException;
 import java.util.HashMap;
 import javax.swing.JTextField;
 
-import view.mainapp.ViewSettings;
-
 /**
  * @brief Class to modify port number and IP address
  *
@@ -82,7 +80,7 @@ public class ModifyTCPSettings implements Serializable {
 	/**
 	 * @brief Method to modify port number and IP address in the main application
 	 * @param request
-	 * @return
+	 * @return a string message
 	 */
 	public String ModifyConnectionSettings(HashMap<String, JTextField> request) throws UnknownHostException {
 
