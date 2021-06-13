@@ -12,7 +12,7 @@
 L'application développée permet de gérer les pointages (arrivées et départs) des employés d'une entreprise donnée.  
 
 Les sources relatives au deux programmes demandés ont été codées dans un seul
-projet *Eclipse*, les classes sont ainsi communes entre **l'application principale** et **l'émulateur**.
+projet *Eclipse*, les classes sont ainsi selon des packages de **l'application principale** et de **l'émulateur**.
 Cependant, nous avons utilisé le modèle **MVC** afin de mieux structurer notre projet et lui donner 
 une meilleur lisibilité. Nous avons réparti l'ensemble de nos classes dans des packages **model**, **view**, et **controller**
 qui sont propres à chacun des deux programmes (application principale, émulateur).  
@@ -27,4 +27,4 @@ une certaine sauvegarde, il suffit de se rendre dans l'un des deux dossiers en f
 
 Afin que l'émulateur puisse communiquer avec l'application principale, celle-ci doit être allumée. Une fois la connexion établie,
 l'émulateur reçoit les dernières mises à jour des listes des employées inscrits dans le système, ce qui lui permettra
-de valider ou non un identifiant, lors d'un pointage..
+de valider ou non un identifiant, lors d'un pointage.
