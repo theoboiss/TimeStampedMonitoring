@@ -115,6 +115,6 @@ public class ModifyTCPSettings implements Serializable {
 	
 			return "Successfull change       ";
 		}
-		else return "Formulaire incorrect";
+		else return "Incorrect Form";
 	}
 }
