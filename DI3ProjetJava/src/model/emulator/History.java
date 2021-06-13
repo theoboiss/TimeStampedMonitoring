@@ -2,16 +2,12 @@ package model.emulator;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import model.shared.CheckInOut;
-import model.shared.EmployeeInfo;
-
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import controller.emulator.Emulator;
-import controller.emulator.EmulatorSettings;
+import model.shared.CheckInOut;
+import model.shared.EmployeeInfo;
 
 /**
  * 
