@@ -5,8 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import controller.emulator.Emulator;
 import controller.emulator.EmulatorSettings;
 import model.emulator.SearchInEmulator;
