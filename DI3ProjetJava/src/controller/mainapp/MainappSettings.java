@@ -18,6 +18,10 @@ import model.mainapp.Employee;
 import model.mainapp.SearchInMainapp;
 import model.shared.EmployeeInfo;
 
+/**
+ * @brief Class for the main application settings
+ *
+ */
 public class MainappSettings extends TCPMainAppSettings implements Serializable {
 
 	private static final long serialVersionUID = -786389681881788698L;
@@ -35,10 +39,17 @@ public class MainappSettings extends TCPMainAppSettings implements Serializable 
 	/****************************** BUILDERS *****************************/
 	/*********************************************************************/
 
+	/**
+	 * @brief Default constructor
+	 */
 	public MainappSettings() {
 		super();
 	}
 
+	/**
+	 * @brief Constructor
+	 * @param backupFileName
+	 */
 	public MainappSettings(String backupFileName) {
 		setBackupFileName(backupFileName);
 		setDataManagment(new MainappBackup());
@@ -238,6 +249,7 @@ public class MainappSettings extends TCPMainAppSettings implements Serializable 
 	}
 
 	/**
+	 * @brief Method to handle invalid file name
 	 * @param fileName
 	 * @param input
 	 * @throws IOException
@@ -255,6 +267,11 @@ public class MainappSettings extends TCPMainAppSettings implements Serializable 
 		}
 	}
 
+	/**
+	 * @brief Method for files modification
+	 * @param fileName
+	 * @return fileName
+	 */
 	public static String lastModifiedFileRelatedTo(String fileName) {
 		if (new File(fileName).exists()) {
 			File directory = new File(fileName).getParentFile();
@@ -284,6 +301,11 @@ public class MainappSettings extends TCPMainAppSettings implements Serializable 
 		return fileName;
 	}
 
+	/**
+	 * @brief Get employees info
+	 * @return
+	 * @throws Exception
+	 */
 	public ArrayList<EmployeeInfo> getEmployeeInfo() throws Exception {
 		ArrayList<EmployeeInfo> arrayToReturn = new ArrayList<EmployeeInfo>();
 		ArrayList<Employee> arrayToCast = SearchInMainapp.searchEmployee(getCurrentModel());
@@ -293,6 +315,12 @@ public class MainappSettings extends TCPMainAppSettings implements Serializable 
 		return arrayToReturn;
 	}
 
+	/**
+	 * @brief Method to cast employee info
+	 * @param arrayToCast
+	 * @return arrayToReturn
+	 * @throws Exception
+	 */
 	public static ArrayList<EmployeeInfo> castInEmployeeInfo(ArrayList<Employee> arrayToCast) throws Exception {
 		ArrayList<EmployeeInfo> arrayToReturn = new ArrayList<EmployeeInfo>();
 		for (int i = 0; i < arrayToCast.size(); i++) {
@@ -301,6 +329,10 @@ public class MainappSettings extends TCPMainAppSettings implements Serializable 
 		return arrayToReturn;
 	}
 
+	/**
+	 * @brief Copy method
+	 * @param receiving
+	 */
 	public void copiesIn(MainappSettings receiving) {
 		((TCPMainAppSettings) this).copiesIn(receiving);
 		receiving.setBackupFileName(this.getBackupFileName());

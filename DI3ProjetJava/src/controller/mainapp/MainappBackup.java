@@ -12,6 +12,11 @@ import model.mainapp.Company;
 import model.mainapp.Department;
 import model.mainapp.Employee;
 
+/**
+ * @brief Class that extends SerializationProcess and used for main application
+ *        backups
+ *
+ */
 public class MainappBackup extends SerializationProcess {
 
 	/*********************************************************************/
@@ -20,11 +25,24 @@ public class MainappBackup extends SerializationProcess {
 
 	/******************************* save ********************************/
 
+	/**
+	 * @brief Method to save data
+	 * @param backupFileName
+	 * @param dataToSave
+	 * @throws IOException
+	 */
 	public void save(String backupFileName, Object dataToSave) throws IOException {
 		initialize(new FileOutputStream(backupFileName));
 		insert(dataToSave);
 	}
 
+	/**
+	 * @brief Method to save data
+	 * @param backupFileName
+	 * @param dataToSave
+	 * @param streamStatus
+	 * @throws IOException
+	 */
 	public void save(String backupFileName, Object dataToSave, int streamStatus) throws IOException {
 		if (streamStatus > 0)
 			initialize(new FileOutputStream(backupFileName));
@@ -35,6 +53,14 @@ public class MainappBackup extends SerializationProcess {
 
 	/****************************** restore ******************************/
 
+	/**
+	 * @brief Method to restore data
+	 * @param backupFileName
+	 * @return backup
+	 * @throws ClassNotFoundException
+	 * @throws EOFException
+	 * @throws IOException
+	 */
 	public Object restore(String backupFileName) throws ClassNotFoundException, EOFException, IOException {
 		initialize(new FileInputStream(backupFileName));
 		Object backup = (Object) extract();
@@ -51,6 +77,15 @@ public class MainappBackup extends SerializationProcess {
 		return backup;
 	}
 
+	/**
+	 * @brief Method to restore data
+	 * @param backupFileName
+	 * @param streamStatus
+	 * @return backup
+	 * @throws ClassNotFoundException
+	 * @throws EOFException
+	 * @throws IOException
+	 */
 	public Object restore(String backupFileName, int streamStatus)
 			throws ClassNotFoundException, EOFException, IOException {
 		if (streamStatus > 0)

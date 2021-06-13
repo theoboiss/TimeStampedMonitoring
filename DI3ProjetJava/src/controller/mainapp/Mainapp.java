@@ -4,13 +4,12 @@ import java.io.IOException;
 
 import controller.mainapp.tcp.TCPClientMainApp;
 import controller.mainapp.tcp.TCPServerMainApp;
-import model.mainapp.Company;
-import model.mainapp.Department;
-import model.mainapp.Employee;
-import model.mainapp.SearchInMainapp;
-import model.shared.CheckInOut;
 import view.mainapp.ViewMainapp;
 
+/**
+ * @brief Main class to launch the main application
+ *
+ */
 public class Mainapp extends MainappSettings {
 
 	private static final long serialVersionUID = -6925599295800017000L;
