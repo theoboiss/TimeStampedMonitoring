@@ -35,7 +35,7 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	private transient EmulatorBackup backupData;
 	private LocalDateTime dateTime;
 	private String backupFileName;
-	private long[] timersForBackup = { 20 * 1000, 30 * 60 * 1000 }; // in milliseconds
+	private long[] timersForBackup = { 40*1000, 2*60*1000 }; // in milliseconds
 
 	/*********************************************************************/
 	/****************************** BUILDERS *****************************/
@@ -69,7 +69,7 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 					File newFile = new File(getBackupFileName());
 					newFile.createNewFile();
 				}
-				catch (IOException e1) { System.out.println(e1.getMessage()); }
+				catch (IOException e1) { System.out.println("Backup file for Emulator is being creating"); }
 			}
 			catch (EOFException e) {
 				try {
@@ -284,7 +284,7 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 					getBackupData().saveData(getBackupFileName(), new ArrayList<EmployeeInfo>(getListEmployeeInfo()), 0);
 					getBackupData().saveData(getBackupFileName(), new ArrayList<CheckInOut>(getWaitingChecks()), 0);
 					getBackupData().saveData(getBackupFileName(), getCurrentModel(), -1);
-					System.out.println("(Backup (emulator) made on " + nowTime.format(DateTimeFormatter.ISO_LOCAL_DATE) + " at "
+					System.out.println("(Backup of emulator made on " + nowTime.format(DateTimeFormatter.ISO_LOCAL_DATE) + " at "
 							+ nowTime.format(DateTimeFormatter.ofPattern("HH:mm")) + ")");
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -303,14 +303,6 @@ public class EmulatorSettings extends TCPEmulatorSettings {
 	public void save() {
 		PeriodicSave newSave = new PeriodicSave(this);
 		newSave.run();
-	}
-
-	/**
-	 * @brief Method to add checks which failed to be sent
-	 * @param check
-	 */
-	public static void addWaitingChecks(CheckInOut check) {
-		waitingChecks.add(check);
 	}
 
 	/**

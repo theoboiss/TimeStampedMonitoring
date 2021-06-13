@@ -92,8 +92,9 @@ public class ViewEmulator extends JFrame implements ActionListener {
 	private static final String ID_LABEL = "Employee ID";
 
 	// Data to be sent to the controller
-	private static LocalDate date; // Date sent with a check in out
-	private static CheckInOut checks;
+	private LocalDate date; // Date sent with a check in out
+	private CheckInOut checks;
+	private EmulatorSettings settings;
 
 	/* ================================================================= */
 	/***************************** BUILDER *******************************/
@@ -102,6 +103,7 @@ public class ViewEmulator extends JFrame implements ActionListener {
 	 * @brief Default constructor
 	 */
 	public ViewEmulator(EmulatorSettings current) {
+		this.settings = current;
 		build();
 		
 		//make a save when we close the app
@@ -316,30 +318,30 @@ public class ViewEmulator extends JFrame implements ActionListener {
 	/**
 	 * @return the date
 	 */
-	public static LocalDate getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
 	/**
 	 * @param date the date to set
 	 */
-	public static void setDate(LocalDate date) {
-		ViewEmulator.date = date;
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
 
 	/*************************** checks ***********************************/
 	/**
 	 * @return the checks
 	 */
-	public static CheckInOut getChecks() {
+	public CheckInOut getChecks() {
 		return checks;
 	}
 
 	/**
 	 * @param checks the checks to set
 	 */
-	public static void setChecks(CheckInOut checks) {
-		ViewEmulator.checks = checks;
+	public void setChecks(CheckInOut checks) {
+		this.checks = checks;
 	}
 
 	/************************** FRAME_SIZE_X *****************************/
@@ -612,8 +614,9 @@ public class ViewEmulator extends JFrame implements ActionListener {
 
 		if (source == startButton) {
 			try {
-				Input inputCheck = new Input();
+				Input inputCheck = new Input(settings);
 				inputCheck.sendCheck(getIDField());
+				IDField.setText("");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import controller.emulator.Emulator;
 import controller.emulator.EmulatorSettings;
 
 /**
@@ -25,8 +26,6 @@ public class History implements Serializable {
 	/*********************************************************************/
 	
 	private static final long serialVersionUID = 1L;
-
-	private ArrayList<EmployeeInfo> listEmployeeInfo;
 	
 	// All CheckInOut per employee from the first day
 	private Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee;
@@ -34,9 +33,6 @@ public class History implements Serializable {
 	/* All CheckInOut per employee during a day. The table is reset to 0 at the end
 	   of day */
 	private Hashtable<LocalDate, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>> checksPerEmployeePerDay;
-	Integer employeeID = 0;
-	LocalDateTime dateTime = null;
-	CheckInOut checkInOut = null;
 
 	/* ================================================================= */
 	/*************************** BUILDERS ********************************/
@@ -46,8 +42,11 @@ public class History implements Serializable {
 	 * @brief Default constructor.
 	 */
 	public History() {
-		listEmployeeInfo = EmulatorSettings.getListEmployeeInfo();
 		checksPerEmployee = new Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>();
+		for (EmployeeInfo currentEmployeeInfo : Emulator.getListEmployeeInfo()) {
+			if (checksPerEmployee.get(currentEmployeeInfo) == null)
+				checksPerEmployee.put(currentEmployeeInfo, new CopyOnWriteArrayList<CheckInOut>());
+		}
 		checksPerEmployeePerDay = new Hashtable<LocalDate, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>>>();
 	}
 
@@ -55,7 +54,7 @@ public class History implements Serializable {
 	/* ================================================================= */
 	/*************************** GETTERS/SETTERS *************************/
 	/*********************************************************************/
-	
+
 	/************************** checksPerEmployee ************************/
 	/**
 	 * @return the checksPerEmployee
@@ -98,11 +97,10 @@ public class History implements Serializable {
 	 * @param info
 	 */
 	public void addToHistory(CheckInOut check, EmployeeInfo info) {
-		CopyOnWriteArrayList<CheckInOut> list = new CopyOnWriteArrayList<CheckInOut>();
-		
-		list = checksPerEmployee.get(info);
-		checksPerEmployee.put(info, list);
-		
+		if (!checksPerEmployee.keySet().contains(info)) {
+			checksPerEmployee.put(info, new CopyOnWriteArrayList<CheckInOut>());
+		}
+		checksPerEmployee.get(info).add(check);
 		addToHistory(LocalDate.now(), checksPerEmployee);
 	}
 
@@ -115,14 +113,4 @@ public class History implements Serializable {
 	public void addToHistory(LocalDate date, Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> checksPerEmployee) {
 		checksPerEmployeePerDay.put(date, checksPerEmployee);
 	}
-	
-	/**
-	 * @brief Method which delete an event from history.
-	 */
-	public void deleteElementFromHistory() {
-		employeeID = 0;
-		dateTime = null;
-		checkInOut = null;
-	}
-
 }

@@ -252,8 +252,8 @@ public class ViewSettings extends ViewModel {
 			submitMap.put("ipaddress_server", textFieldArray.get(1));
 			submitMap.put("portnumber_client", textFieldArray.get(2));
 			submitMap.put("ipaddress_client", textFieldArray.get(3));
-			System.out.println(submitMap);
-
+			
+			
 			if (getLabelResponse() != null)
 				getPanel().remove(getLabelResponse());
 			try {

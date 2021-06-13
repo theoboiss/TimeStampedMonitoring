@@ -127,10 +127,21 @@ public class EmployeeInfo implements Serializable {
 	/*********************************************************************/
 	/*************************** OTHER METHODS ***************************/
 	/*********************************************************************/
+
+	@Override
+	public boolean equals(Object other) {
+		if (((EmployeeInfo) other).getID().equals(getID())
+		&& ((EmployeeInfo) other).getFirstname().equals(getFirstname())
+		&& ((EmployeeInfo) other).getLastname().equals(getLastname()))
+		{
+			return true;
+		}
+		return false;
+	}
 	
 	@Override
 	public String toString() {
-		return "Employee [ID=" + getID() + ", firstname=" + getFirstname() + ", lastname=" + getLastname() + "]";
+		return "EmployeeInfo [ID=" + getID() + ", firstname=" + getFirstname() + ", lastname=" + getLastname() + "]";
 	}
 	
 	

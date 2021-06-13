@@ -138,11 +138,13 @@ public class ViewResultsEmployees extends ViewResults {
 					try {
 						BrowserMainapp controller = new BrowserMainapp();
 						dataEntry = controller.searchEmployeeDetails(label);
-						titles = new String[][] {
-								{ "ID", "Firstname", "Lastname", "Department" },
-								{ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" },
-								{ "Checks (in/out)" } };
-						frameEmployeeDetailsResults = new ViewResultsEmployeeDetails(dataEntry, titles);
+						if (dataEntry != null) {
+							titles = new String[][] {
+									{ "ID", "Firstname", "Lastname", "Department" },
+									{ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" },
+									{ "Checks (in/out)" } };
+							frameEmployeeDetailsResults = new ViewResultsEmployeeDetails(dataEntry, titles);
+						}
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
@@ -170,7 +172,7 @@ public class ViewResultsEmployees extends ViewResults {
 					
 					try {
 						BrowserMainapp controller = new BrowserMainapp();
-						setLabelResponse(new JLabel(controller.delEmployee(label)));
+						controller.delEmployee(label);
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}

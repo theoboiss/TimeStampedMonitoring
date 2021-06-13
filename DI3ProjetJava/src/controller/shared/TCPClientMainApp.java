@@ -27,9 +27,10 @@ public class TCPClientMainApp extends TCPClientMainAppBuilder implements Runnabl
 		boolean dataSent = false;
 		while (!dataSent) {
 			 try  { 
-				 System.out.println("The client mainApp launched...");
+				 //System.out.println("The client mainApp launched...");
 				 setSocket(); 
-				 System.out.println("Hello, the client mainApp is connected");
+				 //System.out.println("Hello, the client mainApp is connected");
+				 System.out.println("Emulator <- Mainapp");
 				 sOut = s.getOutputStream();
 				 oos = new ObjectOutputStream(sOut);
 				 oos.writeObject(listEmployees);
@@ -54,7 +55,7 @@ public class TCPClientMainApp extends TCPClientMainAppBuilder implements Runnabl
 					}
 				 }
 				 try {
-					Thread.sleep(10000);
+					Thread.sleep(2 * 1000);
 				} catch (InterruptedException e1) {
 					System.out.println("InterruptedException TCPClientMainApp : " + e1.getMessage());
 				}

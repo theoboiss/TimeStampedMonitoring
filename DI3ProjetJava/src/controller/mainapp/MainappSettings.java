@@ -28,7 +28,7 @@ public class MainappSettings extends TCPMainAppSettings implements Serializable 
 	private static Company currentModel;
 	private transient MainappBackup dataManagment;
 	private String backupFileName;
-	private long[] timersForBackup = {60*1000, 5*60*1000}; //in milliseconds
+	private long[] timersForBackup = {40*1000, 2*60*1000}; //in milliseconds
 	
 	
 	/*********************************************************************/
@@ -216,7 +216,7 @@ public class MainappSettings extends TCPMainAppSettings implements Serializable 
 				try {
 					getDataManagment().save(getBackupFileName(), settingsData, 1);
 					getDataManagment().save(getBackupFileName(), getCurrentModel(), -1);
-					System.out.println("(Backup (mainapp) made on "
+					System.out.println("(Backup of mainapp made on "
 							+ nowTime.format(DateTimeFormatter.ISO_LOCAL_DATE) + " at "
 							+ nowTime.format(DateTimeFormatter.ofPattern("HH:mm")) + ")");
 				}

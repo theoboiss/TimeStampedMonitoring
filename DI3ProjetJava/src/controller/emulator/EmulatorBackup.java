@@ -5,9 +5,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import controller.shared.SerializationProcess;
 import model.emulator.History;
+import model.shared.CheckInOut;
 import model.shared.EmployeeInfo;
 
 /**
@@ -63,19 +68,14 @@ public class EmulatorBackup extends SerializationProcess {
 			throws ClassNotFoundException, EOFException, IOException, FileNotFoundException {
 		initialize(new FileInputStream(backupFileName));
 		Object backup = (Object) extract();
-		int i = 0;
-
+		
 		if (backup instanceof History) {
-
-			// get keys() from HashTable and iterate
-			Enumeration<EmployeeInfo> enumeration = ((History) backup).getChecksPerEmployee().keys();
-			// iterate using enumeration object
-			while (enumeration.hasMoreElements()) {
-				EmployeeInfo key = enumeration.nextElement();
-				((History) backup).addToHistory(((History) backup).getChecksPerEmployee().get(key).get(i), key);
-				i += 1;
+			ArrayList<EmployeeInfo> extractedlist = Emulator.getListEmployeeInfo();
+			for (EmployeeInfo currentEmployeeInfo : extractedlist) {
+				Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> listofChecks = ((History) backup).getChecksPerEmployee();
+				if (listofChecks.get(currentEmployeeInfo) == null)
+					listofChecks.put(currentEmployeeInfo, new CopyOnWriteArrayList<CheckInOut>());
 			}
-
 		}
 		return backup;
 	}
@@ -98,19 +98,13 @@ public class EmulatorBackup extends SerializationProcess {
 			initialize(getsIn());
 		Object backup = (Object) extract(streamStatus);
 
-		int i = 0;
-
 		if (backup instanceof History) {
-
-			// get keys() from HashTable and iterate
-			Enumeration<EmployeeInfo> enumeration = ((History) backup).getChecksPerEmployee().keys();
-			// iterate using enumeration object
-			while (enumeration.hasMoreElements()) {
-				EmployeeInfo key = enumeration.nextElement();
-				((History) backup).addToHistory(((History) backup).getChecksPerEmployee().get(key).get(i), key);
-				i += 1;
+			ArrayList<EmployeeInfo> extractedlist = Emulator.getListEmployeeInfo();
+			for (EmployeeInfo currentEmployeeInfo : extractedlist) {
+				Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> listofChecks = ((History) backup).getChecksPerEmployee();
+				if (listofChecks.get(currentEmployeeInfo) == null)
+					listofChecks.put(currentEmployeeInfo, new CopyOnWriteArrayList<CheckInOut>());
 			}
-
 		}
 		return backup;
 	}

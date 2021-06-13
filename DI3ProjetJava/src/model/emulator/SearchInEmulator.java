@@ -2,10 +2,10 @@ package model.emulator;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-import model.mainapp.Company;
-import model.mainapp.Department;
-import model.mainapp.Employee;
+import controller.emulator.Emulator;
 import model.shared.*;
 
 /**
@@ -36,121 +36,54 @@ public abstract class SearchInEmulator {
 	
 	
 	/*********************************************************************/
-	/*************************** RETURN CHECKS ***************************/
-	/*********************************************************************/
-	
-	/**
-	 * @param employee
-	 * @param beforeCheck
-	 * @param afterCheck
-	 * @return ArrayList<CheckInOut>
-	 */
-	static public ArrayList<CheckInOut> searchCheckInOut(Employee employee, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
-		ArrayList<CheckInOut> resultList = new ArrayList<CheckInOut>();
-		ArrayList<CheckInOut> listChecks = new ArrayList<>(employee.getListChecks());
-		
-		//the most recent checks are in the end of the array so we start searching from there
-		for (Integer iterator = listChecks.size()-1; iterator > 0; iterator--) {
-			CheckInOut checkTmp = listChecks.get(iterator);
-			if (checkTmp.getCheckTime().isAfter(beforeCheck)
-			 && checkTmp.getCheckTime().isBefore(afterCheck)) {
-				resultList.add(checkTmp);
-			}
-		}
-		
-		return resultList;
-	}
-	
-	/**
-	 * @param department
-	 * @param beforeCheck
-	 * @param afterCheck
-	 * @return ArrayList<CheckInOut>
-	 */
-	static public ArrayList<CheckInOut> searchCheckInOut(Department department, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
-		ArrayList<CheckInOut> resultList = new ArrayList<CheckInOut>();
-		for (Employee currentEmployee : department.getListEmployees().values()) {
-			resultList.addAll(searchCheckInOut(currentEmployee,beforeCheck, afterCheck));
-		}
-		return resultList;
-	}
-	
-	//overall
-	/**
-	 * @param company
-	 * @param beforeCheck
-	 * @param afterCheck
-	 * @return ArrayList<CheckInOut>
-	 */
-    static public ArrayList<CheckInOut> searchCheckInOut(Company company, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
-        ArrayList<CheckInOut> resultList = new ArrayList<CheckInOut>();
-        for (Department currentDepartment : company.getListDepartment()) {
-        	resultList.addAll(searchCheckInOut(currentDepartment, beforeCheck, afterCheck));
-        }
-        return resultList;
-    }
-	
-	
-	/*********************************************************************/
 	/************************* RETURN EMPLOYEES **************************/
 	/*********************************************************************/
 	
 	/************************ according to check *************************/
 	
-    /**
-     * @param department
-     * @param beforeCheck
-     * @param afterCheck
-     * @return ArrayList<Employee>
-     */
-	static public ArrayList<Employee> searchEmployee(Department department, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
-		ArrayList<Employee> resultList = new ArrayList<Employee>();
-		for (Employee currentEmployee : department.getListEmployees().values()) {
-			if (!searchCheckInOut(currentEmployee,beforeCheck, afterCheck).isEmpty()) {
-				resultList.add(currentEmployee);
-			}
-		}
-		return new ArrayList<Employee>(resultList);
-	}
-	
 	//overall
 	/**
-	 * @param company
+	 * @param history
 	 * @param beforeCheck
 	 * @param afterCheck
-	 * @return ArrayList<Employee>
+	 * @return ArrayList<EmployeeInfo>
 	 */
-	static public ArrayList<Employee> searchEmployee(Company company, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
-		ArrayList<Employee> resultList = new ArrayList<Employee>();
-		for (Department currentDepartment : company.getListDepartment()) {
-        	resultList.addAll(searchEmployee(currentDepartment, beforeCheck, afterCheck));
+	static public ArrayList<EmployeeInfo> searchEmployee(History history, LocalDateTime beforeCheck, LocalDateTime afterCheck) {
+		ArrayList<EmployeeInfo> resultList = new ArrayList<EmployeeInfo>();
+		Hashtable<EmployeeInfo, CopyOnWriteArrayList<CheckInOut>> totalList = history.getChecksPerEmployee();
+		
+		for (EmployeeInfo currentEmployeeInfo : totalList.keySet()) {
+			ArrayList<CheckInOut> listChecks = new ArrayList<>(history.getChecksPerEmployee().get(currentEmployeeInfo));
+			
+			boolean isInto = false;
+			for (Integer iterator = listChecks.size()-1; iterator >= 0 && !isInto; iterator--) {
+				CheckInOut checkTmp = listChecks.get(iterator);
+				if (checkTmp.getCheckTime().isAfter(beforeCheck)
+				 && checkTmp.getCheckTime().isBefore(afterCheck))
+				{
+					isInto = true;
+					resultList.add(currentEmployeeInfo);
+				}
+			}
+			
         }
-		return new ArrayList<Employee>(resultList);
+		return new ArrayList<EmployeeInfo>(resultList);
 	}
 
 	
 	/************************* according to ID ***************************/
 	//necessarily only one employee per ID
 	
-	/**
-	 * @param department
-	 * @param ID
-	 * @return Employee
-	 */
-	static public Employee searchEmployee(Department department, Integer ID) {
-		return department.getListEmployees().get(ID);
-	}
-	
 	//overall
 	/**
-	 * @param company
+	 * @param history
 	 * @param ID
-	 * @return Employee
+	 * @return EmployeeInfo
 	 */
-	static public Employee searchEmployee(Company company, Integer ID) {
-		for (Department currentDepartment : company.getListDepartment()) {
-        	if (searchEmployee(currentDepartment, ID) != null) {
-        		return searchEmployee(currentDepartment, ID);
+	static public EmployeeInfo searchEmployee(History history, Integer ID) {
+		for (EmployeeInfo currentEmployeeInfo : Emulator.getListEmployeeInfo()) {
+        	if (currentEmployeeInfo.getID().equals(ID)) {
+        		return currentEmployeeInfo;
         	}
         }
 		return null;
@@ -159,98 +92,41 @@ public abstract class SearchInEmulator {
 	
 	/************************ according to name **************************/
 	
+	//overall
 	/**
-	 * @param department
+	 * @param history
 	 * @param firstname
 	 * @param lastname
-	 * @return ArrayList<Employee>
+	 * @return ArrayList<EmployeeInfo>
 	 */
-	static public ArrayList<Employee> searchEmployee(Department department, String firstname, String lastname) {
-		ArrayList<Employee> resultList = new ArrayList<Employee>();
-		for (Employee currentEmployee : department.getListEmployees().values()) {
-			if (areStringsMatching(currentEmployee.getFirstname(), firstname)
-			 && areStringsMatching(currentEmployee.getLastname(), lastname))
-			{
-				resultList.add(currentEmployee);
-			}
-		}
-		return new ArrayList<Employee>(resultList);
+	static public ArrayList<EmployeeInfo> searchEmployee(History history, String firstname, String lastname) {
+		ArrayList<EmployeeInfo> resultList = new ArrayList<EmployeeInfo>();
+		for (EmployeeInfo currentEmployeeInfo : Emulator.getListEmployeeInfo()) {
+        	if (areStringsMatching(currentEmployeeInfo.getFirstname(), firstname)
+       			 && areStringsMatching(currentEmployeeInfo.getLastname(), lastname))
+       			{
+       				resultList.add(currentEmployeeInfo);
+       			}
+        }
+		return new ArrayList<EmployeeInfo>(resultList);
 	}
-
+	
+	//overall
 	/**
-	 * @param department
+	 * @param history
 	 * @param name
 	 * @param nName
-	 * @return ArrayList<Employee>
+	 * @return ArrayList<EmployeeInfo>
 	 */
-	static public ArrayList<Employee> searchEmployee(Department department, String name, Integer nName) {
-		ArrayList<Employee> resultList = new ArrayList<Employee>();
-		for (Employee currentEmployee : department.getListEmployees().values()) {
-			if ((areStringsMatching(currentEmployee.getFirstname(), name) && nName == 0)
-			 || (areStringsMatching(currentEmployee.getLastname(), name) && nName == 1))
-			{
-				resultList.add(currentEmployee);
-			}
-		}
-		return new ArrayList<Employee>(resultList);
-	}
-	
-	//overall
-	/**
-	 * @param company
-	 * @param firstname
-	 * @param lastname
-	 * @return ArrayList<Employee>
-	 */
-	static public ArrayList<Employee> searchEmployee(Company company, String firstname, String lastname) {
-		ArrayList<Employee> resultList = new ArrayList<Employee>();
-		for (Department currentDepartment : company.getListDepartment()) {
-        	resultList.addAll(searchEmployee(currentDepartment, firstname, lastname));
+	static public ArrayList<EmployeeInfo> searchEmployee(History history, String name, Integer nName) {
+		ArrayList<EmployeeInfo> resultList = new ArrayList<EmployeeInfo>();
+		for (EmployeeInfo currentEmployeeInfo : Emulator.getListEmployeeInfo()) {
+        	if ((areStringsMatching(currentEmployeeInfo.getFirstname(), name) && nName == 0)
+       			 || (areStringsMatching(currentEmployeeInfo.getLastname(), name) && nName == 1))
+       			{
+       				resultList.add(currentEmployeeInfo);
+       			}
         }
-		return new ArrayList<Employee>(resultList);
+		return new ArrayList<EmployeeInfo>(resultList);
 	}
-	
-	//overall
-	/**
-	 * @param company
-	 * @param name
-	 * @param nName
-	 * @return ArrayList<Employee>
-	 */
-	static public ArrayList<Employee> searchEmployee(Company company, String name, Integer nName) {
-		ArrayList<Employee> resultList = new ArrayList<Employee>();
-		for (Department currentDepartment : company.getListDepartment()) {
-        	resultList.addAll(searchEmployee(currentDepartment, name, nName));
-        }
-		return new ArrayList<Employee>(resultList);
-	}
-	
-	
-	/******************************* all *********************************/
-	
-	/**
-	 * @param department
-	 * @return ArrayList<Employee>
-	 */
-	static public ArrayList<Employee> searchEmployee(Department department) {
-		ArrayList<Employee> resultList = new ArrayList<Employee>();
-		for (Employee currentEmployee : department.getListEmployees().values()) {
-				resultList.add(currentEmployee);
-		}
-		return new ArrayList<Employee>(resultList);
-	}
-	
-	//overall
-	/**
-	 * @param company
-	 * @return ArrayList<Employee>
-	 */
-	static public ArrayList<Employee> searchEmployee(Company company) {
-		ArrayList<Employee> resultList = new ArrayList<Employee>();
-		for (Department currentDepartment : company.getListDepartment()) {
-	       	resultList.addAll(searchEmployee(currentDepartment));
-	       }
-		return new ArrayList<Employee>(resultList);
-	}
-	
 }

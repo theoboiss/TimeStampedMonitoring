@@ -306,6 +306,8 @@ public class BrowserMainapp {
 	public Object[][][] searchEmployeeDetails(String request) {
 		Integer IDemployee = Integer.parseInt(request);
 		Employee searchedEmployee = SearchInMainapp.searchEmployee(getModel(), IDemployee);
+		if (searchedEmployee == null)
+			return null;
 
 		Object[][] tableInfo = new Object[1][4];
 		for (Integer iteratorTable = 0; iteratorTable < 4; iteratorTable++)
@@ -412,7 +414,6 @@ public class BrowserMainapp {
 				return "Removed";
 			}
 		}
-
 		return "Could not find the empoyee in the application";
 	}
 }

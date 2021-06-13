@@ -9,6 +9,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import controller.emulator.EmulatorSettings;
 import model.shared.CheckInOut;
@@ -24,7 +25,7 @@ public class TCPClientEmulatorBuilder {
 	protected int numPort;
 	protected Socket s; 
 	protected InetSocketAddress isA; 
-	protected ArrayList<CheckInOut> checkInOut;
+	protected CopyOnWriteArrayList<CheckInOut> checkInOut;
 	protected transient InputStream sIn;
 	protected transient ObjectInputStream ois;
 	protected transient OutputStream sOut;
@@ -46,7 +47,7 @@ public class TCPClientEmulatorBuilder {
 		sOut = null;
 		oos = null;
 		isWaitingCheckList = false;
-		checkInOut = new ArrayList<CheckInOut>();
+		checkInOut = new CopyOnWriteArrayList<CheckInOut>();
 		checkInOut.add(checkInOutToSend);
 		checkInOutToSend.setStatus(false);
 	} 
@@ -67,7 +68,7 @@ public class TCPClientEmulatorBuilder {
 		sOut = null;
 		oos = null;
 		isWaitingCheckList = true;
-		checkInOut = checkInOutToSend;
+		checkInOut = new CopyOnWriteArrayList<>(checkInOutToSend);
 	} 
 	
 	/**

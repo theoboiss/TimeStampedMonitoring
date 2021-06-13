@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 import javax.swing.JTextField;
 
+import controller.mainapp.TCPMainAppSettings;
 import controller.shared.TCPClientEmulator;
 import model.emulator.History;
 import model.shared.CheckInOut;
@@ -17,6 +18,26 @@ import view.emulator.ViewEmulator;
  *
  */
 public class Input {
+
+	/* ================================================================= */
+	/*************************** ATTRIBUTES ******************************/
+	/*********************************************************************/
+	
+	private EmulatorSettings settings;
+
+	/* ================================================================= */
+	/**************************** BUILDERS *******************************/
+	/*********************************************************************/
+
+	/**
+	 * @brief One argument copy constructor
+	 * @param settings2
+	 */
+	public Input(EmulatorSettings settings) {
+		this.settings = settings;
+	}
+
+	
 	
 	/*********************************************************************/
 	/***************************** METHODS *******************************/
@@ -40,20 +61,16 @@ public class Input {
 			for (EmployeeInfo employeeTemp : EmulatorSettings.getListEmployeeInfo()) {
 				if (employeeTemp.getID().equals(ID)) {
 					found = true;
-					EmulatorSettings.addWaitingChecks(checkInOutToSend);
+					EmulatorSettings.getWaitingChecks().add(checkInOutToSend);
 					
-					EmulatorSettings settings = new EmulatorSettings();
 					new Thread(new TCPClientEmulator(checkInOutToSend, settings.getIPaddressClient(),
 							settings.getNumPortClient())).start();
-					Thread.sleep(6*1000); //wait the client to try to send the check
-					if (!Emulator.getWaitingChecks().contains(checkInOutToSend)) {
-						checkInOutToSend.setStatus(true);
-						Emulator.getCurrentModel().addToHistory(checkInOutToSend, employeeTemp);
-					}
+					//System.out.println("->" + Emulator.getCurrentModel().getChecksPerEmployee());
 				}
 			}
 			if (!found)
 				System.out.println("Error : ID does not exist in the list !");
+			
 		} catch (NumberFormatException e) {
 			System.out.println("Unexpected argument");
 		}
