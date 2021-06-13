@@ -2,8 +2,6 @@ package model.shared;
 
 import java.io.Serializable;
 
-import model.mainapp.Employee;
-
 /**
  * 
  * @brief Class which represents main informations about an Employee. Useful for

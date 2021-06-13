@@ -1,26 +1,24 @@
 package controller.mainapp;
 
-import java.net.InetAddress;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JTextField;
 
 import controller.mainapp.tcp.TCPClientMainApp;
-import model.mainapp.*;
+import model.mainapp.Company;
+import model.mainapp.Department;
+import model.mainapp.Employee;
+import model.mainapp.SearchInMainapp;
 import model.mainapp.days.DayName;
 import model.mainapp.days.DayPlanning;
 import model.shared.CheckInOut;
-import model.shared.EmployeeInfo;
 
 public class BrowserMainapp {
 

@@ -75,6 +75,6 @@ public class ViewResultsCheckInOuts extends ViewResults {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		Object source = event.getSource();
+		event.getSource();
 	}
 }

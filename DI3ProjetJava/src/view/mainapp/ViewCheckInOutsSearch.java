@@ -301,7 +301,7 @@ public class ViewCheckInOutsSearch extends ViewModel {
 				BrowserMainapp controller = new BrowserMainapp();
 				Object[][] dataEntry = controller.searchCheckInOut(getSubmitMap());
 				String[] titles = {"ID", "Firstname", "Lastname", "Date", "Status"};
-				ViewResultsCheckInOuts frameCheckInOutResults = new ViewResultsCheckInOuts(dataEntry, titles);
+				new ViewResultsCheckInOuts(dataEntry, titles);
 
 			} catch (Exception e) {
 				e.printStackTrace();

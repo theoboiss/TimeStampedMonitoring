@@ -1,12 +1,9 @@
 package view.mainapp.results;
 
+import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
@@ -17,8 +14,6 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import controller.mainapp.BrowserMainapp;
-
-import java.awt.Color;
 
 /**
  * 
@@ -312,7 +307,7 @@ public class ViewResultsEmployees extends ViewResults {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		Object source = event.getSource();
+		event.getSource();
 	}
 
 }
